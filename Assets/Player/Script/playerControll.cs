@@ -52,8 +52,7 @@ public class playerControll: MonoBehaviour
             jumpCount++;
         }
         resetJumpCount();
-
-
+        
 
 
     }

@@ -62,6 +62,12 @@ public class PlayerAttack : MonoBehaviour
             }
             Destroy(wave, 1.0f);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1) && waterController.waterCounter() + waterController.corruptedwaterCounter() >= 1)
+        {
+            waterController.UseBottle(1);
+            playerStats.Heal(1);
+            
+        }
 
     }
     

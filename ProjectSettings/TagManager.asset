@@ -17,8 +17,8 @@ TagManager:
   - Platform
   - Ladder
   - Player
-  - 
-  - 
+  - PlayerHitBox
+  - Enemy
   - 
   - 
   - 

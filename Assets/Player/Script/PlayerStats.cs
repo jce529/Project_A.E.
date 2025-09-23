@@ -1,5 +1,5 @@
 ﻿/*
- *  Author: ariel oliveira [o.arielg@gmail.com]
+ * Author: ariel oliveira [o.arielg@gmail.com]
  */
 
 using UnityEngine;
@@ -33,19 +33,22 @@ public class PlayerStats : MonoBehaviour
     public float MaxHealth { get { return maxHealth; } }
     public float MaxTotalHealth { get { return maxTotalHealth; } }
 
-    public void Heal(float health)
+    // virtual: 자식 클래스가 이 메서드를 재정의하는 것을 허용합니다.
+    public virtual void Heal(float health)
     {
         this.health += health;
         ClampHealth();
     }
 
-    public void TakeDamage(float dmg)
+    // virtual: 자식 클래스가 이 메서드를 재정의하는 것을 허용합니다.
+    public virtual void TakeDamage(float dmg)
     {
         health -= dmg;
         ClampHealth();
     }
 
-    public void AddHealth()
+    // virtual: 자식 클래스가 이 메서드를 재정의하는 것을 허용합니다.
+    public virtual void AddHealth()
     {
         if (maxHealth < maxTotalHealth)
         {
@@ -54,7 +57,7 @@ public class PlayerStats : MonoBehaviour
 
             if (onHealthChangedCallback != null)
                 onHealthChangedCallback.Invoke();
-        }   
+        }
     }
 
     void ClampHealth()
