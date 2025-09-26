@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -6,18 +7,18 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "Player_Move",
+                    "name": "Move",
                     "type": "Value",
-                    "id": "6c5c725e-9455-4122-868d-4970d05d70ba",
+                    "id": "714d8b74-5cbe-4985-a542-8c698689824e",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "New action",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "52f3af67-4645-4067-ad05-3d52d848f34d",
+                    "id": "1ec5e6d6-f960-4983-bb1a-f3e2e6f8adf7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -27,67 +28,67 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "c7cb7f49-dd5a-4a9d-b6f6-b426414fb2f2",
+                    "id": "7cc25ffc-97fe-4b0b-90ed-ed84c8e87c83",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Move",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "up",
-                    "id": "2ad81df3-31de-424c-8130-e7bfaee8b773",
+                    "id": "fbecdc8f-44bf-47d8-8ff5-f3d55d12f56a",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "16acb300-4aa6-4f08-810f-998d23931052",
+                    "id": "d3b555fe-9c35-4e06-a0d5-1c29f853b4a4",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "eef98f4e-f549-4204-8ec5-b193e2049228",
+                    "id": "ba26693b-e1be-4016-87bf-c65b420c0b43",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "5ba2d799-d63b-4099-aa1e-c515f0ec5d83",
+                    "id": "3774ef1c-9bad-4659-ba33-7e920f988713",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Player_Move",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "8b26a430-f019-4fce-bae9-71c75d81b2fd",
-                    "path": "",
+                    "id": "b1fafb44-c43b-4c1d-8b6f-d9bec35e309e",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

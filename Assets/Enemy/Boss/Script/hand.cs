@@ -19,12 +19,12 @@ public class MudHandController : MonoBehaviour
 
     void Update()
     {
-        ////Destroy(gameObject, destroytime);
-        //if (transform.position.y < initialY + 0.5f)
-        //{
-        //    transform.Translate(Vector2.up * handspeed * Time.deltaTime);
+        //Destroy(gameObject, destroytime);
+        if (transform.position.y < initialY + 0.5f)
+        {
+            transform.Translate(Vector2.up * handspeed * Time.deltaTime);
 
-        //}
+        }
     }
     // Update is called once per frame
     void Attack()
