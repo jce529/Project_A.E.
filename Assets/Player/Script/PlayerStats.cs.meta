@@ -1,15 +1,5 @@
 fileFormatVersion: 2
 guid: ec0b64c0b1dccc64d91eee52d85267bd
-timeCreated: 1528773206
-licenseType: Store
-MonoImporter:
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 120676
@@ -17,3 +7,12 @@ AssetOrigin:
   packageVersion: 1.0
   assetPath: Assets/HealthHeartSystem/Scripts/PlayerStats.cs
   uploadId: 286486
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

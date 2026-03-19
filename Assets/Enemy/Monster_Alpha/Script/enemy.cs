@@ -1,20 +1,20 @@
-
+ï»¿
 using UnityEngine;
 
 public class enemy : MonoBehaviour
 {
-    public GameObject bulletPrefab; // ¹ß»çÇÒ ÃÑ¾Ë ÇÁ¸®ÆÕ
-    public Transform firePoint;     // ÃÑ¾ËÀÌ ¹ß»çµÉ À§Ä¡ (Àû Ä³¸¯ÅÍÀÇ ÀÚ½Ä ¿ÀºêÁ§Æ®·Î ¼³Á¤)
-    public float fireRate = 2f;     // ÃÑ¾Ë ¹ß»ç ÁÖ±â
-    public float detectionRange = 5f; // ÇÃ·¹ÀÌ¾î °¨Áö ¹üÀ§ (AttackRange ÄÝ¶óÀÌ´õ¿Í ÀÏÄ¡½ÃÅ°´Â °ÍÀÌ ÁÁÀ½)
+    public GameObject bulletPrefab; // ë°œì‚¬í•  ì´ì•Œ í”„ë¦¬íŒ¹
+    public Transform firePoint;     // ì´ì•Œì´ ë°œì‚¬ë  ìœ„ì¹˜ (ì  ìºë¦­í„°ì˜ ìžì‹ ì˜¤ë¸Œì íŠ¸ë¡œ ì„¤ì •)
+    public float fireRate = 2f;     // ì´ì•Œ ë°œì‚¬ ì£¼ê¸°
+    public float detectionRange = 5f; // í”Œë ˆì´ì–´ ê°ì§€ ë²”ìœ„ (AttackRange ì½œë¼ì´ë”ì™€ ì¼ì¹˜ì‹œí‚¤ëŠ” ê²ƒì´ ì¢‹ìŒ)
 
-    private Transform playerTransform; // ÇÃ·¹ÀÌ¾î Transform
-    private bool playerInAttackRange = false; // ÇÃ·¹ÀÌ¾î°¡ °ø°Ý ¹üÀ§ ¾È¿¡ ÀÖ´ÂÁö
-    private float nextFireTime; // ´ÙÀ½ ¹ß»ç °¡´É ½Ã°£
+    private Transform playerTransform; // í”Œë ˆì´ì–´ Transform
+    private bool playerInAttackRange = false; // í”Œë ˆì´ì–´ê°€ ê³µê²© ë²”ìœ„ ì•ˆì— ìžˆëŠ”ì§€
+    private float nextFireTime; // ë‹¤ìŒ ë°œì‚¬ ê°€ëŠ¥ ì‹œê°„
 
     void Start()
     {
-        // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®¸¦ Ã£½À´Ï´Ù. (ÇÃ·¹ÀÌ¾î¿¡ "Player" ÅÂ±×¸¦ ²À ºÙ¿©ÁÖ¼¼¿ä!)
+        // í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ìŠµë‹ˆë‹¤. (í”Œë ˆì´ì–´ì— "Player" íƒœê·¸ë¥¼ ê¼­ ë¶™ì—¬ì£¼ì„¸ìš”!)
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -22,13 +22,13 @@ public class enemy : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. ÇÃ·¹ÀÌ¾î¿¡ 'Player' ÅÂ±×¸¦ ºÎ¿©Çß´ÂÁö È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í”Œë ˆì´ì–´ì— 'Player' íƒœê·¸ë¥¼ ë¶€ì—¬í–ˆëŠ”ì§€ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 
     void Update()
     {
-        if (playerTransform == null) return; // ÇÃ·¹ÀÌ¾î°¡ ¾øÀ¸¸é ¾Æ¹«°Íµµ ¾È ÇÔ
+        if (playerTransform == null) return; // í”Œë ˆì´ì–´ê°€ ì—†ìœ¼ë©´ ì•„ë¬´ê²ƒë„ ì•ˆ í•¨
 
  
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
@@ -36,19 +36,20 @@ public class enemy : MonoBehaviour
 
         if (playerInAttackRange)
         {
-           
-            Vector2 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
+            Vector2 targetPos = (Vector2)playerTransform.position + new Vector2(0, 0.5f);
+            Vector2 directionToPlayer = (targetPos - (Vector2)firePoint.position).normalized;
 
-            if (directionToPlayer.x > 0 && transform.localScale.x < 0) // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊ¿¡ ÀÖ´Âµ¥ ÀûÀÌ ¿ÞÂÊÀ» º¸°í ÀÖÀ¸¸é
+
+            if (directionToPlayer.x > 0 && transform.localScale.x < 0) // í”Œë ˆì´ì–´ê°€ ì˜¤ë¥¸ìª½ì— ìžˆëŠ”ë° ì ì´ ì™¼ìª½ì„ ë³´ê³  ìžˆìœ¼ë©´
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (directionToPlayer.x < 0 && transform.localScale.x > 0) // ÇÃ·¹ÀÌ¾î°¡ ¿ÞÂÊ¿¡ ÀÖ´Âµ¥ ÀûÀÌ ¿À¸¥ÂÊÀ» º¸°í ÀÖÀ¸¸é
+            else if (directionToPlayer.x < 0 && transform.localScale.x > 0) // í”Œë ˆì´ì–´ê°€ ì™¼ìª½ì— ìžˆëŠ”ë° ì ì´ ì˜¤ë¥¸ìª½ì„ ë³´ê³  ìžˆìœ¼ë©´
             {
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
 
-            // ÃÑ¾Ë ¹ß»ç
+            // ì´ì•Œ ë°œì‚¬
             if (Time.time >= nextFireTime)
             {
                 ShootBullet(directionToPlayer);
@@ -59,7 +60,6 @@ public class enemy : MonoBehaviour
 
     void ShootBullet(Vector2 direction)
     {
-        
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet bulletScript = bullet.GetComponent<bullet>();
 

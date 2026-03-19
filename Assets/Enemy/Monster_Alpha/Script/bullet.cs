@@ -5,14 +5,10 @@ public class bullet : MonoBehaviour
     public float speed;
     public float lifeTime; // 총알의 수명
     public int damage;
-    public float destroytime;
     private Animator animator;
     private Rigidbody2D rb;
 
-    private void Start()
-    {
-        Destroy(gameObject, destroytime);
-    }
+   
     void Awake() // Start 대신 Awake에서 GetComponent를 하는 것이 더 안정적입니다.
     {
         rb = GetComponent<Rigidbody2D>();
@@ -61,7 +57,7 @@ public class bullet : MonoBehaviour
         }
         // AttackRange 콜라이더에 닿았을 때는 총알이 파괴되지 않도록 합니다.
         // 적 자신이나 적의 AttackRange 콜라이더와 충돌 시 총알이 파괴되지 않도록
-        else if (!other.CompareTag("enemy") && !other.CompareTag("AttackRange") && other.isTrigger == false)
+        else if (!other.CompareTag("Enemy") && other.isTrigger == false)
         {
             // isTrigger가 아닌 다른 물리적 콜라이더와 충돌 시 파괴 (예: 벽)
             Destroy(gameObject);
