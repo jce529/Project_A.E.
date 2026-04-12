@@ -5,7 +5,7 @@
 
 ## Current Position
 - **Phase:** 02-weather-puddle-interaction
-- **Plan:** 02-02-PLAN.md
+- **Plan:** 02-03-PLAN.md
 - **Status:** In Progress
 
 ## Phase Status

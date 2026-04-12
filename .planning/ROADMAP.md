@@ -50,7 +50,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Phase 2 인프라 (WeatherController, WaterPuddle, PuddlePool, PuddleSpawner, PuddleStackManager) + 페이즈 전환 트리거
-- [ ] 02-02-PLAN.md — 플레이어 상호작용 (WaveSlice 웅덩이 파괴 + F키 흡수 메커니즘)
+- [x] 02-02-PLAN.md — 플레이어 상호작용 (WaveSlice 웅덩이 파괴 + F키 흡수 메커니즘)
 - [ ] 02-03-PLAN.md — 에디터 셋업 (프리팹/태그/씬 배치) + Play Mode 검증 체크포인트
 
 ### Phase 3: 폭발 기믹 연계 및 보스 순간이동
