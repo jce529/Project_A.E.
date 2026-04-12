@@ -20,10 +20,11 @@ public class BossController : MonoBehaviour
     [SerializeField] private string _currentStateName; // 현재 상태 확인용
 
     // 내부 변수
-    private Rigidbody2D _rb;
-    private IBossState _currentState;
+    protected Rigidbody2D _rb;
+    protected IBossState _currentState;
 
     // 프로퍼티 (상태 클래스에서 접근용)
+    public IBossState CurrentState => _currentState;
     public bool CanUseHeavyAttack { get; private set; } = true;
     public bool TargetFound { get; private set; }
 
@@ -36,7 +37,7 @@ public class BossController : MonoBehaviour
        // if (Anim == null) Anim = GetComponent<Animator>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         // 시작 시 대기(Idle) 상태로 진입
         ChangeState(new IdleState());
@@ -49,7 +50,7 @@ public class BossController : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (Target != null)
         {
@@ -118,12 +119,9 @@ public class BossController : MonoBehaviour
     // 특정 애니메이션이 끝났는지 확인하는 함수 (이름으로 체크)
     public bool CheckAnimationState(string stateName)
     {
-        // 0번 레이어의 현재 상태 정보를 가져옴
-        AnimatorStateInfo stateInfo = Anim.GetCurrentAnimatorStateInfo(0);
+        if (Anim == null) return false;
 
-        // 1. 현재 재생 중인 애니메이션이 stateName과 일치하는가?
-        // 2. 진행도(normalizedTime)가 1.0(100%)을 넘었는가?
-        // 3. 현재 전환(Transition) 중이 아닌가?
+        AnimatorStateInfo stateInfo = Anim.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1.0f && !Anim.IsInTransition(0))
         {
             return true;
@@ -155,7 +153,7 @@ public class BossController : MonoBehaviour
     }
 
     // 메모리 누수 방지 (이벤트 연결 해제)
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (Stats != null)
         {

@@ -1,77 +1,104 @@
 using UnityEngine;
 using System;
 
-    public class BossStatsSystem : MonoBehaviour
+public class BossStatsSystem : MonoBehaviour
+{
+    [Header("Settings")]
+    public float MaxHealth = 1000f;
+    public float MaxWater = 100f;
+    public float WaterDecayRate = 1.0f; // ì´ˆë‹¹ ìì› ì†Œëª¨
+
+    protected float _currentHealth;
+    protected float _currentWater;
+
+    // [ì •ë³´ ì œê³µ ë¶€ë¶„] ì™¸ë¶€ì—ì„œ í˜„ì¬ ìƒíƒœ ë³¼ ìˆ˜ ìˆê²Œ 'í”„ë¡œí¼í‹°' ì¶”ê°€
+    public float CurrentHealth => _currentHealth;
+    public float CurrentWater => _currentWater;
+
+    public bool IsBarrierActive => _currentWater > 0;
+
+    // ì´ë²¤íŠ¸: ë°°ë¦¬ì–´ê°€ ê¹¨ì¡Œì„ ë•Œë‚˜ ë°ë¯¸ì§€(ë°˜ê²©) ë°œìƒ ì‹œ
+    public event Action OnWaterDepleted;
+    public event Action OnDamageTaken;
+
+    protected void InvokeOnDamageTaken() { OnDamageTaken?.Invoke(); }
+
+    void Start()
     {
-        [Header("Settings")]
-        public float MaxHealth = 1000f;
-        public float MaxWater = 100f;
-        public float WaterDecayRate = 1.0f; // ÃÊ´ç ÀÚ¿¬ ¼Ò¸ğ
-
-        private float _currentHealth;
-        private float _currentWater;
-
-        // [¿¡·¯ ÇØ°á ºÎºĞ] ¿ÜºÎ¿¡¼­ °ªÀ» ÀĞÀ» ¼ö ÀÖ°Ô 'ÇÁ·ÎÆÛÆ¼' Ãß°¡
-        public float CurrentHealth => _currentHealth;
-        public float CurrentWater => _currentWater;
-
-        public bool IsBarrierActive => _currentWater > 0;
-
-        // ÀÌº¥Æ®: ¹°ÀÌ ´Ù ¶³¾îÁö¸é ±×·Î±â(µôÅ¸ÀÓ) ¹ß»ı
-        public event Action OnWaterDepleted;
-        public event Action OnDamageTaken;
-
-        void Start()
-        {
-            _currentHealth = MaxHealth;
-            _currentWater = MaxWater;
-        }
-
-        void Update()
-        {
-            // º£¸®¾î°¡ ÄÑÁ®ÀÖÀ» ¶§¸¸ ÀÚ¿¬ ¼Ò¸ğ
-            if (IsBarrierActive)
-            {
-                ConsumeWater(WaterDecayRate * Time.deltaTime);
-            }
-        }
-
-        public void ConsumeWater(float amount)
-        {
-            if (_currentWater <= 0) return;
-
-            _currentWater -= amount;
-            if (_currentWater <= 0)
-            {
-                _currentWater = 0;
-                OnWaterDepleted?.Invoke(); // ¹° °í°¥ ÀÌº¥Æ® ¹ß»ı
-            }
-            // UI ¾÷µ¥ÀÌÆ® ·ÎÁ÷ È£Ãâ
-        }
-
-        public void RestoreWater()
-        {
-            _currentWater = MaxWater;
-            // ÄÆ¾ÀÀÌ³ª ±×·Î±â Á¾·á ÈÄ È£Ãâ
-        }
-
-        public void TakeDamage(float damage)
-        {
-            if (IsBarrierActive)
-            {
-                // º£¸®¾î »óÅÂ: Ã¼·Â ÇÇÇØ´Â ÁÙÀÌ°í, ¹°À» ´ëÆø ±ğÀ½ (±âÈ¹: 20%)
-                ConsumeWater(MaxWater * 0.2f);
-                // ¹İ°İ ·ÎÁ÷ Æ®¸®°Å¸¦ À§ÇØ ÄÁÆ®·Ñ·¯¿¡ ¾Ë¸²
-                OnDamageTaken?.Invoke();
-            }
-            else
-            {
-                // ±×·Î±â »óÅÂ: Ã¼·Â Á÷Á¢ ÇÇÇØ
-                _currentHealth -= damage;
-            }
-
-            if (_currentHealth <= 0) Die();
-        }
-
-        private void Die() { /* »ç¸Á Ã³¸® */ }
+        _currentHealth = MaxHealth;
+        _currentWater = MaxWater;
     }
+
+    void Update()
+    {
+        // ë°°ë¦¬ì–´ê°€ í™œì„±í™”ë˜ì–´ ìˆìœ¼ë©´ ìˆ˜ë¶„ ì†Œëª¨
+        if (IsBarrierActive)
+        {
+            ConsumeWater(WaterDecayRate * Time.deltaTime);
+        }
+    }
+
+    public void ConsumeWater(float amount)
+    {
+        if (_currentWater <= 0) return;
+
+        _currentWater -= amount;
+        if (_currentWater <= 0)
+        {
+            _currentWater = 0;
+            OnWaterDepleted?.Invoke(); // ë¬¼ ì†Œì§„ ì´ë²¤íŠ¸ ë°œìƒ
+        }
+        // UI ì—…ë°ì´íŠ¸ ë“±ì€ í›„ì† í˜¸ì¶œ
+    }
+
+    public void RestoreWater()
+    {
+        _currentWater = MaxWater;
+        // ì•„ë¨¸ë‚˜ ê·¸ë¡œê¸° íšŒë³µ ì‹œ í˜¸ì¶œ
+    }
+
+    /// <summary>
+    /// Hook fired when health is restored.
+    /// </summary>
+    public virtual void OnHealed(float amount) { }
+
+    public void TakeDamage(float damage)
+    {
+        TakeDamage(new DamageInfo { amount = damage, element = DamageElement.None });
+    }
+
+    /// <summary>
+    /// ì™¸ë¶€ í˜¸ì¶œì„ ìœ„í•œ DamageInfo ê¸°ë°˜ ë°ë¯¸ì§€ ì§„ì…ì ì…ë‹ˆë‹¤.
+    /// ì„œë¸Œí´ë˜ìŠ¤(WaterMonsterStats)ì—ì„œ ì˜¤ë²„ë¼ì´ë“œí•œ ë¡œì§ì´ ì‹¤í–‰ë˜ë„ë¡ protected virtual ë©”ì†Œë“œë¡œ ì „ë‹¬í•©ë‹ˆë‹¤.
+    /// </summary>
+    public void TakeDamageInfo(DamageInfo info)
+    {
+        TakeDamage(info);
+    }
+
+    protected virtual void TakeDamage(DamageInfo info)
+    {
+        if (info.amount <= 0f) return;
+
+        if (IsBarrierActive)
+        {
+            // ë°°ë¦¬ì–´ ìˆìŒ: ìˆ˜ë¶„ ì†Œëª¨ (ê¸°ì¡´ ë¡œì§: 20%)
+            ConsumeWater(MaxWater * 0.2f);
+            // ë°˜ê²© ìƒíƒœ ì „í™˜ìš© ì´ë²¤íŠ¸ ì•Œë¦¼
+            OnDamageTaken?.Invoke();
+        }
+        else
+        {
+            // ë°°ë¦¬ì–´ ì—†ìŒ: ì²´ë ¥ ê°ì†Œ
+            _currentHealth -= info.amount;
+        }
+
+        if (_currentHealth <= 0)
+        {
+            _currentHealth = 0;
+            Die();
+        }
+    }
+
+    protected virtual void Die() { /* ì‚¬ë§ ì²˜ë¦¬ */ }
+}
