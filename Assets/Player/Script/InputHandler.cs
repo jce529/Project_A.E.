@@ -3,26 +3,26 @@ using UnityEngine.InputSystem;
 using System;
 
 /// <summary>
-/// °ÔÀÓÀÇ ¸ðµç ÀÔ·ÂÀ» ÃÑ°ýÇÏ´Â ¸Å´ÏÀú Å¬·¡½ºÀÔ´Ï´Ù.
-/// UnityÀÇ New Input System ½ÅÈ£¸¦ ¹Þ¾Æ¼­, C# ÀÌº¥Æ®(Action)·Î º¯È¯ÇÏ¿© ´Ù¸¥ ½ºÅ©¸³Æ®¿¡ Àü´ÞÇÕ´Ï´Ù.
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½Ï´ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+/// Unityï¿½ï¿½ New Input System ï¿½ï¿½È£ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½, C# ï¿½Ìºï¿½Æ®(Action)ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 /// </summary>
 public class InputHandler : MonoBehaviour
 {
     // ==================================================================================
-    // 1. ½Ì±ÛÅæ (Singleton) ÆÐÅÏ
+    // 1. ï¿½Ì±ï¿½ï¿½ï¿½ (Singleton) ï¿½ï¿½ï¿½ï¿½
     // ==================================================================================
-    // °ÔÀÓ ³»¿¡ ´Ü ÇÏ³ª¸¸ Á¸ÀçÇØ¾ß ÇÏ¸ç, ¾îµð¼­µç(Player, UI µî) Á¢±ÙÇÒ ¼ö ÀÖ¾î¾ß ÇÕ´Ï´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï¸ï¿½, ï¿½ï¿½ð¼­µï¿½(Player, UI ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Õ´Ï´ï¿½.
     public static InputHandler Instance { get; private set; }
 
     [Header("Input Settings")]
-    // À¯´ÏÆ¼ ¿¡µðÅÍ¿¡¼­ ¸¸µç .inputactions ÆÄÀÏ(ÆÄ¶õ ¹ø°³ ¾ÆÀÌÄÜ)À» ¿©±â¿¡ ¿¬°áÇÕ´Ï´Ù
+    // ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ .inputactions ï¿½ï¿½ï¿½ï¿½(ï¿½Ä¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
     public InputActionAsset inputActions;
 
 
     // ==================================================================================
-    // 2. ÀÌº¥Æ® Á¤ÀÇ (Events) - "¹æ¼Û Ã¤³Î"
+    // 2. ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ (Events) - "ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½"
     // ==================================================================================
-    // ¿ÜºÎ ½ºÅ©¸³Æ®(PlayerController µî)´Â ÀÌ ÀÌº¥Æ®µéÀ» ±¸µ¶(Subscribe, +=)ÇÏ¿© ÀÔ·ÂÀ» °¨ÁöÇÕ´Ï´Ù.
+    // ï¿½Üºï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®(PlayerController ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Subscribe, +=)ï¿½Ï¿ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     public event Action<Vector2> OnMoveEvent;
     public event Action OnJumpEvent;
     public event Action OnPauseEvent;
@@ -32,11 +32,12 @@ public class InputHandler : MonoBehaviour
     public event Action OnSkill1Event;
     public event Action OnSkill2Event;
     public event Action OnHealEvent;
+    public event Action OnInteractEvent;
 
     // ==================================================================================
-    // 3. ³»ºÎ º¯¼ö (Internal Variables)
+    // 3. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Internal Variables)
     // ==================================================================================
-    // Input Action Asset¿¡¼­ °¡Á®¿Â °³º° ¾×¼ÇµéÀ» ÀúÀåÇØµÎ´Â º¯¼öÀÔ´Ï´Ù.
+    // Input Action Assetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¼Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction pauseAction;
@@ -46,21 +47,22 @@ public class InputHandler : MonoBehaviour
     private InputAction skill_1;
     private InputAction skill_2;
     private InputAction heal;
+    private InputAction interactAction;
 
-    // Å° ¹ÙÀÎµù ÀúÀåÀ» À§ÇÑ PlayerPrefs Å° ÀÌ¸§
+    // Å° ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ PlayerPrefs Å° ï¿½Ì¸ï¿½
     private const string SAVE_KEY = "InputBindings";
 
 
     // ==================================================================================
-    // 4. ÃÊ±âÈ­ (Awake)
+    // 4. ï¿½Ê±ï¿½È­ (Awake)
     // ==================================================================================
     private void Awake()
     {
-        // ½Ì±ÛÅæ ÃÊ±âÈ­: ³ª ÀÚ½ÅÀÌ ¾øÀ¸¸é ³ª¸¦ µî·Ï, ÀÌ¹Ì ÀÖÀ¸¸é(Áßº¹) ³ª¸¦ ÆÄ±«.
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­: ï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ßºï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½.
         if (Instance == null) 
         { 
             Instance = this;
-            // ¾ÀÀÌ ¹Ù²î¾îµµ ÆÄ±«µÇÁö ¾ÊÀ½ (»ç¿îµå, ¸Å´ÏÀú µîÀº À¯ÁöµÇ¾î¾ß ÇÔ)
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½îµµ ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½, ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ ï¿½ï¿½)
             DontDestroyOnLoad(gameObject); 
         }
         else 
@@ -68,21 +70,21 @@ public class InputHandler : MonoBehaviour
             Destroy(gameObject); 
             return; 
         }
-        // Inspector¿¡ ¿¡¼ÂÀÌ ¿¬°áµÇÁö ¾Ê¾ÒÀ» °æ¿ì ¿¡·¯ ¹æÁö
+        // Inspectorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (inputActions == null)
         {
-            UnityEngine.Debug.LogError("InputHandler: Input Action AssetÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            UnityEngine.Debug.LogError("InputHandler: Input Action Assetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
             return;
         }
-        // "Player"¶ó´Â ÀÌ¸§ÀÇ ¾×¼Ç ¸Ê(Map)À» Ã£½À´Ï´Ù. (¿¡µðÅÍ¿¡¼­ ¸¸µç Map ÀÌ¸§°ú °°¾Æ¾ß ÇÔ)
+        // "Player"ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½×¼ï¿½ ï¿½ï¿½(Map)ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ï´ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Map ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½ï¿½)
         var playerMap = inputActions.FindActionMap("Player");
         if (playerMap == null)
         {
-            UnityEngine.Debug.LogError("InputHandler: 'Player' ¾×¼Ç ¸ÊÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+            UnityEngine.Debug.LogError("InputHandler: 'Player' ï¿½×¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
             return;
         }
 
-        // ¾ÈÀüÇÏ°Ô Ã£±â (¾ø¾îµµ °ÔÀÓÀÌ ¸ØÃßÁö ¾ÊÀ½)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Ã£ï¿½ï¿½ (ï¿½ï¿½ï¿½îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         moveAction = playerMap.FindAction("Move");
         jumpAction = playerMap.FindAction("Jump");
         pauseAction = playerMap.FindAction("Pause");
@@ -92,6 +94,7 @@ public class InputHandler : MonoBehaviour
         skill_1 = playerMap.FindAction("Skill_1");
         skill_2 = playerMap.FindAction("Skill_2");
         heal = playerMap.FindAction("Heal");
+        interactAction = playerMap.FindAction("Action");
 
         LoadBindingOverrides();
     }
@@ -100,7 +103,7 @@ public class InputHandler : MonoBehaviour
     {
         if (inputActions != null) inputActions.Enable();
 
-        // null Ã¼Å© ÈÄ ¿¬°á (ÇÏ³ª°¡ ¾ø¾îµµ ³ª¸ÓÁö´Â ÀÛµ¿ÇÔ)
+        // null Ã¼Å© ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½îµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½)
         if (moveAction != null)
         {
             moveAction.performed += ctx => OnMoveEvent?.Invoke(ctx.ReadValue<Vector2>());
@@ -118,10 +121,11 @@ public class InputHandler : MonoBehaviour
         if (skill_1 != null) skill_1.performed += ctx => OnSkill1Event?.Invoke();
         if (skill_2 != null) skill_2.performed += ctx => OnSkill2Event?.Invoke();
         if (heal != null) heal.performed += ctx => OnHealEvent?.Invoke();
+        if (interactAction != null) interactAction.performed += ctx => OnInteractEvent?.Invoke();
     }
 
     // ==================================================================================
-    // 6. ºñÈ°¼ºÈ­ (OnDisable)
+    // 6. ï¿½ï¿½È°ï¿½ï¿½È­ (OnDisable)
     // ==================================================================================
     private void OnDisable()
     {
@@ -129,60 +133,59 @@ public class InputHandler : MonoBehaviour
     }
 
     // ==================================================================================
-    // 7. ÀúÀå ¹× ºÒ·¯¿À±â (Save & Load)
+    // 7. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ (Save & Load)
     // ==================================================================================
-    // »ç¿ëÀÚ°¡ ¹Ù²Û Å° ¼³Á¤(Rebinding)À» JSON ¹®ÀÚ¿­·Î º¯È¯ÇØ ÀúÀåÇÕ´Ï´Ù.
+    // ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ù²ï¿½ Å° ï¿½ï¿½ï¿½ï¿½(Rebinding)ï¿½ï¿½ JSON ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     public void SaveBindingOverrides()
     {
         if (inputActions == null) return;
 
-        // ¹ÙÀÎµù Á¤º¸¸¦ JSON ÅØ½ºÆ®·Î ÃßÃâ
+        // ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ JSON ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         string json = inputActions.SaveBindingOverridesAsJson();
 
-        // PlayerPrefs(°£´ÜÇÑ ÀúÀå¼Ò)¿¡ ÀúÀå
+        // PlayerPrefs(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerPrefs.SetString(SAVE_KEY, json);
         PlayerPrefs.Save();
     }
 
-    // ÀúÀåµÈ Å° ¼³Á¤À» ºÒ·¯¿Í¼­ Àû¿ëÇÕ´Ï´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ Å° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
     public void LoadBindingOverrides()
     {
         if (PlayerPrefs.HasKey(SAVE_KEY))
         {
             string json = PlayerPrefs.GetString(SAVE_KEY);
-            // JSON ÅØ½ºÆ®¸¦ ´Ù½Ã ¹ÙÀÎµù Á¤º¸·Î º¯È¯ÇÏ¿© µ¤¾î¾º¿ò(Override)
+            // JSON ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½î¾ºï¿½ï¿½(Override)
             inputActions.LoadBindingOverridesFromJson(json);
         }
     }
 
     public InputAction GetAction(string actionName)
     {
-        // 1. ¿¡¼Â ÀÚÃ¼°¡ ¿¬°á ¾È µÈ °æ¿ì
+        // 1. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (inputActions == null)
         {
-            Debug.LogError("¹üÀÎ °Ë°Å: InputHandler ÀÎ½ºÆåÅÍ¿¡ Input Action AssetÀÌ ¿¬°á ¾È µÆ½À´Ï´Ù!");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°ï¿½: InputHandler ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ Input Action Assetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ½ï¿½ï¿½Ï´ï¿½!");
             return null;
         }
 
-        // 2. ¾×¼ÇÀ» Ã£¾Æº¾´Ï´Ù.
+        // 2. ï¿½×¼ï¿½ï¿½ï¿½ Ã£ï¿½Æºï¿½ï¿½Ï´ï¿½.
         InputAction foundAction = inputActions.FindAction(actionName);
 
-        // 3. ¸ø Ã£¾ÒÀ» °æ¿ì
+        // 3. ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         if (foundAction == null)
         {
-            Debug.LogError($"¹üÀÎ °Ë°Å: '{actionName}'¶ó´Â ¾×¼ÇÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù. ¿ÀÅ¸°¡ ÀÖ°Å³ª 'Player/{actionName}' Ã³·³ ¸Ê ÀÌ¸§À» °°ÀÌ ½á¾ß ÇÒ ¼öµµ ÀÖ½À´Ï´Ù.");
+            Debug.LogError($"ï¿½ï¿½ï¿½ï¿½ ï¿½Ë°ï¿½: '{actionName}'ï¿½ï¿½ï¿½ ï¿½×¼ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ö°Å³ï¿½ 'Player/{actionName}' Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
 
-            // Âü°í¿ë: Á¸ÀçÇÏ´Â ¸ðµç ¾×¼Ç ÀÌ¸§À» Ãâ·ÂÇØº½ (ÇÊ¿äÇÒ ¶§ ÁÖ¼® ÇØÁ¦)
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½×¼ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Øºï¿½ (ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½)
             
             foreach (var map in inputActions.actionMaps)
             {
                 foreach (var action in map.actions)
                 {
-                    Debug.Log($"¹ß°ßµÈ ¾×¼Ç: {map.name}/{action.name}");
+                    Debug.Log($"ï¿½ß°ßµï¿½ ï¿½×¼ï¿½: {map.name}/{action.name}");
                 }
-            
+            }
         }
-    }
 
         return foundAction;
     }
