@@ -17,6 +17,10 @@ public class WaterMonsterController : BossController
     [SerializeField] [Range(0f, 1f)] private float _phase2HpThreshold = 0.70f;
     private bool _phase2Triggered = false;
 
+    [Header("Phase 3 Settings")]
+    [SerializeField] private float _teleportCooldown = 8f; // D-14: Inspector tuning
+    private float _lastTeleportTime = -999f;
+
     public WaterMonsterStats WaterStats { get; private set; }
 
     protected override void Awake()
@@ -43,6 +47,22 @@ public class WaterMonsterController : BossController
             WaterStats.OnDamageTaken -= CheckPhase2Trigger;
     }
 
+    /// <summary>
+    /// Checks if teleport cooldown has elapsed.
+    /// </summary>
+    public bool CanTeleport()
+    {
+        return Time.time - _lastTeleportTime >= _teleportCooldown;
+    }
+
+    /// <summary>
+    /// Records the time of teleportation. Called by WaterTeleportState.Enter.
+    /// </summary>
+    public void RecordTeleportTime()
+    {
+        _lastTeleportTime = Time.time;
+    }
+
     private void CheckPhase2Trigger()
     {
         if (_phase2Triggered) return;
@@ -61,6 +81,7 @@ public class WaterMonsterController : BossController
 
         // Swap any plain CombatState for WaterMonsterCombatState so the
         // IsBarrierActive guard override (HIGH-RISK #1) takes effect.
+        // NOTE: WaterTeleportState does not inherit from CombatState, so it is naturally ignored.
         if (CurrentState != null
             && CurrentState.GetType() == typeof(CombatState))
         {
