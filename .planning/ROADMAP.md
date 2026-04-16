@@ -79,10 +79,11 @@ Plans:
   3. 두 장판은 Player 레이어에만 이동 속도 버프/디버프를 적용한다.
   4. 광폭화 상태 전용 AI 로직이 장판 생성과 패턴 난사를 번갈아 수행한다.
   5. 광폭화 상태에서도 REQ-WM-02 HP 자가 소모는 유지되며 소모 속도가 증가한다.
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-TBD: 상세 계획은 `/gsd:plan-phase 4` 시 생성
+- [ ] 04-01-PLAN.md — Zone 스크립트 신규 작성 + PlayerController speedModifier + 베이스 클래스 접근자 수정
+- [ ] 04-02-PLAN.md — 광폭화 트리거 + Zone 생성 + tick HP 소모 + CombatState 쿨다운 배율/장판 AI
 
 ## Progress
 
@@ -94,4 +95,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. 보스 기본 엔티티 및 코어 메커니즘 | 5/5 | Complete | 2026-04-12 |
 | 2. 날씨 시스템 및 물 웅덩이 상호작용 | 3/3 | Complete | 2026-04-16 |
 | 3. 폭발 기믹 연계 및 보스 순간이동 | 2/2 | Complete | 2026-04-16 |
-| 4. 광폭화 및 장판 시스템 | 0/TBD | Not started | - |
+| 4. 광폭화 및 장판 시스템 | 0/2 | Not started | - |
