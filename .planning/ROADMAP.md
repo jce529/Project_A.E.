@@ -63,10 +63,11 @@ Plans:
   3. 보스에 `WaterTeleportState` 가 추가되어 맵의 파괴 불가 웅덩이로 순간이동한다.
   4. 순간이동 패턴에도 REQ-WM-02 자가 HP 소모가 적용된다.
   5. 파괴 불가 웅덩이가 하나도 없을 땐 순간이동 패턴이 사용되지 않는다.
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-TBD: 상세 계획은 `/gsd:plan-phase 3` 시 생성
+- [ ] 03-01-PLAN.md — 스택 임계 폭발 (PuddleStackManager 목록 API + PuddleExplosionController 경고/AoE/Pool Return)
+- [ ] 03-02-PLAN.md — 보스 순간이동 패턴 (WaterTeleportState + CombatState 텔레포트 분기 + 쿨다운)
 
 ### Phase 4: 광폭화 및 장판 시스템
 **Goal**: 보스가 HP M% 이하에서 광폭화 모드로 진입해 공격 쿨타임이 대폭 감소하고, 맵에 이속/감속 장판을 생성하며 패턴을 난사한다.
@@ -92,5 +93,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 |-------|----------------|--------|-----------|
 | 1. 보스 기본 엔티티 및 코어 메커니즘 | 5/5 | Complete | 2026-04-12 |
 | 2. 날씨 시스템 및 물 웅덩이 상호작용 | 3/3 | Complete | 2026-04-16 |
-| 3. 폭발 기믹 연계 및 보스 순간이동 | 0/TBD | Not started | - |
+| 3. 폭발 기믹 연계 및 보스 순간이동 | 0/2 | In Progress | - |
 | 4. 광폭화 및 장판 시스템 | 0/TBD | Not started | - |
