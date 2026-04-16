@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WaterMonster.Phase2
@@ -9,10 +10,12 @@ namespace WaterMonster.Phase2
 
         [SerializeField] private int explosionThreshold = 5;
         private int _indestructibleCount = 0;
+        private List<WaterPuddle> _indestructiblePuddles = new List<WaterPuddle>();
 
         public event Action OnThresholdReached;
 
         public int IndestructibleCount => _indestructibleCount;
+        public IReadOnlyList<WaterPuddle> IndestructiblePuddles => _indestructiblePuddles;
 
         private void Awake()
         {
@@ -30,6 +33,7 @@ namespace WaterMonster.Phase2
         public void RegisterIndestructible(WaterPuddle puddle)
         {
             _indestructibleCount++;
+            _indestructiblePuddles.Add(puddle);
             if (_indestructibleCount >= explosionThreshold)
             {
                 OnThresholdReached?.Invoke();
@@ -41,7 +45,21 @@ namespace WaterMonster.Phase2
             if (!puddle.isDestructible)
             {
                 _indestructibleCount = Mathf.Max(0, _indestructibleCount - 1);
+                _indestructiblePuddles.Remove(puddle);
             }
+        }
+
+        public void ReturnAllIndestructibleToPool()
+        {
+            var toReturn = new List<WaterPuddle>(_indestructiblePuddles);
+            foreach (var puddle in toReturn)
+            {
+                PuddlePool.Instance.Return(puddle);
+            }
+            
+            // Force reset to ensure count is 0
+            _indestructibleCount = 0;
+            _indestructiblePuddles.Clear();
         }
     }
 }
