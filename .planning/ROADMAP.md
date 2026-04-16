@@ -66,8 +66,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — 스택 임계 폭발 (PuddleStackManager 목록 API + PuddleExplosionController 경고/AoE/Pool Return)
-- [ ] 03-02-PLAN.md — 보스 순간이동 패턴 (WaterTeleportState + CombatState 텔레포트 분기 + 쿨다운)
+- [x] 03-01-PLAN.md — 스택 임계 폭발 (PuddleStackManager 목록 API + PuddleExplosionController 경고/AoE/Pool Return)
+- [x] 03-02-PLAN.md — 보스 순간이동 패턴 (WaterTeleportState + CombatState 텔레포트 분기 + 쿨다운)
 
 ### Phase 4: 광폭화 및 장판 시스템
 **Goal**: 보스가 HP M% 이하에서 광폭화 모드로 진입해 공격 쿨타임이 대폭 감소하고, 맵에 이속/감속 장판을 생성하며 패턴을 난사한다.
