@@ -21,6 +21,16 @@ public class PlayerController : MonoBehaviour
     public LayerMask platformLayer;
     public LayerMask ladderLayer;
 
+    [Header("Dash Settings")]
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.15f;
+    public float dashCooldown = 1.0f;
+    public Color dashColor = Color.cyan;
+
+    private bool canDash = true;
+    private bool isDashing = false;
+    private Color originalColor;
+
     // 내부 상태 변수
     private Vector2 moveInput;
     private float maxSpeed;

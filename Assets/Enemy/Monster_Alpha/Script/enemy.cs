@@ -30,9 +30,8 @@ public class enemy : MonoBehaviour
     {
         if (playerTransform == null) return; // 플레이어가 없으면 아무것도 안 함
 
- 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-        playerInAttackRange = distanceToPlayer <= detectionRange;
+        playerInAttackRange = (distanceToPlayer <= detectionRange) && (playerTransform.position.y >= transform.position.y - 0.5f);
 
         if (playerInAttackRange)
         {
@@ -69,7 +68,31 @@ public class enemy : MonoBehaviour
         }
     }
 
-    
+    // 플레이어의 공격을 받았을 때 실행되는 함수
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        Debug.Log(gameObject.name + " 피격! 남은 체력 : " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log(gameObject.name + " 사망!");
+
+        // 죽기 직전에 등록된 이벤트(비밀의 벽 해제 등)를 실행
+        if (onDeathEvent != null)
+        {
+            onDeathEvent.Invoke();
+        }
+
+        Destroy(gameObject);
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
