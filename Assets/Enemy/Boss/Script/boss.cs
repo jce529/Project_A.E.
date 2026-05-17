@@ -1,91 +1,52 @@
-using UnityEngine;
-using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine.XR;
+ï»¿using UnityEngine;
 
 public class boss : MonoBehaviour
 {
-    public Transform playerTransform;
-    public GameObject mudHandPrefab;
-   
-    public float attackInterval; //°ø°İ °£°İ
-    public float summon0ffset = 1f; // ÇÃ·¹ÀÌ¾î·ÎºÎÅÍ ¼Õ ¼ÒÈ¯ À§Ä¡ ¿ÀÇÁ¼Â
-    public int maxHealth = 100;
-    private int currentHealth;
-    public float moveSpeed;
-    public float stoppingDistance; // ÇÃ·¹ÀÌ¾î °Å¸® ÃøÁ¤ ÈÄ ¸ØÃã
-    private Animator animator;
-    private Rigidbody2D rb;
-    
-    public LayerMask isLayer;
-    public float cooltime;
-    private float currenttime;
-    public float distance;
+    [Header("ì°¸ì¡° ì»´í¬ë„ŒíŠ¸")]
+    public HP hp;
+    public Chase chase;   // ğŸ‘ˆ í”Œë ˆì´ì–´ ì¶”ì  ë‹´ë‹¹ ìŠ¤í¬ë¦½íŠ¸
+    public Hand hand;     // ğŸ‘ˆ ê³µê²© ë‹´ë‹¹ ìŠ¤í¬ë¦½íŠ¸
+
+    // íƒì§€ ê´€ë ¨ ì´ë²¤íŠ¸
+    public delegate void BossDetectionEvent(bool detected);
+    public event BossDetectionEvent OnPlayerDetectionChanged;
+
+    private bool playerDetected = false;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;
-        if (playerTransform == null)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("player");
-            if (player != null)
-            {
-                playerTransform = player.transform;
-            }
-            else
-            {
-                Debug.LogWarning("ÇÃ·¹ÀÌ¾î¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. player ÅÂ±×¸¦ È®ÀÎÇÏ¼¼¿ä.");
-            }
-        }
-        StartCoroutine(AttackRoutine());
+        if (hp == null) hp = GetComponent<HP>();
+        if (chase == null) chase = GetComponent<Chase>();
+        if (hand == null) hand = GetComponent<Hand>();
     }
+
     void Update()
     {
-        if (playerTransform != null && currentHealth > 0)
-        {
-            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-            if (distanceToPlayer > stoppingDistance)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, moveSpeed * Time.deltaTime);
-            }
-        }
-    }
-    IEnumerator AttackRoutine()
-    {
-        while (currentHealth > 0)
-        {
-            yield return new WaitForSeconds(attackInterval);
-            if (playerTransform != null)
-            {
-                SummonMudHand();
-            }
+        if (hp == null || hp.Health <= 0) return;
 
-        }
-    }
-    void SummonMudHand()
-    {
-        //Vector3 summonPosition = new Vector3(playerTransform.position.x, playerTransform.position.y - summon0ffset, 10);
-        float groundY = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, 0)).y - 1f;
-        Vector3 summonPosition = new Vector3(playerTransform.position.x, groundY, 0);
-        Instantiate(mudHandPrefab, summonPosition, Quaternion.identity);
-    }
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        Debug.Log("º¸½º Ã¼·Â: " + currentHealth);
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-        
-    }
-    void Die()
-    {
-        Debug.Log("º¸½º »ç¸Á!");
-        Destroy(gameObject, 2f);
-       
+        // ğŸ‘‡ Chaseì˜ detectionRangeë¥¼ ê·¸ëŒ€ë¡œ í™œìš©
+        Transform player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player == null) return;
 
+        float distance = Vector2.Distance(transform.position, player.position);
+        bool inRange = distance <= chaseDetectionRange();
+
+        if (inRange && !playerDetected)
+        {
+            playerDetected = true;
+            OnPlayerDetectionChanged?.Invoke(true);   // ì²´ë ¥ë°” í‘œì‹œ
+        }
+        else if (!inRange && playerDetected)
+        {
+            playerDetected = false;
+            OnPlayerDetectionChanged?.Invoke(false);  // ì²´ë ¥ë°” ìˆ¨ê¹€
+        }
     }
-    
+
+    float chaseDetectionRange()
+    {
+        // Chase í´ë˜ìŠ¤ì˜ private detectionRange ì ‘ê·¼ìš©
+        var field = typeof(Chase).GetField("detectionRange", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        return field != null ? (float)field.GetValue(chase) : 8f;
+    }
 }

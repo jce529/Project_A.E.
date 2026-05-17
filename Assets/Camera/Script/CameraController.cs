@@ -2,20 +2,23 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target; //타겟 위치
-    public float smoothing = 5f; //카메라 이동 속도
-    Vector3 offset; //카메라와 타겟 사이의 거리
+    public Transform target; // 주인공
+    public float smoothing = 5f;
 
+    // [수정] 오프셋을 내부에서 계산하지 않고, 기본값을 여기서 정해버립니다.
+    // (0, 0, -10)은 2D 게임의 국룰 위치입니다. (X,Y는 정중앙, Z는 뒤로 10만큼)
+    public Vector3 offset = new Vector3(0f, 0f, 10f);
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        offset = transform.position - target.position; //카메라와 타겟 사이의 거리 계산
+        // [중요] 현재 카메라가 어디 있든 상관없이,
+        // 게임 시작하자마자 강제로 타겟의 '이상적인 위치(오프셋 적용)'로 순간이동시킵니다.
+        transform.position = target.position + offset;
     }
 
-    void LateUpdate() //LateUpdate는 Update 후에 호출되어 카메라 위치를 업데이트
+    void LateUpdate()
     {
-        Vector3 targetCamPos = target.position + offset; //타겟 위치에 오프셋을 더하여 카메라의 목표 위치 계산
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime); //카메라를 부드럽게 이동
+        Vector3 targetCamPos = target.position + offset;
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
     }
 }

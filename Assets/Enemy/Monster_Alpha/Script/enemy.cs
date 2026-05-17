@@ -1,20 +1,33 @@
+ï»¿using UnityEngine;
+using UnityEngine.Events;
 
-using UnityEngine;
-
-public class enemy : MonoBehaviour
+// 1. íŒŒë™ì°¸(ìŠ¤í‚¬) ê³µê²©ì„ ì •ìƒì ìœ¼ë¡œ ë§ê¸° ìœ„í•´ í•„ìš”í•œ ì¸í„°í˜ì´ìŠ¤ë¥¼ ì¶”ê°€í–ˆì–´!
+public interface IDamageable
 {
-    public GameObject bulletPrefab; // ¹ß»çÇÒ ÃÑ¾Ë ÇÁ¸®ÆÕ
-    public Transform firePoint;     // ÃÑ¾ËÀÌ ¹ß»çµÉ À§Ä¡ (Àû Ä³¸¯ÅÍÀÇ ÀÚ½Ä ¿ÀºêÁ§Æ®·Î ¼³Á¤)
-    public float fireRate = 2f;     // ÃÑ¾Ë ¹ß»ç ÁÖ±â
-    public float detectionRange = 5f; // ÇÃ·¹ÀÌ¾î °¨Áö ¹üÀ§ (AttackRange Äİ¶óÀÌ´õ¿Í ÀÏÄ¡½ÃÅ°´Â °ÍÀÌ ÁÁÀ½)
+    void TakeDamage(float damage);
+}
 
-    private Transform playerTransform; // ÇÃ·¹ÀÌ¾î Transform
-    private bool playerInAttackRange = false; // ÇÃ·¹ÀÌ¾î°¡ °ø°İ ¹üÀ§ ¾È¿¡ ÀÖ´ÂÁö
-    private float nextFireTime; // ´ÙÀ½ ¹ß»ç °¡´É ½Ã°£
+// 2. í´ë˜ìŠ¤ ì´ë¦„ì„ íŒŒì¼ ì´ë¦„ê³¼ ë˜‘ê°™ì´ ì†Œë¬¸ì 'enemy'ë¡œ ë§ì·„ì–´!
+public class enemy : MonoBehaviour, IDamageable
+{
+    [Header("ì²´ë ¥ ì„¤ì •")]
+    public float health = 100f;
+
+    [Header("ì›ê±°ë¦¬ ê³µê²© ì„¤ì •")]
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float fireRate = 2f;
+    public float detectionRange = 5f;
+
+    [Header("ì‚¬ë§ ì‹œ ë°œë™í•  ì´ë²¤íŠ¸")]
+    public UnityEvent onDeathEvent;
+
+    private Transform playerTransform;
+    private bool playerInAttackRange = false;
+    private float nextFireTime;
 
     void Start()
     {
-        // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®¸¦ Ã£½À´Ï´Ù. (ÇÃ·¹ÀÌ¾î¿¡ "Player" ÅÂ±×¸¦ ²À ºÙ¿©ÁÖ¼¼¿ä!)
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -22,33 +35,33 @@ public class enemy : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù. ÇÃ·¹ÀÌ¾î¿¡ 'Player' ÅÂ±×¸¦ ºÎ¿©Çß´ÂÁö È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í”Œë ˆì´ì–´ì— 'Player' íƒœê·¸ë¥¼ ë¶€ì—¬í–ˆëŠ”ì§€ í™•ì¸í•˜ì„¸ìš”.");
         }
     }
 
     void Update()
     {
-        if (playerTransform == null) return; // ÇÃ·¹ÀÌ¾î°¡ ¾øÀ¸¸é ¾Æ¹«°Íµµ ¾È ÇÔ
+        if (playerTransform == null) return;
 
- 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-        playerInAttackRange = distanceToPlayer <= detectionRange;
+        playerInAttackRange = (distanceToPlayer <= detectionRange) && (playerTransform.position.y >= transform.position.y - 0.5f);
 
         if (playerInAttackRange)
         {
-           
-            Vector2 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
+            Vector2 targetPos = (Vector2)playerTransform.position + new Vector2(0, 0.5f);
+            Vector2 directionToPlayer = (targetPos - (Vector2)firePoint.position).normalized;
 
-            if (directionToPlayer.x > 0 && transform.localScale.x < 0) // ÇÃ·¹ÀÌ¾î°¡ ¿À¸¥ÂÊ¿¡ ÀÖ´Âµ¥ ÀûÀÌ ¿ŞÂÊÀ» º¸°í ÀÖÀ¸¸é
+            // ë°©í–¥ ì „í™˜ ë¡œì§
+            if (directionToPlayer.x > 0 && transform.localScale.x < 0)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (directionToPlayer.x < 0 && transform.localScale.x > 0) // ÇÃ·¹ÀÌ¾î°¡ ¿ŞÂÊ¿¡ ÀÖ´Âµ¥ ÀûÀÌ ¿À¸¥ÂÊÀ» º¸°í ÀÖÀ¸¸é
+            else if (directionToPlayer.x < 0 && transform.localScale.x > 0)
             {
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
 
-            // ÃÑ¾Ë ¹ß»ç
+            // ì´ì•Œ ë°œì‚¬
             if (Time.time >= nextFireTime)
             {
                 ShootBullet(directionToPlayer);
@@ -59,7 +72,8 @@ public class enemy : MonoBehaviour
 
     void ShootBullet(Vector2 direction)
     {
-        
+        if (bulletPrefab == null || firePoint == null) return;
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         bullet bulletScript = bullet.GetComponent<bullet>();
 
@@ -69,7 +83,31 @@ public class enemy : MonoBehaviour
         }
     }
 
-    
+    // í”Œë ˆì´ì–´ì˜ ê³µê²©ì„ ë°›ì•˜ì„ ë•Œ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        Debug.Log(gameObject.name + " í”¼ê²©! ë‚¨ì€ ì²´ë ¥ : " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log(gameObject.name + " ì‚¬ë§!");
+
+        // ì£½ê¸° ì§ì „ì— ë“±ë¡ëœ ì´ë²¤íŠ¸(ë¹„ë°€ì˜ ë²½ í•´ì œ ë“±)ë¥¼ ì‹¤í–‰
+        if (onDeathEvent != null)
+        {
+            onDeathEvent.Invoke();
+        }
+
+        Destroy(gameObject);
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

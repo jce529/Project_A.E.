@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// 파일 이름과 클래스 이름을 'PlayerController' (P와 C 대문자)로 통일해주세요.
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
@@ -10,40 +9,66 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider;
     private PlayerInput playerInput;
+    private PlayerAnimator playerAnimator;
 
     [Header("Player Settings")]
-    public float jumpPower = 7f;
-    public float defaultSpeed = 4f;
+    public float jumpPower = 15f;
+    public float defaultSpeed = 3f;
     public float runSpeed = 7f;
+    public float climbSpeed = 5f;
+
+    [Header("장판 효과")]
+    public float slowAmount = -1.5f; // 감속
+    public float fastAmount = 3f;    // 가속
+    private float currentSpeedModifier = 0f;
+    private bool needSpeedReset = false;
 
     [Header("Layer Masks")]
     public LayerMask groundLayer;
     public LayerMask platformLayer;
 
+    [Header("Dash Settings")]
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.15f;
+    public float dashCooldown = 1.0f;
+    public Color dashColor = Color.cyan;
+
+    private bool canDash = true;
+    private bool isDashing = false;
+    private Color originalColor;
+
     // 내부 상태 변수
     private Vector2 moveInput;
     private float maxSpeed;
     private int jumpCount = 0;
+    private GameObject currentPlatform = null;
 
-    // Awake는 게임 시작 시 한 번만 호출됩니다.
+    private bool isKnockedBack = false;
+    public bool movementLocked = false; // PlayerAttack과 연동됨
+
+    public bool isLadder = false;
+    public bool isClimbing = false;
+    private float defaultGravity;
+
     void Awake()
     {
-        // 1. 필요한 컴포넌트들을 미리 찾아둡니다.
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         playerInput = GetComponent<PlayerInput>();
 
-        // 2. 액션맵을 활성화합니다.
+        playerAnimator = GetComponent<PlayerAnimator>();
+
+        originalColor = spriteRenderer.color;
+        defaultGravity = rigid.gravityScale;
+
         playerInput.actions.FindActionMap("Player").Enable();
 
-        // 3. 코드로 직접 이벤트를 구독(연결)합니다.
         playerInput.actions["Move"].performed += OnMove;
         playerInput.actions["Move"].canceled += OnMove;
         playerInput.actions["Jump"].performed += OnJump;
     }
 
-    // 오브젝트가 파괴될 때 구독을 해제하여 메모리 누수를 방지합니다.
     void OnDestroy()
     {
         playerInput.actions["Move"].performed -= OnMove;
@@ -51,98 +76,209 @@ public class PlayerController : MonoBehaviour
         playerInput.actions["Jump"].performed -= OnJump;
     }
 
-    #region Input Callbacks
-    // --- Input System이 호출할 함수들 ---
+    public void ApplyKnockback(Vector2 dir, float force)
+    {
+        StartCoroutine(KnockbackRoutine(dir, force));
+    }
+
+    private IEnumerator KnockbackRoutine(Vector2 dir, float force)
+    {
+        isKnockedBack = true;
+        rigid.linearVelocity = Vector2.zero;
+        rigid.AddForce(dir * force, ForceMode2D.Impulse);
+
+        yield return new WaitForFixedUpdate();
+        rigid.linearVelocity = dir * force;
+
+        yield return new WaitForSeconds(0.2f);
+        isKnockedBack = false;
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+
+        if (moveInput.y < 0 && currentPlatform != null)
+        {
+            StartCoroutine(DropDownFromPlatform());
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        // 버튼을 누르는 '순간'에만 실행됩니다.
-        if (context.performed)
+        if (context.performed && !movementLocked)
         {
-            // 아래 방향키 또는 S키가 눌려있는지 직접 확인합니다.
-            bool isPressingDown = moveInput.y < -0.5f;
-
-            // 조건 1: 아래 점프 (아래를 누르고 있고, 플랫폼 위에 있을 때)
-            if (isPressingDown && isPlatform())
+            if (isClimbing)
             {
-                // TemporarilyIgnoreOneWay 코루틴을 StartCoroutine으로 올바르게 호출합니다.
-                StartCoroutine(TemporarilyIgnoreOneWay());
+                isClimbing = false;
+                rigid.gravityScale = defaultGravity;
             }
-            // 조건 2: 일반 점프
-            else if (jumpCount < 1)
+
+            if (jumpCount < 1)
             {
-                rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, 0); // Y축 속도를 초기화하여 일관된 점프 높이를 만듭니다.
-                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, jumpPower);
                 jumpCount++;
             }
         }
     }
-    #endregion
 
-    #region Physics & Updates
-    // --- 유니티 생명주기 함수들 ---
-
-    // 매 프레임마다 호출됩니다.
     void Update()
     {
-        resetJumpCount();
+        if (movementLocked) return;
+
+        ResetJumpCount();
+
+        // 공중에서 벗어난 장판 효과를 착지 시 초기화
+        if (IsGrounded() && needSpeedReset)
+        {
+            currentSpeedModifier = 0f;
+            needSpeedReset = false;
+        }
+
+        if (Keyboard.current != null && Keyboard.current.xKey.wasPressedThisFrame && canDash)
+        {
+            StartCoroutine(DashTowardsMouse());
+        }
     }
 
-    // 고정된 시간 간격으로 물리 계산에 사용됩니다.
     void FixedUpdate()
     {
-        // 달리기 키(LeftShift) 확인
-        if (Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed)
+        if (isDashing || isKnockedBack || movementLocked) return;
+
+        bool isRunning = Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
+
+        // 팀원의 장판 기믹 적용
+        float baseSpeed = isRunning ? runSpeed : defaultSpeed;
+        maxSpeed = baseSpeed + currentSpeedModifier;
+        if (maxSpeed < 1f) maxSpeed = 1f; // 너무 느려져서 조작이 반전되는 것 방지
+
+        if (isLadder && Mathf.Abs(moveInput.y) > 0.1f)
         {
-            maxSpeed = runSpeed;
+            isClimbing = true;
+        }
+
+        if (isClimbing)
+        {
+            rigid.gravityScale = 0f;
+            rigid.linearVelocity = new Vector2(moveInput.x * maxSpeed, moveInput.y * climbSpeed);
         }
         else
         {
-            maxSpeed = defaultSpeed;
+            rigid.gravityScale = defaultGravity;
+            rigid.linearVelocity = new Vector2(moveInput.x * maxSpeed, rigid.linearVelocity.y);
         }
 
-        // 이동 및 캐릭터 방향 전환
-        rigid.linearVelocity = new Vector2(moveInput.x * maxSpeed, rigid.linearVelocity.y);
-
-        if (moveInput.x > 0)
-            spriteRenderer.flipX = false;
-        else if (moveInput.x < 0)
-            spriteRenderer.flipX = true;
+        playerAnimator.UpdateAnimation(moveInput, isRunning, IsGrounded(), movementLocked);
     }
-    #endregion
 
-    #region Coroutines & Utility
-    // --- 기타 유틸리티 함수 및 코루틴 ---
-
-    // 땅 또는 플랫폼을 감지하는 함수들
-    bool isGrounded() => capsuleCollider.IsTouchingLayers(groundLayer);
-    bool isPlatform() => capsuleCollider.IsTouchingLayers(platformLayer);
-
-    // 땅에 닿았을 때 점프 횟수를 초기화하는 함수
-    void resetJumpCount()
+    private IEnumerator DashTowardsMouse()
     {
-        if (isGrounded() || isPlatform())
+        canDash = false;
+        isDashing = true;
+
+        Vector2 direction = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+
+        capsuleCollider.enabled = false;
+        spriteRenderer.color = dashColor;
+        float originalGravity = rigid.gravityScale;
+        rigid.gravityScale = 0;
+
+        float startTime = Time.time;
+        while (Time.time < startTime + dashDuration)
+        {
+            rigid.linearVelocity = direction * dashSpeed;
+            yield return null;
+        }
+
+        rigid.linearVelocity = Vector2.zero;
+        rigid.gravityScale = originalGravity;
+        capsuleCollider.enabled = true;
+        spriteRenderer.color = originalColor;
+
+        isDashing = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & platformLayer) != 0)
+        {
+            currentPlatform = collision.gameObject;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject == currentPlatform)
+        {
+            currentPlatform = null;
+        }
+    }
+
+    public bool IsGrounded()
+    {
+        float extraHeight = 0.1f;
+        RaycastHit2D hit = Physics2D.Raycast(capsuleCollider.bounds.center,
+                                              Vector2.down,
+                                              capsuleCollider.bounds.extents.y + extraHeight,
+                                              groundLayer | platformLayer);
+        return hit.collider != null;
+    }
+
+    bool IsOnPlatform() => currentPlatform != null;
+
+    void ResetJumpCount()
+    {
+        if (IsGrounded() || IsOnPlatform())
         {
             jumpCount = 0;
         }
     }
 
-    // 잠시 동안 플랫폼과의 충돌을 무시하는 코루틴
-    IEnumerator TemporarilyIgnoreOneWay()
+    // 🌟 버그 수정됨: Trigger 방식을 버리고, 특정 플레이어와 플랫폼 간의 충돌만 무시하도록 변경
+    IEnumerator DropDownFromPlatform()
     {
-        // 플랫폼과의 충돌을 일시적으로 비활성화
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"), true);
-
-        // 0.25초 동안 대기
-        yield return new WaitForSeconds(0.25f);
-
-        // 플랫폼과의 충돌을 다시 활성화
-        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Platform"), false);
+        if (currentPlatform != null)
+        {
+            Collider2D platformCollider = currentPlatform.GetComponent<Collider2D>();
+            if (platformCollider != null)
+            {
+                Physics2D.IgnoreCollision(capsuleCollider, platformCollider, true);
+                yield return new WaitForSeconds(0.25f);
+                Physics2D.IgnoreCollision(capsuleCollider, platformCollider, false);
+            }
+        }
     }
-    #endregion
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder") || other.CompareTag("Pillar"))
+        {
+            isLadder = true;
+        }
+        else if (other.CompareTag("ground(slow)")) currentSpeedModifier = slowAmount; // 감속 장판
+        else if (other.CompareTag("ground(fast)")) currentSpeedModifier = fastAmount; // 가속 장판
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder") || other.CompareTag("Pillar"))
+        {
+            isLadder = false;
+            isClimbing = false;
+            rigid.gravityScale = defaultGravity;
+        }
+        else if (other.CompareTag("ground(slow)") || other.CompareTag("ground(fast)"))
+        {
+            if (!IsGrounded())
+            {
+                needSpeedReset = true; // 점프해서 벗어났으면 착지할 때까지 장판 효과 유지 (관성 점프 가능)
+            }
+            else
+            {
+                currentSpeedModifier = 0f;
+            }
+        }
+    }
 }
