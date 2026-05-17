@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5c0f78e4acfe21a4594760304164796e
+AssetOrigin:
+  serializedVersion: 1
+  productId: 120676
+  packageName: Simple Heart Health System
+  packageVersion: 1.0
+  assetPath: Assets/HealthHeartSystem/Scripts/HealthBarController.cs
+  uploadId: 286486
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

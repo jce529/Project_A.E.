@@ -7,6 +7,11 @@ TagManager:
   - ground
   - Platform
   - Ladder
+  - Enemy
+  - Obstacle
+  - ground(fast)
+  - ground(slow)
+  - Pillar
   layers:
   - Default
   - TransparentFX
@@ -17,12 +22,12 @@ TagManager:
   - Platform
   - Ladder
   - Player
-  - Attack
+  - PlayerHitBox
   - Enemy
-  - 
-  - 
-  - 
-  - 
+  - Item
+  - ground(fast)
+  - ground(slow)
+  - EnemyAttack
   - 
   - 
   - 

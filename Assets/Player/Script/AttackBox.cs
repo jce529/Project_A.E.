@@ -1,23 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackBox : MonoBehaviour
 {
     public float damage = 10f;
-    public string targetTag = "HitBox";
-    public HP hp;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(targetTag))
+        // 1. 충돌한 대상에게서 HP 컴포넌트를 먼저 찾아봅니다.
+        HP hpTarget = other.GetComponentInParent<HP>();
+        if (hpTarget != null)
         {
-            // 부모에서 IDamageable 찾기 (플레이어나 적 본체)
-            IDamageable target = other.GetComponentInParent<IDamageable>();
-            if (target != null){
-                target.TakeDamage(damage);
-                Debug.Log("공격 성공! 데미지: " + damage);
-            }
+            // HP 컴포넌트를 찾았다면 데미지를 입히고 함수를 종료합니다.
+            hpTarget.TakeDamage(damage);
+          
+            return; // 대상을 찾았으므로 더 이상 진행하지 않음
+        }
+
+        // 2. HP 컴포넌트가 없다면, PlayerStats 컴포넌트를 찾아봅니다.
+        PlayerStats playerStatsTarget = other.GetComponentInParent<PlayerStats>();
+        if (playerStatsTarget != null)
+        {
+            // PlayerStats 컴포넌트를 찾았다면 데미지를 입힙니다.
+            playerStatsTarget.TakeDamage(damage);
+            
         }
     }
 }
