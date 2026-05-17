@@ -21,12 +21,17 @@ public class SpiritProjectileAttack : IAttackStrategy
 
         // 투사체 생성
         var go = Object.Instantiate(spirit.ProjectilePrefab, boss.transform.position, Quaternion.identity);
-        
-        // 투사체 초기화
-        var proj = go.GetComponent<SpiritProjectile>();
+
+        // 루트 또는 자식에서 컴포넌트 탐색
+        var proj = go.GetComponentInChildren<SpiritProjectile>();
         if (proj != null)
         {
-            proj.Init(dir, spirit.ProjectileDamage);
+            proj.Init(dir, spirit.ProjectileDamage, spirit.PlayerLayer);
+            Debug.Log($"[SpiritProjectileAttack] 발사 dir={dir}, pos={boss.transform.position}");
+        }
+        else
+        {
+            Debug.LogWarning("[SpiritProjectileAttack] SpiritProjectile 컴포넌트를 찾을 수 없습니다! 프리팹 구조를 확인하세요.");
         }
     }
 }

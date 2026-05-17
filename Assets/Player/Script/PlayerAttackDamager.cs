@@ -1,30 +1,40 @@
 using UnityEngine;
 
-/// <summary>
-/// Damager¸¦ »ó¼Ó¹Ş¾Æ, ÇÃ·¹ÀÌ¾îÀÇ °ø°İ(¹«±â, ÁÖ¸Ô µî)ÀÌ Àû¿¡°Ô ´ê¾ÒÀ» ¶§ µ¥¹ÌÁö¸¦ ÁÖ´Â Å¬·¡½º.
-/// ÀÌ ½ºÅ©¸³Æ®´Â ÇÃ·¹ÀÌ¾îÀÇ °ø°İ ÆÇÁ¤À» À§ÇÑ È÷Æ®¹Ú½º(Hitbox) °ÔÀÓ ¿ÀºêÁ§Æ®¿¡ ºÎÂøÇÕ´Ï´Ù.
-/// </summary>
 public class PlayerAttackDamager : Damager
 {
-    [Header("ÇÃ·¹ÀÌ¾î °ø°İ ¼³Á¤")]
-    [Tooltip("ÀÌ °ø°İÀÌ Àû¿¡°Ô ÀÔÈú µ¥¹ÌÁö ¾ç")]
     public PlayerAttack playerAttack;
+    private DamageType? _overrideType = null;
 
+    public void SetOverrideType(DamageType type) => _overrideType = type;
 
-
-    /// <summary>
-    /// ºÎ¸ğ Å¬·¡½º(Damager)ÀÇ Ãß»ó ¸Ş¼­µå¸¦ ±¸ÇöÇÕ´Ï´Ù.
-    /// È÷Æ®¹Ú½º°¡ À¯È¿ÇÑ Å¸°Ù(HP ÄÄÆ÷³ÍÆ®°¡ ÀÖ°í, ÁöÁ¤µÈ ·¹ÀÌ¾î¿¡ ¼ÓÇÑ)°ú ´êÀ¸¸é ÀÌ ¸Ş¼­µå°¡ È£ÃâµË´Ï´Ù.
-    /// </summary>
-    /// <param name="targetHP">µ¥¹ÌÁö¸¦ ¹ŞÀ» ´ë»óÀÇ HP ÄÄÆ÷³ÍÆ® (ÀÌ °æ¿ì ÀûÀÇ HP)</param>
-    protected override void ApplyDamageEffect(HP targetHP)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        // ´ë»ó(Àû)¿¡°Ô ¼³Á¤µÈ ¸¸Å­ÀÇ °ø°İ µ¥¹ÌÁö¸¦ ÀÔÈü´Ï´Ù.
-        targetHP.TakeDamage(playerAttack.damage);
+        float dmg = playerAttack != null ? playerAttack.damage : 0;
+        DamageInfo info = new DamageInfo { amount = dmg, type = _overrideType ?? DamageType.Normal };
 
-        // (¼±ÅÃ »çÇ×) ¿©±â¿¡ Ãß°¡ÀûÀÎ È¿°ú¸¦ ³ÖÀ» ¼ö ÀÖ½À´Ï´Ù.
-        // ¿¹: Å¸°İ ÀÌÆåÆ® »ı¼º, »ç¿îµå Àç»ı µî
-        // Instantiate(hitEffectPrefab, targetHP.transform.position, Quaternion.identity);
-        // SoundManager.Instance.PlaySound("HitSound");
+        // 1. EnemyHitBox (íŠ¹ìˆ˜ í”¼ê²© íŒì •)
+        var hitbox = other.GetComponent<EnemyHitBox>() ?? other.GetComponentInParent<EnemyHitBox>();
+        if (hitbox != null)
+        {
+            hitbox.TakeDamage(info);
+            return;
+        }
+
+        // 2. BossStatsSystem (ë³´ìŠ¤)
+        var boss = other.GetComponent<BossStatsSystem>() ?? other.GetComponentInParent<BossStatsSystem>();
+        if (boss != null)
+        {
+            boss.TakeDamageInfo(info);
+            return;
+        }
+
+        // 3. ì¼ë°˜ ì  (HP)
+        var hp = other.GetComponent<HP>() ?? other.GetComponentInParent<HP>();
+        if (hp != null)
+        {
+            hp.TakeDamage(dmg);
+        }
     }
+
+    protected override void ApplyDamageEffect(HP targetHP) => targetHP.TakeDamage(playerAttack.damage);
 }

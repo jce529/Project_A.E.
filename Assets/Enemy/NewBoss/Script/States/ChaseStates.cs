@@ -5,10 +5,17 @@ public class ChaseState : IBossState
     public void Enter(BossController boss)
     {
         Debug.Log("Entering Chase State");
-        // º¸½º°¡ ÃßÀû »óÅÂ¿¡ µé¾î°¥ ¶§ ÇÊ¿äÇÑ ÃÊ±âÈ­ ÀÛ¾÷ ¼öÇà
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
     public void Execute(BossController boss)
     {
+        if (!boss.TargetFound)
+        {
+            boss.StopMove();
+            boss.ChangeState(new IdleState());
+            return;
+        }
+
         float distnace = Vector2.Distance(boss.transform.position, boss.Target.transform.position);
 
         if (distnace <= boss.AttackRange)
@@ -23,6 +30,6 @@ public class ChaseState : IBossState
     public void Exit(BossController boss)
     {
         Debug.Log("Exiting Chase State");
-        // º¸½º°¡ ÃßÀû »óÅÂ¿¡¼­ ³ª¿Ã ¶§ ÇÊ¿äÇÑ Á¤¸® ÀÛ¾÷ ¼öÇà
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 }

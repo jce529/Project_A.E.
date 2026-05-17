@@ -49,20 +49,22 @@ public static class BuildPhase2Assets
     public static void PlacePhase2Objects()
     {
         var scene = EditorSceneManager.GetActiveScene();
-        
+
         // Remove existing Phase2_Weather to keep idempotent
         var existing = GameObject.Find("Phase2_Weather");
         if (existing != null) Object.DestroyImmediate(existing);
 
-        // 1. Create "Phase2_Weather" parent
-        GameObject phase2Root = new GameObject("Phase2_Weather");
+        // 1. Create or reuse "BattleAreaBounds" at scene root
+        var existingBounds = GameObject.Find("BattleAreaBounds");
+        if (existingBounds != null) Object.DestroyImmediate(existingBounds);
 
-        // 2. Create "RainArea" child
-        GameObject rainArea = new GameObject("RainArea");
-        rainArea.transform.SetParent(phase2Root.transform);
-        var rainCol = rainArea.AddComponent<BoxCollider2D>();
-        rainCol.isTrigger = true;
-        rainCol.size = new Vector2(30f, 20f);
+        GameObject battleAreaObj = new GameObject("BattleAreaBounds");
+        var battleCol = battleAreaObj.AddComponent<BoxCollider2D>();
+        battleCol.isTrigger = true;
+        battleCol.size = new Vector2(30f, 20f);
+
+        // 2. Create "Phase2_Weather" parent
+        GameObject phase2Root = new GameObject("Phase2_Weather");
 
         // 3. Create "WeatherController" child
         GameObject weatherObj = new GameObject("WeatherController");
@@ -86,33 +88,34 @@ public static class BuildPhase2Assets
         poolObj.transform.SetParent(phase2Root.transform);
         var pool = poolObj.AddComponent<PuddlePool>();
         GameObject puddlePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Enemy/WaterMonster/Resources/WaterPuddle.prefab");
-        
+
         // 6. Create "PuddleStackManager" child
         GameObject stackManagerObj = new GameObject("PuddleStackManager");
         stackManagerObj.transform.SetParent(phase2Root.transform);
         stackManagerObj.AddComponent<PuddleStackManager>();
 
-        // Wiring references
+        // Wiring references — all use BattleAreaBounds
         SerializedObject weatherSO = new SerializedObject(weatherCtrl);
         weatherSO.FindProperty("rainParticle").objectReferenceValue = ps;
-        weatherSO.FindProperty("mapBounds").objectReferenceValue = rainCol;
+        weatherSO.FindProperty("mapBounds").objectReferenceValue = battleCol;
         weatherSO.FindProperty("_puddleSpawner").objectReferenceValue = spawner;
         weatherSO.ApplyModifiedProperties();
 
         SerializedObject spawnerSO = new SerializedObject(spawner);
-        spawnerSO.FindProperty("spawnBounds").objectReferenceValue = rainCol;
+        spawnerSO.FindProperty("spawnBounds").objectReferenceValue = battleCol;
         spawnerSO.ApplyModifiedProperties();
 
         SerializedObject poolSO = new SerializedObject(pool);
         poolSO.FindProperty("puddlePrefab").objectReferenceValue = puddlePrefab;
         poolSO.ApplyModifiedProperties();
 
-        // 8. Wire WaterMonsterController._weatherController
-        var boss = Object.FindObjectOfType<WaterMonsterController>();
+        // 8. Wire WaterMonsterController fields
+        var boss = Object.FindFirstObjectByType<WaterMonsterController>();
         if (boss != null)
         {
             SerializedObject bossSO = new SerializedObject(boss);
             bossSO.FindProperty("_weatherController").objectReferenceValue = weatherCtrl;
+            bossSO.FindProperty("_battleAreaBounds").objectReferenceValue = battleCol;
             bossSO.ApplyModifiedProperties();
         }
         else
@@ -127,7 +130,7 @@ public static class BuildPhase2Assets
             var absorb = player.GetComponent<PlayerAbsorb>();
             if (absorb == null) absorb = player.AddComponent<PlayerAbsorb>();
 
-            var waterCtrl = Object.FindObjectOfType<WaterController>();
+            var waterCtrl = Object.FindFirstObjectByType<WaterController>();
             if (waterCtrl != null)
             {
                 SerializedObject absorbSO = new SerializedObject(absorb);

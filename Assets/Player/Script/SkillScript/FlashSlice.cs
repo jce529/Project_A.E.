@@ -9,8 +9,8 @@ public class FlashSlice : MonoBehaviour
     public PlayerStats playerStats;
     public GameObject slashHitboxPrefab;
 
+    //flashSlice í˜¸ì¶œ ìŠ¤í‚¬ 
 
-   //flashSlice È£Ãâ ½Ã ½ºÅ³ »ç¿ë
     public void flashSlice()
     {
         if (waterController.waterCounter() + waterController.corruptedwaterCounter() >= 1)
@@ -29,7 +29,7 @@ public class FlashSlice : MonoBehaviour
         }
         else
         {
-            Debug.Log("¹°ÀÌ ºÎÁ·ÇÕ´Ï´Ù");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½");
         }
     }
 }

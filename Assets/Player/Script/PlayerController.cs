@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float defaultSpeed = 3f;
     public float runSpeed = 7f;
     public float ladderSpeed = 5f;
+    [HideInInspector] public float speedModifier = 1f;
 
     [Header("Layer Masks")]
     public LayerMask groundLayer;
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isKnockedBack = false;
     private bool isOnLadder = false;
+
+    public bool IsImprisoned { get; set; }
 
     // 연결 여부 확인용
     private bool isConnected = false;
@@ -95,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
+        if (IsImprisoned) return;
         if (isOnLadder)
         {
             isOnLadder = false;
@@ -122,6 +126,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (IsImprisoned) { rigid.linearVelocity = Vector2.zero; return; }
         if (isKnockedBack) return;
 
         if (isOnLadder)
@@ -144,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleGroundMovement()
     {
-        maxSpeed = isRunning ? runSpeed : defaultSpeed;
+        maxSpeed = (isRunning ? runSpeed : defaultSpeed) * speedModifier;
 
         rigid.linearVelocity = new Vector2(moveInput.x * maxSpeed, rigid.linearVelocity.y);
 

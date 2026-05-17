@@ -2,80 +2,109 @@ using UnityEngine;
 
 public class CombatState : IBossState
 {
-    private float _decisionTimer;
+    protected float _decisionTimer;
 
-    // ÇöÀç ½ÇÇà ÁßÀÎ °ø°Ý Àü·«À» ±â¾ïÇÏ±â À§ÇÑ º¯¼ö
+    // í˜„ìž¬ ê³µê²© ì¤‘ì¸ ì „ëžµì„ ê´€ë¦¬í•˜ê¸° ìœ„í•œ í•„ë“œ
     private IAttackStrategy _currentAttack;
-    private bool _isAttacking; // °ø°Ý ÁßÀÎÁö ¿©ºÎ
+    private bool _isAttacking; // ê³µê²© ì¤‘ì¸ì§€ ì—¬ë¶€
 
-    public void Enter(BossController boss)
+    private float _attackWaitTimer; // ì• ë‹ˆë©”ì´ì…˜ íƒ€ìž„ì•„ì›ƒìš© íƒ€ì´ë¨¸
+    private const float MaxAttackDuration = 0.5f; // ìµœëŒ€ ëŒ€ê¸° ì‹œê°„ (ì• ë‹ˆë©”ì´ì…˜ ì—†ì„ ë•Œ ëŒ€ë¹„)
+
+    public virtual void Enter(BossController boss)
     {
+        boss.StopMove();
         _decisionTimer = 0;
         _isAttacking = false;
         _currentAttack = null;
+        _attackWaitTimer = 0;
     }
 
-    public void Execute(BossController boss)
+    public virtual void Execute(BossController boss)
     {
-        // 1. [¼öÁ¤µÊ] °ø°Ý ÁßÀÌ¶ó¸é, ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µ´ÂÁö È®ÀÎ
+        // 1. [ê³µê²©ì¤‘] ê³µê²© ì¤‘ì´ë¼ë©´, ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ëŠ”ì§€ í™•ì¸
         if (_isAttacking && _currentAttack != null)
         {
-            // BossController¿¡ ÀÖ´Â 'CheckAnimationState' ÇÔ¼ö È°¿ë
-            if (boss.CheckAnimationState(_currentAttack.AnimationName))
+            _attackWaitTimer += Time.deltaTime;
+
+            // ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ê±°ë‚˜, ë„ˆë¬´ ì˜¤ëž˜(0.5ì´ˆ) ê¸°ë‹¤ë ¸ë‹¤ë©´ ê³µê²© ì¢…ë£Œ
+            if (boss.CheckAnimationState(_currentAttack.AnimationName) || _attackWaitTimer >= MaxAttackDuration)
             {
-                // ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µÀ¸¸é °ø°Ý Á¾·á Ã³¸®
+                if (_attackWaitTimer >= MaxAttackDuration)
+                {
+                    Debug.LogWarning($"[CombatState] ì• ë‹ˆë©”ì´ì…˜ íƒ€ìž„ì•„ì›ƒìœ¼ë¡œ ê³µê²© ê°•ì œ ì¢…ë£Œ: {_currentAttack.AnimationName}");
+                }
+                else
+                {
+                    Debug.Log($"[CombatState] ê³µê²© ì¢…ë£Œ: {_currentAttack.AnimationName}");
+                }
+
                 _isAttacking = false;
                 _currentAttack = null;
+                _attackWaitTimer = 0;
             }
             else
             {
-                // ¾ÆÁ÷ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý ÁßÀÌ¹Ç·Î ´ë±â (¾Æ¹«°Íµµ ¾È ÇÔ)
                 return;
             }
         }
 
-        // 2. ÄðÅ¸ÀÓ Ã¼Å©
+        // 2. ì¿¨íƒ€ìž„ ì²´í¬ (ê³µê²© ì¢…ë£Œ í›„ ì¿¨íƒ€ìž„ ë™ì•ˆ ëŒ€ê¸°)
         _decisionTimer -= Time.deltaTime;
         if (_decisionTimer > 0) return;
 
-        // 3. ±â¹Í Ã¼Å© (º£¸®¾î ²¨Áö¸é ±×·Î±â)
-        if (!boss.Stats.IsBarrierActive)
+        // 3. ìƒíƒœ ì²´í¬ (ë² ë¦¬ì–´ê°€ ì—†ìœ¼ë©´ ê·¸ë¡œê¸°)
+        if (ShouldTransitionToGroggy(boss))
         {
             boss.ChangeState(new GroggyState());
             return;
         }
 
-        // 4. °Å¸® Ã¼Å©
+        // 4. ê±°ë¦¬ ì²´í¬
         float dist = Vector2.Distance(boss.transform.position, boss.Target.position);
         if (dist > boss.AttackRange + 1.0f)
         {
-            boss.ChangeState(new ChaseState());
+            if (!boss.TargetFound)
+            {
+                Debug.Log($"[CombatState] íƒ€ê²Ÿì´ ì¸ì‹ ë²”ìœ„ ë°–(ê±°ë¦¬: {dist:F1}). IdleStateë¡œ ì „í™˜.");
+                boss.ChangeState(new IdleState());
+            }
+            else
+            {
+                Debug.Log($"[CombatState] íƒ€ê²Ÿì´ ì‚¬ê±°ë¦¬ ë°–ìž„(ê±°ë¦¬: {dist:F1}). ChaseStateë¡œ ì „í™˜.");
+                boss.ChangeState(new ChaseState());
+            }
             return;
         }
 
-        // 5. »õ·Î¿î °ø°Ý ¼±ÅÃ ¹× ½ÇÇà
+        // 5. ìƒˆë¡œìš´ ê³µê²© ì „ëžµ ì„ íƒ
         IAttackStrategy attack = SelectAttackStrategy(boss, dist);
 
         if (attack != null)
         {
-            _currentAttack = attack; // ÇöÀç °ø°Ý ±â¾ï
-            _isAttacking = true;     // °ø°Ý ½ÃÀÛ ÇÃ·¡±×
+            Debug.Log($"[CombatState] ìƒˆë¡œìš´ ê³µê²© ì‹œìž‘: {attack.GetType().Name}");
+            _currentAttack = attack;
+            _isAttacking = true;
+            _attackWaitTimer = 0; // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
 
             attack.ExecuteAttack(boss);
-
-            // ´ÙÀ½ Çàµ¿±îÁöÀÇ ´ë±â ½Ã°£ (ÈÄµô·¹ÀÌ)
             _decisionTimer = attack.Cooldown;
         }
     }
 
-    private IAttackStrategy SelectAttackStrategy(BossController boss, float dist)
+    protected virtual bool ShouldTransitionToGroggy(BossController boss)
+    {
+        return !boss.Stats.IsBarrierActive;
+    }
+
+    protected virtual IAttackStrategy SelectAttackStrategy(BossController boss, float dist)
     {
         if (dist > 8f) return new RangedPokeAttack();
         if (boss.CanUseHeavyAttack) return new HeavyAttack();
         return new LightAttack();
     }
 
-    public void Exit(BossController boss)
+    public virtual void Exit(BossController boss)
     {
         _isAttacking = false;
         _currentAttack = null;

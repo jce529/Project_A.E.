@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(gsd:plan-phase)",
+      "Skill(gsd:discuss-phase)",
+      "Bash(node *)",
+      "Skill(gsd:new-milestone)",
+      "PowerShell(Test-Path *)",
+      "Bash(git add *)"
+    ]
+  }
+}

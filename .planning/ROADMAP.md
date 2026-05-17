@@ -13,7 +13,7 @@
 - [x] **Phase 1: 보스 기본 엔티티 및 코어 메커니즘** — 물괴물 엔티티, 물 속성 힐링 필터, HP 코스트 공격 (2026-04-12)
 - [x] **Phase 2: 날씨 시스템 및 물 웅덩이 상호작용** — 비 날씨, 웅덩이 스포너/파괴/흡수, 파괴 불가 상태 전환 (2026-04-16)
 - [x] **Phase 3: 폭발 기믹 연계 및 보스 순간이동** — 스택 임계 연쇄 폭발, 파괴 불가 웅덩이 텔레포트 패턴 (2026-04-16)
-- [ ] **Phase 4: 광폭화 및 장판 시스템** — 이속/감속 장판, 광폭화 모드 AI
+- [x] **Phase 4: 광폭화 및 장판 시스템** — 이속/감속 장판, 광폭화 모드 AI (completed 2026-04-16)
 
 ## Phase Details
 
@@ -82,8 +82,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Zone 스크립트 신규 작성 + PlayerController speedModifier + 베이스 클래스 접근자 수정
-- [ ] 04-02-PLAN.md — 광폭화 트리거 + Zone 생성 + tick HP 소모 + CombatState 쿨다운 배율/장판 AI
+- [x] 04-01-PLAN.md — Zone 스크립트 신규 작성 + PlayerController speedModifier + 베이스 클래스 접근자 수정
+- [x] 04-02-PLAN.md — 광폭화 트리거 + Zone 생성 + tick HP 소모 + CombatState 쿨다운 배율/장판 AI
 
 ## Progress
 
@@ -95,4 +95,66 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. 보스 기본 엔티티 및 코어 메커니즘 | 5/5 | Complete | 2026-04-12 |
 | 2. 날씨 시스템 및 물 웅덩이 상호작용 | 3/3 | Complete | 2026-04-16 |
 | 3. 폭발 기믹 연계 및 보스 순간이동 | 2/2 | Complete | 2026-04-16 |
-| 4. 광폭화 및 장판 시스템 | 0/2 | Not started | - |
+| 4. 광폭화 및 장판 시스템 | 0/2 | Complete    | 2026-04-16 |
+
+---
+
+# Roadmap: Project A.E — Milestone v2.0 물의_정령_보스_구현
+
+## Overview
+
+2스테이지 구조의 '분노한 물의 정령' 신규 보스를 순수 로직/상태머신으로 구현한다. 기존 `BossController` / `BossStatsSystem` 상속 구조를 재사용하며, 스테이지 1 3종 공격 패턴, 스테이지 2 은신·분신 시스템을 2개 페이즈로 완성한다. 애니메이션·시각 이펙트 없이 로직과 상태머신만 구현한다.
+
+## Phases
+
+**Phase Numbering:**
+- v1.0 Phase 1~4 완료 이후 Phase 5부터 시작
+- Integer phases (5, 6): 물의 정령 보스 구현 순서
+
+- [x] **Phase 5: 보스 기반 엔티티 및 스테이지 1 공격 패턴** — 물의 정령 독립 엔티티, HP 시스템, 사망 처리, 돌진/투사체/튕겨내기 3종 패턴 (2026-04-30)
+- [x] **Phase 6: 스테이지 전환 및 스테이지 2 은신·분신 시스템** — HP 50% 스테이지 2 전환, 은신 순간이동, 분신 3개 동시 존재 (2026-04-30)
+
+## Phase Details
+
+### Phase 5: 보스 기반 엔티티 및 스테이지 1 공격 패턴
+**Goal**: 물의 정령 보스가 씬에 독립 엔티티로 존재하며, 플레이어를 감지해 전투 상태로 진입하고, 돌진/투사체/튕겨내기 3종 공격 패턴이 쿨다운 기반으로 동작하며, HP가 0이 되면 사망 처리된다.
+**Depends on**: Nothing (first phase of milestone v2.0)
+**Requirements**: CORE-01, CORE-02, CORE-04, S1-01, S1-02, S1-03
+**Success Criteria** (what must be TRUE):
+  1. 씬에 `SpiritController : BossController` 가 배치되어 플레이어 감지 시 Idle → Combat 상태 전환이 동작한다.
+  2. 보스가 플레이어 피격을 받으면 `BossStatsSystem` 상속 HP가 감소하고, HP 0 도달 시 사망 처리(오브젝트 비활성화 또는 DeadState 전환)가 실행된다.
+  3. 중거리 조건을 만족하면 돌진 패턴(S1-01)이 발동해 보스가 빠른 속도로 플레이어 방향으로 직선 이동 후 쿨다운 상태로 전환된다.
+  4. 원거리 조건에서 투사체 패턴(S1-02)이 발동해 발사 시점의 플레이어 위치를 향해 Projectile이 날아가고, 히트 시 Player 레이어에 데미지가 적용된다.
+  5. 플레이어가 근접 거리 내에 있을 때 튕겨내기 패턴(S1-03)이 발동해 플레이어에게 knockback과 데미지가 동시에 적용된다.
+**Plans**: 2 plans
+
+Plans:
+- [x] 05-01-PLAN.md — SpiritStats + SpiritController + SpiritCombatState 기반 엔티티 3종
+- [x] 05-02-PLAN.md — 3종 공격 패턴 (SpiritCharge / SpiritProjectileAttack+Projectile / SpiritRepel)
+
+### Phase 6: 스테이지 전환 및 스테이지 2 은신·분신 시스템
+**Goal**: 보스 HP가 50% 이하로 떨어지면 스테이지 2로 1회 전환되어 기존 3종 패턴을 유지하면서 은신(순간이동 재등장)과 분신 3개 동시 존재 메커니즘이 추가된다. 분신은 공격 모션을 수행하되 데미지는 0이며, 진짜 보스만 피격 데미지를 정상 적용한다.
+**Depends on**: Phase 5
+**Requirements**: CORE-03, S2-01, S2-02, S2-03, S2-04, S2-05
+**Success Criteria** (what must be TRUE):
+  1. 보스 HP가 50% 이하로 최초 도달 시 스테이지 2 전환이 정확히 1회 발동되고, 이후 동일 조건에서 재발동되지 않는다.
+  2. 스테이지 2에서도 S1-01(돌진), S1-02(투사체), S1-03(튕겨내기) 3종 패턴이 정상 동작한다.
+  3. 은신 패턴 발동 시 보스 콜라이더가 비활성화되고 피격이 불가능한 상태에서 다른 위치로 순간이동 후 재등장한다.
+  4. 분신 생성 패턴 발동 시 진짜 보스 1개 + 분신 2개 = 총 3개의 GameObject가 씬에 동시 존재하며, 각 분신은 동일한 공격 패턴 상태머신을 실행한다.
+  5. `isDummy` 플래그가 true인 분신은 피격 시 데미지가 0으로 처리되고, false인 진짜 보스만 정상 HP 감소가 발생한다.
+**Plans**: 2 plans
+
+Plans:
+- [x] 06-01-PLAN.md — Stage 2 인프라 (SpiritStats HP 50% 트리거 + IsDummy 데미지 가드 + SpiritController DummyPrefab/Stealth 파라미터/OnStage2Trigger 콜백/Stage2 인터셉트 + Stage2CombatState 컴파일 스텁)
+- [x] 06-02-PLAN.md — Stage 2 오케스트레이션 (SpiritStealth 어택 전략 + Stage2CombatState 분신 관리/사이클 카운터/헤비콤보 분배/그로기 전환 + SpiritController.TriggerHeavyCombo)
+
+## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 5 -> 6
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 5. 보스 기반 엔티티 및 스테이지 1 공격 패턴 | 2/2 | Complete | 2026-04-30 |
+| 6. 스테이지 전환 및 스테이지 2 은신·분신 시스템 | 2/2 | Complete | 2026-04-30 |
+

@@ -8,7 +8,8 @@ namespace WaterMonster.Phase2
     {
         public static PuddleStackManager Instance { get; private set; }
 
-        [SerializeField] private int explosionThreshold = 5;
+        private int explosionThreshold = 5;
+        public int ExplosionThreshold { set => explosionThreshold = value; }
         private int _indestructibleCount = 0;
         private List<WaterPuddle> _indestructiblePuddles = new List<WaterPuddle>();
 
@@ -42,11 +43,8 @@ namespace WaterMonster.Phase2
 
         public void UnregisterIndestructible(WaterPuddle puddle)
         {
-            if (!puddle.isDestructible)
-            {
+            if (_indestructiblePuddles.Remove(puddle))
                 _indestructibleCount = Mathf.Max(0, _indestructibleCount - 1);
-                _indestructiblePuddles.Remove(puddle);
-            }
         }
 
         public void ReturnAllIndestructibleToPool()
@@ -56,8 +54,13 @@ namespace WaterMonster.Phase2
             {
                 PuddlePool.Instance.Return(puddle);
             }
-            
-            // Force reset to ensure count is 0
+
+            _indestructibleCount = 0;
+            _indestructiblePuddles.Clear();
+        }
+
+        public void ForceReset()
+        {
             _indestructibleCount = 0;
             _indestructiblePuddles.Clear();
         }

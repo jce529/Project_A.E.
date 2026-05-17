@@ -1,39 +1,48 @@
 using UnityEngine;
 
 /// <summary>
-/// InputHandlerÀÇ ÀÌº¥Æ®¸¦ ±¸µ¶ÇÏ¿© ÀÚ½Ä Å¬·¡½ºÀÇ ÇÔ¼ö¸¦ ½ÇÇàÇÕ´Ï´Ù.
+/// InputHandlerï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ú½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 /// </summary>
 public abstract class PlayerAttackBase : MonoBehaviour
 {
+    private bool _subscribed = false;
+
+    protected virtual void Start()
+    {
+        Subscribe();
+    }
+
     protected virtual void OnEnable()
     {
-        if (InputHandler.Instance != null)
-        {
-            InputHandler.Instance.OnBasicAttackEvent += OnBasicAttack;
-
-            // [¼öÁ¤] InputHandlerÀÇ Skill1 ÀÌº¥Æ® -> ÀÚ½ÄÀÇ OnSkillE ½ÇÇà
-            InputHandler.Instance.OnSkill1Event += OnSkillE;
-
-            // [¼öÁ¤] InputHandlerÀÇ Skill2 ÀÌº¥Æ® -> ÀÚ½ÄÀÇ OnSkillR ½ÇÇà
-            InputHandler.Instance.OnSkill2Event += OnSkillR;
-
-            InputHandler.Instance.OnHealEvent += OnHeal;
-        }
+        Subscribe();
     }
 
     protected virtual void OnDisable()
     {
-        if (InputHandler.Instance != null)
-        {
-            // [Áß¿ä] OnEnable¿¡¼­ ¿¬°áÇÑ °Í°ú ¶È°°Àº Â¦À¸·Î ÇØÁ¦ÇØ¾ß ÇÕ´Ï´Ù.
-            InputHandler.Instance.OnBasicAttackEvent -= OnBasicAttack;
-            InputHandler.Instance.OnSkill1Event -= OnSkillE;
-            InputHandler.Instance.OnSkill2Event -= OnSkillR;
-            InputHandler.Instance.OnHealEvent -= OnHeal;
-        }
+        Unsubscribe();
     }
 
-    // ÀÚ½Ä Å¬·¡½º(PlayerAttack)°¡ ±¸ÇöÇÒ Ãß»ó ¸Þ¼­µåµé
+    private void Subscribe()
+    {
+        if (_subscribed || InputHandler.Instance == null) return;
+        InputHandler.Instance.OnBasicAttackEvent += OnBasicAttack;
+        InputHandler.Instance.OnSkill1Event += OnSkillE;
+        InputHandler.Instance.OnSkill2Event += OnSkillR;
+        InputHandler.Instance.OnHealEvent += OnHeal;
+        _subscribed = true;
+    }
+
+    private void Unsubscribe()
+    {
+        if (!_subscribed || InputHandler.Instance == null) return;
+        InputHandler.Instance.OnBasicAttackEvent -= OnBasicAttack;
+        InputHandler.Instance.OnSkill1Event -= OnSkillE;
+        InputHandler.Instance.OnSkill2Event -= OnSkillR;
+        InputHandler.Instance.OnHealEvent -= OnHeal;
+        _subscribed = false;
+    }
+
+    // ï¿½Ú½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½(PlayerAttack)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½
     protected abstract void OnBasicAttack();
     protected abstract void OnSkillE(); // Skill 1
     protected abstract void OnSkillR(); // Skill 2

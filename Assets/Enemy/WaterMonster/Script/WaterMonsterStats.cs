@@ -7,27 +7,49 @@ using UnityEngine;
 
 public class WaterMonsterStats : BossStatsSystem
 {
-    [Header("Water Monster Tuning")]
-    [Tooltip("Multiplier applied to incoming Water damage when healing (1.0 = heal equal to damage).")]
-    [SerializeField] private float waterHealMultiplier = 1f;
+    [Header("Enrage Tick")]
+    [SerializeField] private float enrageTickInterval = 1.5f;
+    [SerializeField] private float enrageTickAmount = 5f;
+
+    private bool _isEnraged = false;
+    private float _lastTickTime = 0f;
 
     public float CurrentHealth => _currentHealth;
 
+    public void SetEnraged(bool value) { _isEnraged = value; }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (!_isEnraged) return;
+        if (Time.time - _lastTickTime < enrageTickInterval) return;
+        _lastTickTime = Time.time;
+        SpendHpCost(enrageTickAmount);
+    }
+
     protected override void TakeDamage(DamageInfo info)
     {
-        if (info.amount <= 0f) return;
+        Debug.Log($"[WaterMonsterStats] TakeDamage 호출됨! 데미지: {info.amount}, 종류: {info.type}");
 
-        if (info.element == DamageElement.Water)
+        if (info.amount <= 0f) 
         {
-            float healAmount = info.amount * waterHealMultiplier;
-            _currentHealth = Mathf.Min(MaxHealth, _currentHealth + healAmount);
-            OnHealed(healAmount);
+            Debug.LogWarning("[WaterMonsterStats] 데미지량이 0 이하입니다.");
             return;
         }
 
-        // Non-water → standard damage path via base
-        base.TakeDamage(info);
-        InvokeOnDamageTaken();
+        // 기본 공격(Normal)과 파동참(WaveSlash)만 데미지를 줌
+        if (info.type == DamageType.Normal || info.type == DamageType.WaveSlash)
+        {
+            base.TakeDamage(info);
+            InvokeOnDamageTaken();
+            return;
+        }
+
+        // 그 외의 공격은 보스를 회복시킴
+        float healAmount = info.amount;
+        _currentHealth = Mathf.Min(MaxHealth, _currentHealth + healAmount);
+        Debug.Log($"[WaterMonster] 부적절한 공격 흡수로 회복! 회복량: {healAmount}, 현재 체력: {_currentHealth}/{MaxHealth}");
+        OnHealed(healAmount);
     }
 
     /// <summary>
@@ -42,8 +64,7 @@ public class WaterMonsterStats : BossStatsSystem
     }
 
     /// <summary>
-    /// Hook fired when Water-element damage heals the boss.
-    /// Override in controller or wire via UnityEvent to trigger heal VFX / popup.
+    /// 부적절한 공격(Type.Other 등)이 보스를 회복시킬 때 호출되는 훅입니다.
     /// </summary>
     public override void OnHealed(float amount)
     {

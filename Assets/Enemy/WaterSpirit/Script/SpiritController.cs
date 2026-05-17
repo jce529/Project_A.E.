@@ -4,28 +4,40 @@ using UnityEngine;
 public class SpiritController : BossController
 {
     [Header("Spirit Combat Ranges")]
-    [SerializeField] public float RepelRange = 1.5f;     // D-02a
-    [SerializeField] public float ChargeRange = 5.0f;    // D-02a
-    // ProjectileRange is implicitly anything beyond ChargeRange (D-03a)
+    public float RepelRange = 1.5f;
+    public float ChargeRange = 5.0f;
 
-    [Header("Charge Settings (S1-01)")]
-    [SerializeField] public float ChargeWindup = 0.5f;    // D-04e
-    [SerializeField] public float ChargeSpeed = 12f;      // D-04e
-    [SerializeField] public float OvershotDistance = 2.0f; // D-04e
-    [SerializeField] public float ChargeDamage = 15f;
+    [Header("Charge Settings")]
+    public float ChargeWindup = 0.5f;
+    public float ChargeSpeed = 20f;
+    public float OvershotDistance = 3.0f;
+    public float ChargeDamage = 15f;
 
-    [Header("Repel Settings (S1-03)")]
-    [SerializeField] public float RepelDamage = 10f;
-    [SerializeField] public float RepelForce = 8f;
+    [Header("Repel Settings")]
+    public float RepelDamage = 10f;
+    public float RepelForce = 8f;
 
-    [Header("Projectile (S1-02)")]
-    [SerializeField] public GameObject ProjectilePrefab;
-    [SerializeField] public float ProjectileDamage = 12f;
+    [Header("Projectile Settings")]
+    public GameObject ProjectilePrefab;
+    public float ProjectileDamage = 12f;
+
+    [Header("Stage 2 Settings")]
+    public GameObject DummyPrefab;
+    [Range(0.1f, 3f)] public float StealthDuration = 0.5f;
+    [Range(1f, 10f)] public float MinTeleportRadius = 3f;
+    [Range(1f, 15f)] public float MaxTeleportRadius = 6f;
+
+    [Header("Detection")]
+    public LayerMask PlayerLayer; // 에디터에서 설정 가능하도록 노출
 
     public bool IsCharging { get; private set; }
     private bool _hasHitPlayerThisCharge;
 
+    public bool IsStage2 { get; private set; } = false;
     public bool IsDummy => (Stats as SpiritStats)?.IsDummy ?? false;
+    public bool IsHeavyComboInProgress { get; private set; }
+
+    // NOTE: 물리 설정(Kinematic, Trigger)은 에디터의 프리팹 설정에서 직접 변경하는 것을 권장합니다.
 
     public void SetCharging(bool value)
     {
@@ -33,37 +45,68 @@ public class SpiritController : BossController
         if (value) _hasHitPlayerThisCharge = false;
     }
 
-    public void SetVelocity(Vector2 vel)
+    public void SetVelocity(Vector2 vel) => _rb.linearVelocity = vel;
+
+    public void OnStage2Trigger()
     {
-        // Unity 6 Physics 2D: use linearVelocity instead of velocity
-        _rb.linearVelocity = vel;
+        if (IsStage2) return;
+        IsStage2 = true;
+        Debug.Log("[SpiritController] Stage 2 진입");
+        ChangeState(new Stage2CombatState());
+    }
+
+    public void TriggerHeavyCombo()
+    {
+        StopAllCoroutines();
+        StartCoroutine(HeavyComboRoutine());
+    }
+
+    private System.Collections.IEnumerator HeavyComboRoutine()
+    {
+        IsHeavyComboInProgress = true;
+        yield return new SpiritStealth().StealthRoutine(this); 
+        yield return new WaitForSeconds(0.1f);
+        
+        new SpiritCharge().ExecuteAttack(this);
+        yield return new WaitForSeconds(ChargeWindup + 2.0f);
+        
+        IsHeavyComboInProgress = false;
     }
 
     protected override void Update()
     {
         base.Update();
-
-        // CORE-01: Intercept CombatState and swap with SpiritCombatState
-        if (CurrentState != null && CurrentState.GetType() == typeof(CombatState))
+        // 상태 인터셉트 로직 유지
+        if (CurrentState is CombatState && !(CurrentState is SpiritCombatState) && !(CurrentState is Stage2CombatState))
         {
-            ChangeState(new SpiritCombatState());
+            ChangeState(IsStage2 && !IsDummy ? (IBossState)new Stage2CombatState() : new SpiritCombatState());
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void CleanupClones()
     {
-        // D-04d: Apply damage only once per charge
-        if (!IsCharging || _hasHitPlayerThisCharge) return;
-
-        // Filter for Player layer
-        if (((1 << other.gameObject.layer) & LayerMask.GetMask("Player")) == 0) return;
-
-        var ps = other.GetComponentInParent<PlayerStats>();
-        if (ps != null)
+        if (IsDummy) return;
+        var allSpirits = Object.FindObjectsByType<SpiritController>(FindObjectsSortMode.None);
+        foreach (var spirit in allSpirits)
         {
-            ps.TakeDamage(ChargeDamage);
+            if (spirit != null && spirit.IsDummy) Object.Destroy(spirit.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) => HandleChargeImpact(other.gameObject);
+    private void OnCollisionEnter2D(Collision2D collision) => HandleChargeImpact(collision.gameObject);
+
+    private void HandleChargeImpact(GameObject other)
+    {
+        if (!IsCharging || _hasHitPlayerThisCharge) return;
+        if (((1 << other.layer) & PlayerLayer) == 0) return;
+
+        var hp = other.GetComponentInParent<HP>();
+        if (hp != null)
+        {
             _hasHitPlayerThisCharge = true;
-            Debug.Log($"[SpiritController] Charge Hit! Damage: {ChargeDamage}");
+            hp.TakeDamage(ChargeDamage);
+            Debug.Log($"[SpiritController] Charge Hit: {other.name}");
         }
     }
 }

@@ -11,8 +11,8 @@ public class GiveDmg : MonoBehaviour
         hp = Target.GetComponent<HP>();
         if (hp != null)
         {
-            hp.takeDmg(dmg);
-            Debug.Log("°ø°Ý ¼º°ø! µ¥¹ÌÁö: " + dmg);
+            hp.TakeDamage(dmg);
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + dmg);
         }
     }
 }

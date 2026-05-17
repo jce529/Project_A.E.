@@ -18,18 +18,22 @@ public class SpiritRepel : IAttackStrategy
 
         foreach (var hit in hits)
         {
-            // PlayerStats와 PlayerController는 보통 부모 오브젝트에 위치함
-            var playerStats = hit.GetComponentInParent<PlayerStats>();
+            // HP와 PlayerController는 보통 부모 오브젝트에 위치함
+            var hp = hit.GetComponentInParent<HP>();
             var playerCtrl = hit.GetComponentInParent<PlayerController>();
 
             // 넉백 방향: 보스에서 플레이어 쪽으로 밀어내는 방향
             Vector2 knockDir = ((Vector2)hit.transform.position - origin).normalized;
             if (knockDir == Vector2.zero) knockDir = Vector2.up; // 겹쳐있을 경우 위로 튕김
 
-            if (playerStats != null)
+            if (hp != null)
             {
-                playerStats.TakeDamage(spirit.RepelDamage);
-                Debug.Log($"[SpiritRepel] Hit Player! Damage: {spirit.RepelDamage}");
+                hp.TakeDamage(spirit.RepelDamage);
+                Debug.Log($"[SpiritRepel] Hit Player! Target: {hit.name}, Damage: {spirit.RepelDamage}");
+            }
+            else
+            {
+                Debug.LogWarning($"[SpiritRepel] Detected object on Player layer ({hit.name}), but no HP component found in parent!");
             }
 
             if (playerCtrl != null)

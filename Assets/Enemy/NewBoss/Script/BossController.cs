@@ -34,7 +34,13 @@ public class BossController : MonoBehaviour
 
         // 레퍼런스가 비어있으면 자동으로 찾아서 연결
         if (Stats == null) Stats = GetComponent<BossStatsSystem>();
-       // if (Anim == null) Anim = GetComponent<Animator>();
+        if (Anim == null) Anim = GetComponent<Animator>();
+
+        if (Target == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null) Target = player.transform;
+        }
     }
 
     protected virtual void Start()
@@ -96,11 +102,13 @@ public class BossController : MonoBehaviour
 
     private void LookAtTarget(Vector2 targetPos)
     {
-        // 크기(Scale)는 Z축이 1이어야 하므로 Vector3를 사용합니다.
+        Vector3 currentScale = transform.localScale;
+        float targetXScale = Mathf.Abs(currentScale.x);
+
         if (targetPos.x > transform.position.x)
-            transform.localScale = new Vector3(1, 1, 1);       // 오른쪽 보기
+            transform.localScale = new Vector3(targetXScale, currentScale.y, currentScale.z);
         else if (targetPos.x < transform.position.x)
-            transform.localScale = new Vector3(-1, 1, 1);      // 왼쪽 보기
+            transform.localScale = new Vector3(-targetXScale, currentScale.y, currentScale.z);
     }
 
     // --- 공격 쿨타임 및 루틴 ---
@@ -119,13 +127,25 @@ public class BossController : MonoBehaviour
     // 특정 애니메이션이 끝났는지 확인하는 함수 (이름으로 체크)
     public bool CheckAnimationState(string stateName)
     {
-        if (Anim == null) return false;
+        if (Anim == null) return true;
 
         AnimatorStateInfo stateInfo = Anim.GetCurrentAnimatorStateInfo(0);
-        if (stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1.0f && !Anim.IsInTransition(0))
+        
+        // 현재 상태가 체크하려는 상태(stateName)가 아니면 
+        // 1. 이미 애니메이션이 끝나서 다음 상태(예: Idle)로 넘어갔거나
+        // 2. 아직 상태에 진입하지 않은 것임
+        if (!stateInfo.IsName(stateName))
+        {
+            // 전이 중이 아니라면 이미 끝난 것으로 간주 (무한 대기 방지)
+            return !Anim.IsInTransition(0);
+        }
+
+        // 해당 상태인 경우, 재생 시간이 1.0(100%) 이상이면 끝난 것
+        if (stateInfo.normalizedTime >= 1.0f && !Anim.IsInTransition(0))
         {
             return true;
         }
+
         return false;
     }
 

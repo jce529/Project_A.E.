@@ -8,19 +8,49 @@ using WaterMonster.Phase2;
 /// </summary>
 public class PlayerAbsorb : MonoBehaviour
 {
+    public enum InputType { Interact, BasicAttack, Skill1, Skill2, Heal }
+
     [SerializeField] private WaterController _waterController;
     [SerializeField] private float absorbRadius = 2f;
+    [SerializeField] private InputType _inputType = InputType.Interact;
 
     private void OnEnable()
     {
-        if (InputHandler.Instance != null)
-            InputHandler.Instance.OnInteractEvent += TryAbsorb;
+        SubscribeInput(true);
     }
 
     private void OnDisable()
     {
-        if (InputHandler.Instance != null)
-            InputHandler.Instance.OnInteractEvent -= TryAbsorb;
+        SubscribeInput(false);
+    }
+
+    private void SubscribeInput(bool subscribe)
+    {
+        if (InputHandler.Instance == null) return;
+
+        switch (_inputType)
+        {
+            case InputType.Interact:
+                if (subscribe) InputHandler.Instance.OnInteractEvent += TryAbsorb;
+                else InputHandler.Instance.OnInteractEvent -= TryAbsorb;
+                break;
+            case InputType.BasicAttack:
+                if (subscribe) InputHandler.Instance.OnBasicAttackEvent += TryAbsorb;
+                else InputHandler.Instance.OnBasicAttackEvent -= TryAbsorb;
+                break;
+            case InputType.Skill1:
+                if (subscribe) InputHandler.Instance.OnSkill1Event += TryAbsorb;
+                else InputHandler.Instance.OnSkill1Event -= TryAbsorb;
+                break;
+            case InputType.Skill2:
+                if (subscribe) InputHandler.Instance.OnSkill2Event += TryAbsorb;
+                else InputHandler.Instance.OnSkill2Event -= TryAbsorb;
+                break;
+            case InputType.Heal:
+                if (subscribe) InputHandler.Instance.OnHealEvent += TryAbsorb;
+                else InputHandler.Instance.OnHealEvent -= TryAbsorb;
+                break;
+        }
     }
 
     private void TryAbsorb()

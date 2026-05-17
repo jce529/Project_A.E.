@@ -48,7 +48,8 @@ namespace WaterMonster.Phase2
             if (_sr != null)
                 _sr.color = Color.white;
 
-            PuddleStackManager.Instance.UnregisterIndestructible(this);
+            if (PuddleStackManager.Instance != null)
+                PuddleStackManager.Instance.UnregisterIndestructible(this);
             gameObject.SetActive(false);
         }
     }

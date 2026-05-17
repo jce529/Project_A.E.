@@ -9,6 +9,8 @@ TagManager:
   - Ladder
   - Enemy
   - Obstacle
+  - HitBox
+  - WaterPuddle
   layers:
   - Default
   - TransparentFX
