@@ -70,6 +70,7 @@ namespace TutorialBoss
         private IEnumerator AttackRoutine(BossController boss)
         {
             boss.StopMove();
+            boss.Anim?.SetTrigger("AttackTrigger");
 
             // AoE 판정의 중심점: 보스 Transform 위치 사용
             // _hitHeight가 충분히 크므로 보스 위치 기준으로도 상·중·하단을 커버함
@@ -117,7 +118,7 @@ namespace TutorialBoss
             {
                 if (hit.CompareTag("Player"))
                 {
-                    var hp = hit.GetComponent<HP>();
+                    var hp = hit.GetComponentInParent<HP>();
                     if (hp != null)
                     {
                         Debug.Log($"[TentaclePierce] >> Player Hit! Damage: {_damage}");

@@ -11,14 +11,14 @@ namespace WaterMonster.Phase4
             // REQ-WM-X-01: Player 레이어에만 적용
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             var pc = other.GetComponentInParent<PlayerController>();
-            if (pc != null) pc.speedModifier = speedMultiplier;
+            if (pc != null) pc.currentSpeedModifier = speedMultiplier;
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             var pc = other.GetComponentInParent<PlayerController>();
-            if (pc != null) pc.speedModifier = 1f;
+            if (pc != null) pc.currentSpeedModifier = 0f;
         }
     }
 }

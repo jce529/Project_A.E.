@@ -55,6 +55,8 @@ public class PlayerWaterUI : MonoBehaviour
             GameObject slot = Instantiate(bottleSlotPrefab, bottlesParent);
             Image img = slot.GetComponent<Image>();
             if (img == null) img = slot.GetComponentInChildren<Image>();
+            if (img == null)
+                Debug.LogError($"[PlayerWaterUI] bottleSlotPrefab({slot.name})에 Image 컴포넌트가 없습니다!", slot);
             bottleImages.Add(img);
         }
     }
@@ -74,6 +76,8 @@ public class PlayerWaterUI : MonoBehaviour
             int[] bottleState = waterController.bottles[i];
             bool isFilled = bottleState[0] == 1;
             bool isCorrupted = bottleState[1] == 1;
+
+            if (bottleImages[i] == null) continue;
 
             if (isFilled)
             {

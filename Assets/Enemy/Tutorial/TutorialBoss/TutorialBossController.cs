@@ -23,11 +23,11 @@ namespace TutorialBoss
         [Tooltip("중앙 코어 오브젝트의 Transform. 피격 콜라이더(Hitbox)가 이 오브젝트에 있어야 합니다.")]
         public Transform CoreTransform;
 
-        [Tooltip("평상시 코어의 Y 위치 (플레이어 근접 공격이 닿지 않는 높은 위치)")]
-        public float CoreNormalY = 8f;
+        [Tooltip("평상시 코어 Y 오프셋 (초기 코어 위치 기준. 양수=위쪽, 음수=아래쪽)")]
+        public float CoreNormalY = 3f;
 
-        [Tooltip("그로기 시 코어가 내려오는 Y 위치 (플레이어가 타격 가능한 바닥 근처 높이)")]
-        public float CoreGroggyY = 1.5f;
+        [Tooltip("그로기 시 코어 Y 오프셋 (초기 코어 위치 기준. 음수=아래쪽)")]
+        public float CoreGroggyY = -3.5f;
 
         [Tooltip("코어가 위/아래로 이동하는 데 걸리는 시간 (초). 작을수록 빠르게 낙하/상승합니다.")]
         public float CoreMoveDuration = 1.2f;
@@ -38,6 +38,14 @@ namespace TutorialBoss
         [Range(3f, 8f)]
         public float GroggyDuration = 5f;
 
+        [Tooltip("그로기 종료 후 일어나는 애니메이션 재생 시간 (초). GroggyExit 클립 길이에 맞춰 설정하세요.")]
+        public float GroggyExitDuration = 1f;
+
+        // ─── 벽 오픈 연동 ─────────────────────────────────────────────────
+        [Header("사망 시 열릴 벽")]
+        [Tooltip("보스 사망 시 UnlockWall()을 호출할 InteractableWall 오브젝트")]
+        public InteractableWall WallToUnlock;
+
         // ─── 공격 프리팹 ──────────────────────────────────────────────────
         [Header("공격에 사용할 프리팹")]
         [Tooltip("공격 전조(경고 표시)에 사용할 프리팹. SpriteRenderer가 있는 단순한 이미지 오브젝트 권장.")]
@@ -46,8 +54,13 @@ namespace TutorialBoss
         [Tooltip("촉수 휘두르기 시각 효과 프리팹. BoxCollider2D(IsTrigger)를 포함하면 충돌 감지에 활용됩니다.")]
         public GameObject SwipePrefab;
 
+        [Tooltip("땅에서 솟아오르는 가시 프리팹. RootSpike 컴포넌트와 BoxCollider2D(IsTrigger)가 있어야 합니다.")]
+        public GameObject RootSpikePrefab;
+
         // ─── 내부 상태 변수 ──────────────────────────────────────────────
         private HP _hp;
+        private float _coreStartY;
+        private HP.OnHealthChangedDelegate _onDamageLog;
 
         // ─── 공개 프로퍼티 (State 클래스에서 접근) ───────────────────────
 
@@ -79,7 +92,17 @@ namespace TutorialBoss
             {
                 _hp.ManualDeath = true;     // HP 0이 되어도 자동 Destroy 방지
                 _hp.OnDeath += HandleDeath; // 사망 이벤트 구독
+                _onDamageLog = () =>
+                {
+                    Debug.Log($"[TutorialBoss] 피격! 현재 HP: {_hp.Health:F0} / {_hp.MaxHealth:F0}");
+                    Anim?.SetTrigger("HitTrigger");
+                };
+                _hp.onHealthChangedCallback += _onDamageLog;
             }
+
+            // 코어 초기 Y 위치 캐싱 (이후 오프셋 계산의 기준점)
+            if (CoreTransform != null)
+                _coreStartY = CoreTransform.position.y;
 
             // 초기 상태: 대기(Idle)
             ChangeState(new TutorialIdleState());
@@ -91,10 +114,10 @@ namespace TutorialBoss
 
         // ─── 코어 이동 코루틴 (GroggyState에서 StartCoroutine으로 호출) ──
         /// <summary>
-        /// CoreTransform을 targetY까지 duration 시간 동안 부드럽게 이동시킨다.
+        /// CoreTransform을 targetY(절대 Y)까지 duration 시간 동안 부드럽게 이동시킨다.
         /// SmoothStep을 사용해 시작/끝 지점에서 자연스럽게 가속·감속한다.
         /// </summary>
-        /// <param name="targetY">이동할 목표 Y 값 (CoreGroggyY 또는 CoreNormalY)</param>
+        /// <param name="targetY">이동할 절대 Y 좌표</param>
         /// <param name="duration">이동에 걸리는 시간 (초)</param>
         public IEnumerator MoveCoreToY(float targetY, float duration)
         {
@@ -105,8 +128,7 @@ namespace TutorialBoss
             }
 
             Vector3 startPos = CoreTransform.position;
-            // X, Z 좌표는 고정 / Y 좌표만 목표로 변경
-            Vector3 endPos  = new Vector3(startPos.x, targetY, startPos.z);
+            Vector3 endPos   = new Vector3(startPos.x, targetY, startPos.z);
             float   elapsed = 0f;
 
             while (elapsed < duration)
@@ -135,7 +157,10 @@ namespace TutorialBoss
         private void OnDestroy()
         {
             if (_hp != null)
+            {
                 _hp.OnDeath -= HandleDeath;
+                _hp.onHealthChangedCallback -= _onDamageLog;
+            }
         }
 
         // ─── 에디터 Gizmo (개발 중 코어 위치 시각화) ────────────────────
@@ -143,19 +168,21 @@ namespace TutorialBoss
         private void OnDrawGizmosSelected()
         {
             if (CoreTransform == null) return;
-            float cx = CoreTransform.position.x;
+            float cx   = CoreTransform.position.x;
+            // 에디터 모드: 코어의 현재 씬 Y를 기준점으로, 플레이 중: 캐싱된 초기 Y 사용
+            float baseY = Application.isPlaying ? _coreStartY : CoreTransform.position.y;
 
             // 청록 구체: 평상시 코어가 위치하는 높이
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(new Vector3(cx, CoreNormalY, 0f), 0.6f);
+            Gizmos.DrawWireSphere(new Vector3(cx, baseY + CoreNormalY, 0f), 0.6f);
             UnityEditor.Handles.Label(
-                new Vector3(cx + 0.8f, CoreNormalY, 0f), "Normal Y (평상시)");
+                new Vector3(cx + 0.8f, baseY + CoreNormalY, 0f), $"Normal Y (평상시) [{baseY + CoreNormalY:F1}]");
 
             // 노랑 구체: 그로기 시 코어가 내려오는 높이
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(new Vector3(cx, CoreGroggyY, 0f), 0.6f);
+            Gizmos.DrawWireSphere(new Vector3(cx, baseY + CoreGroggyY, 0f), 0.6f);
             UnityEditor.Handles.Label(
-                new Vector3(cx + 0.8f, CoreGroggyY, 0f), "Groggy Y (공격 기회)");
+                new Vector3(cx + 0.8f, baseY + CoreGroggyY, 0f), $"Groggy Y (공격 기회) [{baseY + CoreGroggyY:F1}]");
         }
 #endif
     }

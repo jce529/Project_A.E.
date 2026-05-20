@@ -13,6 +13,7 @@ namespace TutorialBoss
         public void Enter(BossController boss)
         {
             boss.StopMove();
+            boss.Anim?.SetTrigger("IdleTrigger");
             Debug.Log("[TutorialBoss] ──→ Idle 상태");
         }
 

@@ -6,7 +6,7 @@
 using UnityEngine;
 
 // 1. HP 클래스를 상속받습니다.
-public class PlayerStats : HP 
+public class PlayerStats : HP
 {
     #region Sigleton
     private static PlayerStats instance;

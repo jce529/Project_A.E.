@@ -18,7 +18,7 @@ namespace TutorialBoss
     public class TentacleSwipeStrategy : IAttackStrategy
     {
         // ─── IAttackStrategy 구현 ─────────────────────────────────────────
-        public float  Cooldown      => 6.0f;
+        public float  Cooldown      => 4.0f;
         public string AnimationName => "Attack_TentacleSwipe";
 
         // ─── 공격 파라미터 ────────────────────────────────────────────────
@@ -211,7 +211,7 @@ namespace TutorialBoss
 
         private void ApplyDamage(Collider2D target)
         {
-            var hp = target.GetComponent<HP>();
+            var hp = target.GetComponentInParent<HP>();
             if (hp != null)
             {
                 Debug.Log($"[TentacleSwipe] >> Player Hit! Damage: {_damage}");

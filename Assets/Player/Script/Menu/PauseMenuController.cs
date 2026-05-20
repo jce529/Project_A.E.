@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class PauseMenuController : MonoBehaviour
 {
-    // ¿ÜºÎ¿¡¼­ Á¢±ÙÇÒ ÀÏÀÌ °ÅÀÇ ¾øÀ¸¹Ç·Î ½Ì±ÛÅæ Á¦°Å °¡´É (¿øÇÏ¸é À¯Áö)
     public static PauseMenuController Instance;
 
-    [Header("Ã¹ ¹øÂ° ¸Ş´º¸¸ ¿¬°á")]
-    public GameObject pausePanel; // ¸ŞÀÎ ÀÏ½ÃÁ¤Áö ÆĞ³Î¸¸ ¿¬°á
+    [Header("ì²« ë²ˆì§¸ ë©”ë‰´ì˜ íŒ¨ë„")]
+    public GameObject pausePanel;
 
     private void Awake()
     {
@@ -20,7 +19,6 @@ public class PauseMenuController : MonoBehaviour
             InputHandler.Instance.OnPauseEvent += HandlePauseInput;
         }
 
-        // ½ÃÀÛ ½Ã ¸ŞÀÎ ÆĞ³Î¸¸ È®½ÇÈ÷ ²¨ÁÜ (³ª¸ÓÁö´Â °¢ÀÚ ºÎ¸ğ ¹Ø¿¡ ÀÖÀ¸´Ï ¾Ë¾Æ¼­ ²¨Áü)
         if (pausePanel != null) pausePanel.SetActive(false);
     }
 
@@ -32,12 +30,12 @@ public class PauseMenuController : MonoBehaviour
 
     private void HandlePauseInput()
     {
-        // 1. UI°¡ ¿­·ÁÀÖÀ¸¸é -> µÚ·Î°¡±â
-        if (!UIManager.Instance.TopPanel)
+        // 1. UIê°€ ì—´ë ¤ìˆìœ¼ë©´ -> ë’¤ë¡œê°€ê¸°
+        if (UIManager.Instance.IsUIOpen())
         {
             UIManager.Instance.PopPanel();
         }
-        // 2. °ÔÀÓ ÁßÀÌ¸é -> ¸ŞÀÎ ¸Ş´º(PausePanel) ¿­±â
+        // 2. ê²Œì„ ì¤‘ì´ë©´ -> ì¼ì‹œ ì •ì§€ ë©”ë‰´(PausePanel) ì—´ê¸°
         else if (GameStateManager.Instance.CurrentState == GameStateManager.GameState.Playing)
         {
             if (pausePanel != null)

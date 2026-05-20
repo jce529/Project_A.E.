@@ -14,6 +14,7 @@ namespace TutorialBoss
         {
             Debug.Log("[TutorialBoss] ──→ Dead 상태! 보스 사망");
             boss.StopMove();
+            boss.Anim?.SetTrigger("GroggyTrigger");
 
             // 코어 콜라이더 비활성화 (더 이상 피격되지 않도록)
             var col = boss.GetComponent<Collider2D>();
@@ -30,6 +31,11 @@ namespace TutorialBoss
             // 사망 애니메이션 재생 구간 (필요 시 주석 해제)
             // boss.Anim?.SetTrigger("Die");
             yield return new WaitForSeconds(2.5f);
+
+            // 벽 열기
+            var tutorialBoss = boss as TutorialBossController;
+            if (tutorialBoss != null && tutorialBoss.WallToUnlock != null)
+                tutorialBoss.WallToUnlock.UnlockWall();
 
             // 클리어 UI 표시
             if (UIManager.Instance != null && UIManager.Instance.ClearPanel != null)

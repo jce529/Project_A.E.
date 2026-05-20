@@ -27,11 +27,23 @@ namespace TutorialBoss
         // 공격 횟수 카운터 (짝/홀로 패턴 교대 결정)
         private int _attackCount = 0;
 
+        // 스파이크 독립 타이머 (다른 패턴과 무관하게 5초마다 발동)
+        private float _spikeTimer;
+        private const float SpikeInterval = 5f;
+        private TutorialRootSpikeStrategy _spikeStrategy;
+
         public void Enter(BossController boss)
         {
             _attackTimer = EnterDelay; // 진입 직후 바로 공격하지 않도록 딜레이
             _busyTimer   = 0f;
+            _spikeTimer  = SpikeInterval;
+
+            var tb = boss as TutorialBossController;
+            if (tb != null)
+                _spikeStrategy = new TutorialRootSpikeStrategy(tb.WarningPrefab, tb.RootSpikePrefab);
+
             boss.StopMove();
+            boss.Anim?.SetTrigger("AttackTrigger");
             Debug.Log("[TutorialBoss] ──→ Attack 상태");
         }
 
@@ -60,6 +72,14 @@ namespace TutorialBoss
             // 타이머 감소 (매 프레임)
             if (_busyTimer   > 0f) _busyTimer   -= Time.deltaTime;
             if (_attackTimer > 0f) _attackTimer -= Time.deltaTime;
+
+            // 스파이크 독립 타이머 (busyTimer와 무관하게 항상 진행)
+            _spikeTimer -= Time.deltaTime;
+            if (_spikeTimer <= 0f)
+            {
+                _spikeTimer = SpikeInterval;
+                _spikeStrategy?.Execute(boss);
+            }
 
             // 두 타이머 중 하나라도 남아있으면 대기
             if (_busyTimer > 0f || _attackTimer > 0f) return;
