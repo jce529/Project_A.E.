@@ -1,38 +1,59 @@
 using UnityEngine;
 
+// ì¼ì‹œì •ì§€ íŒ¨ë„ - ESC ìž…ë ¥ ì²˜ë¦¬ ë° ë²„íŠ¼ ì´ë²¤íŠ¸ ë‹´ë‹¹
+// íƒ­ ì „í™˜ì€ PauseMenuTabControllerê°€ ë‹´ë‹¹
 public class PauseMenu : MonoBehaviour
 {
-    [Header("¿¬°áÇÒ UI")]
-    public GameObject settingPanel; // ¹Ù·Î ´ÙÀ½ ´Ü°èÀÎ '¼³Á¤ ÆÐ³Î'À» Á÷Á¢ ¿¬°á
-
-    // [°è¼ÓÇÏ±â] ¹öÆ°
-    public void OnResumeBtnClick()
+    private void Start()
     {
-        UIManager.Instance.CloseAll();
-    }
-
-    // [¼³Á¤] ¹öÆ°
-    public void OnSettingsBtnClick()
-    {
-        if (settingPanel != null)
+        if (InputHandler.Instance != null)
         {
-            // UIManager¿¡°Ô "³» ´ÙÀ½ ´Ü°èÀÎ ¼³Á¤Ã¢À» ¿­¾îÁà" ¿äÃ»
-            UIManager.Instance.PushPanel(settingPanel);
+            InputHandler.Instance.OnPauseEvent += OnPauseInput;
+            Debug.Log("[PauseMenu] Start() ì‹¤í–‰ë¨ - OnPauseEvent êµ¬ë… ì™„ë£Œ");
         }
         else
         {
-            Debug.LogError("PauseMenu: SettingPanelÀÌ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("[PauseMenu] Start() ì‹¤í–‰ë¨ - InputHandler.Instanceê°€ null! êµ¬ë… ì‹¤íŒ¨");
         }
+        gameObject.SetActive(false);
     }
 
-    // [Á¾·á] ¹öÆ°
+    private void OnDestroy()
+    {
+        if (InputHandler.Instance != null)
+            InputHandler.Instance.OnPauseEvent -= OnPauseInput;
+    }
+
+    private void OnPauseInput()
+    {
+        Debug.Log($"[PauseMenu] OnPauseInput ìˆ˜ì‹  - í˜„ìž¬ íŒ¨ë„ í™œì„±: {gameObject.activeSelf}, GameState: {GameStateManager.Instance?.CurrentState}");
+        if (gameObject.activeSelf)
+            Close();
+        else if (GameStateManager.Instance.CurrentState == GameStateManager.GameState.Playing)
+            Open();
+    }
+
+    // [ê³„ì†í•˜ê¸°] ë²„íŠ¼ OnClick
+    public void OnResumeBtnClick() => Close();
+
+    // [ë‚˜ê°€ê¸°] ë²„íŠ¼ OnClick
     public void OnQuitBtnClick()
     {
-        Debug.Log("°ÔÀÓ Á¾·á");
         Application.Quit();
-
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    private void Open()
+    {
+        gameObject.SetActive(true);
+        GameStateManager.Instance?.SetState(GameStateManager.GameState.Paused);
+    }
+
+    private void Close()
+    {
+        gameObject.SetActive(false);
+        GameStateManager.Instance?.SetState(GameStateManager.GameState.Playing);
     }
 }

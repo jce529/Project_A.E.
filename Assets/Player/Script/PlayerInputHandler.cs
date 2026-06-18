@@ -1,46 +1,33 @@
 using UnityEngine;
 
 /// <summary>
-/// ÇÃ·¹ÀÌ¾îÀÇ °ø°İ ¹× ½ºÅ³ ÀÔ·ÂÀ» Ã³¸®ÇÏ´Â Ãß»ó Å¬·¡½ºÀÔ´Ï´Ù.
-/// ¾î¶² Å°°¡ ´­·È´ÂÁö¸¸ °¨ÁöÇÏ°í, ½ÇÁ¦ Çàµ¿Àº ÀÚ½Ä Å¬·¡½º¿¡¼­ Á¤ÀÇÇÕ´Ï´Ù.
+/// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½Ô·ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ß»ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
+/// ï¿½î¶² Å°ï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½àµ¿ï¿½ï¿½ ï¿½Ú½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 /// </summary>
 public abstract class PlayerInputHandler : MonoBehaviour
 {
-    // Update ÇÔ¼ö¸¦ virtual·Î ¼±¾ğÇÏ¿© ÀÚ½Ä Å¬·¡½º°¡ ¿øÇÑ´Ù¸é ÀÌ ÇÔ¼ö ÀÚÃ¼¸¦ ÀçÁ¤ÀÇÇÒ ¼öµµ ÀÖ½À´Ï´Ù.
-    protected virtual void Update()
+    protected virtual void Start()
     {
-        // ±âº»°ø°İ ÀÔ·Â °¨Áö
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F))
-        {
-            OnBasicAttack();
-        }
-
-        // E ½ºÅ³ ÀÔ·Â °¨Áö
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            OnSkillE();
-        }
-
-        // R ½ºÅ³ ÀÔ·Â °¨Áö
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            OnSkillR();
-        }
-
-        // 1¹ø Å°(Èú) ÀÔ·Â °¨Áö
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            OnHeal();
-        }
-
-        // Q ÀÔ·Â °¨Áö
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            OnSkillQ();
-        }
+        if (InputHandler.Instance == null) { Debug.LogError("InputHandlerê°€ ì”¬ì— ì—†ìŠµë‹ˆë‹¤!"); return; }
+        InputHandler.Instance.OnBasicAttackEvent += OnBasicAttack;
+        InputHandler.Instance.OnSkill1Event      += OnSkillE;
+        InputHandler.Instance.OnSkill2Event      += OnSkillR;
+        InputHandler.Instance.OnHealEvent        += OnHeal;
+        InputHandler.Instance.OnInteractEvent    += OnSkillQ;
     }
 
-    // ÀÚ½Ä Å¬·¡½º°¡ ¹İµå½Ã ±¸ÇöÇØ¾ß ÇÒ Ãß»ó ¸Ş¼­µåµéÀ» ¼±¾ğÇÕ´Ï´Ù.
+    protected virtual void OnDestroy()
+    {
+        if (InputHandler.Instance == null) return;
+        InputHandler.Instance.OnBasicAttackEvent -= OnBasicAttack;
+        InputHandler.Instance.OnSkill1Event      -= OnSkillE;
+        InputHandler.Instance.OnSkill2Event      -= OnSkillR;
+        InputHandler.Instance.OnHealEvent        -= OnHeal;
+        InputHandler.Instance.OnInteractEvent    -= OnSkillQ;
+    }
+
+    protected virtual void Update() { }
+
     protected abstract void OnBasicAttack();
     protected abstract void OnSkillE();
     protected abstract void OnSkillR();

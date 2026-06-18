@@ -38,9 +38,11 @@ namespace TutorialBoss
                 tutorialBoss.WallToUnlock.UnlockWall();
 
             // 클리어 UI 표시
-            if (UIManager.Instance != null && UIManager.Instance.ClearPanel != null)
+            var tb = boss as TutorialBossController;
+            if (tb != null && tb.ClearPanel != null)
             {
-                UIManager.Instance.PushPanel(UIManager.Instance.ClearPanel);
+                tb.ClearPanel.SetActive(true);
+                GameStateManager.Instance?.SetState(GameStateManager.GameState.Paused);
             }
         }
     }

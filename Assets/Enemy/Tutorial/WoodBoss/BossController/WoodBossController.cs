@@ -13,6 +13,9 @@ public class WoodBossController : BossController
     public GameObject WarningPrefab;
     public GameObject SweepPrefab;
 
+    [Header("í´ë¦¬ì–´ UI")]
+    [SerializeField] private GameObject clearPanel;
+
     private WoodBossStatsSystem _woodStats;
 
     protected override void Awake()
@@ -21,14 +24,14 @@ public class WoodBossController : BossController
         base.Awake();
         _woodStats = GetComponent<WoodBossStatsSystem>();
 
-        // ¦¡¦¡ º¸½º ¹°¸® °íÁ¤ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-        // Ãæµ¹/°ø°İÀ» ¸Â¾Æµµ Àı´ë ¹Ğ¸®°Å³ª È¸ÀüÇÏÁö ¾Êµµ·Ï ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // ï¿½æµ¹/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â¾Æµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ¸ï¿½ï¿½Å³ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.bodyType = RigidbodyType2D.Kinematic; // ¿ÜºÎ ¹°¸®·Â ¿ÏÀü ¹«½Ã
+            rb.bodyType = RigidbodyType2D.Kinematic; // ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
-        // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     private void Start()
@@ -45,7 +48,7 @@ public class WoodBossController : BossController
     private void HandleDeath()
     {
         StopAllCoroutines();
-        Debug.Log("º¸½º »ç¸Á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
 
@@ -54,16 +57,16 @@ public class WoodBossController : BossController
 
     private IEnumerator DeathSequence()
     {
-        Debug.Log("»ç¸Á ¿¬Ãâ...");
+        Debug.Log("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½...");
 
         // Anim.SetTrigger("Die");
 
         yield return new WaitForSeconds(2.5f);
 
-        if (UIManager.Instance != null && UIManager.Instance.ClearPanel != null)
+        if (clearPanel != null)
         {
-            Debug.Log("UI ÀüÈ¯");
-            UIManager.Instance.PushPanel(UIManager.Instance.ClearPanel);
+            clearPanel.SetActive(true);
+            GameStateManager.Instance?.SetState(GameStateManager.GameState.Paused);
         }
     }
 }

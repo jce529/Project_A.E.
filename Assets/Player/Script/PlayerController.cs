@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +7,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
     private CapsuleCollider2D capsuleCollider;
-    private PlayerInput playerInput;
     private PlayerAnimator playerAnimator;
 
     [Header("Player Settings")]
@@ -35,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing = false;
+    private bool isRunning = false;
     private Color originalColor;
 
     // 내부 상태 변수
@@ -62,25 +61,28 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
-        playerInput = GetComponent<PlayerInput>();
-
         playerAnimator = GetComponent<PlayerAnimator>();
 
         originalColor = spriteRenderer.color;
         defaultGravity = rigid.gravityScale;
+    }
 
-        playerInput.actions.FindActionMap("Player").Enable();
-
-        playerInput.actions["Move"].performed += OnMove;
-        playerInput.actions["Move"].canceled += OnMove;
-        playerInput.actions["Jump"].performed += OnJump;
+    void Start()
+    {
+        if (InputHandler.Instance == null) { Debug.LogError("InputHandler가 씬에 없습니다!"); return; }
+        InputHandler.Instance.OnMoveEvent += OnMove;
+        InputHandler.Instance.OnJumpEvent += OnJump;
+        InputHandler.Instance.OnRunEvent += OnRun;
+        InputHandler.Instance.OnDashEvent += OnDash;
     }
 
     void OnDestroy()
     {
-        playerInput.actions["Move"].performed -= OnMove;
-        playerInput.actions["Move"].canceled -= OnMove;
-        playerInput.actions["Jump"].performed -= OnJump;
+        if (InputHandler.Instance == null) return;
+        InputHandler.Instance.OnMoveEvent -= OnMove;
+        InputHandler.Instance.OnJumpEvent -= OnJump;
+        InputHandler.Instance.OnRunEvent -= OnRun;
+        InputHandler.Instance.OnDashEvent -= OnDash;
     }
 
     public void ApplyKnockback(Vector2 dir, float force)
@@ -101,9 +103,9 @@ public class PlayerController : MonoBehaviour
         isKnockedBack = false;
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    private void OnMove(Vector2 input)
     {
-        moveInput = context.ReadValue<Vector2>();
+        moveInput = input;
 
         if (moveInput.y < 0 && currentPlatform != null)
         {
@@ -111,9 +113,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    private void OnJump()
     {
-        if (context.performed && !movementLocked)
+        if (!movementLocked)
         {
             if (isClimbing)
             {
@@ -129,6 +131,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnDash()
+    {
+        if (canDash && !isDashing && !movementLocked)
+        {
+            StartCoroutine(DashTowardsMouse());
+        }
+    }
+
+    private void OnRun(bool running)
+    {
+        isRunning = running;
+    }
+
     void Update()
     {
         if (movementLocked) return;
@@ -141,18 +156,11 @@ public class PlayerController : MonoBehaviour
             currentSpeedModifier = 0f;
             needSpeedReset = false;
         }
-
-        if (Keyboard.current != null && Keyboard.current.xKey.wasPressedThisFrame && canDash)
-        {
-            StartCoroutine(DashTowardsMouse());
-        }
     }
 
     void FixedUpdate()
     {
         if (isDashing || isKnockedBack || movementLocked) return;
-
-        bool isRunning = Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
 
         // 팀원의 장판 기믹 적용
         float baseSpeed = isRunning ? runSpeed : defaultSpeed;

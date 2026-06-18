@@ -27,6 +27,7 @@ public class InputHandler : MonoBehaviour
     public event Action OnJumpEvent;
     public event Action OnPauseEvent;
     public event Action<bool> OnRunEvent;
+    public event Action OnDashEvent;
 
     public event Action OnBasicAttackEvent;
     public event Action OnSkill1Event;
@@ -42,6 +43,7 @@ public class InputHandler : MonoBehaviour
     private InputAction jumpAction;
     private InputAction pauseAction;
     private InputAction runAction;
+    private InputAction dashAction;
 
     private InputAction basicAttack;
     private InputAction skill_1;
@@ -70,10 +72,12 @@ public class InputHandler : MonoBehaviour
             Destroy(gameObject); 
             return; 
         }
-        // Inspector�� ������ ������� �ʾ��� ��� ���� ����
+        if (inputActions == null)
+            inputActions = Resources.Load<UnityEngine.InputSystem.InputActionAsset>("InputSystem_Actions");
+
         if (inputActions == null)
         {
-            UnityEngine.Debug.LogError("InputHandler: Input Action Asset�� ������� �ʾҽ��ϴ�!");
+            UnityEngine.Debug.LogError("InputHandler: Input Action Asset이 할당되지 않았습니다! Inspector에서 InputSystem_Actions를 연결하거나 Resources 폴더에 넣으세요.");
             return;
         }
         // "Player"��� �̸��� �׼� ��(Map)�� ã���ϴ�. (�����Ϳ��� ���� Map �̸��� ���ƾ� ��)
@@ -89,6 +93,7 @@ public class InputHandler : MonoBehaviour
         jumpAction = playerMap.FindAction("Jump");
         pauseAction = playerMap.FindAction("Pause");
         runAction = playerMap.FindAction("Run");
+        dashAction = playerMap.FindAction("Dash");
 
         basicAttack = playerMap.FindAction("BasicAttack");
         skill_1 = playerMap.FindAction("Skill_1");
@@ -115,7 +120,8 @@ public class InputHandler : MonoBehaviour
             runAction.performed += ctx => OnRunEvent?.Invoke(true);
             runAction.canceled += ctx => OnRunEvent?.Invoke(false);
         }
-        if (pauseAction != null) pauseAction.performed += ctx => OnPauseEvent?.Invoke();
+        if (dashAction != null) dashAction.performed += ctx => OnDashEvent?.Invoke();
+        if (pauseAction != null) pauseAction.performed += ctx => { Debug.Log("[InputHandler] ESC 키 눌림 - Pause 이벤트 발생"); OnPauseEvent?.Invoke(); };
 
         if (basicAttack != null) basicAttack.performed += ctx => OnBasicAttackEvent?.Invoke();
         if (skill_1 != null) skill_1.performed += ctx => OnSkill1Event?.Invoke();

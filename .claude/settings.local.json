@@ -6,7 +6,21 @@
       "Bash(node *)",
       "Skill(gsd:new-milestone)",
       "PowerShell(Test-Path *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(where python *)",
+      "Bash(xargs -0 git add)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(git checkout *)",
+      "mcp__unity-mcp__Unity_GetConsoleLogs",
+      "mcp__unity-mcp__Unity_RunCommand",
+      "mcp__unity-mcp__Unity_Camera_Capture",
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\chang\\\\Downloads\\\\Projeect_A.E \\(2\\) \\(1\\)\\\\Projeect_A.E\\\\Assets\\\\Shaders\\\\Custom\")",
+      "Bash(Out-Null)"
     ]
   }
 }

@@ -46,6 +46,9 @@ namespace TutorialBoss
         [Tooltip("보스 사망 시 UnlockWall()을 호출할 InteractableWall 오브젝트")]
         public InteractableWall WallToUnlock;
 
+        [Header("클리어 UI")]
+        public GameObject ClearPanel;
+
         // ─── 공격 프리팹 ──────────────────────────────────────────────────
         [Header("공격에 사용할 프리팹")]
         [Tooltip("공격 전조(경고 표시)에 사용할 프리팹. SpriteRenderer가 있는 단순한 이미지 오브젝트 권장.")]
