@@ -64,4 +64,16 @@ public class GameSettingsPanel : MonoBehaviour
         if (languageValueText != null)
             languageValueText.text = Languages[_langIndex];
     }
+
+    // 게임 시작 시 저장된 언어 설정 복원 (기본값: English)
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void RestoreOnStartup()
+    {
+        // 저장값이 없으면 1(English)을 기본으로 저장
+        if (!PlayerPrefs.HasKey("Language"))
+        {
+            PlayerPrefs.SetInt("Language", 1);
+            PlayerPrefs.Save();
+        }
+    }
 }
