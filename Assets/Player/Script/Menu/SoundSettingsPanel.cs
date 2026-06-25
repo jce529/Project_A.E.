@@ -3,12 +3,12 @@ using UnityEngine.UI;
 using TMPro;
 
 // 일시정지 > 사운드 탭: BGM / SFX 볼륨 슬라이더
-// AudioMixer 미사용 — PlayerPrefs 저장 + 씬 내 AudioSource 태그로 적용
+// AudioManager 싱글톤을 통해 볼륨 적용 및 PlayerPrefs 저장
 public class SoundSettingsPanel : MonoBehaviour
 {
     [Header("BGM")]
     public Slider bgmSlider;
-    public TMP_Text bgmValueText;   // "75%" 같이 표시 (없으면 생략 가능)
+    public TMP_Text bgmValueText;   // "75%" 형식 표시 (없으면 생략 가능)
 
     [Header("SFX")]
     public Slider sfxSlider;
@@ -16,49 +16,28 @@ public class SoundSettingsPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        // 저장된 값으로 슬라이더 초기화 (OnValueChanged 콜백 없이)
         float bgm = PlayerPrefs.GetFloat("BGMVolume", 1f);
         float sfx = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
-        if (bgmSlider != null) { bgmSlider.value = bgm; UpdateBGMText(bgm); }
-        if (sfxSlider != null) { sfxSlider.value = sfx; UpdateSFXText(sfx); }
+        if (bgmSlider != null) bgmSlider.SetValueWithoutNotify(bgm);
+        if (sfxSlider != null) sfxSlider.SetValueWithoutNotify(sfx);
+        UpdateBGMText(bgm);
+        UpdateSFXText(sfx);
     }
 
-    // BGM Slider OnValueChanged
+    // BGM Slider OnValueChanged에 연결
     public void OnBGMChanged(float value)
     {
-        PlayerPrefs.SetFloat("BGMVolume", value);
-        PlayerPrefs.Save();
+        AudioManager.Instance?.SetBGMVolume(value);
         UpdateBGMText(value);
-        ApplyBGMToSources(value);
     }
 
-    // SFX Slider OnValueChanged
+    // SFX Slider OnValueChanged에 연결
     public void OnSFXChanged(float value)
     {
-        PlayerPrefs.SetFloat("SFXVolume", value);
-        PlayerPrefs.Save();
+        AudioManager.Instance?.SetSFXVolume(value);
         UpdateSFXText(value);
-        ApplySFXToSources(value);
-    }
-
-    // "BGM" 태그가 붙은 AudioSource에 볼륨 적용
-    private void ApplyBGMToSources(float volume)
-    {
-        foreach (var src in FindObjectsOfType<AudioSource>())
-        {
-            if (src.CompareTag("BGM"))
-                src.volume = volume;
-        }
-    }
-
-    // "SFX" 태그가 붙은 AudioSource에 볼륨 적용
-    private void ApplySFXToSources(float volume)
-    {
-        foreach (var src in FindObjectsOfType<AudioSource>())
-        {
-            if (src.CompareTag("SFX"))
-                src.volume = volume;
-        }
     }
 
     private void UpdateBGMText(float value)
