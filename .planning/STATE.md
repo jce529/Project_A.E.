@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-27T05:59:27.346Z"
-last_activity: 2026-07-27 -- Phase 07 Plan 01 완료
+last_updated: "2026-07-27T06:15:00.000Z"
+last_activity: 2026-07-27 -- Phase 07 Plan 02 체크포인트 보류 (Check.md 로 대체 기록)
 progress:
   total_phases: 7
   completed_phases: 6
@@ -23,8 +23,8 @@ progress:
 
 Phase: 07 (boss-attack-pattern-judgment) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
-Last activity: 2026-07-27 -- Phase 07 Plan 01 완료
+Status: 07-02 체크포인트 보류 (WaterMonster 마이그레이션 후 일괄 Play 모드 검증 예정)
+Last activity: 2026-07-27 -- Phase 07 Plan 02 체크포인트 보류 (Check.md 로 대체 기록)
 
 Progress: [████████░░] 86% (6/7 phases)
 
@@ -62,7 +62,10 @@ Progress: [████████░░] 86% (6/7 phases)
 
 ### Active TODOs
 
-- Phase 7 Plan 2 (07-02-PLAN.md): Play 모드 검증 체크포인트 실행 필요
+- Phase 7 Plan 2 (07-02-PLAN.md): Play 모드 검증 체크포인트 보류 중. WaterMonster 보스가
+  CombatState 기반 패턴 판단 로직으로 마이그레이션된 뒤, WaterSpirit/TutorialBoss/WaterMonster
+  전체를 한 번에 일괄 검증할 예정 (사용자 결정). 체크리스트: `Assets/Enemy/WaterSpirit/Check.md`,
+  `Assets/Enemy/Tutorial/TutorialBoss/Check.md`
 
 ### Blockers
 
