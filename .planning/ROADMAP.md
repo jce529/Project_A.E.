@@ -97,8 +97,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 3. 폭발 기믹 연계 및 보스 순간이동 | 2/2 | Complete | 2026-04-16 |
 | 4. 광폭화 및 장판 시스템 | 0/2 | Complete    | 2026-04-16 |
 
----
-
 # Roadmap: Project A.E — Milestone v2.0 물의_정령_보스_구현
 
 ## Overview
@@ -109,10 +107,11 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 **Phase Numbering:**
 - v1.0 Phase 1~4 완료 이후 Phase 5부터 시작
-- Integer phases (5, 6): 물의 정령 보스 구현 순서
+- Integer phases (5, 6, 7): 물의 정령 보스 구현 순서 + 공격 패턴 판단 로직 리팩토링
 
 - [x] **Phase 5: 보스 기반 엔티티 및 스테이지 1 공격 패턴** — 물의 정령 독립 엔티티, HP 시스템, 사망 처리, 돌진/투사체/튕겨내기 3종 패턴 (2026-04-30)
 - [x] **Phase 6: 스테이지 전환 및 스테이지 2 은신·분신 시스템** — HP 50% 스테이지 2 전환, 은신 순간이동, 분신 3개 동시 존재 (2026-04-30)
+- [ ] **Phase 7: 보스 공격 패턴 판단 로직 리팩토링** — CombatState 공유 기반에 TutorialBoss 스타일 조건부 판단 로직 도입, WaterSpirit 보스에 적용
 
 ## Phase Details
 
@@ -148,13 +147,30 @@ Plans:
 - [x] 06-01-PLAN.md — Stage 2 인프라 (SpiritStats HP 50% 트리거 + IsDummy 데미지 가드 + SpiritController DummyPrefab/Stealth 파라미터/OnStage2Trigger 콜백/Stage2 인터셉트 + Stage2CombatState 컴파일 스텁)
 - [x] 06-02-PLAN.md — Stage 2 오케스트레이션 (SpiritStealth 어택 전략 + Stage2CombatState 분신 관리/사이클 카운터/헤비콤보 분배/그로기 전환 + SpiritController.TriggerHeavyCombo)
 
+### Phase 7: 보스 공격 패턴 판단 로직 리팩토링
+**Goal**: 정령 보스가 고정 순서 라운드로빈이 아니라, 거리(선택적)·쿨다운·연속사용금지 조건을 통과한 후보들 중 가중치 랜덤으로 공격 패턴을 고르며, SpiritExhaustion 직후에는 반드시 SpiritWakeRepel 이 이어진다. 이 판단 로직은 CombatState 의 범용 헬퍼로 구현되어 다른 보스도 재사용할 수 있다.
+**Depends on**: Phase 6
+**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08 (07-CONTEXT.md 잠금 결정)
+**Success Criteria** (what must be TRUE):
+  1. `CombatState` 에 거리 조건이 선택적(`float?`)인 `PatternCandidate` 와 가중치 랜덤 선택 헬퍼 `SelectWeightedPattern` / 강제 선택 `ForceSelectPattern` 이 존재하며, 보스 종속 코드가 없다 (D-01).
+  2. `SpiritCombatState` 의 `_pattern` 라운드로빈 배열과 `_patternIndex` 가 완전히 제거되고, 후보 4종(Charge/Exhaustion/WakeRepel/FarProjectile)만 선언하는 얇은 데이터 레이어가 된다 (D-01b, D-06a).
+  3. SpiritCharge / SpiritFarProjectile / SpiritExhaustion 은 거리 조건 없이, SpiritWakeRepel 만 RepelRange 이내일 때 후보에 오른다 (D-02).
+  4. 직전에 실행한 패턴과 동일한 패턴은 다음 판단에서 제외된다 (D-05).
+  5. SpiritExhaustion 실행 직후에는 조건 평가를 건너뛰고 SpiritWakeRepel 이 강제 실행되며, 이후 일반 판단 풀로 복귀한다 (D-04).
+  6. `Stage2CombatState.cs` 와 `WaterMonsterCombatState.cs` 는 단 한 줄도 변경되지 않고, Stage 2 헤비콤보 카운터가 기존대로 동작한다 (D-07, D-08b).
+**Plans**: 2 plans
+
+Plans:
+- [x] 07-01-PLAN.md — CombatState 범용 패턴 후보 평가 헬퍼 추가 + SpiritCombatState 후보 선언 데이터 레이어 전환
+- [ ] 07-02-PLAN.md — Play 모드 검증 체크포인트 (랜덤성/연속금지/강제 체인/Stage 2 사이클)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 5 -> 6
+Phases execute in numeric order: 5 -> 6 -> 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 5. 보스 기반 엔티티 및 스테이지 1 공격 패턴 | 2/2 | Complete | 2026-04-30 |
 | 6. 스테이지 전환 및 스테이지 2 은신·분신 시스템 | 2/2 | Complete | 2026-04-30 |
-
+| 7. 보스 공격 패턴 판단 로직 리팩토링 | 1/2 | In Progress|  |

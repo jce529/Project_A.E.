@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatState : IBossState
@@ -11,6 +12,37 @@ public class CombatState : IBossState
     private float _attackWaitTimer; // 애니메이션 타임아웃용 타이머
     private const float MaxAttackDuration = 0.5f; // 최대 대기 시간 (애니메이션 없을 때 대비)
 
+    // ─── Phase 7 (D-01): 범용 패턴 후보 평가 헬퍼 ───────────────────────────
+    // 파생 State 는 후보 목록만 선언하면 되고, 판단(거리 선택적 조건 + 쿨다운 +
+    // 연속사용금지 + 가중치 랜덤)은 이 베이스 클래스가 담당한다.
+    protected class PatternCandidate
+    {
+        public readonly System.Func<IAttackStrategy> Factory;
+        public readonly System.Type StrategyType;
+        public readonly float Weight;
+        public readonly float? MinDistance; // null = 하한 없음 (D-02b: 거리 조건은 선택적)
+        public readonly float? MaxDistance; // null = 상한 없음 (D-02b: 거리 조건은 선택적)
+
+        public PatternCandidate(System.Func<IAttackStrategy> factory, float weight,
+                                float? minDistance = null, float? maxDistance = null)
+        {
+            Factory = factory;
+            Weight = weight;
+            MinDistance = minDistance;
+            MaxDistance = maxDistance;
+            // D-06a: 게이팅 키를 슬롯 인덱스가 아닌 "전략 타입"으로 1회 확정한다.
+            StrategyType = factory().GetType();
+        }
+    }
+
+    // 직전에 실행한 패턴 타입 — D-05a 연속사용금지 판정 및 D-04 체인 트리거에 사용된다.
+    protected System.Type LastUsedPatternType { get; private set; }
+
+    // 패턴별 쿨다운 만료 시각. Execute() 에 early-return 분기가 있어 매 프레임 감산 방식은
+    // 조용히 누락될 수 있으므로, WaterMonsterCombatState._lastWaveTime 과 동일하게
+    // Time.time 절대 시각 비교를 사용한다.
+    private readonly Dictionary<System.Type, float> _patternReadyAt = new Dictionary<System.Type, float>();
+
     public virtual void Enter(BossController boss)
     {
         boss.StopMove();
@@ -18,6 +50,10 @@ public class CombatState : IBossState
         _isAttacking = false;
         _currentAttack = null;
         _attackWaitTimer = 0;
+
+        // Phase 7: 패턴 추적값 초기화 (기존 SpiritCombatState._patternIndex = 0 과 동일한 세션 단위 리셋)
+        LastUsedPatternType = null;
+        _patternReadyAt.Clear();
     }
 
     public virtual void Execute(BossController boss)
@@ -102,6 +138,58 @@ public class CombatState : IBossState
         if (dist > 8f) return new RangedPokeAttack();
         if (boss.CanUseHeavyAttack) return new HeavyAttack();
         return new LightAttack();
+    }
+
+    // D-01/D-03: 조건(거리 선택적 + 연속금지 + 쿨다운)을 통과한 후보 중 가중치 랜덤으로 1개 선택.
+    // 통과 후보가 없으면 null — 기존 계약대로 Execute() 가 다음 프레임에 재시도한다.
+    protected IAttackStrategy SelectWeightedPattern(float dist, IReadOnlyList<PatternCandidate> candidates)
+    {
+        if (candidates == null || candidates.Count == 0) return null;
+
+        List<PatternCandidate> eligible = new List<PatternCandidate>();
+        float totalWeight = 0f;
+
+        for (int i = 0; i < candidates.Count; i++)
+        {
+            PatternCandidate c = candidates[i];
+
+            if (c.MinDistance.HasValue && dist < c.MinDistance.Value) continue; // 거리 하한 (D-02b)
+            if (c.MaxDistance.HasValue && dist > c.MaxDistance.Value) continue; // 거리 상한 (D-02b)
+            if (LastUsedPatternType == c.StrategyType) continue;                // 연속사용금지 (D-05a)
+            if (_patternReadyAt.TryGetValue(c.StrategyType, out float readyAt) && Time.time < readyAt) continue; // 쿨다운
+
+            eligible.Add(c);
+            totalWeight += c.Weight;
+        }
+
+        if (eligible.Count == 0 || totalWeight <= 0f) return null;
+
+        float roll = UnityEngine.Random.Range(0f, totalWeight);
+        float cumulative = 0f;
+        for (int i = 0; i < eligible.Count; i++)
+        {
+            cumulative += eligible[i].Weight;
+            if (roll <= cumulative) return CommitSelection(eligible[i].Factory());
+        }
+
+        // 부동소수 경계 보정: 루프에서 못 골랐어도 null 로 새지 않도록 마지막 후보를 선택한다.
+        return CommitSelection(eligible[eligible.Count - 1].Factory());
+    }
+
+    // D-04: 강제 체인용 — 후보 평가/거리/쿨다운/연속사용금지를 전부 우회하고 지정 전략을 확정한다.
+    protected IAttackStrategy ForceSelectPattern(IAttackStrategy strategy)
+    {
+        if (strategy == null) return null;
+        return CommitSelection(strategy);
+    }
+
+    // 선택 확정 처리 — 연속사용금지 기준값과 해당 패턴의 쿨다운 만료 시각을 갱신한다.
+    private IAttackStrategy CommitSelection(IAttackStrategy strategy)
+    {
+        System.Type t = strategy.GetType();
+        LastUsedPatternType = t;
+        _patternReadyAt[t] = Time.time + strategy.Cooldown;
+        return strategy;
     }
 
     public virtual void Exit(BossController boss)
