@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
-status: complete
-last_updated: "2026-04-30T10:00:00.000Z"
-last_activity: 2026-04-30
+status: executing
+last_updated: "2026-07-27T05:59:27.346Z"
+last_activity: 2026-07-27 -- Phase 07 Plan 01 완료
 progress:
-  total_phases: 6
+  total_phases: 7
   completed_phases: 6
-  total_plans: 14
-  completed_plans: 14
-  percent: 100
+  total_plans: 18
+  completed_plans: 17
+  percent: 86
 ---
 
 # GSD State
@@ -21,12 +21,12 @@ progress:
 
 ## Current Position
 
-Phase: 6
-Plan: Complete
-Status: Milestone complete — all phases finished
-Last activity: 2026-04-30
+Phase: 07 (boss-attack-pattern-judgment) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-07-27 -- Phase 07 Plan 01 완료
 
-Progress: [██████████] 100% (6/6 phases)
+Progress: [████████░░] 86% (6/7 phases)
 
 ## Phase Status
 
@@ -34,7 +34,7 @@ Progress: [██████████] 100% (6/6 phases)
 |-------|------|--------|-----------|
 | 5 | 보스 기반 엔티티 및 스테이지 1 공격 패턴 | Complete | 2026-04-30 |
 | 6 | 스테이지 전환 및 스테이지 2 은신·분신 시스템 | Complete | 2026-04-30 |
-
+| 7 | 보스 공격 패턴 판단 로직 리팩토링 | In Progress | - |
 
 ## Performance Metrics
 
@@ -43,11 +43,11 @@ Progress: [██████████] 100% (6/6 phases)
 | 05-01 | - | 2 | 3 | 2026-04-30 |
 | 05-02 | - | 2 | 4 | 2026-04-30 |
 
-
 ## Performance Metrics
 
 | Phase-Plan | Duration | Tasks | Files | Date |
 |------------|----------|-------|-------|------|
+| 07-01 | 5min | 2 | 2 | 2026-07-27 |
 
 ## Accumulated Context
 
@@ -57,14 +57,20 @@ Progress: [██████████] 100% (6/6 phases)
 - 분신은 별도 GameObject로, 동일 상태머신 구조에 `isDummy` 플래그로 데미지 분기
 - 코드 공유는 BossController / BossStatsSystem 기반 클래스 수준으로만 제한
 - 애니메이션·이펙트 없이 순수 로직·상태머신만 구현 (v3.0+에서 연동 예정)
+- SpiritCombatState 의 고정 라운드로빈 배열을 CombatState 범용 PatternCandidate 헬퍼 기반 조건부 가중치 랜덤으로 교체 (Phase 7 Plan 1)
+- SpiritController.ChargeRange 는 기존 데드 필드로 재활용하지 않고 유지 (재활용 시 SpiritFarProjectile 영구 선택 불가 발생)
 
 ### Active TODOs
 
-- Phase 5 plan 작성 필요: `/gsd:plan-phase 5`
+- Phase 7 Plan 2 (07-02-PLAN.md): Play 모드 검증 체크포인트 실행 필요
 
 ### Blockers
 
 (없음)
+
+### Roadmap Evolution
+
+- Phase 7 added: 보스 공격 패턴 판단 로직 리팩토링 — CombatState 공유 기반에 TutorialBoss 스타일(거리/쿨다운/연속금지 조건부 판단)의 재사용 가능한 패턴 선택 로직을 도입하고, WaterSpirit 보스(Stage 1 SpiritCombatState 및 Stage 2 Stage2CombatState)에 적용한다.
 
 ## Session Continuity
 
