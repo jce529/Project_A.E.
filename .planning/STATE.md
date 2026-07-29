@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-27T06:15:00.000Z"
-last_activity: 2026-07-27 -- Phase 07 Plan 02 체크포인트 보류 (Check.md 로 대체 기록)
+last_updated: "2026-07-29T13:10:00.000Z"
+last_activity: 2026-07-29 -- Phase 08 Plan 03 Task 1(정적 회귀 검사) 통과, Task 2 Play 모드 검증 체크포인트에서 대기 중
 progress:
-  total_phases: 7
+  total_phases: 8
   completed_phases: 6
   total_plans: 18
   completed_plans: 17
@@ -21,12 +21,14 @@ progress:
 
 ## Current Position
 
-Phase: 07 (boss-attack-pattern-judgment) — EXECUTING
-Plan: 2 of 2
-Status: 07-02 체크포인트 보류 (WaterMonster 마이그레이션 후 일괄 Play 모드 검증 예정)
-Last activity: 2026-07-27 -- Phase 07 Plan 02 체크포인트 보류 (Check.md 로 대체 기록)
+Phase: 08 (watermonster-combatstate) — EXECUTING
+Plan: 3 of 3 (08-03), Task 1/2 complete
+Status: 08-03 Task 1(정적 회귀 검사) 통과. Task 2 체크포인트(`checkpoint:human-verify`, blocking)에서
+대기 중 — WaterSpirit/TutorialBoss/WaterMonster 3종 Unity Play 모드 검증은 에이전트가 수행할 수 없어
+사용자 입력 대기.
+Last activity: 2026-07-29 -- Phase 08 Plan 03 Task 1 정적 회귀 검사 통과, Task 2 체크포인트 진입
 
-Progress: [████████░░] 86% (6/7 phases)
+Progress: [████████░░] 86% (6/8 phases, Phase 7·8 진행 중 — ROADMAP.md 에 Phase 8 섹션 미기재 상태, 별도 동기화 필요)
 
 ## Phase Status
 
@@ -34,7 +36,8 @@ Progress: [████████░░] 86% (6/7 phases)
 |-------|------|--------|-----------|
 | 5 | 보스 기반 엔티티 및 스테이지 1 공격 패턴 | Complete | 2026-04-30 |
 | 6 | 스테이지 전환 및 스테이지 2 은신·분신 시스템 | Complete | 2026-04-30 |
-| 7 | 보스 공격 패턴 판단 로직 리팩토링 | In Progress | - |
+| 7 | 보스 공격 패턴 판단 로직 리팩토링 | In Progress (07-02 는 08-03 체크포인트로 흡수됨) | - |
+| 8 | WaterMonster 를 CombatState 기반 패턴 판단 로직으로 마이그레이션 | In Progress (08-01/08-02 완료, 08-03 체크포인트 대기) | - |
 
 ## Performance Metrics
 
@@ -62,14 +65,22 @@ Progress: [████████░░] 86% (6/7 phases)
 
 ### Active TODOs
 
-- Phase 7 Plan 2 (07-02-PLAN.md): Play 모드 검증 체크포인트 보류 중. WaterMonster 보스가
-  CombatState 기반 패턴 판단 로직으로 마이그레이션된 뒤, WaterSpirit/TutorialBoss/WaterMonster
-  전체를 한 번에 일괄 검증할 예정 (사용자 결정). 체크리스트: `Assets/Enemy/WaterSpirit/Check.md`,
-  `Assets/Enemy/Tutorial/TutorialBoss/Check.md`
+- Phase 8 Plan 03 (08-03-PLAN.md) Task 2: WaterSpirit/TutorialBoss/WaterMonster 3종 일괄 Unity
+  Play 모드 검증 체크포인트 대기 중 (Phase 7 Plan 2 보류 항목을 흡수해 여기서 함께 처리).
+  체크리스트: `Assets/Enemy/WaterMonster/Check.md`, `Assets/Enemy/WaterSpirit/Check.md`,
+  `Assets/Enemy/Tutorial/TutorialBoss/Check.md` — 세 파일 모두 "결과 기록" 섹션이 비어 있음.
+- (문서 동기화 이슈, 코드와 무관) `.planning/ROADMAP.md` 에 Phase 8 섹션이 아직 추가되지 않음.
+  Phase 8 계획 문서(`08-CONTEXT.md`, `08-01/02/03-PLAN.md`, `08-RESEARCH.md`, `08-DISCUSSION-LOG.md`)가
+  메인 워크트리 파일시스템에는 존재하나 어느 브랜치에도 커밋되지 않은 상태 — 08-01/08-02 실행
+  시점부터 반복 발견된 환경 이슈. Phase 8 완료 시 ROADMAP.md Phase 8 섹션 신설과 함께 정리 필요.
 
 ### Blockers
 
-(없음)
+- **08-03 Task 2 체크포인트 (blocking):** Unity 에디터 Play 모드에서 사람이 직접 확인해야 하는
+  런타임 검증(랜덤성, 45초 쿨다운 실측, 페이즈 전환 반영, WaterSpirit 완전배제 회귀)이라
+  에이전트가 대신 수행할 수 없음. 사용자가 `Assets/Enemy/WaterMonster/Check.md`,
+  `Assets/Enemy/WaterSpirit/Check.md`, `Assets/Enemy/Tutorial/TutorialBoss/Check.md` 의
+  "결과 기록" 섹션을 채운 뒤(또는 관찰 내용을 전달하면 대신 기록) "approved" 로 응답 필요.
 
 ### Roadmap Evolution
 
