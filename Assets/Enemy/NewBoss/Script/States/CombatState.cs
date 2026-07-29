@@ -23,13 +23,19 @@ public class CombatState : IBossState
         public readonly float? MinDistance; // null = 하한 없음 (D-02b: 거리 조건은 선택적)
         public readonly float? MaxDistance; // null = 상한 없음 (D-02b: 거리 조건은 선택적)
 
+        // Phase 8 (D-04a): _patternReadyAt 에 기록할 재사용 잠금 시간을 IAttackStrategy.Cooldown
+        // 과 분리한다. null = strategy.Cooldown 사용(기존 동작).
+        public readonly float? CooldownOverride;
+
         public PatternCandidate(System.Func<IAttackStrategy> factory, float weight,
-                                float? minDistance = null, float? maxDistance = null)
+                                float? minDistance = null, float? maxDistance = null,
+                                float? cooldownOverride = null)
         {
             Factory = factory;
             Weight = weight;
             MinDistance = minDistance;
             MaxDistance = maxDistance;
+            CooldownOverride = cooldownOverride;
             // D-06a: 게이팅 키를 슬롯 인덱스가 아닌 "전략 타입"으로 1회 확정한다.
             StrategyType = factory().GetType();
         }
@@ -39,9 +45,12 @@ public class CombatState : IBossState
     protected System.Type LastUsedPatternType { get; private set; }
 
     // 패턴별 쿨다운 만료 시각. Execute() 에 early-return 분기가 있어 매 프레임 감산 방식은
-    // 조용히 누락될 수 있으므로, WaterMonsterCombatState._lastWaveTime 과 동일하게
-    // Time.time 절대 시각 비교를 사용한다.
+    // 조용히 누락될 수 있으므로, Time.time 절대 시각 비교를 사용한다.
     private readonly Dictionary<System.Type, float> _patternReadyAt = new Dictionary<System.Type, float>();
+
+    // Phase 8 (D-03a): _patternReadyAt 에 기록할 쿨다운에 곱할 배율.
+    // 기본 1f = 배율 없음(기존 동작). 광폭화처럼 쿨다운을 단축하는 보스가 override 한다.
+    protected virtual float GetPatternCooldownMultiplier() => 1f;
 
     public virtual void Enter(BossController boss)
     {
@@ -169,11 +178,11 @@ public class CombatState : IBossState
         for (int i = 0; i < eligible.Count; i++)
         {
             cumulative += eligible[i].Weight;
-            if (roll <= cumulative) return CommitSelection(eligible[i].Factory());
+            if (roll <= cumulative) return CommitSelection(eligible[i].Factory(), eligible[i].CooldownOverride);
         }
 
         // 부동소수 경계 보정: 루프에서 못 골랐어도 null 로 새지 않도록 마지막 후보를 선택한다.
-        return CommitSelection(eligible[eligible.Count - 1].Factory());
+        return CommitSelection(eligible[eligible.Count - 1].Factory(), eligible[eligible.Count - 1].CooldownOverride);
     }
 
     // D-04: 강제 체인용 — 후보 평가/거리/쿨다운/연속사용금지를 전부 우회하고 지정 전략을 확정한다.
@@ -184,11 +193,14 @@ public class CombatState : IBossState
     }
 
     // 선택 확정 처리 — 연속사용금지 기준값과 해당 패턴의 쿨다운 만료 시각을 갱신한다.
-    private IAttackStrategy CommitSelection(IAttackStrategy strategy)
+    // Phase 8: cooldownOverride 가 있으면 strategy.Cooldown 대신 그 값을 쓰고(D-04a),
+    //          GetPatternCooldownMultiplier() 배율을 곱한다(D-03a).
+    private IAttackStrategy CommitSelection(IAttackStrategy strategy, float? cooldownOverride = null)
     {
         System.Type t = strategy.GetType();
         LastUsedPatternType = t;
-        _patternReadyAt[t] = Time.time + strategy.Cooldown;
+        float baseCooldown = cooldownOverride ?? strategy.Cooldown;
+        _patternReadyAt[t] = Time.time + baseCooldown * GetPatternCooldownMultiplier();
         return strategy;
     }
 
