@@ -151,11 +151,17 @@ public class CombatState : IBossState
 
     // D-01/D-03: 조건(거리 선택적 + 연속금지 + 쿨다운)을 통과한 후보 중 가중치 랜덤으로 1개 선택.
     // 통과 후보가 없으면 null — 기존 계약대로 Execute() 가 다음 프레임에 재시도한다.
-    protected IAttackStrategy SelectWeightedPattern(float dist, IReadOnlyList<PatternCandidate> candidates)
+    // Phase 8 (D-01d): lastUsedWeightMultiplier 로 "직전 사용 패턴" 처리 방식을 고른다.
+    //   0f (기본) = 완전배제 — Phase 7 D-05a, SpiritCombatState 기존 동작 그대로.
+    //   0f 초과   = 배제하지 않고 해당 후보의 가중치에만 배율을 곱한다 (WaterMonster D-01c: 0.5f).
+    //   감쇠는 "직전 1개 패턴"에만 적용된다 — 누적 감쇠가 아니다 (D-01b).
+    protected IAttackStrategy SelectWeightedPattern(float dist, IReadOnlyList<PatternCandidate> candidates,
+                                                    float lastUsedWeightMultiplier = 0f)
     {
         if (candidates == null || candidates.Count == 0) return null;
 
         List<PatternCandidate> eligible = new List<PatternCandidate>();
+        List<float> eligibleWeights = new List<float>();
         float totalWeight = 0f;
 
         for (int i = 0; i < candidates.Count; i++)
@@ -164,11 +170,19 @@ public class CombatState : IBossState
 
             if (c.MinDistance.HasValue && dist < c.MinDistance.Value) continue; // 거리 하한 (D-02b)
             if (c.MaxDistance.HasValue && dist > c.MaxDistance.Value) continue; // 거리 상한 (D-02b)
-            if (LastUsedPatternType == c.StrategyType) continue;                // 연속사용금지 (D-05a)
             if (_patternReadyAt.TryGetValue(c.StrategyType, out float readyAt) && Time.time < readyAt) continue; // 쿨다운
 
+            float weight = c.Weight;
+            if (LastUsedPatternType == c.StrategyType)
+            {
+                if (lastUsedWeightMultiplier <= 0f) continue;   // 완전배제 (D-05a, 기본 동작)
+                weight *= lastUsedWeightMultiplier;             // 가중치 감쇠 (D-01a~c)
+            }
+            if (weight <= 0f) continue;
+
             eligible.Add(c);
-            totalWeight += c.Weight;
+            eligibleWeights.Add(weight);
+            totalWeight += weight;
         }
 
         if (eligible.Count == 0 || totalWeight <= 0f) return null;
@@ -177,7 +191,7 @@ public class CombatState : IBossState
         float cumulative = 0f;
         for (int i = 0; i < eligible.Count; i++)
         {
-            cumulative += eligible[i].Weight;
+            cumulative += eligibleWeights[i];
             if (roll <= cumulative) return CommitSelection(eligible[i].Factory(), eligible[i].CooldownOverride);
         }
 
