@@ -228,5 +228,5 @@ Plans:
 
 Plans:
 - [x] 09-01-PLAN.md — CameraController 확장 (싱글톤 + 줌 필드/SetBossZoom/줌 Lerp + 화면 반폭 반영 X축 클램프)
-- [ ] 09-02-PLAN.md — BossZoomTrigger.cs 신규 트리거 컴포넌트 + Assets/Camera/Check.md 검증 체크리스트
+- [x] 09-02-PLAN.md — BossZoomTrigger.cs 신규 트리거 컴포넌트 + Assets/Camera/Check.md 검증 체크리스트
 - [ ] 09-03-PLAN.md — 정적 회귀 검사 + Unity Play 모드 검증 체크포인트 (줌 전환 / X축 클램프 튜닝)
