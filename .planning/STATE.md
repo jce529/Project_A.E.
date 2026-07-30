@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-27T06:15:00.000Z"
-last_activity: 2026-07-27 -- Phase 07 Plan 02 체크포인트 보류 (Check.md 로 대체 기록)
+last_updated: "2026-07-30T11:31:00.000Z"
+last_activity: 2026-07-30 -- Completed 09-01-PLAN.md
 progress:
-  total_phases: 7
+  total_phases: 9
   completed_phases: 6
-  total_plans: 18
-  completed_plans: 17
-  percent: 86
+  total_plans: 24
+  completed_plans: 20
+  percent: 83
 ---
 
 # GSD State
@@ -21,12 +21,12 @@ progress:
 
 ## Current Position
 
-Phase: 07 (boss-attack-pattern-judgment) — EXECUTING
-Plan: 2 of 2
-Status: 07-02 체크포인트 보류 (WaterMonster 마이그레이션 후 일괄 Play 모드 검증 예정)
-Last activity: 2026-07-27 -- Phase 07 Plan 02 체크포인트 보류 (Check.md 로 대체 기록)
+Phase: 09 (camera-zoom-stage-transition) — EXECUTING
+Plan: 2 of 3
+Status: Executing Phase 09
+Last activity: 2026-07-30 -- Completed 09-01-PLAN.md
 
-Progress: [████████░░] 86% (6/7 phases)
+Progress: [████████░░] 83% (20/24 plans)
 
 ## Phase Status
 
@@ -35,6 +35,7 @@ Progress: [████████░░] 86% (6/7 phases)
 | 5 | 보스 기반 엔티티 및 스테이지 1 공격 패턴 | Complete | 2026-04-30 |
 | 6 | 스테이지 전환 및 스테이지 2 은신·분신 시스템 | Complete | 2026-04-30 |
 | 7 | 보스 공격 패턴 판단 로직 리팩토링 | In Progress | - |
+| 8 | WaterMonster 보스 CombatState 마이그레이션 | In Progress | - |
 
 ## Performance Metrics
 
@@ -48,6 +49,9 @@ Progress: [████████░░] 86% (6/7 phases)
 | Phase-Plan | Duration | Tasks | Files | Date |
 |------------|----------|-------|-------|------|
 | 07-01 | 5min | 2 | 2 | 2026-07-27 |
+| 08-01 | 15min | 2 | 1 | 2026-07-29 |
+| 08-02 | 20min | 2 | 2 | 2026-07-29 |
+| 09-01 | 5min | 2 | 1 | 2026-07-30 |
 
 ## Accumulated Context
 
@@ -59,13 +63,25 @@ Progress: [████████░░] 86% (6/7 phases)
 - 애니메이션·이펙트 없이 순수 로직·상태머신만 구현 (v3.0+에서 연동 예정)
 - SpiritCombatState 의 고정 라운드로빈 배열을 CombatState 범용 PatternCandidate 헬퍼 기반 조건부 가중치 랜덤으로 교체 (Phase 7 Plan 1)
 - SpiritController.ChargeRange 는 기존 데드 필드로 재활용하지 않고 유지 (재활용 시 SpiritFarProjectile 영구 선택 불가 발생)
+- 코드 공유는 BossController / BossStatsSystem 기반 클래스 수준으로만 제한
+- CombatState.SelectWeightedPattern 에 별도 오버로드 대신 기본값 있는 3번째 파라미터(lastUsedWeightMultiplier = 0f) 추가 — SpiritCombatState.cs 의 기존 2-인자 호출부가 한 글자도 안 바뀌어야 하므로(Phase 7 D-05a 완전배제 회귀 방지) (Phase 8 Plan 1)
+- BuildCandidates() 를 Enter() 가 아니라 SelectAttackStrategy 매 호출마다 재구성 — 페이즈가 전투 도중 바뀌는 WaterMonster 는 SpiritCombatState 의 Enter()-1회-캐싱 패턴을 복사할 수 없다 (Phase 8 Plan 2, D-06c)
+- WaterWavePush 의 45초 특수 잠금은 PatternCandidate.cooldownOverride 로 전달 — strategy.Cooldown(3f) 에 의존하면 잠금이 조용히 3초로 축소되는 회귀가 된다 (Phase 8 Plan 2, D-04a)
+- CameraController.cs 의 신규 삽입 주석에서 "DontDestroyOnLoad" 리터럴 문자열을 피하고 "Not persisted across scene loads"로 대체 — 09-01-PLAN.md 자체의 액션 텍스트(해당 문자열을 포함한 주석 지정)와 인수 기준(같은 문자열 카운트 0 요구)이 상충했기 때문 (Phase 9 Plan 1)
 
 ### Active TODOs
+
+- Phase 9 Plan 2 (09-02-PLAN.md): BossZoomTrigger.cs 신규 트리거 컴포넌트 + Assets/Camera/Check.md
+  검증 체크리스트 작성 예정. Plan 09-01 이 완성한 `CameraController.Instance.SetBossZoom(bool)` 을
+  `OnTriggerEnter2D`/`OnTriggerExit2D` 에서 호출한다.
 
 - Phase 7 Plan 2 (07-02-PLAN.md): Play 모드 검증 체크포인트 보류 중. WaterMonster 보스가
   CombatState 기반 패턴 판단 로직으로 마이그레이션된 뒤, WaterSpirit/TutorialBoss/WaterMonster
   전체를 한 번에 일괄 검증할 예정 (사용자 결정). 체크리스트: `Assets/Enemy/WaterSpirit/Check.md`,
   `Assets/Enemy/Tutorial/TutorialBoss/Check.md`
+
+- Phase 8 Plan 3 (08-03-PLAN.md): 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종
+  일괄 Play 모드 검증 체크포인트 (Unity 컴파일 확인은 이 실행 환경에서 불가 — 08-03 에서 수행)
 
 ### Blockers
 
@@ -74,6 +90,7 @@ Progress: [████████░░] 86% (6/7 phases)
 ### Roadmap Evolution
 
 - Phase 7 added: 보스 공격 패턴 판단 로직 리팩토링 — CombatState 공유 기반에 TutorialBoss 스타일(거리/쿨다운/연속금지 조건부 판단)의 재사용 가능한 패턴 선택 로직을 도입하고, WaterSpirit 보스(Stage 1 SpiritCombatState 및 Stage 2 Stage2CombatState)에 적용한다.
+- Phase 9 added: 일반 스테이지와 보스 스테이지 진입 시 카메라 크기(줌) 변화
 
 ## Session Continuity
 
@@ -81,3 +98,4 @@ Progress: [████████░░] 86% (6/7 phases)
 - 새 마일스톤 Phase 5부터 번호 이어서 시작
 - 로드맵 원본: `.planning/ROADMAP.md`
 - 요구사항: `.planning/REQUIREMENTS.md`
+- 마지막 세션: Completed 09-01-PLAN.md (2026-07-30). 다음 재개 지점: 09-02-PLAN.md (autonomous=true)

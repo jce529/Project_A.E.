@@ -174,3 +174,59 @@ Phases execute in numeric order: 5 -> 6 -> 7
 | 5. 보스 기반 엔티티 및 스테이지 1 공격 패턴 | 2/2 | Complete | 2026-04-30 |
 | 6. 스테이지 전환 및 스테이지 2 은신·분신 시스템 | 2/2 | Complete | 2026-04-30 |
 | 7. 보스 공격 패턴 판단 로직 리팩토링 | 1/2 | In Progress|  |
+
+### Phase 8: WaterMonster 보스를 CombatState 기반 패턴 판단 로직으로 마이그레이션
+
+**Goal:** 물괴물 보스가 수작업 `List<IAttackStrategy>` + `Random.Range` 풀-랜덤이 아니라,
+Phase 7 의 `CombatState` 범용 헬퍼(`PatternCandidate` + `SelectWeightedPattern`)를 통해
+거리/쿨다운/직전패턴 가중치 감쇠 조건을 반영한 가중치 랜덤으로 공격 패턴을 고른다.
+`WaterWavePush` 45초 특수 잠금과 광폭화 0.5배 배율은 헬퍼 경로에서도 유지되며,
+`SpiritCombatState` 의 기존 완전배제 동작은 회귀 없이 공존한다.
+**Requirements**: D-01 ~ D-06 (08-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 7
+**Success Criteria** (what must be TRUE):
+  1. `CombatState` 에 쿨다운 오버라이드(`PatternCandidate.CooldownOverride`), 광폭화 배율 훅
+     (`GetPatternCooldownMultiplier`), 직전 패턴 가중치 감쇠 옵션이 존재하며 전부 기본값이
+     기존 동작이다 (D-01d, D-03b, D-04a).
+  2. `WaterMonsterCombatState` 에 `Random.Range` / `List<IAttackStrategy>` / `_lastWaveTime` 이
+     존재하지 않고, 8개 `PatternCandidate` 만 선언하는 데이터 레이어가 된다 (D-01~D-06).
+  3. `WaterWavePush` 가 45초(광폭화 시 22.5초) 재사용 잠금을 유지한다 (D-04a, D-04b).
+  4. 직전 사용 패턴이 완전배제되지 않고 가중치 0.5배로 후보에 남는다 (D-01a~c).
+  5. 전투 도중 페이즈가 바뀌면 다음 판단부터 해당 페이즈의 프리즌 변형이 후보에 오른다 (D-06c).
+  6. 장판 스폰/텔레포트 사전 가드와 `ShouldTransitionToGroggy() => false` 가 원형 그대로다 (D-05a).
+  7. `SpiritCombatState.cs` 변경 0 라인으로 완전배제 연속금지가 회귀 없이 동작한다.
+**Plans:** 3 plans
+
+Plans:
+- [x] 08-01-PLAN.md — CombatState 헬퍼 확장 (쿨다운 오버라이드 + 광폭화 배율 훅 + 직전 패턴 가중치 감쇠 모드)
+- [x] 08-02-PLAN.md — WaterMonsterCombatState 후보 선언 데이터 레이어 전환 + WaterMonster Check.md 작성
+- [ ] 08-03-PLAN.md — 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종 일괄 Play 모드 검증 체크포인트
+
+### Phase 9: 일반 스테이지와 보스 스테이지 진입 시 카메라 크기(줌) 변화
+
+**Goal:** 플레이어가 씬 내부에 배치된 보스 구역 트리거 콜라이더에 들어가면 카메라 orthographic size 가
+일반 스테이지 값(5)에서 보스 값(7)으로 부드럽게 전환되고, 트리거를 벗어나면 자동으로 일반 값으로
+복귀한다. 동시에 카메라가 `minX`/`maxX` Inspector 경계 밖으로 나가지 않으며, 클램프는 현재 줌의
+화면 반폭(`orthographicSize * aspect`)을 반영해 줌 5/7 어느 쪽에서도 맵 경계 바깥이 보이지 않는다.
+**Requirements**: D-01 ~ D-11 (09-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 8 (코드 의존성은 없음 — 카메라 스크립트에만 국한된 순수 추가 작업)
+**Success Criteria** (what must be TRUE):
+  1. `CameraController` 에 씬 로컬 싱글톤 `Instance` 와 `SetBossZoom(bool)` 이 존재하며,
+     `DontDestroyOnLoad` 는 사용하지 않는다 (스테이지마다 자기 카메라를 가짐).
+  2. `BossZoomTrigger` 가 `OnTriggerEnter2D` 에서 보스 줌, `OnTriggerExit2D` 에서 일반 줌으로
+     되돌리며, 필드가 없어 어느 보스 구역에나 그대로 붙일 수 있다 (D-01, D-02, D-03).
+  3. 줌 값(일반 5 / 보스 7)과 줌 전환 속도가 Inspector 필드이며, 줌 속도는 기존 위치 추종
+     `smoothing`(5) 과 분리된 `zoomSmoothing` 이다 (D-04, D-05, D-06, D-07).
+  4. `LateUpdate` 실행 순서가 위치 추종 Lerp → 줌 Lerp → X 클램프이며, 클램프가 그 프레임의
+     최신 `orthographicSize` 를 사용한다.
+  5. X축만 `minX + halfWidth` ~ `maxX - halfWidth` 로 클램프되고 Y축은 제한되지 않는다
+     (D-09, D-10, D-11).
+  6. 기존 `CameraController.cs` 의 위치 추종 로직과 CP949 한글 주석이 한 줄도 삭제/변경되지 않는다
+     (삽입 전용 편집).
+  7. 실제 보스 씬에 트리거 콜라이더를 배치하는 에디터 작업은 수행하지 않는다 (D-08 — 사용자 몫).
+**Plans:** 3 plans
+
+Plans:
+- [x] 09-01-PLAN.md — CameraController 확장 (싱글톤 + 줌 필드/SetBossZoom/줌 Lerp + 화면 반폭 반영 X축 클램프)
+- [ ] 09-02-PLAN.md — BossZoomTrigger.cs 신규 트리거 컴포넌트 + Assets/Camera/Check.md 검증 체크리스트
+- [ ] 09-03-PLAN.md — 정적 회귀 검사 + Unity Play 모드 검증 체크포인트 (줌 전환 / X축 클램프 튜닝)
