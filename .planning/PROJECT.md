@@ -57,6 +57,7 @@ Unity 2D 액션 게임. 다양한 보스 구현을 중심으로 진행 중.
 - **레이어 분리**: 보스 공격은 Player 레이어에만 영향 (기존 원칙 유지).
 - **물의 정령 독립 구현**: WaterMonsterController와 별도의 독립 엔티티로 구현. 코드 공유는 기반 클래스(`BossController`, `BossStatsSystem`) 수준으로 제한.
 - **분신 구현**: 분신은 별도 GameObject로, 동일한 상태머신 구조를 가지되 `isDummy` 플래그로 데미지 처리 분기.
+- **카메라 씬 로컬 싱글톤**: `CameraController.Instance` 는 `DontDestroyOnLoad` 없이 씬마다 독립적으로 존재 (스테이지마다 자기 카메라를 가짐). 보스 구역 트리거(`BossZoomTrigger`, 필드 0개)가 `SetBossZoom(bool)` 을 호출해 줌을 전환 (Phase 9).
 
 ## Known Base Assets (재사용 대상)
 - `BossController.cs` — protected virtual Awake, State 전환/이동/쿨다운 기본 기능
@@ -83,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-30 — Phase 5 완료*
+*Last updated: 2026-07-30 — Phase 9 완료 (카메라 줌/X축 클램프; Play 모드 실측 검증은 사용자 결정으로 보류, `.planning/phases/09-camera-zoom-stage-transition/09-HUMAN-UAT.md` 참고)*
