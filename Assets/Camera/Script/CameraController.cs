@@ -27,8 +27,9 @@ public class CameraController : MonoBehaviour
 
     [Header("Deadzone (normal stages only)")]
     // Deadzone box size in WORLD units. Fixed size, never scaled by zoom (D-01 / D-02).
-    // deadzoneWidth gates camera X movement. The height field below is Gizmo / Inspector only
-    // in this phase - the hard cut deadzone is X axis only (locked assumption A1 in 10-01-PLAN).
+    // Both fields below are real hard cut gates: the width field gates camera X and the
+    // height field gates camera Y. This supersedes locked assumption A1 of 10-01-PLAN,
+    // which had the height field as Gizmo / Inspector only (quick task 260804-q6h).
     public float deadzoneWidth = 3f;
     public float deadzoneHeight = 2f;
 
@@ -71,9 +72,10 @@ public class CameraController : MonoBehaviour
     // Resting X of the deadzone box center. The camera parks here instead of chasing the
     // target every frame - this is what makes the box feel "sticky" (D-14 hard cut).
     private float _deadzoneCenterX;
-    // Un-peeked Y baseline the camera follows with the legacy 'smoothing' rate.
-    // Kept separate from transform.position.y so later offset layers cannot feed back into it.
-    private float _followBaseY;
+    // Resting Y of the deadzone box center - the Y axis mirror of _deadzoneCenterX
+    // (quick task 260804-q6h). Kept separate from transform.position.y so the peek offset
+    // layered on top of it cannot feed back into the box.
+    private float _deadzoneCenterY;
     // Deadzone box offset, computed with the user formula -(pushDir * maxOffsetDistance).
     // The camera sits at _deadzoneCenterX MINUS this value, so a negative offset (running
     // right) pushes the camera right and opens up the view ahead (assumption A2 in 10-02-PLAN).
@@ -99,7 +101,7 @@ public class CameraController : MonoBehaviour
     // Target position of the previous frame. Single shared movement signal used for the
     // idle check (D-10) and the dash / knockback spike proxy (D-11).
     private Vector3 _lastTargetPos;
-    // Current vertical peek offset added on top of _followBaseY.
+    // Current vertical peek offset added on top of _deadzoneCenterY.
     private float _currentPeekY;
     // SmoothDamp state. MUST be a persistent field, never a local.
     private float _peekVelocityY;
@@ -164,7 +166,7 @@ public class CameraController : MonoBehaviour
 
     // Hard cut deadzone (D-14). The camera does not move at all while the target stays inside
     // the box; when the target pushes an edge the box center snaps by exactly the overrun.
-    // X axis only - camera Y keeps following the target (locked assumption A1 in 10-01-PLAN).
+    // X axis only - the Y axis has its own mirror below, UpdateDeadzoneCenterY (260804-q6h).
     // Do NOT Lerp this: smoothing it would open a gap between the box edge and the camera,
     // which defeats the "completely still inside the box" goal (D-14).
     private void UpdateDeadzoneCenter()
@@ -185,6 +187,26 @@ public class CameraController : MonoBehaviour
         if (_deadzonePushSign != 0f) _lastPushSign = _deadzonePushSign;
     }
 
+    // Y axis mirror of UpdateDeadzoneCenter (quick task 260804-q6h). Same hard cut family:
+    // the camera does not move vertically while the target stays inside the box, and the box
+    // center snaps by exactly the overrun once an edge is crossed.
+    // Deliberately independent of the dynamic offset and of peeking - it writes no push sign
+    // and has no grounded / airborne branch, so it behaves identically in the air.
+    // Do NOT Lerp or SmoothDamp this, for the same reason as the X axis (D-14).
+    private void UpdateDeadzoneCenterY()
+    {
+        float halfH = deadzoneHeight * 0.5f;
+        float py = target.position.y;
+        if (py < _deadzoneCenterY - halfH)
+        {
+            _deadzoneCenterY = py + halfH;
+        }
+        else if (py > _deadzoneCenterY + halfH)
+        {
+            _deadzoneCenterY = py - halfH;
+        }
+    }
+
     // Normal stage camera composition. Runs AFTER the legacy follow Lerp in LateUpdate and
     // overwrites its X and Y, which is why that legacy line stays byte identical for the
     // boss path (D-15). Z is still handled by the legacy line above.
@@ -193,12 +215,12 @@ public class CameraController : MonoBehaviour
         float dt = Mathf.Max(Time.deltaTime, 0.0001f);
         float targetSpeed = (target.position - _lastTargetPos).magnitude / dt;
         UpdateDeadzoneCenter();
+        UpdateDeadzoneCenterY();
         UpdateDynamicOffset();
         UpdatePeekOffset(targetSpeed);
-        _followBaseY = Mathf.Lerp(_followBaseY, target.position.y + offset.y, smoothing * Time.deltaTime);
         Vector3 p = transform.position;
         p.x = _deadzoneCenterX - _currentBoxOffsetX;
-        p.y = _followBaseY + _currentPeekY;
+        p.y = _deadzoneCenterY + _currentPeekY;
         transform.position = p;
         // Consumed by next frame's speed proxy. Updated AFTER all three helpers have read it.
         _lastTargetPos = target.position;
@@ -210,7 +232,7 @@ public class CameraController : MonoBehaviour
     private void ResetNormalStageState()
     {
         _deadzoneCenterX = transform.position.x;
-        _followBaseY = transform.position.y;
+        _deadzoneCenterY = transform.position.y;
         _currentBoxOffsetX = 0f;
         _offsetVelocityX = 0f;
         _offsetHoldTimer = 0f;
@@ -284,7 +306,8 @@ public class CameraController : MonoBehaviour
     private void OnDrawGizmos()
     {
         float centerX = Application.isPlaying ? _deadzoneCenterX : transform.position.x;
-        Vector3 center = new Vector3(centerX, transform.position.y, 0f);
+        float centerY = Application.isPlaying ? _deadzoneCenterY : transform.position.y;
+        Vector3 center = new Vector3(centerX, centerY, 0f);
         Vector3 size = new Vector3(deadzoneWidth, deadzoneHeight, 0f);
         Gizmos.color = new Color(1f, 1f, 0f, 0.12f);
         Gizmos.DrawCube(center, size);
