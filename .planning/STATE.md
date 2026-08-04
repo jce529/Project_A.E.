@@ -24,7 +24,7 @@ progress:
 Phase: 10 (3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller) — EXECUTING
 Plan: 4 of 4
 Status: Ready to execute
-Last activity: 2026-08-04
+Last activity: 2026-08-04 - Completed quick task 260804-q6h: Y축 데드존(하드컷) 추가 - CameraController.cs
 
 Progress: [█████████░] 89% (25/28 plans)
 
@@ -106,6 +106,12 @@ Progress: [█████████░] 89% (25/28 plans)
 ### Blockers
 
 (없음)
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260804-q6h | Y축 데드존(하드컷) 추가 - CameraController.cs | 2026-08-04 | d3cc065 | [260804-q6h-y-cameracontroller-cs](./quick/260804-q6h-y-cameracontroller-cs/) |
 
 ### Roadmap Evolution
 
