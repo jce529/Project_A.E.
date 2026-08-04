@@ -184,3 +184,20 @@ Play 모드에서 이 체크리스트를 직접 확인할 것을 권장한다.
 \*\* **검사 7 비고 (`DontDestroyOnLoad`=1)**: 112행 주석 `// InputHandler is DontDestroyOnLoad while this camera is scene local, ...`은 10-03-PLAN.md 170행에 명시된 원문 그대로다 — `InputHandler`(다른 클래스)의 실제 동작을 설명하는 주석이며, `CameraController` 자신이 `DontDestroyOnLoad`를 호출하지 않는다는 원래 취지(Phase 9 결정, "씬 로컬 싱글톤")는 그대로 유지된다. 코드에 `DontDestroyOnLoad(...)` 호출은 여전히 0건이다. 이 게이트의 리터럴 문자열 카운트 기대값(0)이 10-03에서 이미 커밋된 정당한 주석과 충돌하는, Phase 9 Plan 1(`09-01`)에서도 발견된 것과 동일한 "플랜 자체 검증 스크립트 설계 오류" 패턴이다. `CameraController.cs`는 이 플랜에서 수정하지 않았다.
 
 **9개 검사 전부 실질적으로 PASS.** 정적 검사만 완료되었으며, **Play 모드 미검증** 상태다 (Task 3 참고).
+
+## 부가 기능: X 경계(minX/maxX) Gizmo 확인 (에디터 모드, Play 불필요)
+
+Phase 10 체크리스트 검증 중 사용자 요청으로 추가됨 (`fa427d7`). `Assets/Camera/Script/CameraController.cs`의
+`OnDrawGizmos`에 minX/maxX 위치의 빨간 세로선 2개를 추가해, Play 없이 에디터 모드에서도 카메라 좌우 한계를
+바로 확인할 수 있게 했다.
+
+- [ ] **선 표시**: `1 stage.unity`(또는 개발용 씬)에서 Hierarchy → `Main Camera` 선택 시, Scene 뷰에
+      **빨간 세로선 2개**가 보인다 (minX 위치, maxX 위치 각각 1개).
+- [ ] **기본값 확인**: `Min X`/`Max X` Inspector 기본값이 `-1000`/`1000`이면, 두 선이 화면에서 아주
+      멀리(맵 밖) 떨어져 보이거나 아예 뷰포트 밖에 있다 (정상 — 아직 씬별로 튜닝 전).
+- [ ] **실시간 반응**: Inspector에서 `Min X`/`Max X` 값을 맵 좌우 끝 좌표로 바꾸면, Scene 뷰의 빨간 선이
+      **Play 하지 않아도 즉시** 새 위치로 이동한다.
+- [ ] **Play 모드에서도 유지**: Play 중에도 두 선이 계속 보이고(데드존 노란 박스와 함께), 카메라가 선을
+      넘어가지 않는지 눈으로 대조할 수 있다.
+- [ ] **런타임 영향 없음**: 에디터 전용 Gizmo이므로 빌드/런타임 동작에는 영향이 없다 (코드 리뷰로 확인 —
+      `OnDrawGizmos`는 Unity 에디터에서만 호출됨).
