@@ -84,6 +84,10 @@ public class CameraController : MonoBehaviour
     private float _offsetHoldTimer;
     // -1 while pushing the left edge, +1 while pushing the right edge, 0 while resting (D-05).
     private float _deadzonePushSign;
+    // Last non-zero _deadzonePushSign, retained after the push stops. The hard-cut box (D-14)
+    // never re-centers on its own, so once idle this is what lets the offset settle back onto
+    // the player's exact X instead of leaving the camera stuck halfW behind them (checkpoint fix).
+    private float _lastPushSign;
 
     // Latest raw move input from the InputHandler bus (D-08). Cached as-is: the movementLocked
     // guard is applied where it is consumed, exactly like PlayerController.OnMove does (D-09).
@@ -178,6 +182,7 @@ public class CameraController : MonoBehaviour
             _deadzoneCenterX = px - halfW;
             _deadzonePushSign = 1f;
         }
+        if (_deadzonePushSign != 0f) _lastPushSign = _deadzonePushSign;
     }
 
     // Normal stage camera composition. Runs AFTER the legacy follow Lerp in LateUpdate and
@@ -210,6 +215,7 @@ public class CameraController : MonoBehaviour
         _offsetVelocityX = 0f;
         _offsetHoldTimer = 0f;
         _deadzonePushSign = 0f;
+        _lastPushSign = 0f;
         _currentPeekY = 0f;
         _peekVelocityY = 0f;
         _peekTimer = 0f;
@@ -218,7 +224,12 @@ public class CameraController : MonoBehaviour
 
     // Dynamic asymmetrical deadzone (D-05 / D-06 / D-07). The offset only builds while the
     // target actually pushes a deadzone edge - there is no separate speed threshold (D-05).
-    // After the push stops the offset is held for offsetHoldDuration, then eases back to 0 (D-06).
+    // After the push stops the offset is held for offsetHoldDuration, then eases back (D-06).
+    // The idle target is halfW (not 0): the hard-cut box (D-14) never re-centers on its own,
+    // so easing the offset all the way to 0 would leave the camera parked halfW behind the
+    // player - narrower on the side they just walked toward. Settling at halfW instead cancels
+    // that lag exactly, so a fully-idle camera always sits on the player's X (checkpoint fix,
+    // Phase 10 UAT).
     private void UpdateDynamicOffset()
     {
         float targetOffsetX;
@@ -234,7 +245,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            targetOffsetX = 0f;
+            targetOffsetX = -(_lastPushSign * (deadzoneWidth * 0.5f));
         }
         _currentBoxOffsetX = Mathf.SmoothDamp(_currentBoxOffsetX, targetOffsetX, ref _offsetVelocityX, offsetSmoothTime);
     }
