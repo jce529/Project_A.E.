@@ -279,6 +279,13 @@ public class CameraController : MonoBehaviour
         Gizmos.DrawCube(center, size);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(center, size);
+
+        // X bound visualization (D-09 / D-10) - lets minX/maxX be eyeballed without Play mode.
+        Gizmos.color = Color.red;
+        const float boundLineHeight = 20f;
+        float halfLine = boundLineHeight / 2f;
+        Gizmos.DrawLine(new Vector3(minX, transform.position.y - halfLine, 0f), new Vector3(minX, transform.position.y + halfLine, 0f));
+        Gizmos.DrawLine(new Vector3(maxX, transform.position.y - halfLine, 0f), new Vector3(maxX, transform.position.y + halfLine, 0f));
     }
 
     void Start()
