@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
-status: verifying
-last_updated: "2026-07-30T11:54:56.260Z"
-last_activity: 2026-07-30
+status: executing
+last_updated: "2026-08-04T07:48:30.825Z"
+last_activity: 2026-08-04
 progress:
-  total_phases: 9
+  total_phases: 10
   completed_phases: 7
-  total_plans: 24
-  completed_plans: 22
+  total_plans: 28
+  completed_plans: 24
   percent: 92
 ---
 
@@ -21,12 +21,12 @@ progress:
 
 ## Current Position
 
-Phase: 09 (camera-zoom-stage-transition) — COMPLETE (human_needed: Play mode runtime check deferred by user, see 09-HUMAN-UAT.md)
-Plan: 3 of 3 (all executed)
-Status: Phase 9 complete; Play mode verification recorded as open UAT item
-Last activity: 2026-07-30 -- Phase 09 marked complete (Play mode verification deferred by user decision)
+Phase: 10 (3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller) — EXECUTING
+Plan: 3 of 4
+Status: Ready to execute
+Last activity: 2026-08-04
 
-Progress: [█████████░] 92% (22/24 plans)
+Progress: [█████████░] 92% (23/25 plans)
 
 ## Phase Status
 
@@ -44,6 +44,8 @@ Progress: [█████████░] 92% (22/24 plans)
 |------------|----------|-------|-------|------|
 | 05-01 | - | 2 | 3 | 2026-04-30 |
 | 05-02 | - | 2 | 4 | 2026-04-30 |
+| Phase 10 P01 | 6min | 3 tasks | 1 files |
+| Phase 10-3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller P02 | 6min | 2 tasks | 1 files |
 
 ## Performance Metrics
 
@@ -73,6 +75,9 @@ Progress: [█████████░] 92% (22/24 plans)
 - CameraController.cs 의 신규 삽입 주석에서 "DontDestroyOnLoad" 리터럴 문자열을 피하고 "Not persisted across scene loads"로 대체 — 09-01-PLAN.md 자체의 액션 텍스트(해당 문자열을 포함한 주석 지정)와 인수 기준(같은 문자열 카운트 0 요구)이 상충했기 때문 (Phase 9 Plan 1)
 - BossZoomTrigger 는 필드 0개 유지 - 줌 값은 CameraController Inspector 소유(D-04/D-05), 트리거는 어느 보스 구역에나 드롭 가능해야 함(D-02) (Phase 9 Plan 2)
 - Phase 9 Plan 3 Task 2 (Unity Play 모드 실측 검증)는 사용자가 명시적으로 생략하기로 결정 — Check.md 에 PASS 로 허위 기록하지 않고 "검증 생략" 상태와 미체크 항목 그대로 남김 (Phase 9 Plan 3)
+- CameraController.cs Task 1 삽입 주석에서 "deadzoneHeight" 리터럴 문자열을 피하고 "the height field below"로 대체 — Task 3 검증 게이트(deadzoneHeight 카운트==2)와 상충했기 때문, Phase 9 Plan 1의 DontDestroyOnLoad 사례와 동일 패턴 (Phase 10 Plan 1)
+- CameraController.cs 카메라 X 합성은 `_deadzoneCenterX - _currentBoxOffsetX` 이고 오프셋은 `-(pushDir * maxOffsetDistance)` (잠금 가정 A2) — 오른쪽으로 달리면 카메라가 오른쪽으로 앞서 나가 진행 방향 시야가 열린다 (Phase 10 Plan 2)
+- Phase 10 Plan 2 Task 2 의 `git diff ef6f164` 삭제 라인 수 게이트(==2)는 baseline 커밋 선택 오류로 문자 그대로는 항상 0 이 나온다 — Plan 10-01 이 순수 삽입 diff 였으므로 그 위에서 다시 수정되는 라인은 ef6f164 기준으로는 애초에 없던 라인의 일부로 뭉쳐 보임. 대신 직전 커밋(717e37f) 기준 `git diff HEAD` 로 검증해 정확히 2줄(둘 다 ASCII)임을 확인 — Phase 9 Plan 1의 DontDestroyOnLoad, Phase 10 Plan 1의 deadzoneHeight 사례와 같은 계열의 "계획 자체 검증 스크립트 오류" 패턴 (Phase 10 Plan 2)
 
 ### Active TODOs
 
@@ -95,6 +100,7 @@ Progress: [█████████░] 92% (22/24 plans)
 
 - Phase 7 added: 보스 공격 패턴 판단 로직 리팩토링 — CombatState 공유 기반에 TutorialBoss 스타일(거리/쿨다운/연속금지 조건부 판단)의 재사용 가능한 패턴 선택 로직을 도입하고, WaterSpirit 보스(Stage 1 SpiritCombatState 및 Stage 2 Stage2CombatState)에 적용한다.
 - Phase 9 added: 일반 스테이지와 보스 스테이지 진입 시 카메라 크기(줌) 변화
+- Phase 10 added: 카메라 데드존 기법 3종 (Base Deadzone, Dynamic Asymmetrical Deadzone, Input-based Peeking) 구현 — Phase 9 CameraController에 레이어링
 
 ## Session Continuity
 
@@ -103,3 +109,5 @@ Progress: [█████████░] 92% (22/24 plans)
 - 로드맵 원본: `.planning/ROADMAP.md`
 - 요구사항: `.planning/REQUIREMENTS.md`
 - 마지막 세션: Completed 09-03-PLAN.md (2026-07-30, Play 모드 검증은 사용자 결정으로 생략). 다음 재개 지점: Phase 9 검증(gsd-verifier)
+- 마지막 세션: Completed 10-01-PLAN.md (2026-08-04, Base Deadzone + `_isBossZone` 분기 구조 + Gizmo). 다음 재개 지점: Phase 10 Plan 2 (10-02-PLAN.md, Dynamic Asymmetrical Deadzone)
+- 마지막 세션: Completed 10-02-PLAN.md (2026-08-04, Dynamic Asymmetrical Deadzone — `_currentBoxOffsetX` SmoothDamp + hold timer + `_deadzonePushSign`). 다음 재개 지점: Phase 10 Plan 3 (10-03-PLAN.md, Input-based Peeking)

@@ -230,3 +230,24 @@ Plans:
 - [x] 09-01-PLAN.md — CameraController 확장 (싱글톤 + 줌 필드/SetBossZoom/줌 Lerp + 화면 반폭 반영 X축 클램프)
 - [x] 09-02-PLAN.md — BossZoomTrigger.cs 신규 트리거 컴포넌트 + Assets/Camera/Check.md 검증 체크리스트
 - [x] 09-03-PLAN.md — 정적 회귀 검사 (통과) + Unity Play 모드 검증 체크포인트 (사용자 결정으로 생략)
+
+### Phase 10: 카메라 데드존 기법 3종 (Base Deadzone, Dynamic Asymmetrical Deadzone, Input-based Peeking) 구현 — Phase 9 CameraController에 레이어링
+
+**Goal:** 일반 스테이지에서 카메라가 플레이어를 무조건 따라다니지 않고, (1) 데드존 박스 안에서는 완전히 정지하며 경계를 밀 때만 하드컷으로 따라붙고, (2) 경계를 미는 동안 진행 방향으로 시야가 열리도록 데드존 박스 중심이 SmoothDamp 오프셋되며, (3) 접지·정지 상태에서 수직 입력을 유지하면 카메라가 위/아래로 시야를 옮기고 이동·대시·피격 시 즉시 취소된다. 보스 구역(`SetBossZoom(true)`) 안에서는 이 3개 기법이 전부 비활성화되어 Phase 9의 레거시 Lerp 추종으로 완전히 복귀하며, 줌 Lerp와 X축 클램프는 두 경로 모두에서 Phase 9 그대로 동작한다.
+**Requirements**: D-01 ~ D-17 (10-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 9
+**Success Criteria** (what must be TRUE):
+  1. `CameraController` 에 `deadzoneWidth`/`deadzoneHeight` 월드 유닛 Inspector 필드가 있고, `OnDrawGizmos` 로 박스가 Scene 뷰에 표시되며, 줌 비율에 따라 스케일되지 않는다 (D-01, D-02, D-03).
+  2. 일반 스테이지 카메라 X 가 `_deadzoneCenterX` 하드컷으로만 이동한다 — 데드존 계산 경로에 `Lerp`/`SmoothDamp` 가 없다 (D-14).
+  3. 데드존 경계를 밀고 있을 때만(별도 속도 임계값 없이) 오프셋이 발동하고, 정지 후 `offsetHoldDuration` 유지 뒤 `SmoothDamp` 로 복귀하며, 진행 방향 시야가 열린다 (D-04 ~ D-07).
+  4. 수직 입력을 `InputHandler.Instance.OnMoveEvent` 구독으로만 읽고, `movementLocked`·`IsGrounded()`·정지 근사·입력 유지 4조건이 모두 충족될 때만 피킹이 발동하며, 이동량 급증(대시/피격 프록시)으로 즉시 취소된다 (D-08 ~ D-13).
+  5. `PlayerController.cs` 와 `InputHandler.cs` 는 0줄 변경이다 (`isDashing`/`isKnockedBack` 접근자 추가 없음).
+  6. 보스 구역에서는 데드존/오프셋/피킹이 전부 꺼지고 Phase 9 레거시 `Vector3.Lerp` 결과가 그대로 유지되며, 줌 Lerp 와 X 클램프 순서가 보존된다 (D-15, D-16, D-17).
+  7. `CameraController.cs` 의 기존 CP949 한글 주석이 한 줄도 훼손되지 않는다 (삭제 라인 3줄 전부 ASCII, 비-ASCII 라인 수 5 유지).
+**Plans:** 2/4 plans executed
+
+Plans:
+- [x] 10-01-PLAN.md — 하드컷 Base Deadzone + `_isBossZone` 분기 구조(`ApplyNormalStageCamera`/`ResetNormalStageState`) + 데드존 Gizmo
+- [x] 10-02-PLAN.md — Dynamic Asymmetrical Deadzone (밀기 방향 추적 + 유지 타이머 + SmoothDamp 오프셋 합성)
+- [ ] 10-03-PLAN.md — Input-based Peeking (OnMoveEvent 구독 라이프사이클 + 4조건 가드 + 수직 SmoothDamp)
+- [ ] 10-04-PLAN.md — Assets/Camera/Check.md Phase 10 체크리스트 + 정적 회귀 검사 9종 + Play 모드 검증 체크포인트
