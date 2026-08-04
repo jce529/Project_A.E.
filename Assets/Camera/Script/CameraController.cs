@@ -123,9 +123,10 @@ public class CameraController : MonoBehaviour
     private void ApplyNormalStageCamera()
     {
         UpdateDeadzoneCenter();
+        UpdateDynamicOffset();
         _followBaseY = Mathf.Lerp(_followBaseY, target.position.y + offset.y, smoothing * Time.deltaTime);
         Vector3 p = transform.position;
-        p.x = _deadzoneCenterX;
+        p.x = _deadzoneCenterX - _currentBoxOffsetX;
         p.y = _followBaseY;
         transform.position = p;
     }
@@ -137,6 +138,10 @@ public class CameraController : MonoBehaviour
     {
         _deadzoneCenterX = transform.position.x;
         _followBaseY = transform.position.y;
+        _currentBoxOffsetX = 0f;
+        _offsetVelocityX = 0f;
+        _offsetHoldTimer = 0f;
+        _deadzonePushSign = 0f;
     }
 
     // Dynamic asymmetrical deadzone (D-05 / D-06 / D-07). The offset only builds while the
@@ -202,6 +207,6 @@ public class CameraController : MonoBehaviour
         ApplyXClamp();
         // Re-anchor on the clamped position so the camera responds immediately when the
         // target walks back from a clamped map edge instead of eating dead travel (D-17).
-        if (!_isBossZone) _deadzoneCenterX = transform.position.x;
+        if (!_isBossZone) _deadzoneCenterX = transform.position.x + _currentBoxOffsetX;
     }
 }
