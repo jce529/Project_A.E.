@@ -117,6 +117,20 @@ public class CameraController : MonoBehaviour
         _followBaseY = transform.position.y;
     }
 
+    // Editor only deadzone visualization (D-03). Zero runtime cost in a build.
+    // In play mode the box is drawn at its actual resting center; in edit mode it falls back
+    // to the camera transform so the size can still be eyeballed before pressing Play.
+    private void OnDrawGizmos()
+    {
+        float centerX = Application.isPlaying ? _deadzoneCenterX : transform.position.x;
+        Vector3 center = new Vector3(centerX, transform.position.y, 0f);
+        Vector3 size = new Vector3(deadzoneWidth, deadzoneHeight, 0f);
+        Gizmos.color = new Color(1f, 1f, 0f, 0.12f);
+        Gizmos.DrawCube(center, size);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(center, size);
+    }
+
     void Start()
     {
         // [�߿�] ���� ī�޶� ��� �ֵ� �������,
