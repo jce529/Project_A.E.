@@ -25,12 +25,30 @@ public class CameraController : MonoBehaviour
     public float minX = -1000f;
     public float maxX = 1000f;
 
+    [Header("Deadzone (normal stages only)")]
+    // Deadzone box size in WORLD units. Fixed size, never scaled by zoom (D-01 / D-02).
+    // deadzoneWidth gates camera X movement. The height field below is Gizmo / Inspector only
+    // in this phase - the hard cut deadzone is X axis only (locked assumption A1 in 10-01-PLAN).
+    public float deadzoneWidth = 3f;
+    public float deadzoneHeight = 2f;
+
     // Scene-local singleton. BossZoomTrigger calls in through this (D-01).
     // Not persisted across scene loads on purpose: every stage scene owns its own camera.
     public static CameraController Instance { get; private set; }
 
     private Camera _cam;
     private float _targetZoom;
+
+    // True while the player is inside a BossZoomTrigger zone (D-15). SetBossZoom stores it
+    // so LateUpdate can bypass the whole deadzone pipeline and keep the Phase 9 behaviour.
+    private bool _isBossZone;
+
+    // Resting X of the deadzone box center. The camera parks here instead of chasing the
+    // target every frame - this is what makes the box feel "sticky" (D-14 hard cut).
+    private float _deadzoneCenterX;
+    // Un-peeked Y baseline the camera follows with the legacy 'smoothing' rate.
+    // Kept separate from transform.position.y so later offset layers cannot feed back into it.
+    private float _followBaseY;
 
     void Awake()
     {
@@ -44,6 +62,8 @@ public class CameraController : MonoBehaviour
     public void SetBossZoom(bool isBossStage)
     {
         _targetZoom = isBossStage ? bossZoom : normalZoom;
+        // Store the zone state itself, not just the zoom value - LateUpdate branches on it (D-15).
+        _isBossZone = isBossStage;
     }
 
     // Clamps X so the visible left/right edges never pass minX / maxX (D-09 / D-11).
@@ -56,6 +76,47 @@ public class CameraController : MonoBehaviour
         transform.position = pos;
     }
 
+    // Hard cut deadzone (D-14). The camera does not move at all while the target stays inside
+    // the box; when the target pushes an edge the box center snaps by exactly the overrun.
+    // X axis only - camera Y keeps following the target (locked assumption A1 in 10-01-PLAN).
+    // Do NOT Lerp this: smoothing it would open a gap between the box edge and the camera,
+    // which defeats the "completely still inside the box" goal (D-14).
+    private void UpdateDeadzoneCenter()
+    {
+        float halfW = deadzoneWidth * 0.5f;
+        float px = target.position.x;
+        if (px < _deadzoneCenterX - halfW)
+        {
+            _deadzoneCenterX = px + halfW;
+        }
+        else if (px > _deadzoneCenterX + halfW)
+        {
+            _deadzoneCenterX = px - halfW;
+        }
+    }
+
+    // Normal stage camera composition. Runs AFTER the legacy follow Lerp in LateUpdate and
+    // overwrites its X and Y, which is why that legacy line stays byte identical for the
+    // boss path (D-15). Z is still handled by the legacy line above.
+    private void ApplyNormalStageCamera()
+    {
+        UpdateDeadzoneCenter();
+        _followBaseY = Mathf.Lerp(_followBaseY, target.position.y + offset.y, smoothing * Time.deltaTime);
+        Vector3 p = transform.position;
+        p.x = _deadzoneCenterX;
+        p.y = _followBaseY;
+        transform.position = p;
+    }
+
+    // Boss zones bypass the deadzone pipeline entirely (D-15). Syncing the anchors to the
+    // legacy camera position every frame means returning to a normal stage does not jump.
+    // Also used once from Start to seed the anchors.
+    private void ResetNormalStageState()
+    {
+        _deadzoneCenterX = transform.position.x;
+        _followBaseY = transform.position.y;
+    }
+
     void Start()
     {
         // [�߿�] ���� ī�޶� ��� �ֵ� �������,
@@ -64,6 +125,8 @@ public class CameraController : MonoBehaviour
         // Start already at the normal-stage zoom so frame 1 does not play a transition.
         _cam.orthographicSize = normalZoom;
         ApplyXClamp();
+        // Park the deadzone box and the follow baseline on the camera's start position.
+        ResetNormalStageState();
     }
 
     void LateUpdate()
@@ -71,9 +134,15 @@ public class CameraController : MonoBehaviour
         if (target == null) return;
         Vector3 targetCamPos = target.position + offset;
         transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        // Normal stages overwrite the legacy follow result with the deadzone pipeline (D-14).
+        // Boss zones leave the legacy Lerp above untouched, exactly as in Phase 9 (D-15).
+        if (_isBossZone) ResetNormalStageState(); else ApplyNormalStageCamera();
         // Zoom Lerp toward the current stage target size (D-06 / D-07).
         _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _targetZoom, zoomSmoothing * Time.deltaTime);
         // X clamp LAST so it uses this frame's freshly updated orthographicSize.
         ApplyXClamp();
+        // Re-anchor on the clamped position so the camera responds immediately when the
+        // target walks back from a clamped map edge instead of eating dead travel (D-17).
+        if (!_isBossZone) _deadzoneCenterX = transform.position.x;
     }
 }
