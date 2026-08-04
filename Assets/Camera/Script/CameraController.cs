@@ -41,6 +41,22 @@ public class CameraController : MonoBehaviour
     // Seconds the offset is held after the push stops, before it eases back to 0 (D-06).
     public float offsetHoldDuration = 0.4f;
 
+    [Header("Peeking (normal stages only)")]
+    // Seconds the vertical input must be held while idle before peeking starts (D-13, user value).
+    public float peekThreshold = 0.5f;
+    // World units the camera shifts vertically at full input deflection (D-13).
+    public float peekDistance = 3f;
+    // SmoothDamp time while peeking out, and the faster one used for the snap back (D-13).
+    public float peekSmoothTime = 0.35f;
+    public float peekReturnSmoothTime = 0.12f;
+    // Target speed (world units per second) at or below which the target counts as stopped.
+    // This is the Velocity == 0 proxy from the frame delta of target.position (D-10).
+    public float idleSpeedThreshold = 0.05f;
+    // Target speed that instantly cancels peeking. Dash / knockback proxy - the cause is NOT
+    // distinguished (D-11). PlayerController dashSpeed is 20 and runSpeed is 7, so 12 sits
+    // between them: running never trips it, dashing and knockback always do.
+    public float peekCancelSpeed = 12f;
+
     // Scene-local singleton. BossZoomTrigger calls in through this (D-01).
     // Not persisted across scene loads on purpose: every stage scene owns its own camera.
     public static CameraController Instance { get; private set; }
@@ -79,6 +95,12 @@ public class CameraController : MonoBehaviour
     // Target position of the previous frame. Single shared movement signal used for the
     // idle check (D-10) and the dash / knockback spike proxy (D-11).
     private Vector3 _lastTargetPos;
+    // Current vertical peek offset added on top of _followBaseY.
+    private float _currentPeekY;
+    // SmoothDamp state. MUST be a persistent field, never a local.
+    private float _peekVelocityY;
+    // How long all peek conditions have held continuously (D-13 threshold timer).
+    private float _peekTimer;
 
     void Awake()
     {
@@ -163,13 +185,18 @@ public class CameraController : MonoBehaviour
     // boss path (D-15). Z is still handled by the legacy line above.
     private void ApplyNormalStageCamera()
     {
+        float dt = Mathf.Max(Time.deltaTime, 0.0001f);
+        float targetSpeed = (target.position - _lastTargetPos).magnitude / dt;
         UpdateDeadzoneCenter();
         UpdateDynamicOffset();
+        UpdatePeekOffset(targetSpeed);
         _followBaseY = Mathf.Lerp(_followBaseY, target.position.y + offset.y, smoothing * Time.deltaTime);
         Vector3 p = transform.position;
         p.x = _deadzoneCenterX - _currentBoxOffsetX;
-        p.y = _followBaseY;
+        p.y = _followBaseY + _currentPeekY;
         transform.position = p;
+        // Consumed by next frame's speed proxy. Updated AFTER all three helpers have read it.
+        _lastTargetPos = target.position;
     }
 
     // Boss zones bypass the deadzone pipeline entirely (D-15). Syncing the anchors to the
@@ -183,6 +210,10 @@ public class CameraController : MonoBehaviour
         _offsetVelocityX = 0f;
         _offsetHoldTimer = 0f;
         _deadzonePushSign = 0f;
+        _currentPeekY = 0f;
+        _peekVelocityY = 0f;
+        _peekTimer = 0f;
+        _lastTargetPos = target.position;
     }
 
     // Dynamic asymmetrical deadzone (D-05 / D-06 / D-07). The offset only builds while the
@@ -206,6 +237,34 @@ public class CameraController : MonoBehaviour
             targetOffsetX = 0f;
         }
         _currentBoxOffsetX = Mathf.SmoothDamp(_currentBoxOffsetX, targetOffsetX, ref _offsetVelocityX, offsetSmoothTime);
+    }
+
+    // Input based peeking (D-08 - D-13). All four conditions must hold together:
+    // input not locked (D-09), grounded (D-12), target effectively stopped (D-10),
+    // and a held vertical input. A speed spike cancels it immediately (D-11).
+    private void UpdatePeekOffset(float targetSpeed)
+    {
+        bool inputUsable = _playerRef != null && !_playerRef.movementLocked;
+        bool grounded = _playerRef != null && _playerRef.IsGrounded();
+        bool idle = targetSpeed <= idleSpeedThreshold;
+        bool cancelled = targetSpeed >= peekCancelSpeed;
+        bool holding = inputUsable && grounded && idle && !cancelled && Mathf.Abs(_lastMoveInput.y) > 0.1f;
+
+        float targetPeek = 0f;
+        if (holding)
+        {
+            _peekTimer += Time.deltaTime;
+            if (_peekTimer > peekThreshold)
+                targetPeek = _lastMoveInput.y * peekDistance;
+        }
+        else
+        {
+            _peekTimer = 0f;
+        }
+
+        // Returning to 0 uses the faster smooth time so the view snaps back on cancel.
+        float smoothTime = (targetPeek == 0f) ? peekReturnSmoothTime : peekSmoothTime;
+        _currentPeekY = Mathf.SmoothDamp(_currentPeekY, targetPeek, ref _peekVelocityY, smoothTime);
     }
 
     // Editor only deadzone visualization (D-03). Zero runtime cost in a build.
