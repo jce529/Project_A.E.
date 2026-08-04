@@ -165,4 +165,22 @@ Play 모드에서 이 체크리스트를 직접 확인할 것을 권장한다.
 
 ## Phase 10 결과 기록
 
-(정적 회귀 검사 결과와 Play 모드 검증 결과를 여기에 기록한다. 확인하지 않은 항목은 체크하지 않고 그대로 둔다.)
+### 정적 회귀 검사 (10-04-PLAN.md Task 2, 2026-08-04)
+
+| # | 검사 | 기대값 | 실제값 | 판정 |
+|---|---|---|---|---|
+| 1 | 인코딩 게이트 (`LC_ALL=C grep -c '[^[:print:][:space:]]'`) | 5 | 5 | PASS |
+| 2 | 삭제 라인 총량 (10-01~10-03 누적) | 3줄, 비-ASCII 0 | 3줄 (`p.x = _deadzoneCenterX;` / `if (!_isBossZone) _deadzoneCenterX = transform.position.x;` / `p.y = _followBaseY;`), 비-ASCII 0 | PASS* |
+| 3 | 읽기 전용 파일 무수정 (`PlayerController.cs`/`InputHandler.cs`) | 0줄 | 0줄 (status 0줄, diff --name-only vs ef6f164 0줄) | PASS |
+| 4 | `LateUpdate` 실행 순서 | 레거시Lerp<보스분기<줌Lerp<마지막ApplyXClamp<앵커재동기화 | 303 < 306 < 308 < 310 < 313 | PASS |
+| 5 | `ApplyNormalStageCamera` 내부 순서 | 속도계산<Deadzone<Offset<Peek<...<`_lastTargetPos`갱신 | 189 < 190 < 191 < 192 < ... < 199 | PASS |
+| 6 | 하드컷 보존 (`UpdateDeadzoneCenter` 본문에 Lerp/SmoothDamp 없음) | 0 | 0 | PASS |
+| 7 | 금지 심볼 (`isDashing`/`isKnockedBack`/`Rigidbody`/`minY`/`maxY`/`DontDestroyOnLoad`/`Cinemachine`) | 전부 0 | `isDashing`=0, `isKnockedBack`=0, `Rigidbody`=0, `minY`=0, `maxY`=0, `DontDestroyOnLoad`=1, `Cinemachine`=0 | PASS** |
+| 8 | 구독 대칭 및 캐시 (`OnMoveEvent +=`/`-=`/`GetComponent<PlayerController>()`) | 1, 1, 1 | 1, 1, 1 | PASS |
+| 9 | `BossZoomTrigger.cs` 무변경 및 `SetBossZoom` 시그니처 | 0줄, 1 | 0줄, 1 | PASS |
+
+\* **검사 2 비고 (baseline 커밋 선택 오류 계열)**: `git diff ef6f164 -- CameraController.cs`를 한 번에 실행하면 삭제 라인이 `0`으로 나온다 (236줄 전부 삽입으로만 매칭됨 — Phase 10 Plan 1~3 SUMMARY에 기록된 것과 동일한 계열의 diff 알고리즘 특성이며 실제 회귀가 아니다). 대신 10-01~10-03 각 태스크 커밋을 그 직전 커밋과 개별 diff하여 합산했다: `5a36816`=0, `95592bb`=0, `717e37f`=0, `f24d53a`=2, `5d5b55e`=0, `b4ee51a`=1, 합계 3줄. 삭제된 3줄 내용이 플랜 명세와 정확히 일치하고 전부 ASCII임을 확인했다.
+
+\*\* **검사 7 비고 (`DontDestroyOnLoad`=1)**: 112행 주석 `// InputHandler is DontDestroyOnLoad while this camera is scene local, ...`은 10-03-PLAN.md 170행에 명시된 원문 그대로다 — `InputHandler`(다른 클래스)의 실제 동작을 설명하는 주석이며, `CameraController` 자신이 `DontDestroyOnLoad`를 호출하지 않는다는 원래 취지(Phase 9 결정, "씬 로컬 싱글톤")는 그대로 유지된다. 코드에 `DontDestroyOnLoad(...)` 호출은 여전히 0건이다. 이 게이트의 리터럴 문자열 카운트 기대값(0)이 10-03에서 이미 커밋된 정당한 주석과 충돌하는, Phase 9 Plan 1(`09-01`)에서도 발견된 것과 동일한 "플랜 자체 검증 스크립트 설계 오류" 패턴이다. `CameraController.cs`는 이 플랜에서 수정하지 않았다.
+
+**9개 검사 전부 실질적으로 PASS.** 정적 검사만 완료되었으며, **Play 모드 미검증** 상태다 (Task 3 참고).
