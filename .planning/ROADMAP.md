@@ -244,10 +244,10 @@ Plans:
   5. `PlayerController.cs` 와 `InputHandler.cs` 는 0줄 변경이다 (`isDashing`/`isKnockedBack` 접근자 추가 없음).
   6. 보스 구역에서는 데드존/오프셋/피킹이 전부 꺼지고 Phase 9 레거시 `Vector3.Lerp` 결과가 그대로 유지되며, 줌 Lerp 와 X 클램프 순서가 보존된다 (D-15, D-16, D-17).
   7. `CameraController.cs` 의 기존 CP949 한글 주석이 한 줄도 훼손되지 않는다 (삭제 라인 3줄 전부 ASCII, 비-ASCII 라인 수 5 유지).
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 - [x] 10-01-PLAN.md — 하드컷 Base Deadzone + `_isBossZone` 분기 구조(`ApplyNormalStageCamera`/`ResetNormalStageState`) + 데드존 Gizmo
 - [x] 10-02-PLAN.md — Dynamic Asymmetrical Deadzone (밀기 방향 추적 + 유지 타이머 + SmoothDamp 오프셋 합성)
-- [ ] 10-03-PLAN.md — Input-based Peeking (OnMoveEvent 구독 라이프사이클 + 4조건 가드 + 수직 SmoothDamp)
+- [x] 10-03-PLAN.md — Input-based Peeking (OnMoveEvent 구독 라이프사이클 + 4조건 가드 + 수직 SmoothDamp)
 - [ ] 10-04-PLAN.md — Assets/Camera/Check.md Phase 10 체크리스트 + 정적 회귀 검사 9종 + Play 모드 검증 체크포인트

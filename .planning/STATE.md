@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-04T07:48:30.825Z"
+last_updated: "2026-08-04T07:57:45.711Z"
 last_activity: 2026-08-04
 progress:
   total_phases: 10
   completed_phases: 7
   total_plans: 28
-  completed_plans: 24
-  percent: 92
+  completed_plans: 25
+  percent: 89
 ---
 
 # GSD State
@@ -22,11 +22,11 @@ progress:
 ## Current Position
 
 Phase: 10 (3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-08-04
 
-Progress: [█████████░] 92% (23/25 plans)
+Progress: [█████████░] 89% (25/28 plans)
 
 ## Phase Status
 
@@ -46,6 +46,7 @@ Progress: [█████████░] 92% (23/25 plans)
 | 05-02 | - | 2 | 4 | 2026-04-30 |
 | Phase 10 P01 | 6min | 3 tasks | 1 files |
 | Phase 10-3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller P02 | 6min | 2 tasks | 1 files |
+| Phase 10-3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller P03 | 10min | 2 tasks | 1 files |
 
 ## Performance Metrics
 
@@ -78,6 +79,9 @@ Progress: [█████████░] 92% (23/25 plans)
 - CameraController.cs Task 1 삽입 주석에서 "deadzoneHeight" 리터럴 문자열을 피하고 "the height field below"로 대체 — Task 3 검증 게이트(deadzoneHeight 카운트==2)와 상충했기 때문, Phase 9 Plan 1의 DontDestroyOnLoad 사례와 동일 패턴 (Phase 10 Plan 1)
 - CameraController.cs 카메라 X 합성은 `_deadzoneCenterX - _currentBoxOffsetX` 이고 오프셋은 `-(pushDir * maxOffsetDistance)` (잠금 가정 A2) — 오른쪽으로 달리면 카메라가 오른쪽으로 앞서 나가 진행 방향 시야가 열린다 (Phase 10 Plan 2)
 - Phase 10 Plan 2 Task 2 의 `git diff ef6f164` 삭제 라인 수 게이트(==2)는 baseline 커밋 선택 오류로 문자 그대로는 항상 0 이 나온다 — Plan 10-01 이 순수 삽입 diff 였으므로 그 위에서 다시 수정되는 라인은 ef6f164 기준으로는 애초에 없던 라인의 일부로 뭉쳐 보임. 대신 직전 커밋(717e37f) 기준 `git diff HEAD` 로 검증해 정확히 2줄(둘 다 ASCII)임을 확인 — Phase 9 Plan 1의 DontDestroyOnLoad, Phase 10 Plan 1의 deadzoneHeight 사례와 같은 계열의 "계획 자체 검증 스크립트 오류" 패턴 (Phase 10 Plan 2)
+- Phase 10 Plan 3 의 두 태스크 모두 `git diff ef6f164` 삭제 라인 게이트가 0 을 반환 (Task 1 기대값 2, Task 2 기대값 3) — 같은 baseline 커밋 선택 오류 계열. 대신 직전 커밋(Task 1: 434a3e0, Task 2: 5d5b55e) 기준으로 검증해 각각 0줄/1줄(전부 ASCII)임을 확인, 플랜 자체 서술("이 플랜에서 1줄을 수정")과 일치 (Phase 10 Plan 3)
+- CameraController.cs peekCancelSpeed 기본값 12 는 PlayerController.runSpeed(7)와 dashSpeed(20) 사이에 위치 — 평상시 달리기는 피킹을 취소하지 않고 대시/피격만 취소하도록, isDashing/isKnockedBack 에 public 접근자를 추가하지 않고 이동량 급증 프록시만으로 구분 (D-11) (Phase 10 Plan 3)
+- gsd-tools.cjs 의 `state update-progress` 명령은 대소문자 무시 정규식이 STATE.md 본문의 "Progress:" 필드보다 frontmatter YAML 의 "progress:" 키를 먼저 매치하고 `\s*` 가 개행까지 삼켜버려, 본문 Progress 줄이 갱신되지 않는 기존 버그를 발견 (frontmatter 는 재구성 로직이 디스크에서 다시 계산하므로 자체 치유되지만 본문 줄은 그대로 남음) — 공용 도구 스크립트라 이 플랜 범위에서 수정하지 않고, STATE.md 의 Progress 줄/frontmatter percent 값만 직접 보정함 (Phase 10 Plan 3)
 
 ### Active TODOs
 
@@ -111,3 +115,4 @@ Progress: [█████████░] 92% (23/25 plans)
 - 마지막 세션: Completed 09-03-PLAN.md (2026-07-30, Play 모드 검증은 사용자 결정으로 생략). 다음 재개 지점: Phase 9 검증(gsd-verifier)
 - 마지막 세션: Completed 10-01-PLAN.md (2026-08-04, Base Deadzone + `_isBossZone` 분기 구조 + Gizmo). 다음 재개 지점: Phase 10 Plan 2 (10-02-PLAN.md, Dynamic Asymmetrical Deadzone)
 - 마지막 세션: Completed 10-02-PLAN.md (2026-08-04, Dynamic Asymmetrical Deadzone — `_currentBoxOffsetX` SmoothDamp + hold timer + `_deadzonePushSign`). 다음 재개 지점: Phase 10 Plan 3 (10-03-PLAN.md, Input-based Peeking)
+- 마지막 세션: Completed 10-03-PLAN.md (2026-08-04, Input-based Peeking — `InputHandler.OnMoveEvent` 구독 라이프사이클 + `UpdatePeekOffset` SmoothDamp, `PlayerController.cs`/`InputHandler.cs` 무수정). 다음 재개 지점: Phase 10 Plan 4 (10-04-PLAN.md)
