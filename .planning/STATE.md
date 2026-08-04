@@ -82,11 +82,18 @@ Progress: [█████████░] 89% (25/28 plans)
 - Phase 10 Plan 3 의 두 태스크 모두 `git diff ef6f164` 삭제 라인 게이트가 0 을 반환 (Task 1 기대값 2, Task 2 기대값 3) — 같은 baseline 커밋 선택 오류 계열. 대신 직전 커밋(Task 1: 434a3e0, Task 2: 5d5b55e) 기준으로 검증해 각각 0줄/1줄(전부 ASCII)임을 확인, 플랜 자체 서술("이 플랜에서 1줄을 수정")과 일치 (Phase 10 Plan 3)
 - CameraController.cs peekCancelSpeed 기본값 12 는 PlayerController.runSpeed(7)와 dashSpeed(20) 사이에 위치 — 평상시 달리기는 피킹을 취소하지 않고 대시/피격만 취소하도록, isDashing/isKnockedBack 에 public 접근자를 추가하지 않고 이동량 급증 프록시만으로 구분 (D-11) (Phase 10 Plan 3)
 - gsd-tools.cjs 의 `state update-progress` 명령은 대소문자 무시 정규식이 STATE.md 본문의 "Progress:" 필드보다 frontmatter YAML 의 "progress:" 키를 먼저 매치하고 `\s*` 가 개행까지 삼켜버려, 본문 Progress 줄이 갱신되지 않는 기존 버그를 발견 (frontmatter 는 재구성 로직이 디스크에서 다시 계산하므로 자체 치유되지만 본문 줄은 그대로 남음) — 공용 도구 스크립트라 이 플랜 범위에서 수정하지 않고, STATE.md 의 Progress 줄/frontmatter percent 값만 직접 보정함 (Phase 10 Plan 3)
+- Y축 데드존은 `_followBaseY`(Lerp)를 완전히 대체하는 `_deadzoneCenterY`(하드컷)로 구현하고, X축 `UpdateDeadzoneCenter()`와 병합하지 않고 별도 함수 `UpdateDeadzoneCenterY()`로 분리 — 병합 시 Y가 `_deadzonePushSign`을 오염시켜 X축 Dynamic Offset의 방향 신호를 깨뜨리기 때문(DY-02). `LateUpdate` 끝에 Y 재앵커 라인은 추가하지 않음 — Y에는 클램프가 없어 수학적으로 항등(no-op)이기 때문 (quick task 260804-q6h)
 
 ### Active TODOs
 
 - (권장, 필수 아님) Phase 9: 실제 보스 씬에 트리거를 배치하기 전, `Assets/Camera/Check.md` 의 Play 모드
   체크리스트를 최소 1회 직접 확인할 것 — 09-03 에서 정적 검사만 통과했고 런타임 검증은 생략됨.
+
+- Phase 10 gap: 사용자가 Play 모드 실측 중 Y축 데드존 부재를 확인하고 도입을 요청함 (2026-08-04).
+  **코드 반영 완료, Play 모드 검증 대기** — quick task `260804-q6h` (commit `d3cc065`)에서 `_followBaseY`(Lerp)를
+  `_deadzoneCenterY`(하드컷)로 교체하고 `UpdateDeadzoneCenterY()`를 X축과 동일 계열로 신설했다. 정적 회귀 검사
+  9항목은 전부 통과했으나 Play 모드 실측은 아직 미수행 — `Assets/Camera/Check.md` "5) Y축 하드컷 데드존" 섹션의
+  체크리스트 11개 항목을 사용자가 직접 확인해야 한다. 상세 기록: `.planning/quick/260804-q6h-y-cameracontroller-cs/260804-q6h-SUMMARY.md`.
 
 - Phase 7 Plan 2 (07-02-PLAN.md): Play 모드 검증 체크포인트 보류 중. WaterMonster 보스가
   CombatState 기반 패턴 판단 로직으로 마이그레이션된 뒤, WaterSpirit/TutorialBoss/WaterMonster
@@ -116,3 +123,4 @@ Progress: [█████████░] 89% (25/28 plans)
 - 마지막 세션: Completed 10-01-PLAN.md (2026-08-04, Base Deadzone + `_isBossZone` 분기 구조 + Gizmo). 다음 재개 지점: Phase 10 Plan 2 (10-02-PLAN.md, Dynamic Asymmetrical Deadzone)
 - 마지막 세션: Completed 10-02-PLAN.md (2026-08-04, Dynamic Asymmetrical Deadzone — `_currentBoxOffsetX` SmoothDamp + hold timer + `_deadzonePushSign`). 다음 재개 지점: Phase 10 Plan 3 (10-03-PLAN.md, Input-based Peeking)
 - 마지막 세션: Completed 10-03-PLAN.md (2026-08-04, Input-based Peeking — `InputHandler.OnMoveEvent` 구독 라이프사이클 + `UpdatePeekOffset` SmoothDamp, `PlayerController.cs`/`InputHandler.cs` 무수정). 다음 재개 지점: Phase 10 Plan 4 (10-04-PLAN.md)
+- 마지막 세션: Completed quick task 260804-q6h (2026-08-04, Y축 하드컷 데드존 — `_followBaseY` Lerp를 `_deadzoneCenterY` 하드컷으로 교체, `UpdateDeadzoneCenterY()` 신설, commit `d3cc065`). 정적 회귀 검사 9항목 전부 PASS, Play 모드 미검증. 다음 재개 지점: `Assets/Camera/Check.md` "5) Y축 하드컷 데드존" 체크리스트 Play 모드 실측
