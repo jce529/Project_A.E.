@@ -32,6 +32,15 @@ public class CameraController : MonoBehaviour
     public float deadzoneWidth = 3f;
     public float deadzoneHeight = 2f;
 
+    [Header("Dynamic Offset (normal stages only)")]
+    // How far the deadzone box shifts opposite the movement direction, in world units (D-05).
+    // The camera ends up leading the player by this much while an edge is being pushed.
+    public float maxOffsetDistance = 1.5f;
+    // SmoothDamp time for the offset transition (D-07). Larger = lazier look ahead.
+    public float offsetSmoothTime = 0.35f;
+    // Seconds the offset is held after the push stops, before it eases back to 0 (D-06).
+    public float offsetHoldDuration = 0.4f;
+
     // Scene-local singleton. BossZoomTrigger calls in through this (D-01).
     // Not persisted across scene loads on purpose: every stage scene owns its own camera.
     public static CameraController Instance { get; private set; }
@@ -49,6 +58,16 @@ public class CameraController : MonoBehaviour
     // Un-peeked Y baseline the camera follows with the legacy 'smoothing' rate.
     // Kept separate from transform.position.y so later offset layers cannot feed back into it.
     private float _followBaseY;
+    // Deadzone box offset, computed with the user formula -(pushDir * maxOffsetDistance).
+    // The camera sits at _deadzoneCenterX MINUS this value, so a negative offset (running
+    // right) pushes the camera right and opens up the view ahead (assumption A2 in 10-02-PLAN).
+    private float _currentBoxOffsetX;
+    // SmoothDamp state. MUST be a persistent field, never a local (Unity SmoothDamp contract).
+    private float _offsetVelocityX;
+    // Counts down after the push stops so the offset lingers before easing back (D-06).
+    private float _offsetHoldTimer;
+    // -1 while pushing the left edge, +1 while pushing the right edge, 0 while resting (D-05).
+    private float _deadzonePushSign;
 
     void Awake()
     {
@@ -85,13 +104,16 @@ public class CameraController : MonoBehaviour
     {
         float halfW = deadzoneWidth * 0.5f;
         float px = target.position.x;
+        _deadzonePushSign = 0f;
         if (px < _deadzoneCenterX - halfW)
         {
             _deadzoneCenterX = px + halfW;
+            _deadzonePushSign = -1f;
         }
         else if (px > _deadzoneCenterX + halfW)
         {
             _deadzoneCenterX = px - halfW;
+            _deadzonePushSign = 1f;
         }
     }
 
@@ -115,6 +137,29 @@ public class CameraController : MonoBehaviour
     {
         _deadzoneCenterX = transform.position.x;
         _followBaseY = transform.position.y;
+    }
+
+    // Dynamic asymmetrical deadzone (D-05 / D-06 / D-07). The offset only builds while the
+    // target actually pushes a deadzone edge - there is no separate speed threshold (D-05).
+    // After the push stops the offset is held for offsetHoldDuration, then eases back to 0 (D-06).
+    private void UpdateDynamicOffset()
+    {
+        float targetOffsetX;
+        if (_deadzonePushSign != 0f)
+        {
+            targetOffsetX = -(_deadzonePushSign * maxOffsetDistance);
+            _offsetHoldTimer = offsetHoldDuration;
+        }
+        else if (_offsetHoldTimer > 0f)
+        {
+            _offsetHoldTimer -= Time.deltaTime;
+            targetOffsetX = _currentBoxOffsetX;
+        }
+        else
+        {
+            targetOffsetX = 0f;
+        }
+        _currentBoxOffsetX = Mathf.SmoothDamp(_currentBoxOffsetX, targetOffsetX, ref _offsetVelocityX, offsetSmoothTime);
     }
 
     // Editor only deadzone visualization (D-03). Zero runtime cost in a build.
