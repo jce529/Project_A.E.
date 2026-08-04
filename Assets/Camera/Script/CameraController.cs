@@ -69,11 +69,52 @@ public class CameraController : MonoBehaviour
     // -1 while pushing the left edge, +1 while pushing the right edge, 0 while resting (D-05).
     private float _deadzonePushSign;
 
+    // Latest raw move input from the InputHandler bus (D-08). Cached as-is: the movementLocked
+    // guard is applied where it is consumed, exactly like PlayerController.OnMove does (D-09).
+    private Vector2 _lastMoveInput;
+    // True once the OnMoveEvent subscription is live, so it is bound and released exactly once.
+    private bool _moveEventBound;
+    // Cached once so LateUpdate never calls GetComponent (10-RESEARCH Pitfall 5).
+    private PlayerController _playerRef;
+    // Target position of the previous frame. Single shared movement signal used for the
+    // idle check (D-10) and the dash / knockback spike proxy (D-11).
+    private Vector3 _lastTargetPos;
+
     void Awake()
     {
         Instance = this;
         _cam = GetComponent<Camera>();
         _targetZoom = normalZoom;
+    }
+
+    // InputHandler is DontDestroyOnLoad while this camera is scene local, so the subscription
+    // MUST be released on disable or the delegate list grows on every scene load (D-08 / D-09).
+    void OnEnable()
+    {
+        TryBindMoveEvent();
+    }
+
+    void OnDisable()
+    {
+        if (!_moveEventBound) return;
+        if (InputHandler.Instance != null)
+            InputHandler.Instance.OnMoveEvent -= HandleMoveInput;
+        _moveEventBound = false;
+    }
+
+    // OnEnable can run before InputHandler.Awake in the very first scene, so Start retries.
+    private void TryBindMoveEvent()
+    {
+        if (_moveEventBound || InputHandler.Instance == null) return;
+        InputHandler.Instance.OnMoveEvent += HandleMoveInput;
+        _moveEventBound = true;
+    }
+
+    // Dumb latest-value cache, mirroring PlayerController.OnMove which also stores input
+    // unconditionally. All gating happens in UpdatePeekOffset (D-09).
+    private void HandleMoveInput(Vector2 input)
+    {
+        _lastMoveInput = input;
     }
 
     // Called by BossZoomTrigger: true on enter, false on exit (D-01 / D-03).
@@ -191,6 +232,9 @@ public class CameraController : MonoBehaviour
         ApplyXClamp();
         // Park the deadzone box and the follow baseline on the camera's start position.
         ResetNormalStageState();
+        // Retry in case InputHandler.Instance was not ready yet during OnEnable (D-08).
+        TryBindMoveEvent();
+        _playerRef = target.GetComponent<PlayerController>();
     }
 
     void LateUpdate()
