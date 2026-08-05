@@ -19,11 +19,17 @@ public class CameraController : MonoBehaviour
 
     [Header("Camera X Bounds")]
     // World-space X limits of the visible area (D-09 / D-10).
+    // These two are the STAGE BASE bounds and are never written at runtime (260805-q2u / Q2-01):
+    // SetXBounds feeds _targetMinX / _targetMaxX instead, so this Inspector pair stays the
+    // fallback the camera falls back to whenever the player is inside no zone at all.
     // Defaults are intentionally wide so existing scenes keep their current behaviour
     // until minX / maxX are tuned per scene in the Inspector.
     // Y is NOT clamped in this phase by design (D-09).
     public float minX = -1000f;
     public float maxX = 1000f;
+    // Lerp rate for the bounds transition ONLY - the exact role zoomSmoothing plays for the
+    // zoom, and kept separate from both 'smoothing' and 'zoomSmoothing' on purpose (Q2-02).
+    public float boundsSmoothing = 3f;
 
     [Header("Deadzone (normal stages only)")]
     // Deadzone box size in WORLD units. Fixed size, never scaled by zoom (D-01 / D-02).
@@ -64,6 +70,15 @@ public class CameraController : MonoBehaviour
 
     private Camera _cam;
     private float _targetZoom;
+
+    // Bounds the camera is easing TOWARD. Written by SetXBounds only, seeded from minX / maxX
+    // in Start. Mirrors the _targetZoom / zoomSmoothing pair exactly (Q2-03).
+    private float _targetMinX;
+    private float _targetMaxX;
+    // Live bounds actually consumed by ApplyXClamp. Lerped toward the target pair every frame,
+    // which is what turns a zone handoff into a slide instead of a snap (Q2-03).
+    private float _currentMinX;
+    private float _currentMaxX;
 
     // True while the player is inside a BossZoomTrigger zone (D-15). SetBossZoom stores it
     // so LateUpdate can bypass the whole deadzone pipeline and keep the Phase 9 behaviour.
@@ -156,19 +171,18 @@ public class CameraController : MonoBehaviour
 
     // Called by CameraBoundsTrigger on enter and on exit: hands the camera the X limits of the
     // zone the player is currently scoped to, so a single scene can hard clamp room by room
-    // (260805-m41). The trigger caches the previous pair itself and feeds it back on exit,
-    // which is why this method needs no history of its own.
+    // (260805-m41, retargeted by 260805-q2u). On exit the trigger simply feeds back this
+    // controller's own minX / maxX, so no bounds history is kept anywhere (Q2-06).
     // Idempotent, last call wins - same contract as SetBossZoom above.
-    // Plain field assignment on purpose: the two fields above are already consumed by
-    // ApplyXClamp every frame, and LateUpdate re-anchors the deadzone box on the clamped
-    // position (D-17), so a bounds swap is absorbed on the very next frame with no extra
-    // logic here. Do NOT clamp, validate or interpolate in this method.
+    // Plain field assignment on purpose: LateUpdate eases _currentMinX / _currentMaxX toward
+    // this pair every frame and ApplyXClamp consumes the eased values, so a bounds swap needs
+    // no extra logic here. Do NOT clamp, validate or interpolate in this method.
     // A zone narrower than the camera view collapses the clamp onto a single X - that is the
     // designer's responsibility when authoring the zone, it is not guarded here.
     public void SetXBounds(float min, float max)
     {
-        minX = min;
-        maxX = max;
+        _targetMinX = min;
+        _targetMaxX = max;
     }
 
     // Clamps X so the visible left/right edges never pass minX / maxX (D-09 / D-11).
@@ -177,7 +191,7 @@ public class CameraController : MonoBehaviour
     {
         float halfWidth = _cam.orthographicSize * _cam.aspect;
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, minX + halfWidth, maxX - halfWidth);
+        pos.x = Mathf.Clamp(pos.x, _currentMinX + halfWidth, _currentMaxX - halfWidth);
         transform.position = pos;
     }
 
@@ -332,11 +346,16 @@ public class CameraController : MonoBehaviour
         Gizmos.DrawWireCube(center, size);
 
         // X bound visualization (D-09 / D-10) - lets minX/maxX be eyeballed without Play mode.
+        // In play mode the LIVE eased bounds are drawn so a zone handoff is visible on screen;
+        // in edit mode it falls back to the Inspector base pair, exactly like the deadzone box
+        // above falls back to transform.position (Q2-05).
         Gizmos.color = Color.red;
         const float boundLineHeight = 20f;
         float halfLine = boundLineHeight / 2f;
-        Gizmos.DrawLine(new Vector3(minX, transform.position.y - halfLine, 0f), new Vector3(minX, transform.position.y + halfLine, 0f));
-        Gizmos.DrawLine(new Vector3(maxX, transform.position.y - halfLine, 0f), new Vector3(maxX, transform.position.y + halfLine, 0f));
+        float drawMinX = Application.isPlaying ? _currentMinX : minX;
+        float drawMaxX = Application.isPlaying ? _currentMaxX : maxX;
+        Gizmos.DrawLine(new Vector3(drawMinX, transform.position.y - halfLine, 0f), new Vector3(drawMinX, transform.position.y + halfLine, 0f));
+        Gizmos.DrawLine(new Vector3(drawMaxX, transform.position.y - halfLine, 0f), new Vector3(drawMaxX, transform.position.y + halfLine, 0f));
     }
 
     void Start()
@@ -346,6 +365,13 @@ public class CameraController : MonoBehaviour
         transform.position = target.position + offset;
         // Start already at the normal-stage zoom so frame 1 does not play a transition.
         _cam.orthographicSize = normalZoom;
+        // Seed both bounds pairs from the Inspector base values BEFORE the first clamp:
+        // ApplyXClamp now reads _currentMinX / _currentMaxX, so leaving them at their default
+        // 0 would clamp the camera onto x = 0 on frame 1 (Q2-03).
+        _targetMinX = minX;
+        _targetMaxX = maxX;
+        _currentMinX = minX;
+        _currentMaxX = maxX;
         ApplyXClamp();
         // Park the deadzone box and the follow baseline on the camera's start position.
         ResetNormalStageState();
@@ -364,6 +390,10 @@ public class CameraController : MonoBehaviour
         if (_isBossZone) ResetNormalStageState(); else ApplyNormalStageCamera();
         // Zoom Lerp toward the current stage target size (D-06 / D-07).
         _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, _targetZoom, zoomSmoothing * Time.deltaTime);
+        // Bounds Lerp, mirroring the zoom Lerp directly above (Q2-04). Sits before the clamp so
+        // the clamp always consumes this frame's freshly eased bounds.
+        _currentMinX = Mathf.Lerp(_currentMinX, _targetMinX, boundsSmoothing * Time.deltaTime);
+        _currentMaxX = Mathf.Lerp(_currentMaxX, _targetMaxX, boundsSmoothing * Time.deltaTime);
         // X clamp LAST so it uses this frame's freshly updated orthographicSize.
         ApplyXClamp();
         // Re-anchor on the clamped position so the camera responds immediately when the
