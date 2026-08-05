@@ -154,6 +154,23 @@ public class CameraController : MonoBehaviour
         _isBossZone = isBossStage;
     }
 
+    // Called by CameraBoundsTrigger on enter and on exit: hands the camera the X limits of the
+    // zone the player is currently scoped to, so a single scene can hard clamp room by room
+    // (260805-m41). The trigger caches the previous pair itself and feeds it back on exit,
+    // which is why this method needs no history of its own.
+    // Idempotent, last call wins - same contract as SetBossZoom above.
+    // Plain field assignment on purpose: the two fields above are already consumed by
+    // ApplyXClamp every frame, and LateUpdate re-anchors the deadzone box on the clamped
+    // position (D-17), so a bounds swap is absorbed on the very next frame with no extra
+    // logic here. Do NOT clamp, validate or interpolate in this method.
+    // A zone narrower than the camera view collapses the clamp onto a single X - that is the
+    // designer's responsibility when authoring the zone, it is not guarded here.
+    public void SetXBounds(float min, float max)
+    {
+        minX = min;
+        maxX = max;
+    }
+
     // Clamps X so the visible left/right edges never pass minX / maxX (D-09 / D-11).
     // Uses the CURRENT orthographicSize so the bound stays correct mid zoom transition.
     private void ApplyXClamp()
