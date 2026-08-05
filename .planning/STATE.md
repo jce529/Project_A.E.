@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-04T07:57:45.711Z"
-last_activity: 2026-08-04
+last_updated: "2026-08-05T08:06:56.000Z"
+last_activity: 2026-08-05
 progress:
   total_phases: 10
   completed_phases: 7
@@ -24,7 +24,7 @@ progress:
 Phase: 10 (3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller) — EXECUTING
 Plan: 4 of 4
 Status: Ready to execute
-Last activity: 2026-08-04 - Completed quick task 260804-q6h: Y축 데드존(하드컷) 추가 - CameraController.cs
+Last activity: 2026-08-05 - Completed quick task 260805-m41: 구역별 카메라 X 경계 (SetXBounds + CameraBoundsTrigger)
 
 Progress: [█████████░] 89% (25/28 plans)
 
@@ -58,6 +58,7 @@ Progress: [█████████░] 89% (25/28 plans)
 | 09-01 | 5min | 2 | 1 | 2026-07-30 |
 | 09-02 | 5min | 2 | 2 | 2026-07-30 |
 | 09-03 | 5min | 1/2 | 1 | 2026-07-30 |
+| quick-260805-m41 | ~20min | 3 | 3 | 2026-08-05 |
 
 ## Accumulated Context
 
@@ -83,6 +84,7 @@ Progress: [█████████░] 89% (25/28 plans)
 - CameraController.cs peekCancelSpeed 기본값 12 는 PlayerController.runSpeed(7)와 dashSpeed(20) 사이에 위치 — 평상시 달리기는 피킹을 취소하지 않고 대시/피격만 취소하도록, isDashing/isKnockedBack 에 public 접근자를 추가하지 않고 이동량 급증 프록시만으로 구분 (D-11) (Phase 10 Plan 3)
 - gsd-tools.cjs 의 `state update-progress` 명령은 대소문자 무시 정규식이 STATE.md 본문의 "Progress:" 필드보다 frontmatter YAML 의 "progress:" 키를 먼저 매치하고 `\s*` 가 개행까지 삼켜버려, 본문 Progress 줄이 갱신되지 않는 기존 버그를 발견 (frontmatter 는 재구성 로직이 디스크에서 다시 계산하므로 자체 치유되지만 본문 줄은 그대로 남음) — 공용 도구 스크립트라 이 플랜 범위에서 수정하지 않고, STATE.md 의 Progress 줄/frontmatter percent 값만 직접 보정함 (Phase 10 Plan 3)
 - Y축 데드존은 `_followBaseY`(Lerp)를 완전히 대체하는 `_deadzoneCenterY`(하드컷)로 구현하고, X축 `UpdateDeadzoneCenter()`와 병합하지 않고 별도 함수 `UpdateDeadzoneCenterY()`로 분리 — 병합 시 Y가 `_deadzonePushSign`을 오염시켜 X축 Dynamic Offset의 방향 신호를 깨뜨리기 때문(DY-02). `LateUpdate` 끝에 Y 재앵커 라인은 추가하지 않음 — Y에는 클램프가 없어 수학적으로 항등(no-op)이기 때문 (quick task 260804-q6h)
+- `CameraController.SetXBounds(min, max)`는 순수 필드 대입만 한다 — 기존 `ApplyXClamp()`가 매 프레임 `minX`/`maxX`를 소비하므로 신규 클램프 로직 불필요(MX-01). 이전 경계 캐시는 `CameraController`가 아니라 `CameraBoundsTrigger` 인스턴스가 소유(MX-05) — 구역마다 독립적인 단일 슬롯 캐시로, 스택/구역 매니저는 의도적으로 만들지 않음. 구역은 영구 핸드오프가 아니라 **범위 한정 오버라이드**이며, 진입 직전 경계를 캐시했다가 이탈 시 복원한다(사용자 결정, 2026-08-05). 겹치는 구역에서의 stale 복원은 코드로 방어하지 않고 `Check.md`에 알려진 한계로만 문서화 (quick task 260805-m41)
 
 ### Active TODOs
 
@@ -103,6 +105,12 @@ Progress: [█████████░] 89% (25/28 plans)
 - Phase 8 Plan 3 (08-03-PLAN.md): 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종
   일괄 Play 모드 검증 체크포인트 (Unity 컴파일 확인은 이 실행 환경에서 불가 — 08-03 에서 수행)
 
+- quick task 260805-m41 gap: **코드 반영 완료, 씬 배치 + Play 모드 검증 모두 대기.** `CameraController.SetXBounds`와
+  신규 `Assets/Camera/Script/CameraBoundsTrigger.cs`는 정적 검사 11항목 전부 통과했으나(commit `c9d5b7c`),
+  씬에 트리거를 배치하는 작업 자체가 사용자의 수동 후속 작업이라(MX-04) 아직 어떤 구역에도 적용되지 않았다.
+  `Assets/Camera/Check.md` "6) 구역별 카메라 X 경계" 섹션의 8단계 설정 가이드로 구역을 배치한 뒤,
+  13개 체크리스트 항목을 사용자가 직접 확인해야 한다. 상세 기록: `.planning/quick/260805-m41-cameracontroller-setxbounds-min-max-boss/260805-m41-SUMMARY.md`.
+
 ### Blockers
 
 (없음)
@@ -112,6 +120,7 @@ Progress: [█████████░] 89% (25/28 plans)
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260804-q6h | Y축 데드존(하드컷) 추가 - CameraController.cs | 2026-08-04 | d3cc065 | [260804-q6h-y-cameracontroller-cs](./quick/260804-q6h-y-cameracontroller-cs/) |
+| 260805-m41 | 구역별 카메라 X 경계 - SetXBounds + CameraBoundsTrigger | 2026-08-05 | c9d5b7c | [260805-m41-cameracontroller-setxbounds-min-max-boss](./quick/260805-m41-cameracontroller-setxbounds-min-max-boss/) |
 
 ### Roadmap Evolution
 
@@ -130,3 +139,4 @@ Progress: [█████████░] 89% (25/28 plans)
 - 마지막 세션: Completed 10-02-PLAN.md (2026-08-04, Dynamic Asymmetrical Deadzone — `_currentBoxOffsetX` SmoothDamp + hold timer + `_deadzonePushSign`). 다음 재개 지점: Phase 10 Plan 3 (10-03-PLAN.md, Input-based Peeking)
 - 마지막 세션: Completed 10-03-PLAN.md (2026-08-04, Input-based Peeking — `InputHandler.OnMoveEvent` 구독 라이프사이클 + `UpdatePeekOffset` SmoothDamp, `PlayerController.cs`/`InputHandler.cs` 무수정). 다음 재개 지점: Phase 10 Plan 4 (10-04-PLAN.md)
 - 마지막 세션: Completed quick task 260804-q6h (2026-08-04, Y축 하드컷 데드존 — `_followBaseY` Lerp를 `_deadzoneCenterY` 하드컷으로 교체, `UpdateDeadzoneCenterY()` 신설, commit `d3cc065`). 정적 회귀 검사 9항목 전부 PASS, Play 모드 미검증. 다음 재개 지점: `Assets/Camera/Check.md` "5) Y축 하드컷 데드존" 체크리스트 Play 모드 실측
+- 마지막 세션: Completed quick task 260805-m41 (2026-08-05, 구역별 카메라 X 경계 — `CameraController.SetXBounds(min, max)` 순수 대입 신규 + `CameraBoundsTrigger.cs` 신규(BossZoomTrigger 패턴 미러링, 진입 시 이전 경계 캐시 / 이탈 시 복원, MX-05), commit `c9d5b7c`). 정적 회귀 검사 11항목 전부 PASS, 씬 배치(MX-04) + Play 모드 둘 다 미수행. 다음 재개 지점: `Assets/Camera/Check.md` "6) 구역별 카메라 X 경계" 8단계 수동 배치 후 13개 체크리스트 Play 모드 실측
