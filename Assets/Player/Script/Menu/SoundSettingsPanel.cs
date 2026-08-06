@@ -16,24 +16,37 @@ public class SoundSettingsPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        // 저장된 값으로 슬라이더 초기화 (OnValueChanged 콜백 없이)
         float bgm = PlayerPrefs.GetFloat("BGMVolume", 1f);
         float sfx = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
-        if (bgmSlider != null) bgmSlider.SetValueWithoutNotify(bgm);
-        if (sfxSlider != null) sfxSlider.SetValueWithoutNotify(sfx);
+        if (bgmSlider != null)
+        {
+            bgmSlider.onValueChanged.RemoveListener(OnBGMChanged);
+            bgmSlider.onValueChanged.AddListener(OnBGMChanged);
+            bgmSlider.SetValueWithoutNotify(bgm);
+        }
+        if (sfxSlider != null)
+        {
+            sfxSlider.onValueChanged.RemoveListener(OnSFXChanged);
+            sfxSlider.onValueChanged.AddListener(OnSFXChanged);
+            sfxSlider.SetValueWithoutNotify(sfx);
+        }
         UpdateBGMText(bgm);
         UpdateSFXText(sfx);
     }
 
-    // BGM Slider OnValueChanged에 연결
+    private void OnDisable()
+    {
+        if (bgmSlider != null) bgmSlider.onValueChanged.RemoveListener(OnBGMChanged);
+        if (sfxSlider != null) sfxSlider.onValueChanged.RemoveListener(OnSFXChanged);
+    }
+
     public void OnBGMChanged(float value)
     {
         AudioManager.Instance?.SetBGMVolume(value);
         UpdateBGMText(value);
     }
 
-    // SFX Slider OnValueChanged에 연결
     public void OnSFXChanged(float value)
     {
         AudioManager.Instance?.SetSFXVolume(value);

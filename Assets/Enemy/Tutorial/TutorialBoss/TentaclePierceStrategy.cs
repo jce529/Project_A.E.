@@ -15,10 +15,8 @@ namespace TutorialBoss
     //
     // [회피 방법] 맵의 좌우 끝(Far Edge)으로 이동
     //
-    // [핵심 역할]
-    //   - 이 공격이 완료되면 PendingGroggy = true 설정
-    //   - TutorialAttackState에서 이를 감지하여 GroggyState로 전환
-    //   즉, TentaclePierce는 그로기를 유발하는 '확정 그로기 트리거 패턴'
+    // 그로기 진입 여부는 이 패턴이 아닌 TutorialBossController.ShouldEnterGroggy()가
+    // HP 임계치(70%/30%) 기준으로 판단한다 (패턴 완료 후 검사).
     // ════════════════════════════════════════════════════════════════════════
     public class TentaclePierceStrategy : IAttackStrategy
     {
@@ -45,7 +43,7 @@ namespace TutorialBoss
         //   - 맵의 대부분 층 높이를 커버할 수 있도록 충분히 크게 설정
         private readonly float _hitHeight = 12.0f;
 
-        // 타격 후 후딜레이 (초) - 이 시간 이후 PendingGroggy가 설정됨
+        // 타격 후 후딜레이 (초) - 애니메이션이 이 시간만큼 더 재생된 뒤 패턴이 종료됨
         private readonly float _afterAttackDelay = 1.4f;
 
         // 데미지
@@ -129,18 +127,9 @@ namespace TutorialBoss
 
             // ── [Phase 3] 후딜레이 ───────────────────────────────────────
             // 공격 연출(애니메이션)이 완전히 끝날 때까지 대기
+            // 그로기 진입 여부는 더 이상 이 패턴이 결정하지 않음 →
+            // TutorialBossController.ShouldEnterGroggy()가 HP 임계치(70%/30%) 기준으로 판단
             yield return new WaitForSeconds(_afterAttackDelay);
-
-            // ── [Phase 4] 그로기 예약 ────────────────────────────────────
-            // 이 패턴이 완료되면 반드시 그로기 상태로 진입하도록 플래그를 설정
-            // TutorialAttackState.Execute()가 다음 틱에 PendingGroggy를 감지하여
-            // GroggyState로 상태 전환을 수행함 (직접 ChangeState 하지 않고 위임)
-            var tb = boss as TutorialBossController;
-            if (tb != null)
-            {
-                tb.PendingGroggy = true;
-                Debug.Log("[TentaclePierce] 그로기 예약 완료! (다음 프레임에 GroggyState 진입)");
-            }
         }
 
         // ─── 에디터 Gizmo (AoE 범위 시각화용) ───────────────────────────

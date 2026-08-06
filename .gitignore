@@ -41,6 +41,9 @@ Thumbs.db
 *.vs/
 .vscode/
 
+# Claude Code worktrees
+.claude/worktrees/
+
 # Build files
 *.apk
 *.aab

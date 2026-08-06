@@ -8,7 +8,7 @@ public class GraphicsSettingsPanel : MonoBehaviour
     [Header("화면 모드")]
     public TMP_Text screenModeValueText;
 
-    private static readonly string[] ScreenModeNames = { "전체화면", "테두리없는 창", "창화면" };
+    private static readonly string[] ScreenModeNames = { "Fullscreen", "Borderless", "Windowed" };
     private static readonly FullScreenMode[] ScreenModes =
     {
         FullScreenMode.ExclusiveFullScreen,

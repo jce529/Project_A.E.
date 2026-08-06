@@ -3,6 +3,14 @@ using UnityEngine;
 
 namespace TutorialBoss
 {
+    // 판단 로직(SelectPattern)이 다음에 실행할 패턴을 지칭하는 데 사용하는 식별자.
+    // §7 확장 훅: 향후 '휘두르기'(매우 근접) 패턴이 추가되면 여기에 값만 추가.
+    public enum PatternType
+    {
+        TentacleStab,   // 촉수 찌르기 (근접)
+        GroundTentacle, // 바닥 촉수 (원거리/저지)
+    }
+
     // ════════════════════════════════════════════════════════════════════════
     // TutorialBossController
     //
@@ -12,7 +20,7 @@ namespace TutorialBoss
     //   - 평소 코어는 높은 위치 → 플레이어 근접 공격 불가
     //
     // [그로기 시스템]
-    //   - TentaclePierceStrategy 완료 시 → 그로기 확정 예약
+    //   - HP가 70%/30% 임계치를 처음 통과하면, 실행 중이던 패턴이 끝난 뒤 그로기 예약
     //   - 그로기 진입 시 코어가 바닥으로 서서히 이동 → 플레이어 타격 기회
     //   - 일정 시간 후 코어 복귀 → Idle 상태 반환
     // ════════════════════════════════════════════════════════════════════════
@@ -50,6 +58,44 @@ namespace TutorialBoss
         public GameObject ClearPanel;
 
         // ─── 공격 프리팹 ──────────────────────────────────────────────────
+        // ─── 패턴 판단 - 거리/시간 기준 (프로그래머 자유 조정 가능) ──────
+        [Header("패턴 판단 - 거리/시간 기준")]
+        [Tooltip("플레이어 가로 길이 기준값. 근접/원거리 판정의 기준 단위로 쓰입니다 (플레이어 콜라이더 실측값으로 조정하세요).")]
+        public float PlayerWidth = 1f;
+
+        [Tooltip("촉수 찌르기 사용 거리 = PlayerWidth × 이 배수 이내")]
+        public float TentacleStabRangeMultiplier = 3f;
+
+        [Tooltip("바닥 촉수 사용 거리 = PlayerWidth × 이 배수 이상 (또는 아래 정지 시간 조건)")]
+        public float GroundTentacleRangeMultiplier = 3f;
+
+        [Tooltip("플레이어가 이 시간(초) 이상 같은 자리에 머무르면 바닥 촉수 후보 조건 충족")]
+        public float StationaryTimeThreshold = 2f;
+
+        [Tooltip("플레이어 위치 변화가 이 값(월드 유닛) 이하이면 '정지'로 간주")]
+        public float StationaryPositionTolerance = 0.1f;
+
+        [Tooltip("공격 종료 후 다음 패턴 탐색을 시작하기까지 Idle로 대기하는 시간(초)")]
+        public float PostAttackIdleTime = 2f;
+
+        [Header("패턴 쿨타임 (프로그래머 자유 조정 가능)")]
+        [Tooltip("촉수 찌르기 재사용 대기시간(초)")]
+        public float TentacleStabCooldown = 8f;
+
+        [Tooltip("바닥 촉수 재사용 대기시간(초)")]
+        public float GroundTentacleCooldown = 5f;
+
+        [Tooltip("바닥 촉수 패턴이 Attack 상태를 점유하는 시간(초). 전조(0.6s) + 스파이크 연출 여유를 포함해 조정하세요.")]
+        public float GroundTentacleActiveDuration = 1.5f;
+
+        [Tooltip("촉수 찌르기 패턴이 Attack 상태를 점유하는 시간(초). 전조(0.8s)+즉발+후딜(1.4s) 기준.")]
+        public float TentacleStabActiveDuration = 2.8f;
+
+        // ─── 그로기 HP 임계치 (구조 변경 시 기획 협의 필요) ─────────────
+        [Header("그로기 HP 임계치 (%) - 값 변경은 자유, 단계/구조 변경은 기획 협의 필요")]
+        [Range(0f, 1f)] public float GroggyThresholdHigh = 0.7f;
+        [Range(0f, 1f)] public float GroggyThresholdLow  = 0.3f;
+
         [Header("공격에 사용할 프리팹")]
         [Tooltip("공격 전조(경고 표시)에 사용할 프리팹. SpriteRenderer가 있는 단순한 이미지 오브젝트 권장.")]
         public GameObject WarningPrefab;
@@ -65,17 +111,24 @@ namespace TutorialBoss
         private float _coreStartY;
         private HP.OnHealthChangedDelegate _onDamageLog;
 
-        // ─── 공개 프로퍼티 (State 클래스에서 접근) ───────────────────────
+        // 패턴 판단용 내부 타이머/기록 (Idle↔Attack 상태 전환에도 유지되어야 하므로 컨트롤러가 소유)
+        private float _tentacleStabCooldownTimer;
+        private float _groundTentacleCooldownTimer;
+        private float _stationaryTimer;
+        private Vector3 _lastPlayerPos;
+        private bool _groggyHighConsumed;
+        private bool _groggyLowConsumed;
 
-        /// <summary>
-        /// 공격 패턴 완료 후 그로기 진입을 예약하는 플래그.
-        /// TentaclePierceStrategy 종료 시 true로 설정 →
-        /// TutorialAttackState.Execute()에서 감지하여 GroggyState로 전환.
-        /// </summary>
-        public bool PendingGroggy { get; set; } = false;
+        // ─── 공개 프로퍼티 (State 클래스에서 접근) ───────────────────────
 
         /// <summary>현재 그로기 진행 중 여부. 중복 예약을 방지.</summary>
         public bool IsGroggy { get; private set; } = false;
+
+        /// <summary>직전에 실행된 패턴. 연속 사용 금지 판정에 사용.</summary>
+        public PatternType? LastUsedPattern { get; set; } = null;
+
+        /// <summary>공격 시작 직전 1회 저장되는 플레이어 위치. 공격 중에는 재조회하지 않고 이 값만 참조.</summary>
+        public Vector3 PlayerPositionSnapshot { get; private set; }
 
         // ─── Unity 생명주기 ───────────────────────────────────────────────
         protected override void Awake()
@@ -107,8 +160,101 @@ namespace TutorialBoss
             if (CoreTransform != null)
                 _coreStartY = CoreTransform.position.y;
 
+            if (Target != null)
+                _lastPlayerPos = Target.position;
+
             // 초기 상태: 대기(Idle)
             ChangeState(new TutorialIdleState());
+        }
+
+        // 쿨타임/정지 타이머는 Idle↔Attack 전환과 무관하게 항상 흘러야 하므로
+        // 상태(State)가 아닌 컨트롤러의 Update에서 매 프레임 갱신한다.
+        protected override void Update()
+        {
+            base.Update();
+
+            if (_tentacleStabCooldownTimer   > 0f) _tentacleStabCooldownTimer   -= Time.deltaTime;
+            if (_groundTentacleCooldownTimer > 0f) _groundTentacleCooldownTimer -= Time.deltaTime;
+
+            if (Target != null)
+            {
+                float moved = Vector3.Distance(Target.position, _lastPlayerPos);
+                _stationaryTimer = moved <= StationaryPositionTolerance ? _stationaryTimer + Time.deltaTime : 0f;
+                _lastPlayerPos = Target.position;
+            }
+        }
+
+        // ─── 패턴 판단 로직 (Idle 상태에서만 호출) ───────────────────────
+        // §7 확장 훅: 거리 구간이 명확히 분리되어 있어, 향후 '휘두르기'(매우 근접,
+        // ×1.5 이내) 패턴을 추가할 때는 이 리스트 맨 앞에 CanUseSwing() 분기만
+        // 끼워 넣으면 되고, 아래 두 패턴의 조건/우선순위는 그대로 유지된다.
+        public PatternType? SelectPattern()
+        {
+            if (CanUseTentacleStab()) return PatternType.TentacleStab;
+            if (CanUseGroundTentacle()) return PatternType.GroundTentacle;
+            return null; // 사용 가능한 패턴 없음 → Idle 유지
+        }
+
+        private bool CanUseTentacleStab()
+        {
+            float distance  = Vector2.Distance(transform.position, Target.position);
+            float nearRange = PlayerWidth * TentacleStabRangeMultiplier;
+
+            return distance <= nearRange
+                && _tentacleStabCooldownTimer <= 0f
+                && LastUsedPattern != PatternType.TentacleStab;
+        }
+
+        private bool CanUseGroundTentacle()
+        {
+            float distance  = Vector2.Distance(transform.position, Target.position);
+            float farRange  = PlayerWidth * GroundTentacleRangeMultiplier;
+            bool  triggerCondition = _stationaryTimer >= StationaryTimeThreshold || distance >= farRange;
+
+            return triggerCondition
+                && _groundTentacleCooldownTimer <= 0f
+                && LastUsedPattern != PatternType.GroundTentacle;
+        }
+
+        /// <summary>선택된 패턴의 쿨타임을 시작한다 (TutorialAttackState.Enter에서 호출).</summary>
+        public void StartPatternCooldown(PatternType pattern)
+        {
+            switch (pattern)
+            {
+                case PatternType.TentacleStab:   _tentacleStabCooldownTimer   = TentacleStabCooldown;   break;
+                case PatternType.GroundTentacle: _groundTentacleCooldownTimer = GroundTentacleCooldown; break;
+            }
+        }
+
+        /// <summary>공격 실행 직전 1회만 플레이어 위치를 저장한다 (§6).</summary>
+        public void SavePlayerPositionSnapshot()
+        {
+            if (Target != null)
+                PlayerPositionSnapshot = Target.position;
+        }
+
+        // ─── 그로기 진입 판단 (§2) ────────────────────────────────────────
+        // HP가 임계치(70%/30%)를 처음 통과할 때 한 번씩만 true를 반환한다.
+        // 그로기 상태머신 자체(낙하→대기→복귀)는 TutorialGroggyState가 담당하며,
+        // 여기서는 "지금 그로기로 들어가야 하는가"만 판단한다 (기획 협의 필요 항목).
+        public bool ShouldEnterGroggy()
+        {
+            if (_hp == null) return false;
+            float ratio = _hp.Health / _hp.MaxHealth;
+
+            if (!_groggyHighConsumed && ratio <= GroggyThresholdHigh)
+            {
+                _groggyHighConsumed = true;
+                return true;
+            }
+
+            if (!_groggyLowConsumed && ratio <= GroggyThresholdLow)
+            {
+                _groggyLowConsumed = true;
+                return true;
+            }
+
+            return false;
         }
 
         // ─── 그로기 플래그 세터 (GroggyState에서 사용) ───────────────────
