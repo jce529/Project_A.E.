@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-05T08:06:56.000Z"
-last_activity: 2026-08-05
+last_updated: "2026-08-10T01:45:37.427Z"
+last_activity: 2026-08-10
 progress:
-  total_phases: 10
+  total_phases: 11
   completed_phases: 7
-  total_plans: 28
-  completed_plans: 25
-  percent: 89
+  total_plans: 32
+  completed_plans: 26
+  percent: 81
 ---
 
 # GSD State
@@ -21,12 +21,12 @@ progress:
 
 ## Current Position
 
-Phase: 10 (3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller) — EXECUTING
-Plan: 4 of 4
+Phase: 11 (newtonsoft-json-dontdestroyonload-i-o-dictionary-dictionary-application-persistentdatapath-json) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-08-05 - Completed quick task 260805-q2u: 구역 타일링 + 부드러운 경계 전환 (X bounds Lerp 재설계, CameraBoundsTrigger 캐시 제거)
+Last activity: 2026-08-10
 
-Progress: [█████████░] 89% (25/28 plans)
+Progress: [████████░░] 81% (26/32 plans)
 
 ## Phase Status
 
@@ -47,6 +47,7 @@ Progress: [█████████░] 89% (25/28 plans)
 | Phase 10 P01 | 6min | 3 tasks | 1 files |
 | Phase 10-3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller P02 | 6min | 2 tasks | 1 files |
 | Phase 10-3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller P03 | 10min | 2 tasks | 1 files |
+| Phase 11 P01 | 15min | 3 tasks | 3 files |
 
 ## Performance Metrics
 
@@ -85,7 +86,14 @@ Progress: [█████████░] 89% (25/28 plans)
 - gsd-tools.cjs 의 `state update-progress` 명령은 대소문자 무시 정규식이 STATE.md 본문의 "Progress:" 필드보다 frontmatter YAML 의 "progress:" 키를 먼저 매치하고 `\s*` 가 개행까지 삼켜버려, 본문 Progress 줄이 갱신되지 않는 기존 버그를 발견 (frontmatter 는 재구성 로직이 디스크에서 다시 계산하므로 자체 치유되지만 본문 줄은 그대로 남음) — 공용 도구 스크립트라 이 플랜 범위에서 수정하지 않고, STATE.md 의 Progress 줄/frontmatter percent 값만 직접 보정함 (Phase 10 Plan 3)
 - Y축 데드존은 `_followBaseY`(Lerp)를 완전히 대체하는 `_deadzoneCenterY`(하드컷)로 구현하고, X축 `UpdateDeadzoneCenter()`와 병합하지 않고 별도 함수 `UpdateDeadzoneCenterY()`로 분리 — 병합 시 Y가 `_deadzonePushSign`을 오염시켜 X축 Dynamic Offset의 방향 신호를 깨뜨리기 때문(DY-02). `LateUpdate` 끝에 Y 재앵커 라인은 추가하지 않음 — Y에는 클램프가 없어 수학적으로 항등(no-op)이기 때문 (quick task 260804-q6h)
 - `CameraController.SetXBounds(min, max)`는 순수 필드 대입만 한다 — 기존 `ApplyXClamp()`가 매 프레임 `minX`/`maxX`를 소비하므로 신규 클램프 로직 불필요(MX-01). 이전 경계 캐시는 `CameraController`가 아니라 `CameraBoundsTrigger` 인스턴스가 소유(MX-05) — 구역마다 독립적인 단일 슬롯 캐시로, 스택/구역 매니저는 의도적으로 만들지 않음. 구역은 영구 핸드오프가 아니라 **범위 한정 오버라이드**이며, 진입 직전 경계를 캐시했다가 이탈 시 복원한다(사용자 결정, 2026-08-05). 겹치는 구역에서의 stale 복원은 코드로 방어하지 않고 `Check.md`에 알려진 한계로만 문서화 (quick task 260805-m41) — **이 캐시/복원 방식은 260805-q2u 에서 폐기됨**
-- `minX`/`maxX`를 런타임 불변 "스테이지 고정 기본 경계"로 재정의하고, `SetXBounds`가 대신 쓰는 `_targetMinX`/`_targetMaxX`를 신규 `boundsSmoothing`(기본 3, `zoomSmoothing`과 동일 성격)으로 `_currentMinX`/`_currentMaxX`에 매 프레임 Lerp — `ApplyXClamp`와 Gizmo 빨간선 모두 `_current*`만 소비(Q2-01~Q2-05). `CameraBoundsTrigger`의 캐시/복원(MX-05) 로직을 전부 삭제하고 이탈 시 항상 `CameraController.Instance`의 고정 `minX`/`maxX`로 복귀하도록 바꿔, 구역이 겹치거나 순서가 꼬여도 stale 값이 복원될 수 없게 구조적으로 해소(Q2-06). 레벨 디자인은 벽이 있는 모든 구간에 트리거를 타일링하고, `BoxCollider2D`의 Y 범위로 층별 트리거를 분리 배치하는 방식으로 코드 변경 없이 해결(Q2-07) (quick task 260805-q2u)
+- `minX`/`maxX`를 런타임 불변 "스테이지 고정 기본 경계"로 재정의하고, `SetXBounds`가 대신 쓰는 `_targetMinX`/`_targetMaxX`를 신규 `boundsSmoothing`(기본 3, `zoomSmoothing`과 동일 성격)으로 `_currentMinX`/`_currentMaxX`에 매 프레임 Lerp — `ApplyXClamp`와 Gizmo 빨간선 모두 `_current*`만 소비(Q2-01~Q2-05). `CameraBoundsTrigger`의 캐시/복원(MX-05) 로직을 전부 삭제하고 이탈 시 항상 `CameraController.Instance`의 고정 `minX`/`maxX`로 복귀하도록 바꿔, 구역이 겹치거나 순서가 꼬여도 stale 값이 복원될 수 없게 구조적으로 해소(Q2-06). 레벨 디자인은 벽이 있는 모든 구간에 트리거를 타일링하고, `BoxCollider2D`의 Y 범위로 층별 트리거를 분리 배치하는 방식으로 코드 변경 없이 해결(Q2-07) (quick task 260805-q2u) — **`boundsSmoothing` Lerp는 260809-h9k 에서 폐기됨**
+- `boundsSmoothing` Lerp를 완전히 제거하고 `SetXBounds`가 `_currentMinX`/`_currentMaxX`에 직접 대입하도록 되돌림(260805-m41과 동일한 즉시 스냅 방식, `_targetMinX`/`_targetMaxX` 필드 삭제) — 사용자가 구역 경계 전환이 "벽처럼 딱 막히는 느낌"이 아니라고 지적, Lerp가 있으면 좁은 구역 진입 시 경계가 다 좁혀지기 전에 벽 너머가 잠깐 보이는 게 Check.md에 이미 알려진 한계였음. minX/maxX(스테이지 기본) 자체는 원래도 즉시 클램프였으므로 이제 구역 경계도 동일한 체감이 됨 (quick task 260809-h9k)
+- `CameraBoundsTrigger.OnTriggerExit2D`가 무조건 스테이지 기본 경계로 복귀하는 기존 로직(Q2-06)에 구조적 허점 발견: 구역을 서로 맞붙여 타일링하면(Q2-07 권장 방식) 한 구역의 Exit과 이웃 구역의 Enter가 같은 물리 프레임에 발생할 수 있는데, Unity가 두 콜백의 호출 순서를 보장하지 않아 Exit이 Enter보다 늦게 처리되면 방금 적용된 이웃 구역의 좁은 경계를 기본값으로 덮어써버림 (사용자가 "복도→보스룸으로 걸어 들어가기만 해도 다시 안 됨" 증상으로 발견). `OnTriggerExit2D`에서 복귀 전 다른 모든 `CameraBoundsTrigger`의 콜라이더와 `Collider2D.IsTouching`으로 겹침을 확인해, 플레이어가 아직 다른 구역 안에 있으면 복귀를 건너뛰도록 가드 추가 — `IsTouching`은 콜백 처리 순서와 무관하게 물리 엔진의 현재 겹침 상태를 직접 읽으므로 순서 문제에 안전함. 구역을 하나만 쓸 때는 이 경쟁 상태가 절대 드러나지 않아 지금까지 발견되지 않았음 (quick task 260809-h9k)
+- Y축 카메라 경계(`minY`/`maxY`)를 X와 완전히 동일한 구조로 추가 — 이전까지 "Y는 의도적으로 클램프하지 않는다"(D-09, Phase 9~10 내내 유지된 결정)였으나 사용자가 명시적으로 뒤집음. `ApplyXClamp`를 `ApplyBoundsClamp`로 합쳐 X/Y 동시 클램프, `CameraBoundsTrigger`는 구역 콜라이더의 Y 범위(`b.min.y`/`b.max.y`)를 그대로 Y 경계로도 사용(Y 전용 `useCustomBounds` 없음, 요청 없었음). D-17 재앵커 라인에 Y 버전 추가 필수 — 안 하면 Y 클램프 도입 후 피킹 오프셋이 `_deadzoneCenterY`에 매 프레임 누적되는 회귀 발생. **주의**: 기존 트리거 박스(예: `BossZone_Tutorial`, 세로 15유닛)는 트리거 감지 용도로만 세로 크기를 잡아뒀는데 이제 그 크기가 Y 클램프 범위로도 쓰여서, orthoSize 5 기준 실제 카메라 Y 이동 여유가 5유닛밖에 안 남음 — 방마다 세로 크기를 다시 확인해야 함 (quick task 260809-h9k)
+- `Tutorial Map.unity`에 `CameraBounds_Corridor_BeforeBoss` 구역을 신규 배치(X 125~278.43, 문 앞 복도) — `BossZone_Tutorial`과 맞붙여 Q2-07 타일링 예시를 실제로 처음 적용. 방 밖에서 보스룸 내부가 미리 보이던 문제(전용 트리거 없이 스테이지 기본 경계(125~339)가 보스룸 X범위를 통째로 포함했던 게 원인)를 해소. Play 모드에서 사용자와 함께 직접 검증 완료 (quick task 260809-h9k)
+- Newtonsoft.Json 을 `manifest.json` 에 3.2.2 로 직접 의존성 고정 (11-CONTEXT.md 의 "3.2.1" 기재는 연구 단계 오류로 확인, `Library/PackageCache` 실제 캐시 버전 3.2.2 기준) (Phase 11 Plan 1)
+- `SaveData`/`PlayerStatsSaveData` POCO 스키마 신설 — 위치는 좌표가 아니라 SceneName+SpawnPointName 문자열로 모델링(D-05), 보스진행도/맵기믹은 `Dictionary<string, bool>` 스텁(D-03), 아이템은 빈 `List<string>` 스텁(D-03b) (Phase 11 Plan 1)
+- `PlayerStats.RestoreStats(float, float, float)` 를 additive 전용 공개 메서드로 추가 — setter 프로퍼티 대신 이 메서드가 유일한 외부 쓰기 경로이며, `maxTotalHealth` -> `maxHealth` -> `health` -> `ClampHealth()` 순서를 지켜야 저장된 체력이 낡은 maxHealth 로 잘리지 않음 (Phase 11 Plan 1)
 
 ### Active TODOs
 
@@ -106,12 +114,11 @@ Progress: [█████████░] 89% (25/28 plans)
 - Phase 8 Plan 3 (08-03-PLAN.md): 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종
   일괄 Play 모드 검증 체크포인트 (Unity 컴파일 확인은 이 실행 환경에서 불가 — 08-03 에서 수행)
 
-- quick task 260805-m41 gap: **코드 반영 완료, 씬 배치 + Play 모드 검증 모두 대기.** `CameraController.SetXBounds`와
-  신규 `Assets/Camera/Script/CameraBoundsTrigger.cs`는 정적 검사 11항목 전부 통과했으나(commit `c9d5b7c`),
-  씬에 트리거를 배치하는 작업 자체가 사용자의 수동 후속 작업이라(MX-04) 아직 어떤 구역에도 적용되지 않았다.
-  `Assets/Camera/Check.md` "6) 구역별 카메라 X 경계" 섹션의 8단계 설정 가이드로 구역을 배치한 뒤,
-  13개 체크리스트 항목을 사용자가 직접 확인해야 한다. 상세 기록: `.planning/quick/260805-m41-cameracontroller-setxbounds-min-max-boss/260805-m41-SUMMARY.md`.
-  **MX-05 캐시/복원 방식은 260805-q2u 로 대체됨** — 새 체크리스트는 Check.md "7)" 섹션.
+- ~~quick task 260805-m41 gap: 씬 배치 + Play 모드 검증 대기~~ — **해소됨 (260809-h9k)**. `Tutorial Map.unity`에
+  `BossZone_Tutorial` + 신규 `CameraBounds_Corridor_BeforeBoss`를 배치하고 사용자와 함께 Play 모드에서 직접
+  검증 완료 (구역 진입/이탈, 인접 구역 연속 통과, 즉시 스냅, Y축 클램프 전부 확인). `1 stage.unity` 등 다른 씬에는
+  아직 트리거가 배치되지 않았으니 그쪽은 여전히 `Assets/Camera/Check.md` "7)" 섹션 가이드를 따라 사용자가
+  수동 배치해야 함 (MX-04).
 
 ### Blockers
 
@@ -124,12 +131,14 @@ Progress: [█████████░] 89% (25/28 plans)
 | 260804-q6h | Y축 데드존(하드컷) 추가 - CameraController.cs | 2026-08-04 | d3cc065 | [260804-q6h-y-cameracontroller-cs](./quick/260804-q6h-y-cameracontroller-cs/) |
 | 260805-m41 | 구역별 카메라 X 경계 - SetXBounds + CameraBoundsTrigger | 2026-08-05 | c9d5b7c | [260805-m41-cameracontroller-setxbounds-min-max-boss](./quick/260805-m41-cameracontroller-setxbounds-min-max-boss/) |
 | 260805-q2u | 구역 타일링 + 부드러운 경계 전환 (X bounds Lerp 재설계) | 2026-08-05 | 8103c3a | [260805-q2u-x-cameracontroller-cameraboundstrigger](./quick/260805-q2u-x-cameracontroller-cameraboundstrigger/) |
+| 260809-h9k | 경계 즉시 스냅 복귀 + 인접 구역 Exit/Enter 경쟁 상태 수정 + Y축 카메라 경계 추가 + Tutorial Map 구역 배치·실측 검증 | 2026-08-09 | (미커밋) | (문서 없음 - 채팅 세션에서 직접 진행) |
 
 ### Roadmap Evolution
 
 - Phase 7 added: 보스 공격 패턴 판단 로직 리팩토링 — CombatState 공유 기반에 TutorialBoss 스타일(거리/쿨다운/연속금지 조건부 판단)의 재사용 가능한 패턴 선택 로직을 도입하고, WaterSpirit 보스(Stage 1 SpiritCombatState 및 Stage 2 Stage2CombatState)에 적용한다.
 - Phase 9 added: 일반 스테이지와 보스 스테이지 진입 시 카메라 크기(줌) 변화
 - Phase 10 added: 카메라 데드존 기법 3종 (Base Deadzone, Dynamic Asymmetrical Deadzone, Input-based Peeking) 구현 — Phase 9 CameraController에 레이어링
+- Phase 11 added: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 — DontDestroyOnLoad, 메모리 캐싱, 체크포인트/보스 격파 시점 저장, 씬+좌표/스탯/보스진행도/맵기믹/아이템 데이터 모델, 비동기 씬 로드 후 좌표 이동
 
 ## Session Continuity
 
@@ -144,3 +153,4 @@ Progress: [█████████░] 89% (25/28 plans)
 - 마지막 세션: Completed quick task 260804-q6h (2026-08-04, Y축 하드컷 데드존 — `_followBaseY` Lerp를 `_deadzoneCenterY` 하드컷으로 교체, `UpdateDeadzoneCenterY()` 신설, commit `d3cc065`). 정적 회귀 검사 9항목 전부 PASS, Play 모드 미검증. 다음 재개 지점: `Assets/Camera/Check.md` "5) Y축 하드컷 데드존" 체크리스트 Play 모드 실측
 - 마지막 세션: Completed quick task 260805-m41 (2026-08-05, 구역별 카메라 X 경계 — `CameraController.SetXBounds(min, max)` 순수 대입 신규 + `CameraBoundsTrigger.cs` 신규(BossZoomTrigger 패턴 미러링, 진입 시 이전 경계 캐시 / 이탈 시 복원, MX-05), commit `c9d5b7c`). 정적 회귀 검사 11항목 전부 PASS, 씬 배치(MX-04) + Play 모드 둘 다 미수행. 다음 재개 지점: `Assets/Camera/Check.md` "6) 구역별 카메라 X 경계" 8단계 수동 배치 후 13개 체크리스트 Play 모드 실측 (**MX-05 캐시/복원 방식은 260805-q2u 로 대체됨**)
 - 마지막 세션: Completed quick task 260805-q2u (2026-08-05, 구역 타일링 + 부드러운 경계 전환 — `minX`/`maxX`를 런타임 불변 고정 기본 경계로 재정의, `boundsSmoothing` 신규 필드 + `_targetMinX/_targetMaxX` → `_currentMinX/_currentMaxX` Lerp 2단 구조 도입(zoomSmoothing 미러링), `CameraBoundsTrigger`의 캐시/복원 로직(MX-05) 전부 제거하고 이탈 시 항상 고정 기본값 복귀로 전환, commit `8103c3a`). 정적 회귀 검사 21항목 전부 PASS(1건은 diff 정렬 오차로 문서화), 씬 배치 + Play 모드 둘 다 미수행. 다음 재개 지점: `Assets/Camera/Check.md` "7) 구역 타일링 & 부드러운 경계 전환" 체크리스트 Play 모드 실측 (타일링 + Y 범위 분리 배치 후)
+- 마지막 세션: Completed 11-01-PLAN.md (2026-08-10, Newtonsoft.Json 직접 의존성 고정(3.2.2) + `SaveData`/`PlayerStatsSaveData` POCO 스키마 신규 + `PlayerStats.RestoreStats` additive 메서드, commits `a1b14ed`/`82510fd`/`1b26ecc`). 다음 재개 지점: Phase 11 Plan 2 (11-02-PLAN.md, SaveLoadManager)

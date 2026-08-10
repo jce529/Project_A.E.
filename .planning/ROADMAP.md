@@ -251,3 +251,35 @@ Plans:
 - [x] 10-02-PLAN.md — Dynamic Asymmetrical Deadzone (밀기 방향 추적 + 유지 타이머 + SmoothDamp 오프셋 합성)
 - [x] 10-03-PLAN.md — Input-based Peeking (OnMoveEvent 구독 라이프사이클 + 4조건 가드 + 수직 SmoothDamp)
 - [ ] 10-04-PLAN.md — Assets/Camera/Check.md Phase 10 체크리스트 + 정적 회귀 검사 9종 + Play 모드 검증 체크포인트
+
+### Phase 11: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 - DontDestroyOnLoad, 메모리 캐싱(플레이 중 파일 I/O 없음), 로드 시점(이어하기/체크포인트 부활), 저장 시점(체크포인트 상호작용/보스 격파 자동저장), 확장 가능한 데이터 클래스(씬+좌표, 플레이어 스탯 하위클래스, 보스 진행도 Dictionary, 맵 기믹 상태 Dictionary, 아이템 목록), 비동기 씬 로드 완료 후 좌표 이동, Application.persistentDataPath에 .json 저장
+
+**Goal:** 게임에 `SaveLoadManager` 싱글톤(DontDestroyOnLoad)이 존재해, 플레이 중에는 메모리 캐시만 갱신하고 파일 I/O 를 전혀 하지 않으며, 체크포인트 S키 상호작용과 보스 4종 격파 시점에만 `Application.persistentDataPath/save.json` 단일 슬롯 파일을 기록한다. 로드(이어하기/체크포인트 부활)는 저장된 씬을 코루틴 기반 `LoadSceneAsync` 로 비동기 로드한 뒤, 좌표는 기존 `PlayerSpawner.targetSpawnPointName` 경로로, 플레이어 스탯은 신규 `PlayerStats.RestoreStats()` 로 복원한다. 데이터 스키마는 씬+스폰포인트(문자열), 플레이어 스탯, 보스 진행도 Dictionary, 맵 기믹 Dictionary, 아이템 List 로 확장 가능하게 구성하되 뒤 세 개는 스텁 수준으로만 채운다. 메뉴 UI 연동은 범위 밖.
+**Requirements**: D-01 ~ D-06 (11-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 10
+**Success Criteria** (what must be TRUE):
+  1. `SaveLoadManager` 가 `DontDestroyOnLoad` 싱글톤으로 존재하며, 씬에 수동 배치하지 않아도 어느 씬에서 Play 를 시작하든 `SaveLoadManager.Instance` 가 유효하다 (D-01).
+  2. 저장 파일은 `Application.persistentDataPath` 아래 `save.json` 단 하나이며, 직렬화는 Newtonsoft.Json 으로 수행되고 `Dictionary<string,bool>` 이 그대로 왕복한다 (D-02, D-03).
+  3. `Packages/manifest.json` 에 `"com.unity.nuget.newtonsoft-json": "3.2.2"` 가 직접 선언되어, AI 패키지 제거 시 간접 의존성이 조용히 사라지는 위험이 제거된다.
+  4. 저장 트리거가 정확히 5곳이다 — `Checkpoint.cs` S키 활성화 1곳 + 보스 4종. 보스는 두 아키텍처로 나뉘어 각각 다른 지점에 연결된다: Group A(`HP.OnDeath` → `HandleDeath()`)의 TutorialBoss/WoodBoss, Group B(이벤트 없음 → `BossStatsSystem.Die()` 오버라이드 본문)의 WaterSpirit/WaterMonster (D-01).
+  5. 저장 데이터의 위치 정보가 원시 XY 좌표가 아니라 `SceneName` + `SpawnPointName` 문자열이며, 로드 시 `PlayerSpawner.targetSpawnPointName` 을 씬 로드 **전에** 세팅해 기존 경로를 그대로 재사용한다 (D-05).
+  6. 로드 코루틴이 `PlayerSpawner` 세팅 → `LoadSceneAsync` → `yield return op` → `PlayerStats.RestoreStats()` 순서로 실행되며, `async`/`await`/`Task` 를 전혀 사용하지 않는다 (프로젝트 무-async 컨벤션).
+  7. `NewGame()` 은 메모리만 리셋하고 디스크의 `save.json` 을 즉시 덮어쓰지 않는다 (D-06).
+  8. `MainMenuUI.cs`(이어하기 버튼), `Portal.cs`/`GameManager.NextSpawnPointName`, `WoodBossStatSystem.cs`, `HP.cs`, `BossStatesSystem.cs` 는 0줄 변경이다 (UI 범위 밖 D-04 + 고아 코드/공유 베이스 클래스 불가침).
+  9. 기존 5개 파일 편집이 전부 순수 삽입(삭제 0줄)이며 CP949 인코딩 파일 2종(`Checkpoint.cs`, `WoodBossController.cs`)의 한글 주석이 훼손되지 않는다.
+**Plans:** 1/4 plans executed
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 11-01 | yes |
+| 2 | 11-02 | yes |
+| 3 | 11-03 | yes |
+| 4 | 11-04 | no (Play 모드 검증 체크포인트) |
+
+Plans:
+- [x] 11-01-PLAN.md — Newtonsoft.Json manifest 직접 고정 + SaveData/PlayerStatsSaveData 스키마 신규 + PlayerStats.RestoreStats additive 메서드
+- [ ] 11-02-PLAN.md — SaveLoadManager 싱글톤(부트스트랩/DontDestroyOnLoad) + 메모리 캐시 + save.json I/O + 코루틴 LoadSceneAsync 로드 흐름
+- [ ] 11-03-PLAN.md — 저장 트리거 5곳 통합 (Checkpoint S키 + Group A 2종 HandleDeath + Group B 2종 Die 오버라이드)
+- [ ] 11-04-PLAN.md — ContextMenu 검증 훅 + Assets/SaveSystem/Check.md 체크리스트 + 정적 회귀 15항목 + Play 모드 검증 체크포인트
