@@ -25,6 +25,11 @@ public class Checkpoint : MonoBehaviour
                 // 2. 이 체크포인트만 켭니다.
                 isActiveCheckpoint = true;
 
+                // Phase 11 (D-01): checkpoint activation is a save trigger. The checkpoint's
+                // own GameObject name is reused as the PlayerSpawner spawn point name (D-05).
+                if (SaveLoadManager.Instance != null)
+                    SaveLoadManager.Instance.SaveAtCheckpoint(gameObject.name);
+
                 if (playerRespawn != null)
                 {
                     playerRespawn.UpdateCheckpoint(this.transform);
