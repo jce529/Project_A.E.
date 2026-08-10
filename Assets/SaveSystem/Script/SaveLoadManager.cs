@@ -224,4 +224,40 @@ public class SaveLoadManager : MonoBehaviour
                   " (maxTotal " + ps.MaxTotalHealth + "), scene=" + SceneManager.GetActiveScene().name +
                   ", spawnPoint=" + _data.SpawnPointName);
     }
+
+    // ---- Verification hooks (D-04: no menu UI exists in this phase) -------------
+    // Select the runtime "SaveLoadManager" GameObject in the Hierarchy during Play mode
+    // and use the component's gear menu to drive these. See Assets/SaveSystem/Check.md.
+
+    [ContextMenu("Phase11/1. Save Now")]
+    private void DebugSaveNow()
+    {
+        Save();
+    }
+
+    [ContextMenu("Phase11/2. Load Game")]
+    private void DebugLoadGame()
+    {
+        LoadGame();
+    }
+
+    [ContextMenu("Phase11/3. New Game (memory only)")]
+    private void DebugNewGame()
+    {
+        NewGame();
+    }
+
+    [ContextMenu("Phase11/4. Log State")]
+    private void DebugLogState()
+    {
+        Debug.Log("[SaveLoadManager] path=" + SavePath +
+                  " exists=" + HasSaveFile() +
+                  " scene=" + _data.SceneName +
+                  " spawnPoint=" + _data.SpawnPointName +
+                  " hp=" + _data.PlayerStats.Health + "/" + _data.PlayerStats.MaxHealth +
+                  " maxTotal=" + _data.PlayerStats.MaxTotalHealth +
+                  " bossProgress=" + _data.BossProgress.Count +
+                  " gimmicks=" + _data.MapGimmickState.Count +
+                  " items=" + _data.Items.Count);
+    }
 }
