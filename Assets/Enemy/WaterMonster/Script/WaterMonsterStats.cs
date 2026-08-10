@@ -73,6 +73,11 @@ public class WaterMonsterStats : BossStatsSystem
 
     protected override void Die()
     {
+        // Phase 11 (D-01): boss defeat auto-save. Group B - BossStatsSystem has NO OnDeath
+        // event, so the call goes directly inside this Die() override.
+        if (SaveLoadManager.Instance != null)
+            SaveLoadManager.Instance.SaveOnBossDefeated("WaterMonster");
+
         gameObject.SetActive(false);
     }
 

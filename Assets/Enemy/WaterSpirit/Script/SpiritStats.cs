@@ -65,6 +65,11 @@ public class SpiritStats : BossStatsSystem
             spiritController.CleanupClones();
         }
 
+        // Phase 11 (D-01): boss defeat auto-save. Group B - BossStatsSystem has NO OnDeath
+        // event, so the call goes directly inside this Die() override.
+        if (SaveLoadManager.Instance != null)
+            SaveLoadManager.Instance.SaveOnBossDefeated("WaterSpirit");
+
         gameObject.SetActive(false);
     }
 }
