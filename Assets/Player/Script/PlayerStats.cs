@@ -58,4 +58,17 @@ public class PlayerStats : HP
         Debug.Log("Player has taken damage!");
     }
     
+
+    // Phase 11 (D-03c): restore saved stats from SaveLoadManager.
+    // Additive only - HP.health / HP.maxHealth are protected and PlayerStats.maxTotalHealth
+    // is private with a getter-only property, so an external caller has no other way in.
+    // Assignment order matters: maxHealth must be set BEFORE health, because ClampHealth()
+    // clamps health into 0..maxHealth.
+    public void RestoreStats(float savedHealth, float savedMaxHealth, float savedMaxTotalHealth)
+    {
+        maxTotalHealth = savedMaxTotalHealth;
+        maxHealth = savedMaxHealth;
+        health = savedHealth;
+        ClampHealth();
+    }
 }
