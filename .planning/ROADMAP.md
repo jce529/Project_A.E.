@@ -267,7 +267,7 @@ Plans:
   7. `NewGame()` 은 메모리만 리셋하고 디스크의 `save.json` 을 즉시 덮어쓰지 않는다 (D-06).
   8. `MainMenuUI.cs`(이어하기 버튼), `Portal.cs`/`GameManager.NextSpawnPointName`, `WoodBossStatSystem.cs`, `HP.cs`, `BossStatesSystem.cs` 는 0줄 변경이다 (UI 범위 밖 D-04 + 고아 코드/공유 베이스 클래스 불가침).
   9. 기존 5개 파일 편집이 전부 순수 삽입(삭제 0줄)이며 CP949 인코딩 파일 2종(`Checkpoint.cs`, `WoodBossController.cs`)의 한글 주석이 훼손되지 않는다.
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 **Execution Waves:**
 
@@ -281,5 +281,5 @@ Plans:
 Plans:
 - [x] 11-01-PLAN.md — Newtonsoft.Json manifest 직접 고정 + SaveData/PlayerStatsSaveData 스키마 신규 + PlayerStats.RestoreStats additive 메서드
 - [x] 11-02-PLAN.md — SaveLoadManager 싱글톤(부트스트랩/DontDestroyOnLoad) + 메모리 캐시 + save.json I/O + 코루틴 LoadSceneAsync 로드 흐름
-- [ ] 11-03-PLAN.md — 저장 트리거 5곳 통합 (Checkpoint S키 + Group A 2종 HandleDeath + Group B 2종 Die 오버라이드)
+- [x] 11-03-PLAN.md — 저장 트리거 5곳 통합 (Checkpoint S키 + Group A 2종 HandleDeath + Group B 2종 Die 오버라이드)
 - [ ] 11-04-PLAN.md — ContextMenu 검증 훅 + Assets/SaveSystem/Check.md 체크리스트 + 정적 회귀 15항목 + Play 모드 검증 체크포인트

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-10T01:52:58.483Z"
+last_updated: "2026-08-10T02:00:53.017Z"
 last_activity: 2026-08-10
 progress:
   total_phases: 11
   completed_phases: 7
   total_plans: 32
-  completed_plans: 27
-  percent: 84
+  completed_plans: 28
+  percent: 88
 ---
 
 # GSD State
@@ -22,11 +22,11 @@ progress:
 ## Current Position
 
 Phase: 11 (newtonsoft-json-dontdestroyonload-i-o-dictionary-dictionary-application-persistentdatapath-json) — EXECUTING
-Plan: 3 of 4
-Status: Ready to execute (Plan 2 complete)
+Plan: 4 of 4
+Status: Ready to execute
 Last activity: 2026-08-10
 
-Progress: [████████░░] 84% (27/32 plans)
+Progress: [█████████░] 88% (28/32 plans)
 
 ## Phase Status
 
@@ -49,6 +49,7 @@ Progress: [████████░░] 84% (27/32 plans)
 | Phase 10-3-base-deadzone-dynamic-asymmetrical-deadzone-input-based-peeking-phase-9-cameracontroller P03 | 10min | 2 tasks | 1 files |
 | Phase 11 P01 | 15min | 3 tasks | 3 files |
 | Phase 11 P02 | 8min | 2 tasks | 1 files |
+| Phase 11 P03 | 15min | 3 tasks | 5 files |
 
 ## Performance Metrics
 
@@ -97,6 +98,9 @@ Progress: [████████░░] 84% (27/32 plans)
 - `PlayerStats.RestoreStats(float, float, float)` 를 additive 전용 공개 메서드로 추가 — setter 프로퍼티 대신 이 메서드가 유일한 외부 쓰기 경로이며, `maxTotalHealth` -> `maxHealth` -> `health` -> `ClampHealth()` 순서를 지켜야 저장된 체력이 낡은 maxHealth 로 잘리지 않음 (Phase 11 Plan 1)
 - `SaveLoadManager.cs` 의 "coroutine, not async/await" 설명 주석을 두 차례 재작성 — task-level word-boundary grep 게이트와 plan-level plain-substring grep 게이트("Assets/SaveSystem/" 전체, async|await 부분일치)를 동시에 만족시키려면 "asynchronous"/"awaiting" 같은 파생어도 피해야 했음, Phase 9 Plan 1 DontDestroyOnLoad·Phase 10 Plan 1 deadzoneHeight 사례와 동일 계열 (Phase 11 Plan 2)
 - `SaveOnBossDefeated(bossId)` 는 보스 격파 시점에 새 스폰포인트를 만들지 않고 `BossProgress` 딕셔너리만 갱신 — 부활 지점은 항상 마지막 체크포인트 활성화가 저장한 씬/스폰포인트를 재사용 (RESEARCH Open Question 1 해결안) (Phase 11 Plan 2)
+- 체크포인트 1곳 + 보스 4종(TutorialBoss/WoodBoss/WaterSpirit/WaterMonster) 격파 지점에 `SaveLoadManager.Instance.SaveAtCheckpoint`/`SaveOnBossDefeated` 호출 삽입 완료 — Group A(HP.OnDeath 이미 구독 중인 TutorialBoss/WoodBoss)는 기존 `HandleDeath()` 본문에, Group B(이벤트 자체가 없는 WaterSpirit/WaterMonster)는 `BossStatsSystem.Die()` 오버라이드 본문에 직접 삽입 (Phase 11 Plan 3)
+- CP949 인코딩 파일(Checkpoint.cs, WoodBossController.cs) 편집 시 표준 Read/Edit 툴 조합은 UTF-8 왕복 과정에서 파일 전체의 비-ASCII 바이트를 U+FFFD로 조용히 훼손시킴 — `grep -cP "[^\x00-\x7F]"` 줄 수 카운트 게이트로는 감지 불가. `git show HEAD:<path>` 로 원본 바이트를 추출해 순수 바이트 단위 스크립트로 삽입하는 방식으로 전환 (Phase 9 Plan 1/Phase 10 Plan 1 계열의 인코딩 사고와 동일 범주) (Phase 11 Plan 3)
+- 작업 트리에 이 플랜과 무관한 기존 스테이지된 변경(카메라 스크립트 rename)이 이미 있는 상태에서 `git add <file>` 후 pathspec 없는 `git commit`을 실행하면 인덱스 전체가 커밋됨 — `git reset --soft HEAD~1` + pathspec 명시 커밋으로 즉시 수정, 이후 전 태스크 커밋에 `-- <path>` 명시 (Phase 11 Plan 3)
 
 ### Active TODOs
 
@@ -158,3 +162,4 @@ Progress: [████████░░] 84% (27/32 plans)
 - 마지막 세션: Completed quick task 260805-q2u (2026-08-05, 구역 타일링 + 부드러운 경계 전환 — `minX`/`maxX`를 런타임 불변 고정 기본 경계로 재정의, `boundsSmoothing` 신규 필드 + `_targetMinX/_targetMaxX` → `_currentMinX/_currentMaxX` Lerp 2단 구조 도입(zoomSmoothing 미러링), `CameraBoundsTrigger`의 캐시/복원 로직(MX-05) 전부 제거하고 이탈 시 항상 고정 기본값 복귀로 전환, commit `8103c3a`). 정적 회귀 검사 21항목 전부 PASS(1건은 diff 정렬 오차로 문서화), 씬 배치 + Play 모드 둘 다 미수행. 다음 재개 지점: `Assets/Camera/Check.md` "7) 구역 타일링 & 부드러운 경계 전환" 체크리스트 Play 모드 실측 (타일링 + Y 범위 분리 배치 후)
 - 마지막 세션: Completed 11-01-PLAN.md (2026-08-10, Newtonsoft.Json 직접 의존성 고정(3.2.2) + `SaveData`/`PlayerStatsSaveData` POCO 스키마 신규 + `PlayerStats.RestoreStats` additive 메서드, commits `a1b14ed`/`82510fd`/`1b26ecc`). 다음 재개 지점: Phase 11 Plan 2 (11-02-PLAN.md, SaveLoadManager)
 - 마지막 세션: Completed 11-02-PLAN.md (2026-08-10, `SaveLoadManager` DontDestroyOnLoad 싱글톤 신규 — 부트스트랩(`RuntimeInitializeOnLoadMethod`), 공개 저장 API(`Save`/`SaveAtCheckpoint`/`SaveOnBossDefeated`/`HasSaveFile`/`NewGame`), `LoadGame` 코루틴 기반 씬 로드+스탯 복원, commits `dbde39c`/`e83203b`). 다음 재개 지점: Phase 11 Plan 3 (11-03-PLAN.md, Checkpoint/보스 4종 통합)
+- 마지막 세션: Completed 11-03-PLAN.md (2026-08-10, 체크포인트 1곳 + 보스 4종(TutorialBoss/WoodBoss/WaterSpirit/WaterMonster) 격파 지점에 `SaveLoadManager` 호출 삽입 — Group A(HP.OnDeath)는 `HandleDeath()`에, Group B(이벤트 없음)는 `Die()` 오버라이드에 직접 삽입, commits `7e2960e`/`e36a76c`/`1fcf28a`). CP949 인코딩 훼손 위험과 git 인덱스 오염을 실행 중 발견해 즉시 수정(SUMMARY 참고). 다음 재개 지점: Phase 11 Plan 4 (11-04-PLAN.md)
