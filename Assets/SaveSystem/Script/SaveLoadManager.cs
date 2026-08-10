@@ -133,4 +133,95 @@ public class SaveLoadManager : MonoBehaviour
         _data.PlayerStats.MaxHealth = ps.MaxHealth;
         _data.PlayerStats.MaxTotalHealth = ps.MaxTotalHealth;
     }
+
+    // ---- Load flow -------------------------------------------------------------
+    // Entry point for BOTH "continue game" and "checkpoint revive". There is no separate
+    // revive method: reviving at a checkpoint is exactly "load the last saved state".
+    public void LoadGame()
+    {
+        if (!HasSaveFile())
+        {
+            Debug.LogWarning("[SaveLoadManager] LoadGame aborted - no save file at " + SavePath);
+            return;
+        }
+
+        SaveData loaded = null;
+        try
+        {
+            string json = File.ReadAllText(SavePath);
+            loaded = JsonConvert.DeserializeObject<SaveData>(json, SaveSettings);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[SaveLoadManager] Failed to read save file: " + e.Message);
+            return;
+        }
+
+        if (loaded == null)
+        {
+            Debug.LogError("[SaveLoadManager] Save file deserialized to null - aborting load.");
+            return;
+        }
+
+        _data = loaded;
+        EnsureCollections();
+
+        if (string.IsNullOrEmpty(_data.SceneName))
+        {
+            Debug.LogError("[SaveLoadManager] Saved SceneName is empty - aborting load.");
+            return;
+        }
+
+        StartCoroutine(LoadSceneAndRestoreRoutine(_data.SceneName, _data.SpawnPointName));
+    }
+
+    // A hand-edited or older save file can contain nulls where the schema expects
+    // collections. Re-materialize them so callers never have to null-check.
+    private void EnsureCollections()
+    {
+        if (_data.PlayerStats == null) _data.PlayerStats = new PlayerStatsSaveData();
+        if (_data.BossProgress == null) _data.BossProgress = new Dictionary<string, bool>();
+        if (_data.MapGimmickState == null) _data.MapGimmickState = new Dictionary<string, bool>();
+        if (_data.Items == null) _data.Items = new List<string>();
+    }
+
+    // Coroutine-based (IEnumerator/StartCoroutine) - the codebase does not use C# Task-based keywords anywhere.
+    private IEnumerator LoadSceneAndRestoreRoutine(string sceneName, string spawnPointName)
+    {
+        // D-05: set the static field BEFORE the load, exactly like SignpostPortal does.
+        // The freshly instantiated Player in the target scene consumes it in its own
+        // PlayerSpawner.Start() -> ApplySpawn(), so no explicit "move the player" call is
+        // needed here and no second respawn code path is invented.
+        PlayerSpawner.targetSpawnPointName = spawnPointName;
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        if (op == null)
+        {
+            Debug.LogError("[SaveLoadManager] LoadSceneAsync returned null for scene '" + sceneName +
+                           "'. Is it registered in Build Settings?");
+            yield break;
+        }
+
+        yield return op;
+
+        // By the time the yield resumes, the new scene is active and its Awake/Start have
+        // run - including HP.Awake() which forces health = maxHealth. Stats must therefore
+        // be restored AFTER this point, not before.
+        ApplyPlayerStatsFromSave();
+    }
+
+    private void ApplyPlayerStatsFromSave()
+    {
+        PlayerStats ps = PlayerStats.Instance;
+        if (ps == null)
+        {
+            Debug.LogError("[SaveLoadManager] PlayerStats.Instance is null after scene load - stats NOT restored.");
+            return;
+        }
+
+        ps.RestoreStats(_data.PlayerStats.Health, _data.PlayerStats.MaxHealth, _data.PlayerStats.MaxTotalHealth);
+        Debug.Log("[SaveLoadManager] Restored stats: " + ps.Health + "/" + ps.MaxHealth +
+                  " (maxTotal " + ps.MaxTotalHealth + "), scene=" + SceneManager.GetActiveScene().name +
+                  ", spawnPoint=" + _data.SpawnPointName);
+    }
 }
