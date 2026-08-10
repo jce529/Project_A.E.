@@ -52,6 +52,10 @@ public class WoodBossController : BossController
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
 
+        // Phase 11 (D-01): boss defeat auto-save. Group A - reached via HP.OnDeath.
+        if (SaveLoadManager.Instance != null)
+            SaveLoadManager.Instance.SaveOnBossDefeated("WoodBoss");
+
         StartCoroutine(DeathSequence());
     }
 

@@ -299,6 +299,11 @@ namespace TutorialBoss
         private void HandleDeath()
         {
             StopAllCoroutines();
+
+            // Phase 11 (D-01): boss defeat auto-save. Group A - reached via HP.OnDeath.
+            if (SaveLoadManager.Instance != null)
+                SaveLoadManager.Instance.SaveOnBossDefeated("TutorialBoss");
+
             ChangeState(new TutorialDeadState());
         }
 
