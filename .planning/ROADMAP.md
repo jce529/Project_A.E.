@@ -283,3 +283,39 @@ Plans:
 - [x] 11-02-PLAN.md — SaveLoadManager 싱글톤(부트스트랩/DontDestroyOnLoad) + 메모리 캐시 + save.json I/O + 코루틴 LoadSceneAsync 로드 흐름
 - [x] 11-03-PLAN.md — 저장 트리거 5곳 통합 (Checkpoint S키 + Group A 2종 HandleDeath + Group B 2종 Die 오버라이드)
 - [ ] 11-04-PLAN.md — ContextMenu 검증 훅 + Assets/SaveSystem/Check.md 체크리스트 + 정적 회귀 15항목 + Play 모드 검증 체크포인트
+
+### Phase 12: 피격 시 카메라 흔들림 (Camera Shake on Hit)
+
+**Goal:** 플레이어가 피격당하면 카메라가 짧게 랜덤 방향으로 흔들렸다가 `shakeDuration` 초 안에 선형
+감쇠해 완전히 멈춘다. 흔들림은 `CameraController` 파이프라인(위치추종/데드존 → 줌 Lerp → 경계 클램프 →
+데드존 재앵커) 맨 **위에 얹히는 독립 레이어**로, `LateUpdate()` 의 마지막 문장에서 재앵커 블록 **바깥**에
+무조건 적용된다 — 따라서 보스 구역에서도 동작하고(D-07), 흔들림 값이 데드존 앵커에 누적되지 않는다(D-08).
+트리거는 `PlayerStats.TakeDamage` 단 한 곳이며 `HP.cs` 는 무수정이라 보스 피격 시에는 흔들리지 않는다.
+**Requirements**: D-01 ~ D-09 (12-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 11 (코드 의존성 없음 — 카메라/플레이어 스크립트에만 국한된 순수 삽입 작업)
+**Success Criteria** (what must be TRUE):
+  1. 플레이어가 데미지를 받으면 카메라가 랜덤 방향으로 짧게 흔들리고, `shakeDuration` 초 안에
+     완전히 멈춘다 (D-01, D-05).
+  2. 강도가 데미지량에 비례하지 않는 고정값이며, 감쇠 중 재피격 시 지속시간 타이머만 최대치로
+     리프레시되고 강도는 누적되지 않는다 (D-04, D-06).
+  3. 보스 구역(`_isBossZone` true, 줌 확대 상태)에서도 흔들림이 동일하게 발동한다 — Phase 10 의
+     D-15(보스존에서 데드존/오프셋/피킹 비활성화)는 흔들림에 적용되지 않는다 (D-07).
+  4. 흔들림 오프셋이 경계 클램프와 데드존 재앵커 블록 **이후** 최종 적용되고, 적용 후 다시 클램프하지
+     않는다 — 경계를 살짝 뚫는 것은 의도된 동작이다 (D-08).
+  5. Inspector 신규 노출 필드가 `shakeMagnitude` / `shakeDuration` 정확히 2개다. `AnimationCurve`
+     감쇠 곡선 노출은 범위 밖 (D-09).
+  6. `HP.cs` 는 0줄 변경이며 공용 `OnHit` 이벤트도 신설하지 않는다 — 보스가 맞을 때는 흔들리지
+     않는다 (D-01, D-02).
+  7. `CameraController.cs` / `PlayerStats.cs` 편집이 전부 순수 삽입(삭제 0줄)이고,
+     `CameraController.cs` 의 비-ASCII 라인 수가 5로 유지된다 (12-RESEARCH 가 하향 조정한 인코딩
+     위험 판정의 사후 검증).
+**Plans:** 1 plan
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 12-01 | no (Play 모드 검증 체크포인트 포함) |
+
+Plans:
+- [ ] 12-01-PLAN.md — CameraController Hit Shake 레이어(필드 2개 + Shake() + ApplyHitShake() + LateUpdate 무조건 호출) + PlayerStats.TakeDamage 호출 지점 + 정적 회귀 12항목 + Check.md Phase 12 체크리스트 + Play 모드 검증 체크포인트
