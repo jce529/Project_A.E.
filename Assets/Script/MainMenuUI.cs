@@ -1,8 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
+    [SerializeField] private Button loadGameButton;
+
+    private void Start()
+    {
+        if (loadGameButton != null)
+        {
+            loadGameButton.interactable = SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile();
+        }
+    }
+
     public void OnClickStart()
     {
 
