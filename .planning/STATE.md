@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-10T02:00:53.017Z"
-last_activity: 2026-08-10
+last_updated: "2026-08-19T07:02:12.758Z"
+last_activity: 2026-08-19 -- Phase 12 execution started
 progress:
-  total_phases: 11
+  total_phases: 12
   completed_phases: 7
-  total_plans: 32
+  total_plans: 33
   completed_plans: 28
   percent: 88
 ---
@@ -21,10 +21,10 @@ progress:
 
 ## Current Position
 
-Phase: 11 (newtonsoft-json-dontdestroyonload-i-o-dictionary-dictionary-application-persistentdatapath-json) — EXECUTING
-Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-08-10
+Phase: 12 (camera-shake-on-hit) — EXECUTING
+Plan: 1 of 1
+Status: Executing Phase 12
+Last activity: 2026-08-19 -- Phase 12 execution started
 
 Progress: [█████████░] 88% (28/32 plans)
 
@@ -138,7 +138,7 @@ Progress: [█████████░] 88% (28/32 plans)
 | 260804-q6h | Y축 데드존(하드컷) 추가 - CameraController.cs | 2026-08-04 | d3cc065 | [260804-q6h-y-cameracontroller-cs](./quick/260804-q6h-y-cameracontroller-cs/) |
 | 260805-m41 | 구역별 카메라 X 경계 - SetXBounds + CameraBoundsTrigger | 2026-08-05 | c9d5b7c | [260805-m41-cameracontroller-setxbounds-min-max-boss](./quick/260805-m41-cameracontroller-setxbounds-min-max-boss/) |
 | 260805-q2u | 구역 타일링 + 부드러운 경계 전환 (X bounds Lerp 재설계) | 2026-08-05 | 8103c3a | [260805-q2u-x-cameracontroller-cameraboundstrigger](./quick/260805-q2u-x-cameracontroller-cameraboundstrigger/) |
-| 260809-h9k | 경계 즉시 스냅 복귀 + 인접 구역 Exit/Enter 경쟁 상태 수정 + Y축 카메라 경계 추가 + Tutorial Map 구역 배치·실측 검증 | 2026-08-09 | (미커밋) | (문서 없음 - 채팅 세션에서 직접 진행) |
+| 260809-h9k | 경계 즉시 스냅 복귀 + 인접 구역 Exit/Enter 경쟁 상태 수정 + Y축 카메라 경계 추가 + Tutorial Map 구역 배치·실측 검증 | 2026-08-09 | 6afe518 | (문서 없음 - 채팅 세션에서 직접 진행) |
 
 ### Roadmap Evolution
 
