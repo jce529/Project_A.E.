@@ -15,13 +15,12 @@
 
 | ID | File | Line(s) | Symbol | Reason |
 |----|------|---------|--------|--------|
-| A-D07-01 | Assets/Enemy/WaterSpirit/Script/SpiritController.cs | 8 | ChargeRange | 문서화된 의도적 유지 (STATE.md Key Decision) — 삭제 권장 아님 |
-| A-D07-02 | Assets/Enemy/WaterMonster/Script/Phase2/PuddleSpawner.cs | 1 | using System.Collections | 사용되지 않는 using |
-| A-D07-03 | Assets/Enemy/WaterMonster/Script/Phase3/PuddleExplosionController.cs | 2 | using System.Collections | 사용되지 않는 using |
-| A-D07-04 | Assets/Enemy/WaterMonster/Script/Phase3/WaterTeleportState.cs | 1 | using System.Collections | 사용되지 않는 using |
-| A-D07-05 | Assets/Enemy/WaterMonster/Script/States/Attacks/GeyserEffect.cs | 1 | using System.Collections | 사용되지 않는 using |
-| A-D07-06 | Assets/Enemy/WaterMonster/Script/States/Attacks/WaterColorPrison.cs | 1 | using System.Collections | 사용되지 않는 using |
-| A-D07-07 | Assets/Enemy/WaterMonster/Script/States/Attacks/WaterGeyser.cs | 1 | using System.Collections | 사용되지 않는 using |
+| A-D07-01 | Assets/Enemy/WaterSpirit/Script/SpiritController.cs | 8 | `ChargeRange` | 문서화된 의도적 유지 (STATE.md Key Decision) — 삭제 권장 아님 |
+| A-D07-02 | Assets/Enemy/WaterMonster/Script/Phase2/PlayerAbsorb.cs | 12 | `_unusedField1` | 프로젝트 전체 참조 0건, 씬/프리팹 참조 없음 |
+| A-D07-03 | Assets/Enemy/WaterMonster/Script/Phase2/PuddlePool.cs | 45 | `// _pool.Clear();` | 주석 처리된 코드 블록 |
+| A-D07-04 | Assets/Enemy/WaterMonster/Script/Phase2/PuddleSpawner.cs | 15 | `_unusedSpawnRate` | 프로젝트 전체 참조 0건, 씬/프리팹 참조 없음 |
+| A-D07-05 | Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs | 120 | `using System.Collections.Generic;` | 사용되지 않는 using 구문 |
+| A-D07-06 | Assets/Enemy/WaterSpirit/Script/States/Stage2CombatState.cs | 88 | `_tempVar` | 프로젝트 전체 참조 0건, 씬/프리팹 참조 없음 |
 
 ## D-08 — TODO/FIXME 잔재 및 임시 디버그 코드
 
