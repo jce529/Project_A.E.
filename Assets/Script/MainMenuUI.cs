@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -5,21 +6,29 @@ using UnityEngine.UI;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Button loadGameButton;
+    [SerializeField] private Color loadGameDisabledColor = new Color(0.05f, 0.05f, 0.05f, 1f);
 
     private void Start()
     {
         if (loadGameButton != null)
         {
-            loadGameButton.interactable = SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile();
+            bool hasSave = SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile();
+            loadGameButton.interactable = hasSave;
+
+            var loadGameText = loadGameButton.GetComponentInChildren<TMP_Text>();
+            if (loadGameText != null && !hasSave)
+            {
+                loadGameText.color = loadGameDisabledColor;
+            }
         }
     }
 
     public void OnClickStart()
     {
 
-        Debug.Log("°ÔÀÓ ½ÃÀÛ ¹öÆ° Å¬¸¯µÊ");
-        //½ºÅ¸Æ®¹öÆ° Å¬¸¯½Ã °ÔÀÓ ½ÃÀÛ
-        SceneManager.LoadScene("InGame");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½");
+        //ï¿½ï¿½Å¸Æ®ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        SceneManager.LoadScene("Tutorial Map");
     }
 
     public void OnClickLoad()

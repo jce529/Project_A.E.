@@ -48,7 +48,27 @@
       "Bash(node 'C:\\\\Users\\\\chang/.claude/get-shit-done/bin/gsd-tools.cjs' agent-skills gsd-executor)",
       "Bash(git rev-list *)",
       "Bash(git check-ignore *)",
-      "Bash(git status *)"
+      "Bash(git status *)",
+      "Bash(grep -v -E '\\\\.\\(meta\\)$')",
+      "Skill(gsd:fast)",
+      "Bash(iconv *)",
+      "Skill(gsd:verify-work)",
+      "Bash(head -286 .planning/ROADMAP.md)",
+      "Bash(cat \"C:/Users/chang/AppData/Local/Temp/claude/C--Users-chang-Downloads-Projeect-A-E--2---1--Projeect-A-E/7b9979e5-eb3e-4bca-a685-9299452a5538/scratchpad/p12.md\")",
+      "Bash(mv /tmp/rm_new.md .planning/ROADMAP.md)",
+      "Bash(xxd)",
+      "Bash(grep -n \"^---$\\\\|^-----\" \".planning/phases/12-camera-shake-on-hit/12-01-PLAN.md\")",
+      "Bash(grep -n \"^---$\" \".planning/phases/12-camera-shake-on-hit/12-01-PLAN.md\")",
+      "Bash(grep -c \"^---$\" \".planning/phases/12-camera-shake-on-hit/12-01-PLAN.md\")",
+      "Bash(xxd Assets/Player/Script/PlayerStats.cs)",
+      "Bash(grep -v '^$')",
+      "Bash(py -3 --version)",
+      "Bash(py -3 \"C:/Users/chang/AppData/Local/Temp/claude/C--Users-chang-Downloads-Projeect-A-E--2---1--Projeect-A-E/7b9979e5-eb3e-4bca-a685-9299452a5538/scratchpad/fix_plan.py\")",
+      "Bash(git diff-tree *)",
+      "Bash(git config *)",
+      "Bash(grep -n \"void LateUpdate\\\\|^    }$\" Assets/Camera/Script/CameraController.cs)",
+      "Bash(git log *)",
+      "Bash(echo \"exit=$?\")"
     ]
   }
 }

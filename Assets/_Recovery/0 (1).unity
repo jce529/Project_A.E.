@@ -711,6 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadGameButton: {fileID: 0}
+  loadGameDisabledColor: {r: 0.05, g: 0.05, b: 0.05, a: 1}
 --- !u!1 &1079375062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadGameButton: {fileID: 1900001002}
+  loadGameDisabledColor: {r: 0.05, g: 0.05, b: 0.05, a: 1}
 --- !u!1 &1580459048
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,29 +9,31 @@ public class GameStateManager : MonoBehaviour
         Paused,
         Inventory,
         Loading,
-        GameClear
+        GameClear,
+
+        Puzzle
     }
-    //½Ì±ÛÅæ ÆÐÅÏ
-    //µðÀÚÀÎ ÆÐÅÏ Áß ÇÏ³ª·Î½á ÇÏ³ªÀÇ °´Ã¼¸¸ »ý¼ºÇÏ¿© »ç¿ëÇÏ¿© ±× °´Ã¼¸¸À» »ç¿ëÇÏ´Â µðÀÚÀÎ ÆÐÅÏÀÔ´Ï´Ù.
+    //ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½Î½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 
-    //±â´É¸¸À» °¡Áø Å¬·¡½º¸¦ ¿©·¯±ºµ¥¿¡¼­ ¸¸µå´Â °ÍÀÌ ¸Þ¸ð¸®ÀûÀÎ ¼ÕÇØÀÌ±â ¶§¹®¿¡ ÇÏ³ª¸¸ »ç¿ë
+    //ï¿½ï¿½É¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-    // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
+    // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½
     public static GameStateManager Instance { get; private set; }
 
-    // ÇöÀç °ÔÀÓ »óÅÂ¸¦ ¿ÜºÎ¿¡¼­ ÀÐÀ» ¼ö ÀÖ°Ô ÇÔ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½
     public GameState CurrentState { get; private set; } = GameState.Playing;
 
-    // »óÅÂ º¯°æ ½Ã ÀÌº¥Æ®¸¦ ¹ß»ý½ÃÄÑ ´Ù¸¥ ½Ã½ºÅÛÀÌ ±¸µ¶ÇÏµµ·Ï ÇÔ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½
     public event Action<GameState> OnGameStateChange;
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ ÃÊ±âÈ­
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         if (Instance == null)
         {
             Instance = this;
-            // ¾ÀÀÌ ¹Ù²î¾îµµ ÆÄ±«µÇÁö ¾Ê°Ô ¼³Á¤ (¿É¼Ç)
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½îµµ ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½É¼ï¿½)
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -40,7 +42,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    // »óÅÂ¸¦ º¯°æÇÏ´Â ÇÙ½É ÇÔ¼ö
+    // ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ù½ï¿½ ï¿½Ô¼ï¿½
     public void SetState(GameState newState)
     {
         if (CurrentState == newState) return;
@@ -51,7 +53,8 @@ public class GameStateManager : MonoBehaviour
         {
             case GameState.Paused:
             case GameState.Inventory:
-            case GameState.GameClear: 
+            case GameState.GameClear:
+            case GameState.Puzzle:
                 Time.timeScale = 0f;
                 break;
 
@@ -60,7 +63,7 @@ public class GameStateManager : MonoBehaviour
                 break;
         }
 
-        // 2. ±¸µ¶ÀÚµé¿¡°Ô »óÅÂ°¡ º¯°æµÇ¾úÀ½À» ¾Ë¸²
+        // 2. ï¿½ï¿½ï¿½ï¿½ï¿½Úµé¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½
         OnGameStateChange?.Invoke(newState);
     }
 }
