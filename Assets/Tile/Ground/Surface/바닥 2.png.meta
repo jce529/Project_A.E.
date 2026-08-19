@@ -105,6 +105,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -112,22 +125,22 @@ TextureImporter:
       name: "\uBC14\uB2E5 2_0"
       rect:
         serializedVersion: 2
-        x: 172
-        y: 188
+        x: 170
+        y: 326
         width: 1101
-        height: 324
+        height: 183
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape:
-      - - {x: 549.5, y: 121}
-        - {x: -549.5, y: 126}
-        - {x: -550.5, y: 95}
-        - {x: -549.5, y: -21}
-        - {x: -513.5, y: -23}
-        - {x: 548.5, y: -23}
+      - - {x: 550.5, y: 46.5}
+        - {x: -550.5, y: 54.5}
+        - {x: -550.5, y: -6.5}
+        - {x: -550.5, y: -84.5}
+        - {x: -550.5, y: -91.5}
+        - {x: 550.5, y: -91.5}
       tessellationDetail: 0
       bones: []
       spriteID: 258727967ac7b6bb0800000000000000
