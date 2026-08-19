@@ -475,3 +475,101 @@ diff 정렬 오차이므로 PASS 로 판단한다 (STATE.md 에 기록된 "basel
 
 **Play 모드 검증 상태**: 미검증 (위 "7)" 체크리스트는 사용자가 씬에 트리거를 타일링 배치한 뒤 직접
 확인해야 한다. PASS 로 허위 기록 금지.)
+
+# Phase 12 - 피격 시 카메라 흔들림 (Camera Shake on Hit)
+
+## Phase 12 변경사항
+
+- `CameraController.cs` (순수 삽입 4곳, 삭제 0줄): `[Header("Hit Shake")]` Inspector 필드 그룹
+  (`shakeMagnitude`/`shakeDuration`), private 상태 필드 `_shakeTimer`, `public void Shake()` +
+  `private void ApplyHitShake()`, 그리고 `LateUpdate()` 마지막 문장으로 무조건 호출 `ApplyHitShake();`.
+- `PlayerStats.cs` (순수 삽입 1곳, 삭제 0줄): `TakeDamage` 오버라이드에서 `base.TakeDamage(dmg)` 직후
+  `CameraController.Instance.Shake();` 호출 (널 가드 없음, 기존 컨벤션 준수).
+- `Assets/Script/HP.cs`: 0줄 변경 (D-02).
+- 선행 정리(12-01-PLAN.md Task 0): 이 플랜 작성 시점에 이미 별도 채팅 세션에서 진행됐던 quick task
+  `260809-h9k`(경계 즉시 스냅 복귀, 인접 구역 Exit/Enter 경쟁 상태 수정, Y축 카메라 경계 추가,
+  `BossZoomTrigger`->`CameraZoomTrigger` 리네임)가 이 실행 시작 이전에 이미 커밋(`6afe518`, 다른
+  무관한 변경들과 함께 묶여 커밋됨)돼 있었던 것으로 확인됨 — Task 0 은 새 커밋을 만들지 않고
+  `.planning/STATE.md` 의 `(미커밋)` 표기만 실제 해시로 정정했다 (상세: SUMMARY 참고).
+
+## Phase 12 Inspector 필드
+
+| 필드 | 기본값 | 의미 | 결정 |
+|---|---|---|---|
+| shakeMagnitude | 0.3 | 피격 순간 최대 랜덤 오프셋 (월드 유닛) | D-04 / D-09 |
+| shakeDuration | 0.25 | 0 까지 감쇠하는 데 걸리는 시간 (초) | D-06 / D-09 |
+
+두 값 모두 플레이테스트로 조정할 초기값이며 잠금된 값이 아니다 (Task 3 에서 사용자 튜닝 가능).
+
+## Phase 12 사전 준비
+
+Unity 에디터에서 `Assets/Scenes/Tutorial Map.unity` 를 열고 Play 모드로 진입한다. 튜토리얼 맵에는
+적/보스가 배치돼 있어 플레이어가 맞을 수 있고, `BossZone_Tutorial` 구역(현재 `CameraZoomTrigger`)이
+이미 배치돼 있어 보스 구역 안에서의 흔들림도 같은 씬에서 확인 가능하다.
+
+## Phase 12 검증 항목
+
+### 1) 기본 흔들림 (D-01 ~ D-05)
+- [ ] 플레이어가 적/보스에게 맞으면 카메라가 즉시 짧게 흔들린다
+- [ ] 흔들림이 규칙적인 진동이 아니라 불규칙한 랜덤 떨림으로 보인다 (D-05)
+- [ ] 흔들림이 약 0.25초 안에 부드럽게 잦아들고 완전히 멈춘다 (잔떨림 없음)
+- [ ] 큰 데미지든 작은 데미지든 흔들림 강도가 동일하다 (D-04)
+- [ ] 보스가 맞을 때는 카메라가 전혀 흔들리지 않는다 (D-01)
+
+### 2) 연속 피격 리프레시 (D-06)
+- [ ] 흔들림이 잦아드는 도중 다시 맞으면 흔들림이 다시 최대 강도로 시작된다
+- [ ] 연타로 맞아도 흔들림이 점점 더 세지지 않는다 (누적 없음)
+
+### 3) 사망 피격 (D-03)
+- [ ] 체력을 0으로 만드는 마지막 피격에도 흔들림이 발동한다
+
+### 4) 보스 구역 동작 (D-07)
+- [ ] CameraZoomTrigger 안(줌 확대 상태)에서 맞아도 흔들림이 정상 발동한다
+- [ ] 보스 구역 안에서 흔들림이 끝난 뒤 카메라가 원래 추종 위치로 정확히 복귀한다
+
+### 5) 파이프라인 회귀 (D-08 + Phase 9/10 회귀)
+- [ ] 흔들림 도중 및 직후에 카메라가 데드존 밖으로 영구 이탈하지 않는다
+- [ ] 흔들림이 끝난 뒤 데드존 박스가 제자리에 있다 (누적 드리프트 없음)
+- [ ] 맵 좌/우/상/하 경계에 붙은 상태에서 맞으면 경계를 살짝 뚫었다가 즉시 복귀한다 (D-08 의도된 동작)
+- [ ] 피격 후에도 동적 오프셋(달릴 때 시야 열림)과 피킹(위/아래 보기)이 정상 동작한다
+- [ ] 일시정지(Time.timeScale = 0) 중에는 흔들림도 멈춘다
+
+### 6) Inspector 튜닝 (D-09)
+- [ ] CameraController 인스펙터에 Hit Shake 그룹이 있고 필드가 정확히 2개다
+- [ ] shakeDuration 을 0 으로 설정해도 NaN/카메라 정지가 발생하지 않는다 (0 나눗셈 가드)
+- [ ] 값을 키우면 흔들림이 눈에 띄게 커지고, 줄이면 작아진다
+
+## Phase 12 결과 기록
+
+### 정적 회귀 검사 (12-01-PLAN.md Task 2, 2026-08-19)
+
+| # | 검사 | 명령 | 기대값 | 실제값 | 판정 |
+|---|---|---|---|---|---|
+| 1 | 신규 Inspector 필드 정확히 2개 | `grep -c "shakeMagnitude"` / `grep -c "shakeDuration"` (CameraController.cs) | 2 / 3 | 2 / 3 | PASS |
+| 2 | 공개 트리거 존재 | `grep -c "public void Shake()"` | 1 | 1 | PASS |
+| 3 | 감쇠 헬퍼 정의 + 호출 = 2 | `grep -c "ApplyHitShake"` | 2 | 2 | PASS |
+| 4 | 호출이 재앵커 블록 바깥 (8칸 들여쓰기) | `grep -c "^        ApplyHitShake();"` | 1 | 1 | PASS |
+| 5 | 호출이 12칸 들여쓰기(블록 안)가 아님 | `grep -c "^            ApplyHitShake();"` | 0 | 0 | PASS |
+| 6 | 사인파 미사용 (D-05) | `grep -c "Mathf.Sin"` | 0 | 0 | PASS |
+| 7 | AnimationCurve 미노출 (D-09) | `grep -c "AnimationCurve"` | 0 | 0 | PASS |
+| 8 | 누적 금지 (D-06) | `grep -c "_shakeTimer +="` | 0 | 0 | PASS |
+| 9 | 재클램프 없음 (D-08) - 클램프 호출 총량 불변 | `grep -c "ApplyBoundsClamp"` | 6 | 6 | PASS |
+| 10 | 보스존 분기 구조 불변 (D-07) | `grep -c "_isBossZone"` / `grep -c "ResetNormalStageState"` | 4 / 3 | 4 / 3 | PASS |
+| 11 | 인코딩 무결성 | `grep -cP "[^\x00-\x7F]"` | 5 | 5 | PASS |
+| 12 | HP.cs 0줄 변경 (D-02) | `git status --porcelain -- Assets/Script/HP.cs` / `grep -c "Shake" Assets/Script/HP.cs` | 빈 문자열 / 0 | 빈 문자열 / 0 | PASS |
+
+추가 PlayerStats 게이트: `grep -c "CameraController.Instance.Shake();" PlayerStats.cs` == 1 (실제 1, PASS),
+`grep -c "CameraController" PlayerStats.cs` == 1 (실제 1, PASS), `PlayerStats.cs` 삭제 라인 == 0 (실제 0, PASS).
+
+12항목 + 추가 게이트 전부 PASS. 12-RESEARCH 가 하향 조정한 `CameraController.cs` 인코딩 위험 판정이
+실측으로 확인됨 (비-ASCII 라인 수 5 유지, 표준 Read/Edit 툴 왕복으로 인한 훼손 없음).
+
+### Play 모드 실측 결과 (12-01-PLAN.md Task 3)
+  (미검증 상태로 남겨두고 Task 3 에서 채운다)
+
+## Phase 12 알려진 한계 (코드로 방어하지 않음)
+  - 흔들림은 경계 클램프 이후 적용되므로 맵 가장자리에서 최대 shakeMagnitude 만큼 경계 밖이
+    잠깐 보일 수 있다 — 의도된 동작 (D-08)
+  - 강도가 데미지에 비례하지 않는다 (D-04)
+  - 감쇠 곡선은 선형 고정이며 Inspector 로 바꿀 수 없다 (D-09, AnimationCurve 노출은 후속 Phase)
+  - 플레이어 피격만 흔들린다. 보스 피격 흔들림은 이번 Phase 범위 밖 (Deferred)

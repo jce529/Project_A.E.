@@ -55,6 +55,10 @@ public class PlayerStats : HP
     {
 
         base.TakeDamage(dmg); // 부모 클래스(HP)의 원래 데미지 처리 로직 호출
+        // Phase 12 (D-02): player-only camera jolt. Placed after the base damage handling so
+        // the killing blow shakes too (D-03). No null guard on the singleton - that matches the
+        // unguarded convention already used by CameraZoomTrigger and CameraBoundsTrigger.
+        CameraController.Instance.Shake();
         Debug.Log("Player has taken damage!");
     }
     
