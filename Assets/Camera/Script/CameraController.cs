@@ -66,6 +66,15 @@ public class CameraController : MonoBehaviour
     // between them: running never trips it, dashing and knockback always do.
     public float peekCancelSpeed = 12f;
 
+    [Header("Hit Shake")]
+    // Peak random offset in world units on a fresh player hit. Fixed value - it does NOT scale
+    // with the damage amount (D-04). Keep it small relative to the deadzone box so it reads as
+    // a jolt rather than a re-frame. Playtest-tunable.
+    public float shakeMagnitude = 0.3f;
+    // Seconds the jolt takes to fall from full strength to zero. A new hit while one is still
+    // fading refreshes this countdown to full instead of adding to it (D-06). Playtest-tunable.
+    public float shakeDuration = 0.25f;
+
     // Scene-local singleton. CameraZoomTrigger / CameraBoundsTrigger call in through this (D-01).
     // Not persisted across scene loads on purpose: every stage scene owns its own camera.
     public static CameraController Instance { get; private set; }
@@ -124,6 +133,9 @@ public class CameraController : MonoBehaviour
     private float _peekVelocityY;
     // How long all peek conditions have held continuously (D-13 threshold timer).
     private float _peekTimer;
+    // Counts down after a player hit. The public trigger reassigns this to the full duration
+    // instead of adding to it, so repeated hits refresh the jolt rather than stacking it (D-06).
+    private float _shakeTimer;
 
     void Awake()
     {
@@ -194,6 +206,33 @@ public class CameraController : MonoBehaviour
     {
         _currentMinY = min;
         _currentMaxY = max;
+    }
+
+    // Public trigger, called by PlayerStats.TakeDamage right after base.TakeDamage (D-02).
+    // Parameterless on purpose: the strength is a fixed Inspector value, never derived from the
+    // damage amount (D-04). Idempotent, last call wins - same contract as SetZoomZone and
+    // SetXBounds above, and that is exactly what makes a re-hit refresh instead of stack (D-06).
+    public void Shake()
+    {
+        _shakeTimer = shakeDuration;
+    }
+
+    // Per-frame decay and apply. Random 2D offset scaled linearly down as the countdown runs
+    // out (D-05, no sine wave). This runs as the LAST statement of LateUpdate - after the
+    // bounds clamp and after the re-anchor block, and outside the normal-stage-only guard so
+    // it fires inside zoom zones too (D-07). The result is deliberately never re-clamped (D-08).
+    private void ApplyHitShake()
+    {
+        if (_shakeTimer <= 0f) return;
+        _shakeTimer -= Time.deltaTime;
+        // Guarded denominator mirrors the Mathf.Max(Time.deltaTime, 0.0001f) idiom already used
+        // further down this file: a designer typing 0 into the Inspector must not yield NaN.
+        float t = Mathf.Clamp01(_shakeTimer / Mathf.Max(shakeDuration, 0.0001f));
+        Vector2 shakeOffset = Random.insideUnitCircle * shakeMagnitude * t;
+        Vector3 pos = transform.position;
+        pos.x += shakeOffset.x;
+        pos.y += shakeOffset.y;
+        transform.position = pos;
     }
 
     // Clamps X and Y so the visible edges never pass the current bounds (D-09 / D-11, Y bounds
@@ -425,5 +464,8 @@ public class CameraController : MonoBehaviour
             _deadzoneCenterX = transform.position.x + _currentBoxOffsetX;
             _deadzoneCenterY = transform.position.y - _currentPeekY;
         }
+        // Hit jolt is the final layer: unconditional, and placed after the re-anchor above so
+        // the random offset can never bleed into the box anchors frame over frame.
+        ApplyHitShake();
     }
 }
