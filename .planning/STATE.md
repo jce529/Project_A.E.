@@ -21,12 +21,13 @@ progress:
 
 ## Current Position
 
-Phase: 12 (camera-shake-on-hit) — EXECUTING
-Plan: 1 of 1
-Status: Executing Phase 12
-Last activity: 2026-08-19 -- Phase 12 execution started
+Phase: 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙)
+Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경)
+Plan: 12-01 Task 3 Play 모드 체크포인트 대기 / Phase 13 감사 보고서 사용자 승인 대기
+Status: Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) 완료 — 사용자 항목별 승인 대기 (D-01 2단계). Phase 12는 별도로 Play 모드 체크포인트 보류 중.
+Last activity: 2026-08-19 -- Phase 13 완료 (13-01~05, 168개 .cs 파일 전수 감사 보고서 생성)
 
-Progress: [█████████░] 88% (28/32 plans)
+Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5개 plan은 이 수치에 아직 미반영 (frontmatter/percent 재계산은 다음 GSD 상태 갱신 시 처리 권장)
 
 ## Phase Status
 
@@ -37,6 +38,7 @@ Progress: [█████████░] 88% (28/32 plans)
 | 7 | 보스 공격 패턴 판단 로직 리팩토링 | In Progress | - |
 | 8 | WaterMonster 보스 CombatState 마이그레이션 | In Progress | - |
 | 9 | 일반/보스 스테이지 카메라 줌 변화 | Complete (Play 모드 실측 미검증, UAT 보류) | 2026-07-30 |
+| 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (보고서만, 코드 미수정 — 사용자 승인 대기) | 2026-08-19 |
 
 ## Performance Metrics
 
@@ -101,6 +103,9 @@ Progress: [█████████░] 88% (28/32 plans)
 - 체크포인트 1곳 + 보스 4종(TutorialBoss/WoodBoss/WaterSpirit/WaterMonster) 격파 지점에 `SaveLoadManager.Instance.SaveAtCheckpoint`/`SaveOnBossDefeated` 호출 삽입 완료 — Group A(HP.OnDeath 이미 구독 중인 TutorialBoss/WoodBoss)는 기존 `HandleDeath()` 본문에, Group B(이벤트 자체가 없는 WaterSpirit/WaterMonster)는 `BossStatsSystem.Die()` 오버라이드 본문에 직접 삽입 (Phase 11 Plan 3)
 - CP949 인코딩 파일(Checkpoint.cs, WoodBossController.cs) 편집 시 표준 Read/Edit 툴 조합은 UTF-8 왕복 과정에서 파일 전체의 비-ASCII 바이트를 U+FFFD로 조용히 훼손시킴 — `grep -cP "[^\x00-\x7F]"` 줄 수 카운트 게이트로는 감지 불가. `git show HEAD:<path>` 로 원본 바이트를 추출해 순수 바이트 단위 스크립트로 삽입하는 방식으로 전환 (Phase 9 Plan 1/Phase 10 Plan 1 계열의 인코딩 사고와 동일 범주) (Phase 11 Plan 3)
 - 작업 트리에 이 플랜과 무관한 기존 스테이지된 변경(카메라 스크립트 rename)이 이미 있는 상태에서 `git add <file>` 후 pathspec 없는 `git commit`을 실행하면 인덱스 전체가 커밋됨 — `git reset --soft HEAD~1` + pathspec 명시 커밋으로 즉시 수정, 이후 전 태스크 커밋에 `-- <path>` 명시 (Phase 11 Plan 3)
+- Phase 13은 보고서 전용 phase — `Assets/` 0줄 변경을 각 플랜의 인수 기준(`git status --porcelain Assets` 빈 출력)으로 강제했다. 실제 삭제/리팩토링은 `13-AUDIT-REPORT.md`의 체크박스를 사용자가 승인한 뒤 별도 작업으로 진행한다 (CONTEXT.md D-01/D-02, CLAUDE.md 3번 원칙의 범위 한정 예외). agy CLI로 5개 plan 위임을 시도했으나 파일 30개 이상 규모의 grep 집약적 스캔에서 `--print-timeout` 40분·detached 프로세스로도 반복 timeout — 사용자 승인 하에 Claude Code(fork 5개)가 직접 Read/Grep/Write로 수행하는 것으로 전환. 이 과정에서 agy가 한 차례 존재하지 않는 심볼/줄번호를 지어낸 fragment를 커밋한 사실이 발견되어 즉시 실제 소스 대조 후 재작성했다 (Phase 13)
+- CP949(비-UTF-8) 인코딩 .cs 파일이 프로젝트 전체에 46개 존재한다 — 그동안 Phase 9~12에서 개별적으로 발견해온 `Checkpoint.cs`/`WoodBossController.cs` 2개는 빙산의 일각이었다. 분포: Enemy(NewBoss/Tutorial/Boss/Monster_Alpha) 16 / Player 4 / Script+map+ImportedAsset 26 / Camera·SaveSystem·Editor·WaterMonster·WaterSpirit 0. 전수 목록은 `13-AUDIT-REPORT.md` `## D-04` 섹션 (Phase 13)
+- 프로젝트 전체 TODO/FIXME/HACK 주석이 0건이고, `Debug.Log*`는 92개 파일에 226건 — D-08 카테고리는 사실상 Debug.Log 정리와 주석처리 코드 정리 두 갈래다. 또한 기존 `Assets/SaveSystem/Check.md`에 "고아 코드"로 기록되어 있던 `WoodBossStatSystem.cs`는 재확인 결과 오판정으로 확인됨(파일명 `WoodBossStatSystem` vs 실제 클래스명 `WoodBossStatsSystem` 철자 불일치로 과거 검색이 0건을 반환) — `WoodBossController.cs`에서 실제로 사용 중이며 삭제 대상이 아니다 (Phase 13)
 
 ### Active TODOs
 
@@ -127,6 +132,8 @@ Progress: [█████████░] 88% (28/32 plans)
   아직 트리거가 배치되지 않았으니 그쪽은 여전히 `Assets/Camera/Check.md` "7)" 섹션 가이드를 따라 사용자가
   수동 배치해야 함 (MX-04).
 
+- Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) 항목별 사용자 승인 대기. 승인된 항목만 후속 작업(quick task 또는 후속 phase)으로 삭제/리팩토링한다 (D-01 2단계). 총 D-07 45건/D-08 96건/D-09 9건/D-10 12건(권장) 중, 특히 `## 회귀 위험 높음` 섹션(총 78건)은 Play 모드 검증된 보스·카메라·세이브 코드에 있으므로 승인 시 더 신중히 검토할 것.
+
 ### Blockers
 
 (없음)
@@ -147,6 +154,7 @@ Progress: [█████████░] 88% (28/32 plans)
 - Phase 10 added: 카메라 데드존 기법 3종 (Base Deadzone, Dynamic Asymmetrical Deadzone, Input-based Peeking) 구현 — Phase 9 CameraController에 레이어링
 - Phase 11 added: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 — DontDestroyOnLoad, 메모리 캐싱, 체크포인트/보스 격파 시점 저장, 씬+좌표/스탯/보스진행도/맵기믹/아이템 데이터 모델, 비동기 씬 로드 후 좌표 이동
 - Phase 12 added: 피격 시 카메라 흔들림 (Camera Shake on Hit)
+- Phase 13 added: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
 
 ## Session Continuity
 

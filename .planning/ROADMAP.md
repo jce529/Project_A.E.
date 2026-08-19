@@ -319,3 +319,43 @@ Plans:
 
 Plans:
 - [ ] 12-01-PLAN.md — CameraController Hit Shake 레이어(필드 2개 + Shake() + ApplyHitShake() + LateUpdate 무조건 호출) + PlayerStats.TakeDamage 호출 지점 + 정적 회귀 12항목 + Check.md Phase 12 체크리스트 + Play 모드 검증 체크포인트
+
+### Phase 13: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
+
+**Goal:** `Assets/` 아래 168개 C# 스크립트 전체를 스캔해 죽은 코드(D-07) / TODO·디버그 잔재(D-08) /
+중복 로직(D-09) / 과도하게 긴 함수(D-10) 4개 카테고리로 분류한 감사 보고서를 만든다. 이미 Play 모드로
+검증된 보스·카메라·세이브 코드의 발견 항목은 "회귀 위험 높음"으로 분리하고, CP949 인코딩 파일 46개는
+별도 목록으로 표시한다. **이 phase는 보고서만 만든다 — 실제 삭제/리팩토링은 사용자가 항목별로 승인한
+뒤 별도 작업으로 진행한다 (D-01/D-02).**
+**Requirements**: D-01 ~ D-10 (13-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 12
+**Success Criteria** (what must be TRUE):
+  1. `.planning/phases/13-codebase-cleanup-audit/13-AUDIT-REPORT.md` 가 존재하고, `Assets/` 아래
+     **168개 .cs 파일 전부**가 스캔 커버리지에 포함된다 (Scope A 38 + B 42 + C 32 + D 56).
+  2. 모든 발견 항목에 파일 경로 + 줄번호 + 카테고리(D-07~D-10) + 사유가 있다 (CONTEXT.md D-01).
+  3. Play 모드 검증된 코드(WaterMonster/WaterSpirit/NewBoss/Tutorial 보스, CameraController,
+     SaveLoadManager, PlayerStats/PlayerController/InputHandler, HP.cs 등)의 항목이
+     `## 회귀 위험 높음 — 신중 검토 필요` 섹션에 일반 항목과 분리 기재된다 (D-05, D-06).
+  4. CP949(비-UTF-8) 인코딩 파일 46개가 별도 섹션에 전수 나열되고, 수정 시 `git show HEAD:<path>` +
+     순수 바이트 스크립트 프로토콜이 필요하다는 경고가 붙는다 (D-04).
+  5. D-09는 PROJECT.md/STATE.md 에 이유가 기록된 의도적 비공유 12건(E-01~E-12)을 배제 목록으로
+     남기고, 그 외의 중복만 문제로 보고한다 (D-09).
+  6. 기존 식별 고아 코드(`Portal.cs`, `GameManager.NextSpawnPointName`, `WoodBossStatSystem.cs`)와
+     스테일 씬 엔트리(`Assets/Scenes/InGame.unity`)가 재확인되어 기재된다.
+  7. 모든 항목에 미체크 승인 체크박스 `[ ]` 가 있어 사용자가 항목별로 승인/보류를 표시할 수 있다 (D-01 2단계).
+  8. **`git status --porcelain Assets` 가 비어 있다 — 소스 코드 0줄 변경** (D-01/D-02, 각 플랜의 인수 기준).
+**Plans:** 5 plans
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 13-01, 13-02, 13-03, 13-04 | yes, yes, yes, yes |
+| 2 | 13-05 | yes |
+
+Plans:
+- [x] 13-01-PLAN.md — Scope A 스캔 (WaterMonster/WaterSpirit 38파일, 전 범위 고위험) → FINDINGS-A
+- [x] 13-02-PLAN.md — Scope B 스캔 (NewBoss/Tutorial/Boss/Monster_Alpha 42파일, 혼합 위험 + CP949 16개 + WoodBossStatSystem 고아 재확인) → FINDINGS-B
+- [x] 13-03-PLAN.md — Scope C 스캔 (Player/Camera/SaveSystem 32파일, Phase 9~12 수정 파일 8종 고위험 + CP949 4개) → FINDINGS-C
+- [x] 13-04-PLAN.md — Scope D 스캔 (Script/map/Editor/ImportedAsset 56파일, CP949 26개 + Portal/NextSpawnPointName 고아 + InGame.unity 스테일 엔트리) → FINDINGS-D
+- [x] 13-05-PLAN.md — 전역 D-09 중복 교차 분석 + 4 fragment 병합 + CP949 46개 전역 집계 + 승인 체크리스트 → 13-AUDIT-REPORT.md
