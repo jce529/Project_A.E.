@@ -69,14 +69,14 @@ Group A 와 Group B 는 서로 다른 코드 경로이기 때문에, 한쪽만 �
 **15개 항목 전부 PASS.**
 
 ## 섹션 2) Play 모드 체크리스트 — 저장 (D-01, D-02)
-- [ ] Play 진입 직후 Hierarchy 에 `SaveLoadManager` GameObject 가 자동 생성되어 있고 DontDestroyOnLoad 섹션에 있다 (씬에 수동 배치하지 않았음에도)
-- [ ] 컨텍스트 메뉴 `Phase11/4. Log State` 실행 → Console 에 `path=...save.json exists=False` (첫 실행 시)
-- [ ] `1 stage` 씬에서 체크포인트에 들어가 S키를 누른다 → Console 에 `[SaveLoadManager] Saved to <경로>` 가 출력된다
-- [ ] 출력된 경로(`Application.persistentDataPath`, Windows 기준 `%userprofile%/AppData/LocalLow/<회사명>/<제품명>/save.json`)를 탐색기로 열어 `save.json` 이 실제로 생성되었는지 확인한다
-- [ ] `save.json` 내용에 `"SceneName": "1 stage"` 와 `"SpawnPointName": "<S키를 누른 체크포인트 GameObject 이름>"` 이 들어 있다
-- [ ] `save.json` 에 `"PlayerStats"` 의 Health/MaxHealth/MaxTotalHealth 가 당시 실제 체력과 일치한다
-- [ ] `save.json` 에 `"BossProgress": {}`, `"MapGimmickState": {}`, `"Items": []` 스텁이 존재한다 (D-03, D-03b)
-- [ ] 체크포인트 저장 이후 그냥 돌아다니는 동안 Console 에 `Saved to` 로그가 추가로 찍히지 않는다 (플레이 중 파일 I/O 0회)
+- [v] Play 진입 직후 Hierarchy 에 `SaveLoadManager` GameObject 가 자동 생성되어 있고 DontDestroyOnLoad 섹션에 있다 (씬에 수동 배치하지 않았음에도)
+- [v] 컨텍스트 메뉴 `Phase11/4. Log State` 실행 → Console 에 `path=...save.json exists=False` (첫 실행 시)
+- [v] `1 stage` 씬에서 체크포인트에 들어가 S키를 누른다 → Console 에 `[SaveLoadManager] Saved to <경로>` 가 출력된다
+- [v] 출력된 경로(`Application.persistentDataPath`, Windows 기준 `%userprofile%/AppData/LocalLow/<회사명>/<제품명>/save.json`)를 탐색기로 열어 `save.json` 이 실제로 생성되었는지 확인한다
+- [v] `save.json` 내용에 `"SceneName": "1 stage"` 와 `"SpawnPointName": "<S키를 누른 체크포인트 GameObject 이름>"` 이 들어 있다
+- [v] `save.json` 에 `"PlayerStats"` 의 Health/MaxHealth/MaxTotalHealth 가 당시 실제 체력과 일치한다
+- [v] `save.json` 에 `"BossProgress": {}`, `"MapGimmickState": {}`, `"Items": []` 스텁이 존재한다 (D-03, D-03b)
+- [v] 체크포인트 저장 이후 그냥 돌아다니는 동안 Console 에 `Saved to` 로그가 추가로 찍히지 않는다 (플레이 중 파일 I/O 0회)
 
 ## 섹션 3) Play 모드 체크리스트 — 보스 격파 자동 저장 (D-01, 두 아키텍처)
 - [ ] **Group A / TutorialBoss** (`HP.OnDeath` → `HandleDeath()` 경로): 튜토리얼 보스 처치 → Console 에 `Saved to` 출력 → `save.json` 의 `BossProgress` 에 `"TutorialBoss": true` 추가
@@ -116,3 +116,95 @@ Newtonsoft.Json 버전 고정, 5개 저장 트리거 연결(체크포인트 1 + 
 
 Play 모드 실측 검증(Task 3)은 아직 수행되지 않았다 — 위 섹션 2~5 체크리스트는 사용자가 직접
 Unity 에디터에서 확인해야 한다. PASS 로 허위 기록하지 않는다.
+
+---
+
+# Phase 14 — 키바인딩 keybind.json 위임 검증
+
+## 검증 대상 변경사항
+- `Assets/SaveSystem/Script/SaveLoadManager.cs` — keybind 파일 I/O API 4종 추가
+  (`KeybindFileName` / `KeybindPath` / `HasKeybindFile()` / `SaveKeybindings(string)` / `LoadKeybindings()`)
+  + `Phase14/5. Log Keybind State` ContextMenu 훅. 순수 삽입(삭제 0줄).
+- `Assets/Player/Script/InputHandler.cs` — `SaveBindingOverrides()` / `LoadBindingOverrides()` 내부 구현을
+  로컬 설정 저장소에서 `SaveLoadManager` 경유 파일 I/O 로 교체. 저장소 키 상수 제거.
+  25줄 삭제 / 37줄 삽입.
+- `Assets/Player/Script/Menu/ControlsSettingsPanel.cs` — **0줄 변경** (호출부 시그니처 불변).
+
+## 결정 요약 (14-CONTEXT.md)
+
+| ID | 결정 |
+|---|---|
+| D-01 | SaveLoadManager 에는 **파일 I/O만** 위임. Input System 직렬화(`SaveBindingOverridesAsJson` / `LoadBindingOverridesFromJson`)는 InputHandler 가 계속 소유 |
+| D-02 | 디스크에 JSON 파일을 쓰는 코드는 프로젝트 전체에서 `SaveLoadManager.cs` 한 곳에만 존재 (이번 phase 가 이 원칙의 첫 적용 사례) |
+| D-03 | 기존 로컬 설정 저장소의 리바인딩 값은 마이그레이션하지 않는다 — keybind.json 기준으로 새로 시작 |
+| D-04 | `keybind.json` 은 `save.json` 과 완전 독립. `NewGame()`/세이브 삭제가 키 설정을 건드리지 않는다 |
+
+## 사전 준비
+1. Unity 에디터를 열고 컴파일 완료를 기다린다. Console **에러 0건** 확인 (이 실행 환경에서 확인 불가한 유일한 항목).
+2. 아무 씬에서나 Play 시작 — `SaveLoadManager` 는 부트스트랩으로 자동 생성된다.
+3. Hierarchy 의 `DontDestroyOnLoad` 섹션에서 `SaveLoadManager` 를 선택 → Inspector 톱니바퀴 →
+   `Phase14/5. Log Keybind State` 실행 → Console 에 `keybindPath=<절대경로> exists=False length=0` 출력.
+   이 경로가 검증 내내 열어볼 파일 위치다
+   (Windows: `%userprofile%/AppData/LocalLow/<회사명>/<제품명>/keybind.json`).
+4. 일시정지 메뉴 > 컨트롤 탭(`ControlsSettingsPanel`)이 배치된 씬에서 진행한다.
+
+## 섹션 1) 정적 회귀 검사
+
+| # | 명령 | 기대값 | 실측값 | 판정 |
+|---|------|--------|--------|------|
+| 1 | `grep -c 'public const string KeybindFileName = "keybind.json";' Assets/SaveSystem/Script/SaveLoadManager.cs` | 1 | 1 | PASS |
+| 2 | `grep -c 'public static string KeybindPath' Assets/SaveSystem/Script/SaveLoadManager.cs` | 1 | 1 | PASS |
+| 3 | `grep -c 'public void SaveKeybindings(string json)' Assets/SaveSystem/Script/SaveLoadManager.cs` | 1 | 1 | PASS |
+| 4 | `grep -c 'public string LoadKeybindings()' Assets/SaveSystem/Script/SaveLoadManager.cs` | 1 | 1 | PASS |
+| 5 | `grep -c 'SaveLoadManager.Instance.SaveKeybindings(json);' Assets/Player/Script/InputHandler.cs` | 1 | 1 | PASS |
+| 6 | `grep -c 'SaveLoadManager.Instance.LoadKeybindings();' Assets/Player/Script/InputHandler.cs` | 1 | 1 | PASS |
+| 7 | `grep -c 'PlayerPrefs' Assets/Player/Script/InputHandler.cs` | 0 (D-03) | 0 | PASS |
+| 8 | `grep -rn "InputBindings" --include=*.cs Assets/ \| wc -l` | 0 (D-03, 구 저장소 키 흔적 없음) | 0 | PASS |
+| 9 | `grep -rn "File.WriteAllText\|File.ReadAllText" --include=*.cs Assets/ \| grep -v "SaveSystem/Script/SaveLoadManager.cs" \| wc -l` | 0 (D-02) | 0 | PASS |
+| 10 | `grep -ci "keybind" Assets/SaveSystem/Script/SaveData.cs` | 0 (D-04, 세이브 스키마 오염 없음) | 0 | PASS |
+| 11 | `git status --porcelain Assets/Player/Script/Menu/ControlsSettingsPanel.cs \| wc -l` | 0 (호출부 0줄 변경) | 0 | PASS |
+| 12 | `node -e "const fs=require('fs');const b=fs.readFileSync('Assets/Player/Script/InputHandler.cs','latin1').split('\r\n');console.log(b.filter(l=>/[^\x00-\x7F]/.test(l)).length, b.length)"` | `25 209` (인코딩 무결성 + 최종 줄 수) | `25 209` | PASS |
+
+## 섹션 2) Play 모드 체크리스트 — 저장 (D-01, D-02)
+- [ ] Play 시작 → 일시정지 → 컨트롤 탭 → `Jump` 버튼 클릭 → 다른 키(예: `K`)를 누른다
+- [ ] 오버레이가 닫히고 라벨이 `K` 로 갱신된다
+- [ ] `Phase14/5. Log Keybind State` 실행 → `exists=True` 이고 `length` 가 0 보다 크다
+- [ ] 사전 준비 3번의 절대 경로에 **`keybind.json` 파일이 실제로 생성**되어 있고, 메모장으로 열면
+  `{"bindings":[...]}` 형태의 JSON 이며 방금 바꾼 키가 들어 있다
+- [ ] Console 에 `Failed to write keybind file` 에러가 **없다**
+
+## 섹션 3) Play 모드 체크리스트 — 복원 (D-01)
+- [ ] Play 를 정지했다가 다시 시작한다
+- [ ] 컨트롤 탭을 열면 `Jump` 라벨이 여전히 `K` 다 (`InputHandler.Awake()` → `LoadBindingOverrides()` 경로)
+- [ ] 실제로 `K` 를 눌렀을 때 캐릭터가 점프한다 (라벨만 바뀐 게 아니라 바인딩이 실제 적용됨)
+- [ ] 원래 키(`Space`)로는 점프하지 않는다
+- [ ] Console 에 `SaveLoadManager.Instance is null` 경고/에러가 **없다** (부트스트랩 순서 확인)
+
+## 섹션 4) Play 모드 체크리스트 — 초기화 & 파일 없음 (D-01)
+- [ ] 컨트롤 탭의 초기화 버튼 클릭 → 모든 라벨이 기본값으로 돌아간다
+- [ ] `keybind.json` 이 기본 상태로 덮어써진다 (파일 수정 시각 갱신)
+- [ ] 재시작 후에도 기본 키로 유지된다
+- [ ] Play 정지 후 `keybind.json` 을 **직접 삭제**하고 다시 Play → 기본 키로 정상 동작하고
+  Console 에 에러가 없다 (파일 없음 = 기본값 사용 경로)
+- [ ] `keybind.json` 내용을 `{{{ 깨진 텍스트` 로 바꾸고 Play → `Failed to read keybind file` 또는
+  Input System 경고가 뜨더라도 **게임이 기본 키로 계속 실행**된다 (크래시 없음)
+
+## 섹션 5) Play 모드 체크리스트 — save.json 독립성 (D-04)
+- [ ] 키를 `K` 로 바꿔 `keybind.json` 을 만든 상태에서 `Phase11/3. New Game (memory only)` 실행 →
+  `keybind.json` 의 내용과 수정 시각이 **변하지 않는다**
+- [ ] `Phase11/1. Save Now` 로 `save.json` 을 새로 쓴 뒤에도 `keybind.json` 이 변하지 않는다
+- [ ] `save.json` 을 직접 삭제하고 Play → 키 설정은 여전히 `K` 로 유지된다 (D-04 핵심)
+
+## 섹션 6) 알려진 한계 / 범위 밖
+- 기존 로컬 설정 저장소에 남아 있는 예전 리바인딩 값은 마이그레이션하지 않는다 (D-03).
+  출시 전 단계이므로 의도된 동작이며, 이전에 키를 바꿔둔 개발 환경에서는 **첫 실행 시 키가 기본값으로 리셋된 것처럼 보인다.**
+- 사운드/그래픽/게임 설정 패널(`SoundSettingsPanel` / `GraphicsSettingsPanel` / `GameSettingsPanel`)과
+  `AudioManager` 는 여전히 로컬 설정 저장소를 쓴다 — **키바인딩이 아니므로 이번 phase 범위 밖**이다.
+  D-02 원칙을 이들에게 확대 적용할지는 별도 결정 사항.
+- `keybind.json` 은 단일 프로필만 지원한다 (프리셋/다중 프로필 없음).
+- `InputHandler.cs` 의 한글 주석은 Phase 14 이전부터 이미 훼손된 상태다(U+FFFD 658개).
+  이번 편집은 그 훼손을 **늘리지 않았을 뿐** 복구하지 않았다 — 복구는 별도 작업.
+
+## 결과 기록
+- 정적 12항목: 실행 완료, 모두 PASS (2026-08-20).
+- Play 모드 실측 검증: 미수행 (Task 2 대기)
