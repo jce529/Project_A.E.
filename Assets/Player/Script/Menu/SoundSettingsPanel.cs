@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 // 일시정지 > 사운드 탭: BGM / SFX 볼륨 슬라이더
-// AudioManager 싱글톤을 통해 볼륨 적용 및 PlayerPrefs 저장
+// AudioManager 싱글톤으로 볼륨을 즉시 적용하고, 값은 설정 메모리에만 기록 (영구 저장은 [설정 저장] 버튼)
 public class SoundSettingsPanel : MonoBehaviour
 {
     [Header("BGM")]
@@ -16,8 +16,9 @@ public class SoundSettingsPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        float bgm = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        float sfx = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        var s = SaveLoadManager.CurrentSettings;
+        float bgm = s.BgmVolume;
+        float sfx = s.SfxVolume;
 
         if (bgmSlider != null)
         {
@@ -44,12 +45,14 @@ public class SoundSettingsPanel : MonoBehaviour
     public void OnBGMChanged(float value)
     {
         AudioManager.Instance?.SetBGMVolume(value);
+        SaveLoadManager.CurrentSettings.BgmVolume = value;
         UpdateBGMText(value);
     }
 
     public void OnSFXChanged(float value)
     {
         AudioManager.Instance?.SetSFXVolume(value);
+        SaveLoadManager.CurrentSettings.SfxVolume = value;
         UpdateSFXText(value);
     }
 

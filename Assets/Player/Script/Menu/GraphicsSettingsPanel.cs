@@ -20,7 +20,7 @@ public class GraphicsSettingsPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        _screenModeIndex = PlayerPrefs.GetInt("ScreenMode", 0);
+        _screenModeIndex = SaveLoadManager.CurrentSettings.ScreenMode;
         RefreshText();
     }
 
@@ -41,8 +41,7 @@ public class GraphicsSettingsPanel : MonoBehaviour
     private void Apply()
     {
         Screen.fullScreenMode = ScreenModes[_screenModeIndex];
-        PlayerPrefs.SetInt("ScreenMode", _screenModeIndex);
-        PlayerPrefs.Save();
+        SaveLoadManager.CurrentSettings.ScreenMode = _screenModeIndex;
         RefreshText();
     }
 
@@ -56,7 +55,7 @@ public class GraphicsSettingsPanel : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void RestoreOnStartup()
     {
-        int saved = PlayerPrefs.GetInt("ScreenMode", 0);
+        int saved = SaveLoadManager.CurrentSettings.ScreenMode;
         if (saved >= 0 && saved < ScreenModes.Length)
             Screen.fullScreenMode = ScreenModes[saved];
     }
