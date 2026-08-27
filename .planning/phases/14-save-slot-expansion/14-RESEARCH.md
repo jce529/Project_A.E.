@@ -1,4 +1,4 @@
-# Phase 50 (temp number, 50-2-3): 세이브 슬롯 확장 - Research
+# Phase 14 (재번호 완료, 이전 임시 번호 50-2-3): 세이브 슬롯 확장 - Research
 
 **Researched:** 2026-08-27
 **Domain:** Unity C# save-system extension (single-slot → 3-slot), MainMenu UI flow
@@ -49,7 +49,7 @@
 ## Phase Requirements
 
 No phase requirement IDs were mapped for this phase (`phase_req_ids` is null). This phase was
-added ad hoc via roadmap evolution (see STATE.md "Roadmap Evolution" — Phase 50 entry) and
+added ad hoc via roadmap evolution (see STATE.md "Roadmap Evolution" — Phase 14 entry) and
 predates/is unrelated to `REQUIREMENTS.md` v2.0 (물의 정령 보스 구현, boss-fight scope only).
 `REQUIREMENTS.md` should NOT be treated as in-scope for this phase; CONTEXT.md's Decisions
 (D-01~D-07) are the sole functional spec.

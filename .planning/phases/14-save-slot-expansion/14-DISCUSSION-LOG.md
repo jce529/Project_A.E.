@@ -1,10 +1,10 @@
-# Phase 50: 세이브 슬롯 확장 - Discussion Log
+# Phase 14: 세이브 슬롯 확장 - Discussion Log
 
 > **Audit trail only.** Do not use as input to planning, research, or execution agents.
 > Decisions are captured in CONTEXT.md — this log preserves the alternatives considered.
 
 **Date:** 2026-08-27
-**Phase:** 50-2-3 (임시 번호, 다른 기기와 동기화 후 재번호 필요)
+**Phase:** 14 (2026-08-27 재번호 완료 — 이전 임시 번호 50-2-3, 이전 Phase 14 키바인딩 슬롯은 폐기됨)
 **Areas discussed:** 슬롯 선택 UI 흐름, 빈 슬롯/덮어쓰기 처리, 파일 구조
 
 ---

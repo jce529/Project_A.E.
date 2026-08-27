@@ -360,57 +360,13 @@ Plans:
 - [x] 13-04-PLAN.md — Scope D 스캔 (Script/map/Editor/ImportedAsset 56파일, CP949 26개 + Portal/NextSpawnPointName 고아 + InGame.unity 스테일 엔트리) → FINDINGS-D
 - [x] 13-05-PLAN.md — 전역 D-09 중복 교차 분석 + 4 fragment 병합 + CP949 46개 전역 집계 + 승인 체크리스트 → 13-AUDIT-REPORT.md
 
-### Phase 14: 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임
+### Phase 14: 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시
 
-> **폐기됨 (2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를
-> `setting.json`(`SettingsData`) 통합 방식으로 먼저 구현해, 아래 keybind.json 전용 설계를
-> 대체했다. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 로컬 브랜치에서
-> rebase로 제거했으며, 이 섹션은 원래 설계 의도를 남기기 위한 기록으로만 유지한다.
-
-**Goal:** 사용자가 바꾼 키 리바인딩이 로컬 설정 저장소가 아니라
-`Application.persistentDataPath/keybind.json` 파일에 저장되고 다음 실행에 복원된다. 그 파일 I/O 는
-`SaveLoadManager`(Phase 11)에 위임되어, "디스크에 JSON 파일을 쓰는 코드는 프로젝트 전체에서
-`SaveLoadManager.cs` 한 곳에만 존재한다"는 원칙(D-02)이 `save.json` 이외 두 번째 파일에 처음 적용된다.
-`InputHandler` 는 Unity Input System 직렬화(`SaveBindingOverridesAsJson` /
-`LoadBindingOverridesFromJson`) 책임을 계속 소유하고, `SaveLoadManager` 는 입력 시스템 세부사항을
-전혀 모른 채 문자열만 읽고 쓴다(D-01). 기존 저장값 마이그레이션은 하지 않으며(D-03), `keybind.json`
-은 `save.json` 과 완전히 독립이라 `NewGame()`/세이브 삭제가 키 설정을 건드리지 않는다(D-04).
-**Requirements**: D-01 ~ D-04 (14-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 유지보수 페이즈)
-**Depends on:** Phase 13 (문서 의존만 — 13-AUDIT-REPORT.md D-04 의 CP949 인코딩 파일 경고)
-**Success Criteria** (what must be TRUE):
-  1. `SaveLoadManager` 가 `KeybindPath` / `HasKeybindFile()` / `SaveKeybindings(string)` /
-     `LoadKeybindings()` 를 노출하며, `InputActionAsset` 을 전혀 참조하지 않고 받은 문자열을
-     `JsonConvert` 로 감싸지도 않는다 (D-01).
-  2. 프로젝트 전체 `.cs` 파일에서 `File.WriteAllText` / `File.ReadAllText` 호출이
-     `Assets/SaveSystem/Script/SaveLoadManager.cs` 밖에 0건이다 (D-02).
-  3. `Assets/Player/Script/InputHandler.cs` 에 로컬 설정 저장소 API 호출과 저장소 키 상수가 0건이며,
-     마이그레이션 코드도 없다 (D-03).
-  4. `NewGame()` / `Save()` / `LoadGame()` 어느 경로도 `keybind.json` 을 읽거나 쓰거나 지우지 않고,
-     `SaveData.cs` 에 keybind 필드가 없다 (D-04).
-  5. `ControlsSettingsPanel.cs` 가 0줄 변경이다 — `SaveBindingOverrides()` 시그니처 불변으로
-     기존 두 호출부가 그대로 동작한다.
-  6. `keybind.json` 이 없거나 손상되어도 게임이 기본 키로 정상 실행된다 (`LoadKeybindings()` 가 null 반환).
-  7. `InputHandler.cs` 의 살아남은 비-ASCII 주석 25줄이 편집 전과 바이트 단위로 동일하고
-     U+FFFD 개수가 증가하지 않는다 (이 파일은 CP949 가 아니라 **이미 훼손된 UTF-8** 이며,
-     워킹트리가 HEAD 와 달라 `git show HEAD:` 복원 프로토콜을 쓰면 안 된다 — 계획 단계 실측 발견).
-**Plans:** 2 plans
-
-**Execution Waves:**
-
-| Wave | Plans | Autonomous |
-|------|-------|------------|
-| 1 | 14-01 | yes |
-| 2 | 14-02 | no (Play 모드 검증 체크포인트) |
-
-Plans:
-- [ ] 14-01-PLAN.md — SaveLoadManager keybind.json I/O API 4종 추가 + InputHandler 저장/로드 경로 교체 (바이트 보존 편집)
-- [ ] 14-02-PLAN.md — Assets/SaveSystem/Check.md Phase 14 섹션 + 정적 회귀 검사 12항목 + Play 모드 검증 체크포인트
-
-### Phase 50: 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시
-
-> **임시 번호**: 다른 기기의 로드맵이 이미 Phase 13(완료됨) 이후로 얼마나 진행됐는지 아직 확인 전이라,
-> 충돌을 피하기 위해 50번을 임시로 사용 중. 다른 기기와 동기화 후 정확한 다음 번호로 재번호 필요
-> (폴더명 `.planning/phases/50-2-3/` 포함).
+> **재번호 완료 (2026-08-27)**: 이 phase는 원래 다른 기기와의 동기화 전 충돌을 피하려고
+> 임시 번호 50(폴더 `.planning/phases/50-2-3/`)을 썼다. 기존 Phase 14(키바인딩을
+> keybind.json으로 저장)는 quick task `260827-h5y`의 `setting.json` 통합 설계로
+> 대체되며 폐기(구현 커밋 2개 `36f76af`/`0c51c26`는 rebase로 제거)되어 번호가 비었고,
+> 이 phase가 그 자리(14)로 재번호되었다.
 
 **Goal:** [To be planned]
 **Requirements**: TBD
@@ -418,4 +374,4 @@ Plans:
 **Plans:** 0 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 50 to break down)
+- [ ] TBD (run /gsd:plan-phase 14 to break down)

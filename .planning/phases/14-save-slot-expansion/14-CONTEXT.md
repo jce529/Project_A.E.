@@ -1,13 +1,13 @@
-# Phase 50: 세이브 슬롯 확장 - Context
+# Phase 14: 세이브 슬롯 확장 - Context
 
 **Gathered:** 2026-08-27
 **Status:** Ready for planning
 
-> **번호 안내:** 이 Phase는 임시로 50번을 쓰고 있다. 다른 기기(로컬에 없는 별도 작업 환경)의
-> 로드맵이 이미 Phase 13까지 완료돼 있고 그보다 더 진행됐을 가능성도 있어서, 충돌을 피하려고
-> 큰 번호를 임시로 예약해둔 것이다. 두 기기 로드맵을 동기화한 뒤 정확한 다음 번호로
-> 재번호(폴더명 `.planning/phases/50-2-3/` 포함)해야 한다. 아래 결정 사항 자체는 번호와 무관하게
-> 유효하다.
+> **재번호 완료 (2026-08-27):** 이 Phase는 원래 다른 기기와의 동기화 전 충돌을 피하려고
+> 임시로 50번(폴더 `.planning/phases/50-2-3/`)을 썼다. 동기화 결과 로컬 Phase 14
+> (키바인딩 → keybind.json)가 quick task `260827-h5y`의 `setting.json` 통합 설계로
+> 대체되며 폐기되어, 그 번호가 비었다. 이에 따라 이 Phase를 14번으로 재번호했다.
+> 아래 결정 사항 자체는 번호와 무관하게 유효하다.
 
 <domain>
 ## Phase Boundary
@@ -73,7 +73,7 @@ Phase 11이 이미 구현한 저장 트리거 통합(체크포인트/보스 격�
 이번 페이즈에는 별도 ADR/스펙 문서가 없다. 로드맵 항목 + 이 CONTEXT.md가 스펙 역할을 겸한다.
 
 ### 로드맵 원문
-- `.planning/ROADMAP.md` (Phase 50 섹션 — 임시 번호 안내 포함)
+- `.planning/ROADMAP.md` (Phase 14 섹션)
 
 ### 선행 Phase 결정 (그대로 유지해야 하는 부분)
 - `.planning/phases/11-newtonsoft-json-dontdestroyonload-i-o-dictionary-dictionary-application-persistentdatapath-json/11-CONTEXT.md`
@@ -107,7 +107,7 @@ No external specs — requirements fully captured in decisions above.
   `Assets/SaveSystem/Script/SaveLoadManager.cs`를 수정 중이다: private 필드
   `SaveSettings` → `JsonSettings` 리네임, `SaveSettings()`/`LoadSettings()`/`Settings`/
   `CurrentSettings`/`SettingsPath` 신규 추가, `Awake()`에 `LoadSettings()` 한 줄 추가.
-  이번 Phase 50의 연구/계획은 그 quick task가 완료된 **이후의** `SaveLoadManager.cs` 상태를
+  이번 Phase 14의 연구/계획은 그 quick task가 완료된 **이후의** `SaveLoadManager.cs` 상태를
   기준으로 삼아야 한다 (지금 이 문서를 작성하는 시점엔 아직 진행 중). `setting.json`/
   `SettingsData`는 게임 진행도(`save.json`/`SaveData`)와 완전히 별개 파일·별개 모델이므로
   슬롯화 대상이 아니다 — 슬롯은 오직 `save*.json`/`SaveData`에만 적용된다.
@@ -147,5 +147,5 @@ None — no matching todos found for this phase.
 
 ---
 
-*Phase: 50-2-3 (임시 번호)*
+*Phase: 14 (재번호 완료, 이전 임시 번호 50-2-3)*
 *Context gathered: 2026-08-27*
