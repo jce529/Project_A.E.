@@ -150,7 +150,6 @@ namespace TutorialBoss
                 _hp.OnDeath += HandleDeath; // 사망 이벤트 구독
                 _onDamageLog = () =>
                 {
-                    Debug.Log($"[TutorialBoss] 피격! 현재 HP: {_hp.Health:F0} / {_hp.MaxHealth:F0}");
                     Anim?.SetTrigger("HitTrigger");
                 };
                 _hp.onHealthChangedCallback += _onDamageLog;

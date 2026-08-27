@@ -53,7 +53,6 @@ public class EnvironmentManager : MonoBehaviour
 
         if (newState != currentState)
         {
-            Debug.Log($" [환경 변화] {currentState} -> {newState} 로 변경됩니다!");
             currentState = newState;
             ApplyEnvironmentEffects(currentState);
         }
@@ -104,6 +103,5 @@ public class EnvironmentManager : MonoBehaviour
 
         // 먹먹함 정도 변경
         lowPassFilter.cutoffFrequency = targetCutoff;
-        Debug.Log($" [BGM 필터 변경] 현재 Cutoff 수치: {targetCutoff}");
     }
 }

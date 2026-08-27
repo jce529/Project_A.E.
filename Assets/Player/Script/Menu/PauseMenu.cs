@@ -9,7 +9,6 @@ public class PauseMenu : MonoBehaviour
         if (InputHandler.Instance != null)
         {
             InputHandler.Instance.OnPauseEvent += OnPauseInput;
-            Debug.Log("[PauseMenu] Start() 실행됨 - OnPauseEvent 구독 완료");
         }
         else
         {
@@ -26,7 +25,6 @@ public class PauseMenu : MonoBehaviour
 
     private void OnPauseInput()
     {
-        Debug.Log($"[PauseMenu] OnPauseInput 수신 - 현재 패널 활성: {gameObject.activeSelf}, GameState: {GameStateManager.Instance?.CurrentState}");
         if (gameObject.activeSelf)
             Close();
         else if (GameStateManager.Instance.CurrentState == GameStateManager.GameState.Playing)

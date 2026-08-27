@@ -84,12 +84,10 @@ public class WaterMonsterController : BossController
                 if (child.GetComponent<EnemyHitBox>() == null)
                 {
                     child.gameObject.AddComponent<EnemyHitBox>();
-                    Debug.Log($"[WaterMonsterController] {child.name} 물리 설정 완료 및 EnemyHitBox 추가.");
                 }
                 return;
             }
         }
-        Debug.LogWarning("[WaterMonsterController] 자식 오브젝트 중 'HitBox' 태그를 가진 오브젝트를 찾을 수 없습니다.");
     }
 
     protected override void Start()
@@ -256,12 +254,4 @@ public class WaterMonsterController : BossController
 
     public PrisonColor CoreColor { get; private set; }
     public void SetCoreColor(PrisonColor color) { CoreColor = color; }
-
-    /// <summary>
-    /// Convenience: directly enter WaterMonsterCombatState. Used by test harnesses.
-    /// </summary>
-    public void EnterWaterCombat()
-    {
-        ChangeState(new WaterMonsterCombatState());
-    }
 }

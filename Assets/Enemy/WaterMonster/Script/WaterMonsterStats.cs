@@ -29,7 +29,6 @@ public class WaterMonsterStats : BossStatsSystem
 
     protected override void TakeDamage(DamageInfo info)
     {
-        Debug.Log($"[WaterMonsterStats] TakeDamage 호출됨! 데미지: {info.amount}, 종류: {info.type}");
 
         if (info.amount <= 0f) 
         {
@@ -48,7 +47,6 @@ public class WaterMonsterStats : BossStatsSystem
         // 그 외의 공격은 보스를 회복시킴
         float healAmount = info.amount;
         _currentHealth = Mathf.Min(MaxHealth, _currentHealth + healAmount);
-        Debug.Log($"[WaterMonster] 부적절한 공격 흡수로 회복! 회복량: {healAmount}, 현재 체력: {_currentHealth}/{MaxHealth}");
         OnHealed(healAmount);
     }
 

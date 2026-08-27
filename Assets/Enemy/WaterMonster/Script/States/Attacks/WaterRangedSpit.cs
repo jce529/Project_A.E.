@@ -11,7 +11,6 @@ public class WaterRangedSpit : IAttackStrategy
 
     public void ExecuteAttack(BossController boss)
     {
-        Debug.Log($"[WaterMonster] 원거리 공격 실행 (Attack_Ranged)");
         if (boss.Anim != null) boss.Anim.SetTrigger(AnimationName);
 
         if (boss.Stats is WaterMonsterStats wms)

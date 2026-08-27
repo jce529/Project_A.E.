@@ -33,7 +33,6 @@ public class SpiritStealth : IAttackStrategy
 
         // 3단계: 텔레포트
         spirit.transform.position = destination;
-        Debug.Log($"[SpiritStealth] 텔레포트 완료: {destination}");
 
         // 4단계: 콜라이더 재활성화
         foreach (var c in colliders) if (c != null) c.enabled = true;

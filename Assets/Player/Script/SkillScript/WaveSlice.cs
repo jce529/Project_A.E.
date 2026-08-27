@@ -19,7 +19,6 @@ public class WaveSlice : MonoBehaviour
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
             foreach (var hit in hits)
             {
-                Debug.Log($"[WaveSlice] 충돌 감지: {hit.name} (태그: {hit.tag})");
 
                 // Phase 2: WaterPuddle destruction
                 var puddle = hit.GetComponent<WaterPuddle>();
@@ -33,7 +32,6 @@ public class WaveSlice : MonoBehaviour
                 var enemyHitBox = hit.GetComponent<EnemyHitBox>();
                 if (enemyHitBox != null)
                 {
-                    Debug.Log($"[WaveSlice] EnemyHitBox 감지! 파동참 데미지 {damage} 전달.");
                     enemyHitBox.TakeDamage(new DamageInfo { amount = damage, type = DamageType.WaveSlash });
                     continue;
                 }
@@ -42,7 +40,6 @@ public class WaveSlice : MonoBehaviour
                 var bossStats = hit.GetComponentInParent<BossStatsSystem>();
                 if (bossStats != null)
                 {
-                    Debug.Log($"[WaveSlice] BossStatsSystem 직접 감지! 파동참 데미지 {damage} 전달.");
                     bossStats.TakeDamageInfo(new DamageInfo { amount = damage, type = DamageType.WaveSlash });
                     continue;
                 }
@@ -56,6 +53,5 @@ public class WaveSlice : MonoBehaviour
             }
             Destroy(wave, 1.0f);
         }
-        else {Debug.Log("���� �����մϴ�"); }
     }
 }

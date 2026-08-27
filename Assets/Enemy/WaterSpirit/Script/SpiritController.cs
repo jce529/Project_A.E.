@@ -5,7 +5,6 @@ public class SpiritController : BossController
 {
     [Header("Spirit Combat Ranges")]
     public float RepelRange = 1.5f;
-    public float ChargeRange = 5.0f;
 
     [Header("Charge Settings")]
     public float ChargeWindup = 0.5f;
@@ -51,7 +50,6 @@ public class SpiritController : BossController
     {
         if (IsStage2) return;
         IsStage2 = true;
-        Debug.Log("[SpiritController] Stage 2 진입");
         ChangeState(new Stage2CombatState());
     }
 
@@ -106,7 +104,6 @@ public class SpiritController : BossController
         {
             _hasHitPlayerThisCharge = true;
             hp.TakeDamage(ChargeDamage);
-            Debug.Log($"[SpiritController] Charge Hit: {other.name}");
         }
     }
 }

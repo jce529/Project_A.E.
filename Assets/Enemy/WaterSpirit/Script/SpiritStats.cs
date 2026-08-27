@@ -19,13 +19,11 @@ public class SpiritStats : BossStatsSystem
         // D-07a: 분신 (IsDummy == true) 은 데미지를 받지 않음 (S2-05)
         if (IsDummy)
         {
-            Debug.Log($"[SpiritStats] 분신 피격 무시 (IsDummy=true). 데미지: {info.amount}");
             return;
         }
 
         // Direct health reduction, bypassing barrier logic entirely
         _currentHealth -= info.amount;
-        Debug.Log($"[SpiritStats] 피격! 데미지: {info.amount}, 남은 체력: {_currentHealth}/{MaxHealth}");
 
         // Fire event for counter-attacks/behavior changes
         InvokeOnDamageTaken();
@@ -34,7 +32,6 @@ public class SpiritStats : BossStatsSystem
         if (!_stage2Triggered && _currentHealth > 0f && _currentHealth <= MaxHealth * 0.5f)
         {
             _stage2Triggered = true;
-            Debug.Log($"[SpiritStats] HP 50% 임계 도달 → Stage 2 전환 트리거. ({_currentHealth}/{MaxHealth})");
 
             var spiritController = GetComponent<SpiritController>();
             if (spiritController != null)
@@ -56,7 +53,6 @@ public class SpiritStats : BossStatsSystem
 
     protected override void Die()
     {
-        Debug.Log("[SpiritStats] 사망 처리!");
         
         // Bug 1 해결: 보스 사망 시 모든 분신 제거
         var spiritController = GetComponent<SpiritController>();

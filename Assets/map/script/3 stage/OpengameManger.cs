@@ -31,7 +31,6 @@ public class OpengameManager : MonoBehaviour
         if (isMap2Open && isMap3Open && isMap4Open)
         {
             isMap5Open = true; // 5번 맵을 강제로 열어버림!
-            Debug.Log("모든 인장을 모았습니다! 5번 맵 개방!");
         }
     }
 }

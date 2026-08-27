@@ -70,7 +70,6 @@ public class enemy : HP
 
     public override void Die()
     {
-        Debug.Log(gameObject.name + " 사망!");
         base.Die();
     }
 

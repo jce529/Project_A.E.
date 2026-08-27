@@ -49,7 +49,6 @@ public class SlidingPuzzleTrigger : MonoBehaviour
         if (puzzleUI != null && puzzleUI.activeSelf)
         {
             puzzleUI.SetActive(false);
-            Debug.Log("퍼즐 창을 닫습니다.");
         }
     }
 
@@ -57,18 +56,15 @@ public class SlidingPuzzleTrigger : MonoBehaviour
     {
         if (isLocked)
         {
-            Debug.Log("아직 작동하지 않습니다. 먼저 주변 수로를 연결하세요!");
             return;
         }
 
         puzzleUI.SetActive(true); // 퍼즐 창 띄우기
-        Debug.Log("슬라이딩 퍼즐 시작!");
     }
 
     public void OnPuzzleCleared()
     {
         puzzleUI.SetActive(false); // 팝업창 닫기
-        Debug.Log("퍼즐 클리어! 다음 구역 개방!");
 
         OpengameManager.instance.isMap3Open = true;
         OpengameManager.instance.CheckMap5Condition();
@@ -82,7 +78,6 @@ public class SlidingPuzzleTrigger : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             isPlayerNearby = true;
-            Debug.Log("장치에 접근했습니다. 상호작용 키를 누르세요.");
         }
     }
 

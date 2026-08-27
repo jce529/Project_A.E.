@@ -13,7 +13,6 @@ public class WaterMeleeSwipe : IAttackStrategy
 
     public void ExecuteAttack(BossController boss)
     {
-        Debug.Log($"[WaterMonster] 근접 공격 실행 (Attack_Melee)");
         if (boss.Anim != null) boss.Anim.SetTrigger(AnimationName);
 
         if (boss.Stats is WaterMonsterStats wms)

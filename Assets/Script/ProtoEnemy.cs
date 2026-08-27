@@ -11,7 +11,6 @@ public class ProtoEnemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         hp -= damage;
-        Debug.Log("프로토 보스 체력: " + hp);
 
         if (hp <= 0)
         {

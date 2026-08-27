@@ -15,6 +15,5 @@ public class LightAttack : IAttackStrategy
             boss.Stats.ConsumeWater(boss.Stats.MaxWater * 0.05f);
         }
 
-        Debug.Log("보스: 평타 베기! (물 5% 소모)");
     }
 }

@@ -8,6 +8,5 @@ public class SpiritExhaustion : IAttackStrategy
     public void ExecuteAttack(BossController boss)
     {
         boss.StopMove();
-        Debug.Log("[SpiritExhaustion] 기진맥진 - 잠시 정지 (취약 상태)");
     }
 }

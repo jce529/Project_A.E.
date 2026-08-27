@@ -62,26 +62,6 @@ public class PlayerAttack : PlayerInputHandler
     protected override void OnBasicAttack()
     {
         // =====================================================================
-        // [버전 A] 마우스 방향 조준형 (현재 주석 처리됨)
-        // =====================================================================
-        /*
-        if (!canAttack) return;
-
-        GameObject atkBox = null;
-        Vector2 direction = Vector2.right;
-
-        Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos2D = new Vector2(mousePos3D.x, mousePos3D.y);
-        Vector2 playerPos2D = new Vector2(transform.position.x, transform.position.y);
-
-        direction = (mousePos2D - playerPos2D).normalized;
-        Vector2 spawnPos = playerPos2D + direction * attackDistance;
-
-        atkBox = Instantiate(attackBox, spawnPos, Quaternion.identity);
-        atkBox.transform.right = direction; 
-        */
-
-        // =====================================================================
         // [버전 B] 바라보는 방향 고정형 (현재 활성화됨)
         // =====================================================================
         if (!canAttack) return;
@@ -117,7 +97,6 @@ public class PlayerAttack : PlayerInputHandler
             currentDamage *= combo3DamageMultiplier;
             finalCooldown = combo3Cooldown; // 3타 후에는 더 긴 쿨타임 적용
 
-            Debug.Log("막타, 쿨다운");
             comboStep = 0; // 콤보 초기화
         }
 
@@ -293,7 +272,6 @@ public class PlayerAttack : PlayerInputHandler
 
         yield return new WaitForSeconds(qCooldown);
         canUseQ = true;
-        Debug.Log("Q 준비완료!");
     }
 
     IEnumerator DisableAfterTime(GameObject obj, float time)
@@ -369,7 +347,6 @@ public class PlayerAttack : PlayerInputHandler
                     enemyRb.AddForce(knockbackDir.normalized * splashKnockbackForce, ForceMode2D.Impulse);
                 }
 
-                Debug.Log(enemyCollider.name + "에게 스플래시 효과 적용!");
             }
         }
     }

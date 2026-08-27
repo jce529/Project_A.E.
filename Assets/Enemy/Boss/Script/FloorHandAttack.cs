@@ -26,7 +26,6 @@ public class FloorHandAttack : IAttackStrategy
     {
         // BossController�� MonoBehaviour�̹Ƿ� �ڷ�ƾ�� ������ �� �ֽ��ϴ�.
         boss.StartCoroutine(AttackSequence(boss));
-        Debug.Log("�ٴ� �� ���� ����!");
     }
 
     // ���� hand.cs�� AttackSequence�� ������

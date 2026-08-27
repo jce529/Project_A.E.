@@ -104,7 +104,6 @@ public class SlidingPuzzleManager : MonoBehaviour
         }
 
         isCleared = true;
-        Debug.Log("ÆÛÁñ Å¬¸®¾î!");
 
         puzzlePieces[totalPieces - 1].sprite = correctSprites[totalPieces - 1];
         puzzlePieces[totalPieces - 1].color = Color.white;

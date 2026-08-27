@@ -46,7 +46,6 @@ namespace TutorialBoss
                     break;
             }
 
-            Debug.Log($"[TutorialBoss] ──→ Attack 상태 ({_pattern})");
         }
 
         public void Execute(BossController boss)

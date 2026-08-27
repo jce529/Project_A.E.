@@ -9,9 +9,21 @@ public class SignpostPortal : MonoBehaviour
 
     private bool playerInRange = false;
 
-    void Update()
+    private void OnEnable()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.W))
+        if (InputHandler.Instance != null)
+            InputHandler.Instance.OnInteractEvent += HandleInteractInput;
+    }
+
+    private void OnDisable()
+    {
+        if (InputHandler.Instance != null)
+            InputHandler.Instance.OnInteractEvent -= HandleInteractInput;
+    }
+
+    private void HandleInteractInput()
+    {
+        if (playerInRange)
         {
             // 정적 변수에 목표 지점 이름을 미리 저장
             PlayerSpawner.targetSpawnPointName = spawnPointName;

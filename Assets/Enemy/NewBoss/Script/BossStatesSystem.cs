@@ -84,7 +84,6 @@ public class BossStatsSystem : MonoBehaviour
         {
             // 배리어 있음: 수분 소모 (기존 로직: 20%)
             ConsumeWater(MaxWater * 0.2f);
-            Debug.Log($"[BossStats] 피격 (배리어)! 수분 소모됨. 남은 수분: {_currentWater}");
             // 반격 상태 전환용 이벤트 알림
             OnDamageTaken?.Invoke();
         }
@@ -92,7 +91,6 @@ public class BossStatsSystem : MonoBehaviour
         {
             // 배리어 없음: 체력 감소
             _currentHealth -= info.amount;
-            Debug.Log($"[BossStats] 피격 (체력)! 데미지: {info.amount}, 남은 체력: {_currentHealth}/{MaxHealth}");
         }
 
         if (_currentHealth <= 0)

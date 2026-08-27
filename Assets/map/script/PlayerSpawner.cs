@@ -39,7 +39,6 @@ public class PlayerSpawner : MonoBehaviour
                     respawn.SyncStartPosition(targetPoint.transform);
                 }
 
-                Debug.Log($"스폰 성공: {targetSpawnPointName} 위치로 이동함");
 
                 // 이동 후 이름 초기화 (다음 번엔 기본 위치에서 시작할 수 있도록)
                 targetSpawnPointName = "";

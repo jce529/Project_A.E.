@@ -16,13 +16,11 @@ public class FloorPuzzleManager : MonoBehaviour
             if (!pipe.IsCorrect()) return;
         }
 
-        Debug.Log("이 층의 수로 퍼즐이 모두 맞춰졌습니다!");
 
         // 3층 기믹: 수로가 다 맞으면 중앙 슬라이딩 퍼즐 잠금 해제!
         if (centerPuzzleTrigger != null)
         {
             centerPuzzleTrigger.isLocked = false;
-            Debug.Log("중앙 슬라이딩 퍼즐 장치가 활성화되었습니다!");
         }
     }
 }

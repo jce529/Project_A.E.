@@ -76,7 +76,6 @@ namespace TutorialBoss
 
             // ── [Phase 1] 전조 경고 표시 ─────────────────────────────────
             // 플레이어에게 대피(좌우 가장자리로 이동)할 시간을 주는 경고 연출
-            Debug.Log($"[TentaclePierce] 전조 표시 ({_telegraphTime}s) - 좌우 끝으로 피하세요!");
             GameObject warningObj = null;
 
             if (_warningPrefab != null)
@@ -97,7 +96,6 @@ namespace TutorialBoss
                 Object.Destroy(warningObj);
 
             // ── [Phase 2] 즉발 AoE 타격 ─────────────────────────────────
-            Debug.Log($"[TentaclePierce] >> 거대 범위 찌르기! (W:{_hitWidth} H:{_hitHeight})");
 
             // OverlapBoxAll: 지정한 박스 범위 내 모든 Collider2D를 반환
             // ──────────────────────────────────────────────────────────────
@@ -119,7 +117,6 @@ namespace TutorialBoss
                     var hp = hit.GetComponentInParent<HP>();
                     if (hp != null)
                     {
-                        Debug.Log($"[TentaclePierce] >> Player Hit! Damage: {_damage}");
                         hp.TakeDamage(_damage);
                     }
                 }

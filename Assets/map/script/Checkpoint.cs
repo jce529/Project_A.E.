@@ -6,12 +6,23 @@ public class Checkpoint : MonoBehaviour
     private PlayerRespawn playerRespawn;
     public bool isActiveCheckpoint = false;
 
-    void Update()
+    private void OnEnable()
     {
-        // 범위 안에서 S키를 눌렀을 때
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.S))
+        if (InputHandler.Instance != null)
+            InputHandler.Instance.OnInteractEvent += HandleInteractInput;
+    }
+
+    private void OnDisable()
+    {
+        if (InputHandler.Instance != null)
+            InputHandler.Instance.OnInteractEvent -= HandleInteractInput;
+    }
+
+    private void HandleInteractInput()
+    {
+        // 범위 안에서 F키를 눌렀을 때
+        if (isPlayerInRange)
         {
-            Debug.Log(" [" + gameObject.name + "]에서 S키 입력이 감지되었습니다!");
 
             if (!isActiveCheckpoint)
             {
@@ -33,7 +44,6 @@ public class Checkpoint : MonoBehaviour
                 if (playerRespawn != null)
                 {
                     playerRespawn.UpdateCheckpoint(this.transform);
-                    Debug.Log(" 성공: [" + gameObject.name + "] 위치로 체크포인트가 변경되었습니다!");
                 }
                 else
                 {
@@ -42,7 +52,6 @@ public class Checkpoint : MonoBehaviour
             }
             else
             {
-                Debug.Log(" [" + gameObject.name + "]은(는) 이미 현재 활성화된 체크포인트입니다.");
             }
         }
     }
@@ -53,7 +62,6 @@ public class Checkpoint : MonoBehaviour
         {
             isPlayerInRange = true;
             playerRespawn = collision.GetComponent<PlayerRespawn>();
-            Debug.Log(" 플레이어가 [" + gameObject.name + "] 영역에 들어왔습니다.");
         }
     }
 
@@ -63,7 +71,6 @@ public class Checkpoint : MonoBehaviour
         {
             isPlayerInRange = false;
             playerRespawn = null;
-            Debug.Log(" 플레이어가 [" + gameObject.name + "] 영역에서 나갔습니다.");
         }
     }
 }

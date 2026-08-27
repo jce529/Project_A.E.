@@ -12,7 +12,6 @@ namespace TutorialBoss
     {
         public void Enter(BossController boss)
         {
-            Debug.Log("[TutorialBoss] ──→ Dead 상태! 보스 사망");
             boss.StopMove();
             boss.Anim?.SetTrigger("GroggyTrigger");
 
@@ -28,8 +27,6 @@ namespace TutorialBoss
 
         private IEnumerator DeathSequence(BossController boss)
         {
-            // 사망 애니메이션 재생 구간 (필요 시 주석 해제)
-            // boss.Anim?.SetTrigger("Die");
             yield return new WaitForSeconds(2.5f);
 
             // 벽 열기

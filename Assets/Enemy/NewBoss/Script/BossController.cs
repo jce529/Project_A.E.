@@ -89,15 +89,12 @@ public class BossController : MonoBehaviour
         _rb.linearVelocity = direction * MoveSpeed;
 
         LookAtTarget(targetPos);
-
-        //if (Anim != null) Anim.SetBool("IsMoving", true);
     }
 
     public void StopMove()
     {
         // 이동 정지
         _rb.linearVelocity = Vector2.zero;
-        //if (Anim != null) Anim.SetBool("IsMoving", false);
     }
 
     private void LookAtTarget(Vector2 targetPos)

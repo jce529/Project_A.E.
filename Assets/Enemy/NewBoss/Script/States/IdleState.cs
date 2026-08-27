@@ -5,7 +5,6 @@ public class IdleState : IBossState
 {
     public void Enter(BossController boss)
     {
-        Debug.Log("Entering Idle State");
         // 보스가 대기 상태에 들어갈 때 필요한 초기화 작업 수행
     }
 
@@ -20,7 +19,6 @@ public class IdleState : IBossState
 
     public void Exit(BossController boss)
     {
-        Debug.Log("Exiting Idle State");
         // 보스가 대기 상태에서 나올 때 필요한 정리 작업 수행
     }
 

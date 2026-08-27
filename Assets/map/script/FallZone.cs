@@ -14,7 +14,6 @@ public class FallZone : MonoBehaviour
             if (playerStats != null)
             {
                 playerStats.TakeDamage(fallDamage);
-                Debug.Log("낙사 데미지 적용됨!");
             }
 
             // 2. 체크포인트로 위치 되돌리기 (PlayerRespawn 사용)
@@ -22,7 +21,6 @@ public class FallZone : MonoBehaviour
             if (playerRespawn != null)
             {
                 playerRespawn.RespawnPosition();
-                Debug.Log("체크포인트로 이동됨!");
             }
         }
     }

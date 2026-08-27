@@ -47,7 +47,6 @@ public class bullet : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // 플레이어에게 데미지를 주는 로직 추가
-            Debug.Log("플레이어 피격!");
             PlayerStats playerStats = other.GetComponent<PlayerStats>(); // 플레이어 체력 스크립트
             if (playerStats != null)
             {

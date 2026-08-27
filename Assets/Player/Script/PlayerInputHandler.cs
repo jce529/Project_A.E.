@@ -13,7 +13,7 @@ public abstract class PlayerInputHandler : MonoBehaviour
         InputHandler.Instance.OnSkill1Event      += OnSkillE;
         InputHandler.Instance.OnSkill2Event      += OnSkillR;
         InputHandler.Instance.OnHealEvent        += OnHeal;
-        InputHandler.Instance.OnInteractEvent    += OnSkillQ;
+        InputHandler.Instance.OnSkillQEvent      += OnSkillQ;
     }
 
     protected virtual void OnDestroy()
@@ -23,7 +23,7 @@ public abstract class PlayerInputHandler : MonoBehaviour
         InputHandler.Instance.OnSkill1Event      -= OnSkillE;
         InputHandler.Instance.OnSkill2Event      -= OnSkillR;
         InputHandler.Instance.OnHealEvent        -= OnHeal;
-        InputHandler.Instance.OnInteractEvent    -= OnSkillQ;
+        InputHandler.Instance.OnSkillQEvent      -= OnSkillQ;
     }
 
     protected virtual void Update() { }

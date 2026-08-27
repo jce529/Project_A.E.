@@ -34,6 +34,7 @@ public class InputHandler : MonoBehaviour
     public event Action OnSkill2Event;
     public event Action OnHealEvent;
     public event Action OnInteractEvent;
+    public event Action OnSkillQEvent;
 
     // ==================================================================================
     // 3. ���� ���� (Internal Variables)
@@ -50,6 +51,7 @@ public class InputHandler : MonoBehaviour
     private InputAction skill_2;
     private InputAction heal;
     private InputAction interactAction;
+    private InputAction skillQAction;
 
     // Ű ���ε� ������ ���� PlayerPrefs Ű �̸�
     private const string SAVE_KEY = "InputBindings";
@@ -99,7 +101,8 @@ public class InputHandler : MonoBehaviour
         skill_1 = playerMap.FindAction("Skill_1");
         skill_2 = playerMap.FindAction("Skill_2");
         heal = playerMap.FindAction("Heal");
-        interactAction = playerMap.FindAction("Action");
+        interactAction = playerMap.FindAction("Interact");
+        skillQAction = playerMap.FindAction("Action");
 
         LoadBindingOverrides();
     }
@@ -128,6 +131,7 @@ public class InputHandler : MonoBehaviour
         if (skill_2 != null) skill_2.performed += ctx => OnSkill2Event?.Invoke();
         if (heal != null) heal.performed += ctx => OnHealEvent?.Invoke();
         if (interactAction != null) interactAction.performed += ctx => OnInteractEvent?.Invoke();
+        if (skillQAction != null) skillQAction.performed += ctx => OnSkillQEvent?.Invoke();
     }
 
     // ==================================================================================

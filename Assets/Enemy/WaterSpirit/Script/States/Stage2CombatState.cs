@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 // Phase 6 — Stage 2 메인 상태머신
@@ -22,7 +21,6 @@ public class Stage2CombatState : SpiritCombatState
     public override void Enter(BossController boss)
     {
         base.Enter(boss);
-        Debug.Log("[Stage2CombatState] Stage 2 진입 — 분신 스폰 시작");
 
         if (!(boss is SpiritController spirit))
         {
@@ -33,7 +31,6 @@ public class Stage2CombatState : SpiritCombatState
         // 분신은 Stage 2 사이클을 보유하지 않음 (분신 자신이 Stage2CombatState 진입 시도하지 않도록)
         if (spirit.IsDummy)
         {
-            Debug.LogWarning("[Stage2CombatState] 분신이 Stage2CombatState 에 진입함 — SpiritCombatState 동작으로 대체");
             return;
         }
 
@@ -65,11 +62,9 @@ public class Stage2CombatState : SpiritCombatState
             if (cloneCtrl != null)
             {
                 _clones.Add(cloneCtrl);
-                Debug.Log($"[Stage2CombatState] 분신 #{i} 스폰 완료 ({spawnPos})");
             }
         }
 
-        Debug.Log($"[Stage2CombatState] 분신 스폰 완료 — 총 {_clones.Count}개");
     }
 
     public override void Execute(BossController boss)
@@ -109,7 +104,6 @@ public class Stage2CombatState : SpiritCombatState
         if (strategy != null)
         {
             _patternsExecuted++;
-            Debug.Log($"[Stage2CombatState] 일반 패턴 실행 #{_patternsExecuted}/{PatternsBeforeHeavyCombo} ({strategy.GetType().Name})");
         }
         return strategy;
     }
@@ -121,7 +115,6 @@ public class Stage2CombatState : SpiritCombatState
         _heavyComboInProgress = true;
         _heavyComboElapsed = 0f;
 
-        Debug.Log("[Stage2CombatState] 헤비콤보 단계 진입 — 진짜+분신 동시 실행");
 
         if (boss is SpiritController realBoss)
         {
@@ -141,7 +134,6 @@ public class Stage2CombatState : SpiritCombatState
     // D-08a/b: 헤비콤보 종료 → 분신 전체 Destroy → GroggyState 전환
     private void OnHeavyComboFinished(BossController boss)
     {
-        Debug.Log("[Stage2CombatState] 헤비콤보 종료 — 분신 삭제 + 그로기 전환");
 
         // 분신 전체 Destroy
         foreach (var clone in _clones)

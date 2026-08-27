@@ -27,7 +27,6 @@ public class SpiritProjectileAttack : IAttackStrategy
         if (proj != null)
         {
             proj.Init(dir, spirit.ProjectileDamage, spirit.PlayerLayer);
-            Debug.Log($"[SpiritProjectileAttack] 발사 dir={dir}, pos={boss.transform.position}");
         }
         else
         {

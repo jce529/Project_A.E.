@@ -44,6 +44,5 @@ public class PlayerRespawn : MonoBehaviour
     {
         startPosition = portalSpawnPoint.position;
         UpdateCheckpoint(portalSpawnPoint);
-        Debug.Log("이 맵의 새로운 시작 위치가 설정되었습니다.");
     }
 }

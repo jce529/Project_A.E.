@@ -15,7 +15,6 @@ public class SpiritWakeRepel : IAttackStrategy
     {
         // 깨어나는 딜레이 (취약 종료 직전 짧은 예고)
         yield return new WaitForSeconds(0.4f);
-        Debug.Log("[SpiritWakeRepel] 각성 - 밀쳐내기 발동");
         new SpiritRepel().ExecuteAttack(boss);
     }
 }

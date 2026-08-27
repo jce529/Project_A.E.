@@ -99,7 +99,6 @@ namespace TutorialBoss
             Vector2 sweepEnd    = new Vector2(bossCenterX - _sweepWidth * 0.5f, floorY);
 
             // ── [Phase 1] 경고 표시 ─────────────────────────────────────
-            Debug.Log($"[TentacleSwipe] 경고 표시 ({_telegraphTime}s) / 바닥Y={floorY:F2}");
             GameObject warningObj = null;
 
             if (_warningPrefab != null)
@@ -119,7 +118,6 @@ namespace TutorialBoss
                 Object.Destroy(warningObj);
 
             // ── [Phase 2] 스윕 오브젝트 생성 (오른쪽 끝에서 등장) ───────
-            Debug.Log("[TentacleSwipe] >> 바닥 휘두르기 시작!");
             GameObject swipeObj = null;
 
             if (_swipePrefab != null)
@@ -158,7 +156,6 @@ namespace TutorialBoss
             if (swipeObj != null)
                 Object.Destroy(swipeObj);
 
-            Debug.Log("[TentacleSwipe] 스윕 종료");
         }
 
         // ─── 피격 체크 ────────────────────────────────────────────────────
@@ -214,7 +211,6 @@ namespace TutorialBoss
             var hp = target.GetComponentInParent<HP>();
             if (hp != null)
             {
-                Debug.Log($"[TentacleSwipe] >> Player Hit! Damage: {_damage}");
                 hp.TakeDamage(_damage);
             }
         }

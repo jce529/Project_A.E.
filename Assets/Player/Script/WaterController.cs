@@ -34,7 +34,6 @@ public class WaterController : MonoBehaviour
             if (bottles[i][0] == 0) // 내용물이 없는 물병을 찾음
             {
                 bottles[i][0] = 1; // 물병에 물을 채움
-                Debug.Log("물병이 채워졌습니다.");
                 return; // 물병을 채운 후 함수 종료
             }
         }
@@ -48,7 +47,6 @@ public class WaterController : MonoBehaviour
             {
                 bottles[i][0] = 1; // 물병에 물을 채우고
                 bottles[i][1] = 1; // 상태를 오염된 물로 설정
-                Debug.Log("오염된 물병이 채워졌습니다.");
                 return; // 오염된 물병을 채운 후 함수 종료
             }
         }

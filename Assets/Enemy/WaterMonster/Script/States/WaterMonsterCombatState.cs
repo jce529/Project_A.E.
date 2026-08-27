@@ -102,14 +102,12 @@ public class WaterMonsterCombatState : CombatState
             // 전 후보가 쿨다운/거리로 막힌 일시적 상황. 매 프레임 재호출되므로 1회만 로그.
             if (!_noCandidateLogged)
             {
-                Debug.Log($"[WaterMonsterCombatState] 사용 가능한 패턴 후보 없음 (거리: {dist:F1}) — 쿨다운 해제까지 대기");
                 _noCandidateLogged = true;
             }
             return null;
         }
 
         _noCandidateLogged = false;
-        Debug.Log($"[WaterMonsterCombatState] 패턴 선택: {attack.GetType().Name} (거리: {dist:F1})");
         return attack;
     }
 

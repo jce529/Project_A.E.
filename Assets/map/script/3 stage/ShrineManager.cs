@@ -13,7 +13,6 @@ public class ShrineManager : MonoBehaviour
         {
             SpawnMonsters();
             isFirstInteractionDone = true;
-            Debug.Log("신사 활성화: 몬스터가 나타났습니다!");
         }
         else if (monstersKilled >= 3)
         {
@@ -23,7 +22,6 @@ public class ShrineManager : MonoBehaviour
             OpengameManager.instance.isMap2Open = true;
             OpengameManager.instance.CheckMap5Condition();
 
-            Debug.Log("신사 정화 완료: 2번 맵 포탈이 열렸습니다!");
         }
     }
 

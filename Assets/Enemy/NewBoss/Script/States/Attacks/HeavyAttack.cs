@@ -16,6 +16,5 @@ public class HeavyAttack : IAttackStrategy
             boss.Stats.ConsumeWater(boss.Stats.MaxWater * 0.10f);
         }
 
-        Debug.Log("보스: 강공격 시전! (물 10% 소모)");
     }
 }

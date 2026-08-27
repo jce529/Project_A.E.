@@ -10,7 +10,6 @@ public class GameStateManager : MonoBehaviour
         Inventory,
         Loading,
         GameClear,
-
         Puzzle
     }
     //�̱��� ����

@@ -4,12 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    // ´ÙÀ½¿¡ ÇÃ·¹ÀÌ¾î°¡ ³ªÅ¸³ª¾ß ÇÒ ½ºÆù ÁöÁ¡ÀÇ ÀÌ¸§
-    public string NextSpawnPointName { get; set; }
-
     private void Awake()
     {
-        // ½Ì±ÛÅæ ¼³Á¤: ¾ÀÀÌ ¹Ù²î¾îµµ ÀÌ ¿ÀºêÁ§Æ®´Â ÇÏ³ª¸¸ À¯ÁöµÊ
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½îµµ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Instance == null)
         {
             Instance = this;

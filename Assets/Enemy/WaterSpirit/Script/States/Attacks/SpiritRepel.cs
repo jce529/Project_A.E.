@@ -9,7 +9,6 @@ public class SpiritRepel : IAttackStrategy
     {
         if (!(boss is SpiritController spirit)) return;
 
-        Debug.Log("[SpiritRepel] 튕겨내기 공격 실행");
 
         Vector2 origin = boss.transform.position;
         
@@ -29,7 +28,6 @@ public class SpiritRepel : IAttackStrategy
             if (hp != null)
             {
                 hp.TakeDamage(spirit.RepelDamage);
-                Debug.Log($"[SpiritRepel] Hit Player! Target: {hit.name}, Damage: {spirit.RepelDamage}");
             }
             else
             {
@@ -39,7 +37,6 @@ public class SpiritRepel : IAttackStrategy
             if (playerCtrl != null)
             {
                 playerCtrl.ApplyKnockback(knockDir, spirit.RepelForce);
-                Debug.Log($"[SpiritRepel] Apply Knockback! Force: {spirit.RepelForce}");
             }
         }
     }

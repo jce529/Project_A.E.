@@ -59,7 +59,6 @@ public class PlayerStats : HP
         // the killing blow shakes too (D-03). No null guard on the singleton - that matches the
         // unguarded convention already used by CameraZoomTrigger and CameraBoundsTrigger.
         CameraController.Instance.Shake();
-        Debug.Log("Player has taken damage!");
     }
     
 

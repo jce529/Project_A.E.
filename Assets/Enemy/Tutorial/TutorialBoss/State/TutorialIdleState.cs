@@ -21,7 +21,6 @@ namespace TutorialBoss
 
             boss.StopMove();
             boss.Anim?.SetTrigger("IdleTrigger");
-            Debug.Log("[TutorialBoss] ──→ Idle 상태");
         }
 
         public void Execute(BossController boss)

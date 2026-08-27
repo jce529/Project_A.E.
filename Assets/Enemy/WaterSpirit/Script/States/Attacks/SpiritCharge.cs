@@ -24,7 +24,6 @@ public class SpiritCharge : IAttackStrategy
         Vector2 teleportPos = playerPos + offset;
 
         boss.transform.position = teleportPos;
-        Debug.Log($"[SpiritCharge] 플레이어 주변으로 텔레포트: {teleportPos}");
 
         // 목적지 다시 계산 (텔레포트 후 위치 기준)
         Vector2 bossPos = boss.transform.position;
@@ -32,7 +31,6 @@ public class SpiritCharge : IAttackStrategy
         if (dir == Vector2.zero) dir = boss.transform.right; // 겹쳤을 때 안전 처리
         
         Vector2 targetPos = playerPos + dir * spirit.OvershotDistance;
-        Debug.Log($"[SpiritCharge] 돌진 목표점 확정: {targetPos}");
 
         // 2단계: Windup (기항 대기)
         boss.StopMove();
@@ -57,6 +55,5 @@ public class SpiritCharge : IAttackStrategy
         // 4단계: 정지 및 초기화
         boss.StopMove();
         spirit.SetCharging(false);
-        Debug.Log("[SpiritCharge] 돌진 종료");
     }
 }

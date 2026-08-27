@@ -4,7 +4,6 @@ public class ChaseState : IBossState
 {
     public void Enter(BossController boss)
     {
-        Debug.Log("Entering Chase State");
         // ������ ���� ���¿� �� �� �ʿ��� �ʱ�ȭ �۾� ����
     }
     public void Execute(BossController boss)
@@ -29,7 +28,6 @@ public class ChaseState : IBossState
     }
     public void Exit(BossController boss)
     {
-        Debug.Log("Exiting Chase State");
         // ������ ���� ���¿��� ���� �� �ʿ��� ���� �۾� ����
     }
 }

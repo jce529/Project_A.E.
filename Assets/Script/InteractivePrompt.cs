@@ -63,6 +63,5 @@ public class InteractionPrompt : MonoBehaviour
         }
 
         promptUI.SetActive(false);
-        Debug.Log("💧 물병이 회복되었습니다!");
     }
 }

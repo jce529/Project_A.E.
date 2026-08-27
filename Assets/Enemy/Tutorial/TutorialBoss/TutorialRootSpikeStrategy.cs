@@ -54,7 +54,6 @@ namespace TutorialBoss
                 Object.Destroy(warning);
 
             Object.Instantiate(_rootSpikePrefab, spawnPos, Quaternion.identity);
-            Debug.Log($"[TutorialRootSpike] >> 스파이크 소환! 위치: {spawnPos}");
         }
     }
 }

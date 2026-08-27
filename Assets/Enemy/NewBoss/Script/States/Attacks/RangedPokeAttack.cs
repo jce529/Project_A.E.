@@ -15,6 +15,5 @@ public class RangedPokeAttack : IAttackStrategy
             boss.Stats.ConsumeWater(boss.Stats.MaxWater * 0.01f);
         }
 
-        Debug.Log("보스: 원거리 견제 발사! (물 1% 소모)");
     }
 }

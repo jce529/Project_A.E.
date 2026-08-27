@@ -12,7 +12,6 @@ public class GiveDmg : MonoBehaviour
         if (hp != null)
         {
             hp.TakeDamage(dmg);
-            Debug.Log("���� ����! ������: " + dmg);
         }
     }
 }

@@ -24,12 +24,10 @@ public class SpiritFarProjectile : IAttackStrategy
 
         boss.transform.position = teleportPos;
         boss.StopMove();
-        Debug.Log($"[SpiritFarProjectile] 원거리 텔레포트: {teleportPos} (거리: {dist:F1})");
 
         // 조준 대기
         yield return new WaitForSeconds(0.4f);
 
         new SpiritProjectileAttack().ExecuteAttack(boss);
-        Debug.Log("[SpiritFarProjectile] 원거리 투사체 발사");
     }
 }

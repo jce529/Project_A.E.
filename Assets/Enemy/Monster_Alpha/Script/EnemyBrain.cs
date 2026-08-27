@@ -137,13 +137,11 @@ public class EnemyBrain : MonoBehaviour
     {
         if (projectilePrefab == null)
         {
-            Debug.LogWarning("�߻�ü �������� �Ҵ���� �ʾҽ��ϴ�!");
             return;
         }
 
         // �÷��̾� �������� �߻�ü ���� (�߻�ü ��ü�� ��ũ��Ʈ�� ���ư��� ���� ó���Ѵٰ� ����)
         Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Debug.Log(gameObject.name + "��(��) ���Ÿ� ������ �߽��ϴ�!");
     }
 
     // �ν����Ϳ��� ��Ÿ��� ���� ���� �׷��ִ� ���

@@ -23,7 +23,6 @@ public class RoomSwitch : MonoBehaviour
             // 스위치를 누를 때마다 5번 맵 개방 조건이 만족되었는지 확인!
             OpengameManager.instance.CheckMap5Condition();
 
-            Debug.Log(mapToUnlock + "번 방 잠금 해제 완료!");
         }
     }
 

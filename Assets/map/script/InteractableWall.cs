@@ -11,7 +11,6 @@ public class InteractableWall : MonoBehaviour
             wallTilemap.SetActive(false);
         }
 
-        Debug.Log("보스를 처치하여 벽이 열렸습니다!");
         gameObject.SetActive(false);
     }
 }

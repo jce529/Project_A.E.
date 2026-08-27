@@ -19,7 +19,6 @@ public class SpiritCombatState : CombatState
         base.Enter(boss);
         _candidates = (boss is SpiritController spirit) ? BuildCandidates(spirit) : null;
         _noCandidateLogged = false;
-        Debug.Log("[SpiritCombatState] 정령 보스 전투 상태 진입");
     }
 
     protected override bool ShouldTransitionToGroggy(BossController boss) => false;
@@ -35,7 +34,6 @@ public class SpiritCombatState : CombatState
         if (LastUsedPatternType == typeof(SpiritExhaustion))
         {
             _noCandidateLogged = false;
-            Debug.Log("[SpiritCombatState] 체인 발동: SpiritExhaustion → SpiritWakeRepel (강제)");
             return ForceSelectPattern(new SpiritWakeRepel());
         }
 
@@ -46,14 +44,12 @@ public class SpiritCombatState : CombatState
             // 전 후보가 쿨다운/연속금지/거리로 막힌 일시적 상황. 매 프레임 재호출되므로 1회만 로그.
             if (!_noCandidateLogged)
             {
-                Debug.Log($"[SpiritCombatState] 사용 가능한 패턴 후보 없음 (거리: {dist:F1}) — 쿨다운 해제까지 대기");
                 _noCandidateLogged = true;
             }
             return null;
         }
 
         _noCandidateLogged = false;
-        Debug.Log($"[SpiritCombatState] 패턴 선택: {attack.GetType().Name} (거리: {dist:F1})");
         return attack;
     }
 

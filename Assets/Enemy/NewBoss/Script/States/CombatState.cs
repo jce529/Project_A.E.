@@ -81,7 +81,6 @@ public class CombatState : IBossState
                 }
                 else
                 {
-                    Debug.Log($"[CombatState] 공격 종료: {_currentAttack.AnimationName}");
                 }
 
                 _isAttacking = false;
@@ -111,12 +110,10 @@ public class CombatState : IBossState
         {
             if (!boss.TargetFound)
             {
-                Debug.Log($"[CombatState] 타겟이 인식 범위 밖(거리: {dist:F1}). IdleState로 전환.");
                 boss.ChangeState(new IdleState());
             }
             else
             {
-                Debug.Log($"[CombatState] 타겟이 사거리 밖임(거리: {dist:F1}). ChaseState로 전환.");
                 boss.ChangeState(new ChaseState());
             }
             return;
@@ -127,7 +124,6 @@ public class CombatState : IBossState
 
         if (attack != null)
         {
-            Debug.Log($"[CombatState] 새로운 공격 시작: {attack.GetType().Name}");
             _currentAttack = attack;
             _isAttacking = true;
             _attackWaitTimer = 0; // 타이머 초기화

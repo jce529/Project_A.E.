@@ -29,7 +29,6 @@ public class FlashSlice : MonoBehaviour
         }
         else
         {
-            Debug.Log("���� �����մϴ�");
         }
     }
 }
