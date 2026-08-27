@@ -22,10 +22,10 @@ progress:
 ## Current Position
 
 Phase: 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙)
-Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경)
-Plan: 12-01 Task 3 Play 모드 체크포인트 대기 / Phase 13 감사 보고서 사용자 승인 대기
-Status: Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) 완료 — 사용자 항목별 승인 대기 (D-01 2단계). Phase 12는 별도로 Play 모드 체크포인트 보류 중.
-Last activity: 2026-08-19 -- Phase 13 완료 (13-01~05, 168개 .cs 파일 전수 감사 보고서 생성)
+Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
+Plan: 12-01 Task 3 Play 모드 체크포인트 대기 / Phase 13 후속 정리 — D-09/D-10(권장 등급 리팩토링)만 백로그로 남기고 마무리
+Status: Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) D-07(죽은 코드)·D-08(디버그 잔재)·기타(스테일 씬 엔트리) 전 항목 개별 판단·실행 완료. D-09(중복 로직)·D-10(긴 함수)은 회귀 위험이 큰 "권장" 등급이라 이번 라운드에서 의도적으로 미착수 — 백로그 15건은 보고서 하단 참고. Phase 12는 별도로 Play 모드 체크포인트 보류 중. **2026-08-20 변경분(SaveLoadManager.cs/BossController.cs/TutorialDeadState.cs/PlayerAttack.cs) Play 모드 재검증 아직 미수행.**
+Last activity: 2026-08-20 -- Phase 13 후속 정리 라운드 마무리 (D-07/D-08 고위험 잔여 항목 개별 승인·실행, 스테일 씬 엔트리 제거, D-09/D-10은 백로그로 이관)
 
 Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5개 plan은 이 수치에 아직 미반영 (frontmatter/percent 재계산은 다음 GSD 상태 갱신 시 처리 권장)
 
@@ -106,6 +106,8 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
 - Phase 13은 보고서 전용 phase — `Assets/` 0줄 변경을 각 플랜의 인수 기준(`git status --porcelain Assets` 빈 출력)으로 강제했다. 실제 삭제/리팩토링은 `13-AUDIT-REPORT.md`의 체크박스를 사용자가 승인한 뒤 별도 작업으로 진행한다 (CONTEXT.md D-01/D-02, CLAUDE.md 3번 원칙의 범위 한정 예외). agy CLI로 5개 plan 위임을 시도했으나 파일 30개 이상 규모의 grep 집약적 스캔에서 `--print-timeout` 40분·detached 프로세스로도 반복 timeout — 사용자 승인 하에 Claude Code(fork 5개)가 직접 Read/Grep/Write로 수행하는 것으로 전환. 이 과정에서 agy가 한 차례 존재하지 않는 심볼/줄번호를 지어낸 fragment를 커밋한 사실이 발견되어 즉시 실제 소스 대조 후 재작성했다 (Phase 13)
 - CP949(비-UTF-8) 인코딩 .cs 파일이 프로젝트 전체에 46개 존재한다 — 그동안 Phase 9~12에서 개별적으로 발견해온 `Checkpoint.cs`/`WoodBossController.cs` 2개는 빙산의 일각이었다. 분포: Enemy(NewBoss/Tutorial/Boss/Monster_Alpha) 16 / Player 4 / Script+map+ImportedAsset 26 / Camera·SaveSystem·Editor·WaterMonster·WaterSpirit 0. 전수 목록은 `13-AUDIT-REPORT.md` `## D-04` 섹션 (Phase 13)
 - 프로젝트 전체 TODO/FIXME/HACK 주석이 0건이고, `Debug.Log*`는 92개 파일에 226건 — D-08 카테고리는 사실상 Debug.Log 정리와 주석처리 코드 정리 두 갈래다. 또한 기존 `Assets/SaveSystem/Check.md`에 "고아 코드"로 기록되어 있던 `WoodBossStatSystem.cs`는 재확인 결과 오판정으로 확인됨(파일명 `WoodBossStatSystem` vs 실제 클래스명 `WoodBossStatsSystem` 철자 불일치로 과거 검색이 0건을 반환) — `WoodBossController.cs`에서 실제로 사용 중이며 삭제 대상이 아니다 (Phase 13)
+- 사용자가 `13-AUDIT-REPORT.md` D-08 전체를 카테고리 단위로 일괄 승인(오류 진단용 로그 제외, 나머지 추적용 Debug.Log 전량 제거) + D-D07-17~20(Phase 1~2 1회용 에디터 셋업 도구 4종: BuildPhase2Assets/BuildWaterMonsterAssets/Phase1CLI/PlaceWaterMonsterInScene) 삭제를 승인 — CP949 혼재 위험 때문에 순수 바이트 스크립트로 149줄 자동 삭제 + 1줄 수술적 수정(InputHandler.cs:124, 로그가 `OnPauseEvent?.Invoke()`와 한 줄에 묶여 있어 전체삭제 시 이벤트 구독까지 소실될 뻔함). 보고서 태깅과 실제 코드가 어긋난 `PlayerInputHandler.cs:11`(사실은 널 가드 오류 로그)은 배치에서 제외. `SaveLoadManager.cs`(라인별 구분 불가)와 `HP.cs`(Phase 11/12 "0줄 변경" 계약 파일)는 개별 검토로 남김. 상세 로그는 `13-AUDIT-REPORT.md` `## 2026-08-20 처리 완료 로그` 참고 (Phase 13, 2026-08-20)
+- **(향후 정책, Phase 13 이후에도 적용)** GSD phase를 완료할 때 개발용 추적 Debug.Log는 기본적으로 전량 제거한다. 널 체크/컴포넌트 미발견 등 실제 오류 진단용 `Debug.LogError`/`Debug.LogWarning`은 예외로 유지한다. 로그가 다른 실행 로직과 한 줄/한 문에 묶여 있으면 줄 전체 삭제 대신 로그 호출부만 제거하는 수술적 수정을 우선한다 (2026-08-20 사용자 결정)
 
 ### Active TODOs
 
@@ -132,7 +134,7 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
   아직 트리거가 배치되지 않았으니 그쪽은 여전히 `Assets/Camera/Check.md` "7)" 섹션 가이드를 따라 사용자가
   수동 배치해야 함 (MX-04).
 
-- Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) 항목별 사용자 승인 대기. 승인된 항목만 후속 작업(quick task 또는 후속 phase)으로 삭제/리팩토링한다 (D-01 2단계). 총 D-07 45건/D-08 96건/D-09 9건/D-10 12건(권장) 중, 특히 `## 회귀 위험 높음` 섹션(총 78건)은 Play 모드 검증된 보스·카메라·세이브 코드에 있으므로 승인 시 더 신중히 검토할 것.
+- Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) D-07/D-08은 `## 회귀 위험 높음` 고위험 항목 포함 전량 개별 승인·실행 완료 (2026-08-20). D-09(중복 로직) 9건, D-10(긴 함수, 권장 등급) 12건은 여러 보스/공용 클래스에 걸친 리팩토링이라 회귀 위험이 커 이번 라운드에서 의도적으로 미착수 — 백로그로 남김, 착수 시 보고서 체크박스 재사용. `## 회귀 위험 높음` 섹션에서 실제로 수정된 파일(SaveLoadManager.cs/BossController.cs/TutorialDeadState.cs/PlayerAttack.cs)은 Play 모드 재검증이 아직 안 됨.
 
 ### Blockers
 
@@ -155,6 +157,7 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
 - Phase 11 added: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 — DontDestroyOnLoad, 메모리 캐싱, 체크포인트/보스 격파 시점 저장, 씬+좌표/스탯/보스진행도/맵기믹/아이템 데이터 모델, 비동기 씬 로드 후 좌표 이동
 - Phase 12 added: 피격 시 카메라 흔들림 (Camera Shake on Hit)
 - Phase 13 added: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
+- Phase 14 added: 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임
 
 ## Session Continuity
 
