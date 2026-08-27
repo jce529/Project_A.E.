@@ -38,6 +38,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            LoadSettings();
         }
         else
         {
@@ -53,7 +54,7 @@ public class SaveLoadManager : MonoBehaviour
     [SerializeField] private string defaultSceneName = "1 stage";
     [SerializeField] private string defaultSpawnPointName = "";
 
-    private static readonly JsonSerializerSettings SaveSettings = new JsonSerializerSettings
+    private static readonly JsonSerializerSettings JsonSettings = new JsonSerializerSettings
     {
         Formatting = Formatting.Indented,
         NullValueHandling = NullValueHandling.Include,
@@ -88,7 +89,7 @@ public class SaveLoadManager : MonoBehaviour
     public void Save()
     {
         CapturePlayerStats();
-        string json = JsonConvert.SerializeObject(_data, SaveSettings);
+        string json = JsonConvert.SerializeObject(_data, JsonSettings);
         File.WriteAllText(SavePath, json);
         Debug.Log("[SaveLoadManager] Saved to " + SavePath);
     }
@@ -121,6 +122,75 @@ public class SaveLoadManager : MonoBehaviour
         return _data.BossProgress.TryGetValue(bossId, out defeated) && defeated;
     }
 
+    // ---- Settings (setting.json) ------------------------------------------------
+    // Separate file, separate model, separate API from save.json / SaveData.
+    // Panels mutate CurrentSettings in memory during play; the only disk write is
+    // SaveSettings(), triggered by the settings save button.
+
+    public const string SettingsFileName = "setting.json";
+
+    public static string SettingsPath
+    {
+        get { return Path.Combine(Application.persistentDataPath, SettingsFileName); }
+    }
+
+    // Used when Instance is not up yet (edit-mode inspectors, early static callers).
+    // Keeps every caller free of null checks.
+    private static readonly SettingsData _fallbackSettings = new SettingsData();
+
+    private SettingsData _settings = new SettingsData();
+
+    public SettingsData Settings { get { return _settings; } }
+
+    public static SettingsData CurrentSettings
+    {
+        get { return Instance != null ? Instance._settings : _fallbackSettings; }
+    }
+
+    public bool HasSettingsFile()
+    {
+        return File.Exists(SettingsPath);
+    }
+
+    // The one and only settings disk write.
+    public void SaveSettings()
+    {
+        string json = JsonConvert.SerializeObject(_settings, JsonSettings);
+        File.WriteAllText(SettingsPath, json);
+        Debug.Log("[SaveLoadManager] Settings saved to " + SettingsPath);
+    }
+
+    // Called once from Awake(). A missing or unreadable file leaves the defaults intact.
+    public void LoadSettings()
+    {
+        if (!HasSettingsFile())
+        {
+            Debug.Log("[SaveLoadManager] No settings file - using defaults.");
+            return;
+        }
+
+        SettingsData loaded = null;
+        try
+        {
+            string json = File.ReadAllText(SettingsPath);
+            loaded = JsonConvert.DeserializeObject<SettingsData>(json, JsonSettings);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[SaveLoadManager] Failed to read settings file: " + e.Message);
+            return;
+        }
+
+        if (loaded == null)
+        {
+            Debug.LogError("[SaveLoadManager] Settings file deserialized to null - keeping defaults.");
+            return;
+        }
+
+        if (loaded.InputBindingsJson == null) loaded.InputBindingsJson = "";
+        _settings = loaded;
+    }
+
     private void CapturePlayerStats()
     {
         PlayerStats ps = PlayerStats.Instance;
@@ -149,7 +219,7 @@ public class SaveLoadManager : MonoBehaviour
         try
         {
             string json = File.ReadAllText(SavePath);
-            loaded = JsonConvert.DeserializeObject<SaveData>(json, SaveSettings);
+            loaded = JsonConvert.DeserializeObject<SaveData>(json, JsonSettings);
         }
         catch (System.Exception e)
         {
@@ -259,5 +329,31 @@ public class SaveLoadManager : MonoBehaviour
                   " bossProgress=" + _data.BossProgress.Count +
                   " gimmicks=" + _data.MapGimmickState.Count +
                   " items=" + _data.Items.Count);
+    }
+
+    [ContextMenu("Settings/1. Save Settings")]
+    private void DebugSaveSettings()
+    {
+        SaveSettings();
+    }
+
+    [ContextMenu("Settings/2. Load Settings")]
+    private void DebugLoadSettings()
+    {
+        LoadSettings();
+    }
+
+    [ContextMenu("Settings/3. Log Settings")]
+    private void DebugLogSettings()
+    {
+        Debug.Log("[SaveLoadManager] settingsPath=" + SettingsPath +
+                  " exists=" + HasSettingsFile() +
+                  " lang=" + _settings.Language +
+                  " shake=" + _settings.ScreenShake +
+                  " hint=" + _settings.TutorialHint +
+                  " screenMode=" + _settings.ScreenMode +
+                  " bgm=" + _settings.BgmVolume +
+                  " sfx=" + _settings.SfxVolume +
+                  " bindingsLen=" + (_settings.InputBindingsJson != null ? _settings.InputBindingsJson.Length : 0));
     }
 }
