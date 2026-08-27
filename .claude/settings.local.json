@@ -68,7 +68,15 @@
       "Bash(git config *)",
       "Bash(grep -n \"void LateUpdate\\\\|^    }$\" Assets/Camera/Script/CameraController.cs)",
       "Bash(git log *)",
-      "Bash(echo \"exit=$?\")"
+      "Bash(echo \"exit=$?\")",
+      "Bash(where agy *)",
+      "Bash(agy --version)",
+      "Read(//c/Users/chang/AppData/Local/agy/**)",
+      "Read(//c/Users/MSI/AppData/Local/agy/**)",
+      "Read(//c/Users/**)",
+      "Bash(git -C \"Projeect_A.E\" remote -v)",
+      "Bash(git -C \"Projeect_A.E\" log --oneline -3)",
+      "Bash(git -C \"Projeect_A.E\" status --short)"
     ]
   }
 }
