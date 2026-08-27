@@ -53,10 +53,6 @@ public class InputHandler : MonoBehaviour
     private InputAction interactAction;
     private InputAction skillQAction;
 
-    // Ű ���ε� ������ ���� PlayerPrefs Ű �̸�
-    private const string SAVE_KEY = "InputBindings";
-
-
     // ==================================================================================
     // 4. �ʱ�ȭ (Awake)
     // ==================================================================================
@@ -150,23 +146,20 @@ public class InputHandler : MonoBehaviour
     {
         if (inputActions == null) return;
 
-        // ���ε� ������ JSON �ؽ�Ʈ�� ����
-        string json = inputActions.SaveBindingOverridesAsJson();
-
-        // PlayerPrefs(������ �����)�� ����
-        PlayerPrefs.SetString(SAVE_KEY, json);
-        PlayerPrefs.Save();
+        // Rebinding result is kept in memory only. It reaches disk when the
+        // settings save button calls SaveLoadManager.Instance.SaveSettings().
+        SaveLoadManager.CurrentSettings.InputBindingsJson = inputActions.SaveBindingOverridesAsJson();
     }
 
     // ����� Ű ������ �ҷ��ͼ� �����մϴ�.
     public void LoadBindingOverrides()
     {
-        if (PlayerPrefs.HasKey(SAVE_KEY))
-        {
-            string json = PlayerPrefs.GetString(SAVE_KEY);
-            // JSON �ؽ�Ʈ�� �ٽ� ���ε� ������ ��ȯ�Ͽ� �����(Override)
-            inputActions.LoadBindingOverridesFromJson(json);
-        }
+        if (inputActions == null) return;
+
+        string json = SaveLoadManager.CurrentSettings.InputBindingsJson;
+        if (string.IsNullOrEmpty(json)) return;
+
+        inputActions.LoadBindingOverridesFromJson(json);
     }
 
     public InputAction GetAction(string actionName)

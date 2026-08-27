@@ -362,6 +362,11 @@ Plans:
 
 ### Phase 14: 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임
 
+> **폐기됨 (2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를
+> `setting.json`(`SettingsData`) 통합 방식으로 먼저 구현해, 아래 keybind.json 전용 설계를
+> 대체했다. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 로컬 브랜치에서
+> rebase로 제거했으며, 이 섹션은 원래 설계 의도를 남기기 위한 기록으로만 유지한다.
+
 **Goal:** 사용자가 바꾼 키 리바인딩이 로컬 설정 저장소가 아니라
 `Application.persistentDataPath/keybind.json` 파일에 저장되고 다음 실행에 복원된다. 그 파일 I/O 는
 `SaveLoadManager`(Phase 11)에 위임되어, "디스크에 JSON 파일을 쓰는 코드는 프로젝트 전체에서
@@ -400,3 +405,17 @@ Plans:
 Plans:
 - [ ] 14-01-PLAN.md — SaveLoadManager keybind.json I/O API 4종 추가 + InputHandler 저장/로드 경로 교체 (바이트 보존 편집)
 - [ ] 14-02-PLAN.md — Assets/SaveSystem/Check.md Phase 14 섹션 + 정적 회귀 검사 12항목 + Play 모드 검증 체크포인트
+
+### Phase 50: 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시
+
+> **임시 번호**: 다른 기기의 로드맵이 이미 Phase 13(완료됨) 이후로 얼마나 진행됐는지 아직 확인 전이라,
+> 충돌을 피하기 위해 50번을 임시로 사용 중. 다른 기기와 동기화 후 정확한 다음 번호로 재번호 필요
+> (폴더명 `.planning/phases/50-2-3/` 포함).
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 50 to break down)

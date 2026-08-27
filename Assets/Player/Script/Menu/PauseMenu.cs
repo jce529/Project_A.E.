@@ -43,6 +43,18 @@ public class PauseMenu : MonoBehaviour
 #endif
     }
 
+    // [설정 저장] 버튼 OnClick - 4개 설정 탭의 현재 메모리 값을 setting.json 으로 기록
+    public void OnSaveSettingsBtnClick()
+    {
+        if (SaveLoadManager.Instance == null)
+        {
+            Debug.LogError("[PauseMenu] SaveLoadManager.Instance is null - settings not saved.");
+            return;
+        }
+        SaveLoadManager.Instance.SaveSettings();
+        Debug.Log("[PauseMenu] 설정 저장 완료");
+    }
+
     private void Open()
     {
         gameObject.SetActive(true);

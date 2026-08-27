@@ -17,11 +17,12 @@ public class GameSettingsPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        _langIndex = PlayerPrefs.GetInt("Language", 1);
+        var s = SaveLoadManager.CurrentSettings;
+        _langIndex = s.Language;
         RefreshLanguageText();
 
-        if (screenShakeToggle  != null) screenShakeToggle.isOn  = PlayerPrefs.GetInt("ScreenShake",   1) == 1;
-        if (tutorialHintToggle != null) tutorialHintToggle.isOn = PlayerPrefs.GetInt("TutorialHint",  1) == 1;
+        if (screenShakeToggle  != null) screenShakeToggle.isOn  = s.ScreenShake;
+        if (tutorialHintToggle != null) tutorialHintToggle.isOn = s.TutorialHint;
     }
 
     // ◀ 버튼 OnClick
@@ -41,21 +42,18 @@ public class GameSettingsPanel : MonoBehaviour
     // 화면 흔들림 Toggle OnValueChanged
     public void OnScreenShakeChanged(bool value)
     {
-        PlayerPrefs.SetInt("ScreenShake", value ? 1 : 0);
-        PlayerPrefs.Save();
+        SaveLoadManager.CurrentSettings.ScreenShake = value;
     }
 
     // 튜토리얼 힌트 Toggle OnValueChanged
     public void OnTutorialHintChanged(bool value)
     {
-        PlayerPrefs.SetInt("TutorialHint", value ? 1 : 0);
-        PlayerPrefs.Save();
+        SaveLoadManager.CurrentSettings.TutorialHint = value;
     }
 
     private void ApplyLanguage()
     {
-        PlayerPrefs.SetInt("Language", _langIndex);
-        PlayerPrefs.Save();
+        SaveLoadManager.CurrentSettings.Language = _langIndex;
         RefreshLanguageText();
     }
 
@@ -63,17 +61,5 @@ public class GameSettingsPanel : MonoBehaviour
     {
         if (languageValueText != null)
             languageValueText.text = Languages[_langIndex];
-    }
-
-    // 게임 시작 시 저장된 언어 설정 복원 (기본값: English)
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void RestoreOnStartup()
-    {
-        // 저장값이 없으면 1(English)을 기본으로 저장
-        if (!PlayerPrefs.HasKey("Language"))
-        {
-            PlayerPrefs.SetInt("Language", 1);
-            PlayerPrefs.Save();
-        }
     }
 }

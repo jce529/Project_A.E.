@@ -157,7 +157,8 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
 - Phase 11 added: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 — DontDestroyOnLoad, 메모리 캐싱, 체크포인트/보스 격파 시점 저장, 씬+좌표/스탯/보스진행도/맵기믹/아이템 데이터 모델, 비동기 씬 로드 후 좌표 이동
 - Phase 12 added: 피격 시 카메라 흔들림 (Camera Shake on Hit)
 - Phase 13 added: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
-- Phase 14 added: 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임
+- Phase 14 added: 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임 — **폐기됨(2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를 `setting.json`(SettingsData) 통합 방식으로 먼저 구현해, keybind.json 전용 설계를 대체함. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 rebase로 제거.
+- Phase 50 added (임시 번호, 다른 기기와 동기화 후 재번호 필요 - 그 기기는 이미 Phase 13까지 완료함): 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시
 
 ## Session Continuity
 
@@ -176,3 +177,4 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
 - 마지막 세션: Completed 11-02-PLAN.md (2026-08-10, `SaveLoadManager` DontDestroyOnLoad 싱글톤 신규 — 부트스트랩(`RuntimeInitializeOnLoadMethod`), 공개 저장 API(`Save`/`SaveAtCheckpoint`/`SaveOnBossDefeated`/`HasSaveFile`/`NewGame`), `LoadGame` 코루틴 기반 씬 로드+스탯 복원, commits `dbde39c`/`e83203b`). 다음 재개 지점: Phase 11 Plan 3 (11-03-PLAN.md, Checkpoint/보스 4종 통합)
 - 마지막 세션: Completed 11-03-PLAN.md (2026-08-10, 체크포인트 1곳 + 보스 4종(TutorialBoss/WoodBoss/WaterSpirit/WaterMonster) 격파 지점에 `SaveLoadManager` 호출 삽입 — Group A(HP.OnDeath)는 `HandleDeath()`에, Group B(이벤트 없음)는 `Die()` 오버라이드에 직접 삽입, commits `7e2960e`/`e36a76c`/`1fcf28a`). CP949 인코딩 훼손 위험과 git 인덱스 오염을 실행 중 발견해 즉시 수정(SUMMARY 참고). 다음 재개 지점: Phase 11 Plan 4 (11-04-PLAN.md)
 - 마지막 세션: Phase 11 Play 모드 검증 부분 완료(체크포인트/로드/새게임 확인, 보스 4종 격파 저장은 사용자가 추후 확인 예정) + Phase 12(피격 시 카메라 흔들림) 로드맵 추가 + discuss-phase 완료(2026-08-11, `12-CONTEXT.md`/`12-DISCUSSION-LOG.md`). 결정 요약: 플레이어 피격 시만(D-01), `PlayerStats.TakeDamage`에서 `CameraController.Instance.Shake()` 호출(D-02), 고정 강도 랜덤 오프셋 감쇠(D-04~D-06), 보스존 포함 항상 흔들림 + 경계 클램프 이후 최종 적용(D-07/D-08), Inspector 노출은 `shakeMagnitude`/`shakeDuration` 2개만(D-09). 다음 재개 지점: `/gsd:plan-phase 12`
+- 마지막 세션(2026-08-27): quick task `260827-h5y`(PlayerPrefs → `setting.json` 전환) Task 1~3 완료(commits `ea05191`/`d42ea6f`/`ef745bb`/`0dfcd0d`), Task 4(Unity 컴파일 + 저장 버튼 OnClick 연결 + Play 모드 실측)는 사용자 확인 대기 중. 별도로 세이브 슬롯 확장을 Phase 50(임시 번호 — 다른 기기가 이미 Phase 13까지 진행해서 충돌 방지용으로 큰 번호 임시 예약, 동기화 후 재번호 필요)으로 로드맵에 추가하고 discuss-phase 완료(`50-CONTEXT.md`/`50-DISCUSSION-LOG.md`). 결정 요약: 이어하기는 항상 슬롯 선택 화면(D-01), 새시작은 빈 슬롯 있으면 자동 시작·다 차있으면 슬롯 화면으로(D-02/D-03), 덮어쓰기는 항상 확인창(D-04/D-05), 슬롯별 별도 파일(D-06, 기존 save.json 유실 금지가 절대 기준·정확한 마이그레이션 방식은 연구 단계에서 결정). 다음 재개 지점: quick task Task 4 사용자 검증 완료 후, `/gsd:plan-phase 50`
