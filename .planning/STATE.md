@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-19T07:02:12.758Z"
-last_activity: 2026-08-19 -- Phase 12 execution started
+last_updated: "2026-09-03T08:20:06.000Z"
+last_activity: 2026-08-27 -- Phase 14 discuss-phase + plan-phase 완료 (실행 미착수), 구 Phase 14(keybind.json) 폐기 및 재번호
 progress:
-  total_phases: 12
-  completed_phases: 7
-  total_plans: 33
-  completed_plans: 28
-  percent: 88
+  total_phases: 10
+  completed_phases: 4
+  total_plans: 29
+  completed_plans: 21
+  percent: 72
 ---
 
 # GSD State
@@ -21,13 +21,15 @@ progress:
 
 ## Current Position
 
-Phase: 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙)
+Phase: 14 (save-slot-expansion) — PLANNED (계획 3개 작성 완료 — 14-01/14-02/14-03-PLAN.md, 실행 0% 착수 전)
+Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙, 12-01-PLAN.md 미완료)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
-Plan: 12-01 Task 3 Play 모드 체크포인트 대기 / Phase 13 후속 정리 — D-09/D-10(권장 등급 리팩토링)만 백로그로 남기고 마무리
-Status: Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) D-07(죽은 코드)·D-08(디버그 잔재)·기타(스테일 씬 엔트리) 전 항목 개별 판단·실행 완료. D-09(중복 로직)·D-10(긴 함수)은 회귀 위험이 큰 "권장" 등급이라 이번 라운드에서 의도적으로 미착수 — 백로그 15건은 보고서 하단 참고. Phase 12는 별도로 Play 모드 체크포인트 보류 중. **2026-08-20 변경분(SaveLoadManager.cs/BossController.cs/TutorialDeadState.cs/PlayerAttack.cs) Play 모드 재검증 아직 미수행.**
-Last activity: 2026-08-20 -- Phase 13 후속 정리 라운드 마무리 (D-07/D-08 고위험 잔여 항목 개별 승인·실행, 스테일 씬 엔트리 제거, D-09/D-10은 백로그로 이관)
+Plan: 14-01/02/03 실행 대기 (Wave 1/2 자율, Wave 3 씬 배치+Play 모드 체크포인트 포함 비자율) / 12-01 Task 3 Play 모드 체크포인트 대기 / Phase 13 후속 정리는 D-09/D-10(권장 등급 리팩토링)만 백로그로 남기고 마무리
+Status: Phase 14는 discuss-phase(`14-CONTEXT.md`/`14-DISCUSSION-LOG.md`, 커밋됨) + research(`14-RESEARCH.md`, 커밋됨) + UI-SPEC(`14-UI-SPEC.md`) + plan-phase(`14-01/02/03-PLAN.md`) 까지 전부 완료됐지만 **UI-SPEC/PLAN 3개와 ROADMAP.md 갱신분이 전부 미커밋(untracked/modified)**이며 코드 실행은 0%다 — `SaveLoadManager.cs`에 슬롯 관련 API(SlotCount/CurrentSlot/GetSavePath/SelectSlot/PeekSlotData/NewGameInSlot/LoadSlot) 부재, `SlotSelectPanel.cs`/`OverwriteConfirmPanel.cs` 파일 자체 없음, `Assets/SaveSystem/Check.md`에 Phase 14 가이드 없음("다중 슬롯 미지원 (D-02)" 문구 그대로). Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) D-07(죽은 코드)·D-08(디버그 잔재)·기타(스테일 씬 엔트리) 전 항목 개별 판단·실행 완료. D-09(중복 로직)·D-10(긴 함수)은 회귀 위험이 큰 "권장" 등급이라 이번 라운드에서 의도적으로 미착수 — 백로그 15건은 보고서 하단 참고. Phase 12는 별도로 Play 모드 체크포인트 보류 중. **2026-08-20 변경분(SaveLoadManager.cs/BossController.cs/TutorialDeadState.cs/PlayerAttack.cs) Play 모드 재검증 아직 미수행.**
+**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
+Last activity: 2026-08-27 -- quick task 260827-h5y Task 1~3 완료(설정 PlayerPrefs→setting.json 전환) + Phase 14 재번호(50→14) + discuss-phase/research/UI-SPEC/plan-phase 완료(미커밋). 이후 2026-08-27 `4392d3e`(구 Phase 14 keybind.json 섹션 문서 정리)까지 커밋 이력 있음, 그 이후 신규 커밋 없음.
 
-Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5개 plan은 이 수치에 아직 미반영 (frontmatter/percent 재계산은 다음 GSD 상태 갱신 시 처리 권장)
+Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0 마일스톤) 기준 재계산. 완료 phase: 5, 6, 9, 13 (4/10). Phase 7(1/2)·8(2/3)·10(3/4)·11(3/4)·12(0/1) 진행 중, Phase 14(0/3) 계획만 완료.
 
 ## Phase Status
 
@@ -35,10 +37,14 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
 |-------|------|--------|-----------|
 | 5 | 보스 기반 엔티티 및 스테이지 1 공격 패턴 | Complete | 2026-04-30 |
 | 6 | 스테이지 전환 및 스테이지 2 은신·분신 시스템 | Complete | 2026-04-30 |
-| 7 | 보스 공격 패턴 판단 로직 리팩토링 | In Progress | - |
-| 8 | WaterMonster 보스 CombatState 마이그레이션 | In Progress | - |
+| 7 | 보스 공격 패턴 판단 로직 리팩토링 (1/2 plans) | In Progress (07-02 Play 모드 검증 체크포인트 대기) | - |
+| 8 | WaterMonster 보스 CombatState 마이그레이션 (2/3 plans) | In Progress (08-03 정적 회귀+Play 모드 일괄 검증 대기) | - |
 | 9 | 일반/보스 스테이지 카메라 줌 변화 | Complete (Play 모드 실측 미검증, UAT 보류) | 2026-07-30 |
-| 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (보고서만, 코드 미수정 — 사용자 승인 대기) | 2026-08-19 |
+| 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (3/4 plans) | In Progress (10-04 Check.md+정적 회귀+Play 모드 검증 대기) | - |
+| 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (11-04 정적 회귀+Play 모드 검증 대기) | - |
+| 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (12-01 Task 0~2 완료, Task 3 Play 모드 체크포인트 보류) | - |
+| 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
+| 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (0/3 plans) | Planned (discuss-phase+research+UI-SPEC+plan-phase 완료, 실행 미착수, 산출물 일부 미커밋) | - |
 
 ## Performance Metrics
 
@@ -178,3 +184,4 @@ Progress: [█████████░] 88% (28/32 plans) — Phase 13의 5�
 - 마지막 세션: Completed 11-03-PLAN.md (2026-08-10, 체크포인트 1곳 + 보스 4종(TutorialBoss/WoodBoss/WaterSpirit/WaterMonster) 격파 지점에 `SaveLoadManager` 호출 삽입 — Group A(HP.OnDeath)는 `HandleDeath()`에, Group B(이벤트 없음)는 `Die()` 오버라이드에 직접 삽입, commits `7e2960e`/`e36a76c`/`1fcf28a`). CP949 인코딩 훼손 위험과 git 인덱스 오염을 실행 중 발견해 즉시 수정(SUMMARY 참고). 다음 재개 지점: Phase 11 Plan 4 (11-04-PLAN.md)
 - 마지막 세션: Phase 11 Play 모드 검증 부분 완료(체크포인트/로드/새게임 확인, 보스 4종 격파 저장은 사용자가 추후 확인 예정) + Phase 12(피격 시 카메라 흔들림) 로드맵 추가 + discuss-phase 완료(2026-08-11, `12-CONTEXT.md`/`12-DISCUSSION-LOG.md`). 결정 요약: 플레이어 피격 시만(D-01), `PlayerStats.TakeDamage`에서 `CameraController.Instance.Shake()` 호출(D-02), 고정 강도 랜덤 오프셋 감쇠(D-04~D-06), 보스존 포함 항상 흔들림 + 경계 클램프 이후 최종 적용(D-07/D-08), Inspector 노출은 `shakeMagnitude`/`shakeDuration` 2개만(D-09). 다음 재개 지점: `/gsd:plan-phase 12`
 - 마지막 세션(2026-08-27): quick task `260827-h5y`(PlayerPrefs → `setting.json` 전환) Task 1~3 완료(commits `ea05191`/`d42ea6f`/`ef745bb`/`0dfcd0d`), Task 4(Unity 컴파일 + 저장 버튼 OnClick 연결 + Play 모드 실측)는 사용자 확인 대기 중. 별도로 세이브 슬롯 확장을 Phase 50(임시 번호 — 다른 기기가 이미 Phase 13까지 진행해서 충돌 방지용으로 큰 번호 임시 예약, 동기화 후 재번호 필요)으로 로드맵에 추가하고 discuss-phase 완료(`50-CONTEXT.md`/`50-DISCUSSION-LOG.md`, 2026-08-27 재번호 후 `.planning/phases/14-save-slot-expansion/14-CONTEXT.md`/`14-DISCUSSION-LOG.md`로 이동). 결정 요약: 이어하기는 항상 슬롯 선택 화면(D-01), 새시작은 빈 슬롯 있으면 자동 시작·다 차있으면 슬롯 화면으로(D-02/D-03), 덮어쓰기는 항상 확인창(D-04/D-05), 슬롯별 별도 파일(D-06, 기존 save.json 유실 금지가 절대 기준·정확한 마이그레이션 방식은 연구 단계에서 결정). 다음 재개 지점: quick task Task 4 사용자 검증 완료 후, `/gsd:plan-phase 14`
+- 마지막 세션(2026-08-27): Phase 14 `/gsd:plan-phase 14` 완료 — `14-UI-SPEC.md` + `14-01/02/03-PLAN.md` 3개 작성(Wave 1 `14-01` SaveLoadManager 슬롯화, Wave 2 `14-02` SlotSelectPanel/OverwriteConfirmPanel 신규, Wave 3 `14-03` MainMenuUI 재배선+씬 배치, 자율/자율/비자율). 같은 날 원격 `origin/주창은`의 `setting.json` 통합 커밋을 머지(`83d082d`)하고 구 Phase 14(keybind.json)를 폐기·제거(`b6b41bc`, `4392d3e`). **`14-UI-SPEC.md`/`14-01/02/03-PLAN.md`와 이를 반영한 `ROADMAP.md` 변경분은 이 시점 이후 커밋되지 않고 워킹트리에 미커밋 상태로 남아 있음** — 코드 실행은 아직 0%. 다음 재개 지점: 미커밋 산출물 커밋 여부 결정 후 `/gsd:execute-phase 14` (Wave 1 `14-01`부터)

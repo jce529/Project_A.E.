@@ -7,37 +7,69 @@ public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Button loadGameButton;
     [SerializeField] private Color loadGameDisabledColor = new Color(0.05f, 0.05f, 0.05f, 1f);
+    [SerializeField] private SlotSelectPanel slotSelectPanel;
+    [SerializeField] private string newGameSceneName = "Tutorial Map";
 
     private void Start()
     {
         if (loadGameButton != null)
         {
-            bool hasSave = SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile();
-            loadGameButton.interactable = hasSave;
-
-            var loadGameText = loadGameButton.GetComponentInChildren<TMP_Text>();
-            if (loadGameText != null && !hasSave)
+            SaveLoadManager mgr = SaveLoadManager.Instance;
+            bool hasSave = false;
+            if (mgr != null)
             {
-                loadGameText.color = loadGameDisabledColor;
+                for (int slot = 0; slot < SaveLoadManager.SlotCount; slot++)
+                {
+                    if (mgr.HasSaveFile(slot))
+                    {
+                        hasSave = true;
+                        break;
+                    }
+                }
             }
+
+            loadGameButton.interactable = hasSave;
+            var loadGameText = loadGameButton.GetComponentInChildren<TMP_Text>();
+            if (loadGameText != null && !hasSave) loadGameText.color = loadGameDisabledColor;
         }
+
+        if (slotSelectPanel != null) slotSelectPanel.gameObject.SetActive(false);
     }
 
     public void OnClickStart()
     {
+        SaveLoadManager mgr = SaveLoadManager.Instance;
+        if (mgr == null)
+        {
+            Debug.LogError("[MainMenuUI] OnClickStart: SaveLoadManager.Instance is null.");
+            return;
+        }
 
-        //��ŸƮ��ư Ŭ���� ���� ����
-        SceneManager.LoadScene("Tutorial Map");
+        for (int slot = 0; slot < SaveLoadManager.SlotCount; slot++)
+        {
+            if (!mgr.HasSaveFile(slot))
+            {
+                mgr.NewGameInSlot(slot);
+                SceneManager.LoadScene(newGameSceneName);
+                return;
+            }
+        }
+
+        if (slotSelectPanel == null)
+        {
+            Debug.LogError("[MainMenuUI] OnClickStart: every slot is occupied but slotSelectPanel is not assigned.");
+            return;
+        }
+        slotSelectPanel.OpenForNewGame();
     }
 
     public void OnClickLoad()
     {
-        if (SaveLoadManager.Instance == null || !SaveLoadManager.Instance.HasSaveFile())
+        if (slotSelectPanel == null)
         {
-            Debug.LogWarning("[MainMenuUI] OnClickLoad: no save file found.");
+            Debug.LogError("[MainMenuUI] OnClickLoad: slotSelectPanel is not assigned.");
             return;
         }
-
-        SaveLoadManager.Instance.LoadGame();
+        slotSelectPanel.OpenForLoad();
     }
 }

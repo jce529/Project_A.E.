@@ -124,3 +124,120 @@ Unity 에디터에서 확인해야 한다. PASS 로 허위 기록하지 않는�
 > 구현한 `setting.json`(`SettingsData`) 통합 설정 방식으로 대체되며 폐기되어, 그 구현 코드와
 > 함께 이 검증 섹션도 제거했다. 키바인딩은 이제 `setting.json`의 `InputBindingsJson` 필드로
 > 저장된다.
+
+## Phase 14 — 세이브 슬롯 확장 (3슬롯) 검증
+
+### (A) 검증 대상 변경사항
+
+- `Assets/SaveSystem/Script/SaveLoadManager.cs` — `SlotCount`(3), `CurrentSlot`, `GetSavePath(int)`, `SelectSlot(int)`, `HasSaveFile(int)`, `PeekSlotData(int)`, `NewGameInSlot(int)`, `LoadSlot(int)` 추가, `SavePath` static → instance 전환, `Phase14/` ContextMenu 훅 4개 추가
+- `Assets/Script/SlotSelectPanel.cs` — 신규
+- `Assets/Script/OverwriteConfirmPanel.cs` — 신규
+- `Assets/Script/MainMenuUI.cs` — `OnClickStart`/`OnClickLoad` D-01~D-03 재배선
+- 0줄 변경 계약: `SaveData.cs`, `Checkpoint.cs`, `TutorialBossController.cs`, `SpiritStats.cs`, `WaterMonsterStats.cs`
+
+### (B) 슬롯 파일 매핑
+
+| 슬롯 | 파일명 | 비고 |
+|---|---|---|
+| 0 | `save.json` | Phase 11 파일명 그대로. 기존 플레이어 데이터가 자동으로 슬롯 0이 됨 — 마이그레이션 코드 0줄 |
+| 1 | `save_1.json` | 신규 |
+| 2 | `save_2.json` | 신규 |
+
+경로: `Application.persistentDataPath` (Windows: `%userprofile%/AppData/LocalLow/<회사명>/<제품명>/`)
+
+### (C) 씬 배선 가이드 — `Assets/Scenes/MainMenu.unity` (사용자 수동 작업)
+
+기존 MainMenu Canvas를 사용한다. Canvas Scaler는 `Scale With Screen Size`, Reference Resolution은 1920x1080, `Match Width Or Height`는 **0.5**로 유지한다.
+
+1. Canvas 아래에 전체 스트레치 `SlotSelectPanel`을 만들고 Image 색을 `{r: 0.06, g: 0.08, b: 0.12, a: 0.96}`로 설정한 뒤 `SlotSelectPanel` 컴포넌트를 추가한다.
+2. 자식 `Title` TMP를 만들고 NotoSansKR-Regular, 32, 흰색으로 설정한다. 텍스트는 비워 둔다.
+3. `CardRow`에 HorizontalLayoutGroup을 추가하고 Padding 48, Spacing 32, Middle Center로 설정한다. Title과의 세로 간격은 64다.
+4. `SlotCard0/1/2`를 순서대로 만든다. 배경 `{r: 0.078, g: 0.102, b: 0.141, a: 0.90}`, Highlighted `{r: 0.149, g: 0.451, b: 0.749, a: 1}`, Min Height 96, 내부 Padding 24, Spacing 8로 설정한다. 각 카드에 Label(20), Body(16), Cta(20) TMP를 둔다.
+5. 전체 스트레치 `OverwriteConfirmPanel`을 만들고 기본 비활성화한다. 배경은 `{r: 0.06, g: 0.08, b: 0.12, a: 0.96}`, Padding 24, Title 32, Body 16, 간격 16이다. ConfirmButton은 Min Height 64, Padding 16, Normal `{r: 0.55, g: 0.18, b: 0.18, a: 1}`, Highlighted `{r: 0.72, g: 0.28, b: 0.28, a: 1}`, Pressed `{r: 0.38, g: 0.12, b: 0.12, a: 1}`로 설정한다. CancelButton은 빨강이 아닌 보조색을 쓴다.
+
+| 컴포넌트 | 필드 | 연결 대상 |
+|---|---|---|
+| `MainMenuUI` | `Slot Select Panel` | `SlotSelectPanel` GameObject |
+| `MainMenuUI` | `New Game Scene Name` | `Tutorial Map` |
+| `MainMenuUI` | `Load Game Button` | 기존 Load Game 버튼 |
+| `SlotSelectPanel` | `Title Text` | `Title` TMP |
+| `SlotSelectPanel` | `Slot Buttons` (size 3) | `SlotCard0/1/2` Button |
+| `SlotSelectPanel` | `Slot Label Texts` (size 3) | 각 카드 Label TMP |
+| `SlotSelectPanel` | `Slot Body Texts` (size 3) | 각 카드 Body TMP |
+| `SlotSelectPanel` | `Slot Cta Texts` (size 3) | 각 카드 Cta TMP |
+| `SlotSelectPanel` | `Overwrite Confirm Panel` | `OverwriteConfirmPanel` GameObject |
+| `OverwriteConfirmPanel` | 텍스트 필드 4개 | 각 TMP |
+
+| 버튼 | OnClick 대상 | 메서드 | 인자 |
+|---|---|---|---|
+| `SlotCard0` | `SlotSelectPanel` | `OnClickSlot(int)` | **0** |
+| `SlotCard1` | `SlotSelectPanel` | `OnClickSlot(int)` | **1** |
+| `SlotCard2` | `SlotSelectPanel` | `OnClickSlot(int)` | **2** |
+| 뒤로 버튼 | `SlotSelectPanel` | `OnClickBack()` | - |
+| `ConfirmButton` | `OverwriteConfirmPanel` | `OnClickConfirm()` | - |
+| `CancelButton` | `OverwriteConfirmPanel` | `OnClickCancel()` | - |
+
+`SlotSelectPanel`과 `OverwriteConfirmPanel`은 비활성 상태로 저장한다. 카드와 다이얼로그 문구는 스크립트 상수에서 채우므로 Inspector에 한글을 직접 입력하지 않는다.
+
+### (D) 정적 회귀 검사
+
+| # | 명령 | 기대값 | 실측값 | 판정 |
+|---|---|---|---|---|
+| 1 | `SlotCount = 3` 검색 | 1 | 1 | PASS |
+| 2 | `SaveFileName = "save.json"` 검색 | 1 | 1 | PASS |
+| 3 | `File.(Move\|Copy\|Delete)` 검색 | 0 | 0 | PASS |
+| 4 | `File.WriteAllText` 검색 | 2 | 2 | PASS |
+| 5 | `_data = ` 검색 | 3 | 3 | PASS |
+| 6 | SaveLoadManager 비 ASCII 검색 | 0 | 0 | PASS |
+| 7 | MainMenuUI 비 ASCII 검색 | 0 | 0 | PASS |
+| 8 | MainMenuUI `LoadGame()` 검색 | 0 | 0 | PASS |
+| 9 | SlotSelectPanel `LoadGame()` 검색 | 0 | 0 | PASS |
+| 10 | `overwriteConfirmPanel.Open(slot, StartNewGameInSlot);` 검색 | 1 | 1 | PASS |
+| 11 | SlotSelectPanel `NewGameInSlot` 검색 | 1 | 1 | PASS |
+| 12 | 0줄 변경 계약 파일 Git 상태 | 빈 출력 | 빈 출력 | PASS |
+| 13 | `TotalBossCount = 3` 검색 | 1 | 1 | PASS |
+
+### (E) Play 모드 체크리스트
+
+*D-07 마이그레이션 안전성*
+- [ ] 기존 `save.json` 또는 백업본이 persistentDataPath에 있다
+- [ ] 이어하기 슬롯 1 카드에 기존 진행도가 보인다
+- [ ] `Phase14/1. Log All Slots`의 slot 0 경로가 `save.json`이다
+- [ ] 슬롯 0 로드 시 기존 씬, 스폰포인트, 체력이 복원된다
+
+*D-06 슬롯 독립성*
+- [ ] Slot 1 선택 후 저장하면 `save_1.json`이 생성된다
+- [ ] Slot 1 저장이 `save.json`을 바꾸지 않는다
+- [ ] Slot 2 저장 시 `save_2.json`이 생기며 슬롯 0/1은 무영향이다
+
+*D-01 이어하기*
+- [ ] 하나라도 데이터가 있으면 이어하기가 활성화된다
+- [ ] 전부 비었을 때만 이어하기가 비활성화된다
+- [ ] 이어하기 클릭 시 즉시 로드하지 않고 슬롯 화면이 뜬다
+- [ ] 빈 슬롯 카드는 보이지만 클릭할 수 없다
+- [ ] 데이터 카드를 누르면 해당 슬롯 상태가 로드된다
+
+*D-02 / D-03 새시작*
+- [ ] 빈 슬롯이 있으면 슬롯 화면 없이 `Tutorial Map`으로 진입한다
+- [ ] 가장 낮은 번호의 빈 슬롯을 사용한다
+- [ ] 세 슬롯이 모두 차면 슬롯 선택 화면이 뜬다
+- [ ] 새 게임에는 이전 슬롯 진행도가 따라오지 않는다
+
+*D-04 / D-05 덮어쓰기 확인*
+- [ ] 점유 슬롯을 새 게임 대상으로 고르면 확인창이 뜬다
+- [ ] 본문이 "이 슬롯을 덮어쓰고 새 게임을 시작하시겠습니까?"이다
+- [ ] 확인 버튼이 "덮어쓰고 시작"이며 빨간색이다
+- [ ] 취소 시 파일 수정시각이 변하지 않는다
+- [ ] 확인 직후에도 기존 파일은 다음 저장 전까지 유지된다
+
+*회귀*
+- [ ] 체크포인트 저장이 현재 슬롯 파일에 기록된다
+- [ ] 보스 격파 저장이 현재 슬롯 파일에 기록된다
+- [ ] 설정 저장은 슬롯과 무관하게 `setting.json`에 기록된다
+
+### 결과 기록
+
+- 검증 일자:
+- Unity 버전:
+- Console 오류:
+- 미확인 또는 실패 항목:

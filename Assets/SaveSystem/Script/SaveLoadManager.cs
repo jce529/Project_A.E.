@@ -1,6 +1,7 @@
 // Phase 11 - SaveLoadManager
 // Decisions: D-01 (manager owns save/load logic; callers call in, no event bus),
-//            D-02 (single slot: one save.json under Application.persistentDataPath),
+//            D-02 (one JSON file per save under Application.persistentDataPath; Phase 14
+//                  extended this to 3 slots - save.json = slot 0, save_1.json, save_2.json),
 //            D-04 (public API only - no menu UI, no loading screen),
 //            D-05 (restore position via PlayerSpawner.targetSpawnPointName, not raw XY),
 //            D-06 (NewGame resets memory only; the file is overwritten on the next Save()).
@@ -49,6 +50,46 @@ public class SaveLoadManager : MonoBehaviour
 
     public const string SaveFileName = "save.json";
 
+    // ---- Phase 14: save slots (D-06 file per slot, D-07 naming) -----------------
+    // Slot 0 deliberately keeps the original "save.json" filename, so a player's
+    // existing Phase 11 file simply IS slot 0. Nothing is renamed, copied or migrated,
+    // which is the structural answer to D-07's absolute floor ("the existing save must
+    // never disappear") - there is no migration routine that could fail halfway.
+    public const int SlotCount = 3;
+
+    // The active slot. Gameplay save triggers (Checkpoint.cs and the boss death sites)
+    // never pass a slot: by the time gameplay runs, the main menu already picked one.
+    // Default 0 preserves the exact Phase 11 behaviour for anything that runs before
+    // slot selection exists (entering Play mode directly in a gameplay scene, the
+    // ContextMenu debug hooks below).
+    public int CurrentSlot { get; private set; }
+
+    private static string GetSlotFileName(int slot)
+    {
+        return slot == 0 ? SaveFileName : "save_" + slot + ".json";
+    }
+
+    public string GetSavePath(int slot)
+    {
+        return Path.Combine(Application.persistentDataPath, GetSlotFileName(slot));
+    }
+
+    public void SelectSlot(int slot)
+    {
+        if (slot < 0 || slot >= SlotCount)
+        {
+            Debug.LogError("[SaveLoadManager] SelectSlot: slot index out of range: " + slot);
+            return;
+        }
+        CurrentSlot = slot;
+    }
+
+    public bool HasSaveFile(int slot)
+    {
+        if (slot < 0 || slot >= SlotCount) return false;
+        return File.Exists(GetSavePath(slot));
+    }
+
     // Fallback location used by NewGame(). "1 stage" is the only gameplay scene currently
     // registered in EditorBuildSettings, so it is the only value LoadSceneAsync can resolve.
     [SerializeField] private string defaultSceneName = "1 stage";
@@ -65,9 +106,11 @@ public class SaveLoadManager : MonoBehaviour
     // Read-only view for future systems (boss progress / gimmick queries).
     public SaveData Data { get { return _data; } }
 
-    public static string SavePath
+    // Now slot-aware. Verified before this change: no code outside this file references
+    // SaveLoadManager.SavePath, so dropping "static" breaks no caller.
+    public string SavePath
     {
-        get { return Path.Combine(Application.persistentDataPath, SaveFileName); }
+        get { return GetSavePath(CurrentSlot); }
     }
 
     public bool HasSaveFile()
@@ -103,6 +146,22 @@ public class SaveLoadManager : MonoBehaviour
         Save();
     }
 
+    // Phase 14: "save anywhere" trigger, used by the pause menu Game tab. Records the CURRENT
+    // scene but deliberately does NOT invent a new spawn point - D-05 still forbids raw XY, so
+    // the last activated checkpoint stays the respawn anchor.
+    public void SaveAnywhere()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        // The stored spawn point belongs to whichever scene the last checkpoint was in. Once the
+        // player has moved to a different scene that name cannot resolve there, so drop it and
+        // let PlayerSpawner fall back to the scene's own default start position.
+        if (_data.SceneName != currentScene) _data.SpawnPointName = "";
+
+        _data.SceneName = currentScene;
+        Save();
+    }
+
     // D-01 integration point B: the four boss death sites call this.
     // RESEARCH Open Question 1 resolution: a boss defeat does NOT introduce a new spawn
     // point. It records the boss id and reuses whatever scene/spawn point the last
@@ -120,6 +179,39 @@ public class SaveLoadManager : MonoBehaviour
     {
         bool defeated;
         return _data.BossProgress.TryGetValue(bossId, out defeated) && defeated;
+    }
+
+    // ---- Phase 14: slot-select screen API ---------------------------------------
+
+    // Read-only peek used by the slot select screen, which must show progress for all
+    // 3 slots at once. This deliberately leaves the live memory cache and CurrentSlot
+    // alone - that is the whole difference from LoadGame(), which replaces the cache
+    // and kicks off a scene load. Never call LoadGame() just to display a slot card.
+    public SaveData PeekSlotData(int slot)
+    {
+        if (!HasSaveFile(slot)) return null;
+        try
+        {
+            string json = File.ReadAllText(GetSavePath(slot));
+            return JsonConvert.DeserializeObject<SaveData>(json, JsonSettings);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[SaveLoadManager] PeekSlotData failed for slot " + slot + ": " + e.Message);
+            return null;
+        }
+    }
+
+    public void NewGameInSlot(int slot)
+    {
+        SelectSlot(slot);
+        NewGame();
+    }
+
+    public void LoadSlot(int slot)
+    {
+        SelectSlot(slot);
+        LoadGame();
     }
 
     // ---- Settings (setting.json) ------------------------------------------------
@@ -320,7 +412,8 @@ public class SaveLoadManager : MonoBehaviour
     [ContextMenu("Phase11/4. Log State")]
     private void DebugLogState()
     {
-        Debug.Log("[SaveLoadManager] path=" + SavePath +
+        Debug.Log("[SaveLoadManager] slot=" + CurrentSlot +
+                  " path=" + SavePath +
                   " exists=" + HasSaveFile() +
                   " scene=" + _data.SceneName +
                   " spawnPoint=" + _data.SpawnPointName +
@@ -356,4 +449,28 @@ public class SaveLoadManager : MonoBehaviour
                   " sfx=" + _settings.SfxVolume +
                   " bindingsLen=" + (_settings.InputBindingsJson != null ? _settings.InputBindingsJson.Length : 0));
     }
+
+    [ContextMenu("Phase14/1. Log All Slots")]
+    private void DebugLogAllSlots()
+    {
+        for (int slot = 0; slot < SlotCount; slot++)
+        {
+            SaveData d = PeekSlotData(slot);
+            Debug.Log("[SaveLoadManager] slot " + slot +
+                      " path=" + GetSavePath(slot) +
+                      " exists=" + HasSaveFile(slot) +
+                      " scene=" + (d != null ? d.SceneName : "-") +
+                      " bossProgress=" + (d != null && d.BossProgress != null ? d.BossProgress.Count : 0));
+        }
+        Debug.Log("[SaveLoadManager] CurrentSlot=" + CurrentSlot);
+    }
+
+    [ContextMenu("Phase14/2. Select Slot 0")]
+    private void DebugSelectSlot0() { SelectSlot(0); Debug.Log("[SaveLoadManager] CurrentSlot=" + CurrentSlot); }
+
+    [ContextMenu("Phase14/3. Select Slot 1")]
+    private void DebugSelectSlot1() { SelectSlot(1); Debug.Log("[SaveLoadManager] CurrentSlot=" + CurrentSlot); }
+
+    [ContextMenu("Phase14/4. Select Slot 2")]
+    private void DebugSelectSlot2() { SelectSlot(2); Debug.Log("[SaveLoadManager] CurrentSlot=" + CurrentSlot); }
 }

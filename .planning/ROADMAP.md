@@ -368,10 +368,56 @@ Plans:
 > 대체되며 폐기(구현 커밋 2개 `36f76af`/`0c51c26`는 rebase로 제거)되어 번호가 비었고,
 > 이 phase가 그 자리(14)로 재번호되었다.
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Phase 11의 단일 슬롯 세이브 시스템(`save.json` 1개)이 3개의 독립 슬롯으로 확장되어,
+메인 메뉴에서 슬롯별 진행도(씬 이름 + 격파 보스 수)를 보고 슬롯을 골라 이어하거나 새로 시작할 수
+있다. 슬롯 차원은 `SaveLoadManager`에 `CurrentSlot` 필드 + 슬롯 파생 파일 경로로 들어가므로,
+게임플레이 중 저장 트리거 4곳(`Checkpoint.cs` S키 + 보스 3종 격파)은 **0줄 변경**으로 현재 슬롯에
+저장한다. 슬롯 0은 기존 파일명 `save.json`을 그대로 쓰고 슬롯 1/2만 `save_1.json`/`save_2.json`을
+새로 만들기 때문에 **마이그레이션 코드가 0줄**이며, 기존 플레이어의 진행도가 리네임/복사/삭제
+없이 구조적으로 보존된다. "이어하기"는 항상 슬롯 선택 화면을 거치고(D-01), "새시작"은 빈 슬롯이
+있으면 자동으로 그 슬롯에서 즉시 시작(D-02)하되 3슬롯이 다 차면 슬롯 화면으로 보내며(D-03),
+데이터가 있는 슬롯을 새 게임 대상으로 고르는 모든 경로는 예외 없이 덮어쓰기 확인창을 거친다
+(D-04/D-05).
+**Requirements**: D-01 ~ D-07 (14-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
 **Depends on:** Phase 12
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. `SaveLoadManager`에 `SlotCount`(3) / `CurrentSlot` / `GetSavePath(int)` / `SelectSlot(int)` /
+     `HasSaveFile(int)` / `PeekSlotData(int)` / `NewGameInSlot(int)` / `LoadSlot(int)`이 존재하고,
+     슬롯 0의 경로가 여전히 `Application.persistentDataPath/save.json`이다 (D-06, D-07).
+  2. 마이그레이션 코드가 0줄이다 — `SaveLoadManager.cs`에 `File.Move`/`File.Copy`/`File.Delete`가
+     존재하지 않는다 (D-07의 절대 기준을 코드가 아니라 구조로 만족).
+  3. `PeekSlotData(int)`가 3슬롯을 조회해도 `_data`와 `CurrentSlot`을 건드리지 않는다 —
+     `SaveLoadManager.cs`의 `_data = ` 대입 지점이 3곳(필드 초기화/NewGame/LoadGame) 그대로다.
+  4. `NewGameInSlot(int)`이 디스크를 즉시 쓰지 않는다 — `File.WriteAllText` 등장 횟수가
+     2회(`Save`/`SaveSettings`)로 유지되며, 실제 덮어쓰기는 다음 체크포인트 저장 때 발생한다
+     (Phase 11 D-06 lazy-write 계약 보존, D-04 확인창이 무의미해지는 것을 방지).
+  5. "이어하기"는 저장 유무와 무관하게 항상 슬롯 선택 화면을 열고, 자동 로드 경로가 코드에
+     존재하지 않는다 — `MainMenuUI.cs`에 `LoadGame()` 호출이 0건이다 (D-01).
+  6. "새시작"은 빈 슬롯이 있으면 슬롯 화면 없이 가장 낮은 번호의 빈 슬롯에서 즉시 시작하고,
+     3슬롯이 전부 차면 슬롯 화면(새 게임 의도)을 연다 (D-02, D-03). 이 과정에서 기존
+     `OnClickStart()`가 `NewGame()`을 전혀 호출하지 않던 잠재 버그도 함께 해소된다.
+  7. 데이터가 있는 슬롯을 새 게임 대상으로 고르는 **모든** 경로가 `OverwriteConfirmPanel`을
+     거친다 — `SlotSelectPanel.cs`의 `NewGameInSlot` 호출이 정확히 1곳이고 그 유일한 진입
+     경로가 확인 콜백이다 (D-04, D-05).
+  8. 슬롯 카드가 `SaveData`의 기존 필드(`SceneName`, `BossProgress.Count`)만 사용한다 —
+     플레이타임/저장시각 같은 신규 스키마 필드 0개 (CONTEXT.md Deferred Ideas 준수).
+  9. `SaveData.cs`와 저장 트리거 4곳(`Checkpoint.cs`, `TutorialBossController.cs`,
+     `SpiritStats.cs`, `WaterMonsterStats.cs`)이 0줄 변경이다.
+  10. `SaveLoadManager.cs`가 순수 ASCII로 유지되고, `MainMenuUI.cs`는 과거에 U+FFFD로 훼손된
+      주석 1줄이 제거되어 비-ASCII 라인 수가 0이 된다.
+  11. `MainMenu.unity` 씬의 UI 배치/배선은 이 페이즈가 코드로 수행하지 않는다 — Phase 9 D-08
+      선례대로 `Assets/SaveSystem/Check.md`의 배선 가이드를 따라 사용자가 직접 수행한다.
+**Plans:** 3 plans
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 14-01 | yes |
+| 2 | 14-02 | yes |
+| 3 | 14-03 | no (씬 배치 + Play 모드 검증 체크포인트) |
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 14 to break down)
+- [ ] 14-01-PLAN.md — SaveLoadManager 슬롯화 (SlotCount/CurrentSlot/GetSavePath/SelectSlot/HasSaveFile(int) + PeekSlotData/NewGameInSlot/LoadSlot + Phase14 ContextMenu 훅)
+- [ ] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
+- [ ] 14-03-PLAN.md — MainMenuUI D-01/D-02/D-03 재배선 + Check.md Phase 14 배선 가이드·정적 회귀 12항목·Play 모드 체크리스트 + 씬 배치/실측 체크포인트
