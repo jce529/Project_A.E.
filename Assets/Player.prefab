@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   damage: 10
-  attackBox: {fileID: 0}
+  attackBox: {fileID: 2283162787729905416, guid: 709704cd680fc3b4ab4d0b240ce3406d, type: 3}
   attackDistance: 1.5
   attackDuration: 0.2
   teleportDistance: 3
@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  maxHealth: 400
+  maxHealth: 100
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
   ManualDeath: 0
