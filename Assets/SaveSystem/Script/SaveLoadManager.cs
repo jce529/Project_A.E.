@@ -50,6 +50,11 @@ public class SaveLoadManager : MonoBehaviour
 
     public const string SaveFileName = "save.json";
 
+    // Phase 15 (D-04): the single place that names the main menu scene. It is index 0 in
+    // EditorBuildSettings (Assets/Scenes/MainMenu.unity) and is the only screen that can
+    // recover from a broken save, so every load failure funnels back here.
+    public const string MainMenuSceneName = "MainMenu";
+
     // ---- Phase 14: save slots (D-06 file per slot, D-07 naming) -----------------
     // Slot 0 deliberately keeps the original "save.json" filename, so a player's
     // existing Phase 11 file simply IS slot 0. Nothing is renamed, copied or migrated,
@@ -315,13 +320,13 @@ public class SaveLoadManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError("[SaveLoadManager] Failed to read save file: " + e.Message);
+            AbortLoadToMainMenu("save file unreadable or malformed: " + e.Message);
             return;
         }
 
         if (loaded == null)
         {
-            Debug.LogError("[SaveLoadManager] Save file deserialized to null - aborting load.");
+            AbortLoadToMainMenu("save file deserialized to null");
             return;
         }
 
@@ -330,11 +335,22 @@ public class SaveLoadManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(_data.SceneName))
         {
-            Debug.LogError("[SaveLoadManager] Saved SceneName is empty - aborting load.");
+            AbortLoadToMainMenu("saved SceneName is empty");
             return;
         }
 
         StartCoroutine(LoadSceneAndRestoreRoutine(_data.SceneName, _data.SpawnPointName));
+    }
+
+    // Phase 15 (D-04): every load failure ends here instead of a silent return, so the player
+    // always gets a visible outcome instead of a frozen menu or a half-restored scene.
+    // D-05: this performs NO file write and NO delete - the possibly corrupt save file is left
+    // exactly as it is so it can still be recovered by hand.
+    private void AbortLoadToMainMenu(string reason)
+    {
+        Debug.LogError("[SaveLoadManager] Load failed (" + reason + ") - returning to " +
+                       MainMenuSceneName + ". Save file left untouched.");
+        SceneManager.LoadScene(MainMenuSceneName);
     }
 
     // A hand-edited or older save file can contain nulls where the schema expects
