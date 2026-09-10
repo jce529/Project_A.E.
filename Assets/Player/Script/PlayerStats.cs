@@ -4,6 +4,7 @@
  * PlayerStats.cs: HP를 상속받아 플레이어 고유의 기능을 추가한 스크립트
  */
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 1. HP 클래스를 상속받습니다.
 public class PlayerStats : HP
@@ -26,6 +27,11 @@ public class PlayerStats : HP
     [SerializeField]
     private float maxTotalHealth; // 플레이어만 가지는 최대 성장 가능 체력
     public float MaxTotalHealth { get { return maxTotalHealth; } }
+
+    // Phase 15 (D-01): re-entrancy guard for Die(). The scene load kicked off below is
+    // asynchronous, so the dying player object survives for a few more frames and any further
+    // TakeDamage() would call Die() again and start a second load.
+    private bool _deathHandled = false;
 
     // 2. 플레이어의 고유 기능인 '힐' 메서드를 추가합니다.
     public override void Heal(float amount)
@@ -61,6 +67,32 @@ public class PlayerStats : HP
         CameraController.Instance.Shake();
     }
     
+
+    // Phase 15 (D-01): HP hits 0 -> immediately reload the last save. No game over screen and
+    // no new GameStateManager state - LoadGame() already reloads the scene, applies the spawn
+    // point and restores stats in one shot.
+    // Deliberately does NOT call the base implementation: HP.Die() would Destroy(gameObject)
+    // and the player would vanish from the scene. Overriding here (rather than flipping the
+    // prefab's ManualDeath flag) keeps the whole death policy in one code path and leaves
+    // HP.cs - a CP949-encoded shared file - untouched.
+    public override void Die()
+    {
+        if (_deathHandled) return;
+        _deathHandled = true;
+
+        SaveLoadManager mgr = SaveLoadManager.Instance;
+        if (mgr != null && mgr.HasSaveFile())
+        {
+            mgr.LoadGame();
+            return;
+        }
+
+        // D-02: no save file yet (the player never activated a checkpoint). The run is not
+        // over - restart the current scene instead of ejecting to the main menu. Synchronous
+        // LoadScene matches MainMenuUI / SlotSelectPanel / SignpostPortal; the asynchronous
+        // path exists only inside SaveLoadManager's own load routine.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     // Phase 11 (D-03c): restore saved stats from SaveLoadManager.
     // Additive only - HP.health / HP.maxHealth are protected and PlayerStats.maxTotalHealth
