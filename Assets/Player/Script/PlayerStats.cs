@@ -67,11 +67,28 @@ public class PlayerStats : HP
     // is private with a getter-only property, so an external caller has no other way in.
     // Assignment order matters: maxHealth must be set BEFORE health, because ClampHealth()
     // clamps health into 0..maxHealth.
+    //
+    // Phase 15 (D-08): saved values are never trusted as-is. The growth ceiling
+    // maxTotalHealth is the anchor: maxHealth is pulled down to it and health is pulled down
+    // to maxHealth, with a floor of 1 on all three, so 0 < health <= maxHealth <=
+    // maxTotalHealth always holds after a load. This also normalises BUG-002 style inverted
+    // saves - a save holding maxHealth 400 with maxTotalHealth 200 loads back as 200 / 200.
     public void RestoreStats(float savedHealth, float savedMaxHealth, float savedMaxTotalHealth)
     {
-        maxTotalHealth = savedMaxTotalHealth;
-        maxHealth = savedMaxHealth;
-        health = savedHealth;
+        float fixedMaxTotal = Mathf.Max(1f, savedMaxTotalHealth);
+        float fixedMax = Mathf.Clamp(savedMaxHealth, 1f, fixedMaxTotal);
+        float fixedHealth = Mathf.Clamp(savedHealth, 1f, fixedMax);
+
+        if (fixedMaxTotal != savedMaxTotalHealth || fixedMax != savedMaxHealth || fixedHealth != savedHealth)
+        {
+            Debug.LogWarning("[PlayerStats] RestoreStats corrected out-of-range saved values: " +
+                             savedHealth + "/" + savedMaxHealth + " (maxTotal " + savedMaxTotalHealth + ")" +
+                             " -> " + fixedHealth + "/" + fixedMax + " (maxTotal " + fixedMaxTotal + ").");
+        }
+
+        maxTotalHealth = fixedMaxTotal;
+        maxHealth = fixedMax;
+        health = fixedHealth;
         ClampHealth();
     }
 }
