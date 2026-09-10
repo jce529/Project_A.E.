@@ -133,6 +133,20 @@ namespace TutorialBoss
         // ─── Unity 생명주기 ───────────────────────────────────────────────
         protected override void Awake()
         {
+            // Phase 15 (D-06/D-07): boss-side judgement. If this boss is already recorded as
+            // defeated, it must not come back after a load. The load path never walks a boss
+            // list - this boss asks with its own id, the same literal HandleDeath() writes.
+            if (SaveLoadManager.Instance != null && SaveLoadManager.Instance.IsBossDefeated("TutorialBoss"))
+            {
+                // The wall is the boss room exit: TutorialDeadState opens it 2.5s after the
+                // kill. Restoring the defeated state without it would lock the player out of
+                // the rest of the map. ClearPanel is deliberately NOT shown - that one-shot
+                // clear UI also pauses the game and belongs to the moment of the kill only.
+                if (WallToUnlock != null) WallToUnlock.UnlockWall();
+                gameObject.SetActive(false);
+                return;
+            }
+
             _hp = GetComponent<HP>();
             base.Awake();
 
