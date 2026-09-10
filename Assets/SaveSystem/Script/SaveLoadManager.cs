@@ -375,8 +375,8 @@ public class SaveLoadManager : MonoBehaviour
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         if (op == null)
         {
-            Debug.LogError("[SaveLoadManager] LoadSceneAsync returned null for scene '" + sceneName +
-                           "'. Is it registered in Build Settings?");
+            AbortLoadToMainMenu("LoadSceneAsync returned null for scene '" + sceneName +
+                                "' - not registered in Build Settings?");
             yield break;
         }
 
@@ -393,7 +393,7 @@ public class SaveLoadManager : MonoBehaviour
         PlayerStats ps = PlayerStats.Instance;
         if (ps == null)
         {
-            Debug.LogError("[SaveLoadManager] PlayerStats.Instance is null after scene load - stats NOT restored.");
+            AbortLoadToMainMenu("PlayerStats.Instance is null after scene load");
             return;
         }
 
