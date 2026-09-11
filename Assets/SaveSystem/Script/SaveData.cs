@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class SaveData
 {
     // Schema version for future migration. Bump only when field meaning changes.
-    public int SaveVersion = 1;
+    public int SaveVersion = 2;
 
     // D-05: location is stored as scene name + spawn point GameObject name,
     // NOT raw x/y floats. PlayerSpawner.targetSpawnPointName consumes SpawnPointName
@@ -17,7 +17,8 @@ public class SaveData
     public string SceneName = "";
     public string SpawnPointName = "";
 
-    // D-03c: mirrors PlayerStats/HP public getters (Health, MaxHealth, MaxTotalHealth).
+    // Phase 15 revised health policy: current health is transient and is never persisted.
+    // Only maximum-health progression is saved; loading always revives the player at full health.
     public PlayerStatsSaveData PlayerStats = new PlayerStatsSaveData();
 
     // D-03: stub. Key = boss id string ("TutorialBoss", "WoodBoss", "WaterSpirit",
@@ -34,7 +35,6 @@ public class SaveData
 
 public class PlayerStatsSaveData
 {
-    public float Health;
     public float MaxHealth;
     public float MaxTotalHealth;
 }

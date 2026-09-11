@@ -40,6 +40,14 @@ public class PlayerStats : HP
         ClampHealth(); // 부모 클래스의 ClampHealth()를 호출하여 체력 보정 및 UI 업데이트
     }
 
+    // Checkpoint activation restores the player immediately. Current health is intentionally
+    // transient and is not part of the JSON save schema.
+    public void ResetHealthToMax()
+    {
+        health = maxHealth;
+        ClampHealth();
+    }
+
     // 3. 플레이어의 고유 기능인 '최대 체력 증가' 메서드를 추가합니다.
     public void AddHealth()
     {
@@ -94,33 +102,27 @@ public class PlayerStats : HP
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Phase 11 (D-03c): restore saved stats from SaveLoadManager.
+    // Restore saved maximum-health progression from SaveLoadManager and revive at full health.
     // Additive only - HP.health / HP.maxHealth are protected and PlayerStats.maxTotalHealth
     // is private with a getter-only property, so an external caller has no other way in.
-    // Assignment order matters: maxHealth must be set BEFORE health, because ClampHealth()
-    // clamps health into 0..maxHealth.
-    //
-    // Phase 15 (D-08): saved values are never trusted as-is. The growth ceiling
-    // maxTotalHealth is the anchor: maxHealth is pulled down to it and health is pulled down
-    // to maxHealth, with a floor of 1 on all three, so 0 < health <= maxHealth <=
-    // maxTotalHealth always holds after a load. This also normalises BUG-002 style inverted
-    // saves - a save holding maxHealth 400 with maxTotalHealth 200 loads back as 200 / 200.
-    public void RestoreStats(float savedHealth, float savedMaxHealth, float savedMaxTotalHealth)
+    // Saved values are never trusted as-is. maxTotalHealth is the anchor and maxHealth is
+    // clamped into 1..maxTotalHealth. Current health is not loaded; it is reset to the corrected
+    // maxHealth so every continue or death reload revives the player at full health.
+    public void RestoreStats(float savedMaxHealth, float savedMaxTotalHealth)
     {
         float fixedMaxTotal = Mathf.Max(1f, savedMaxTotalHealth);
         float fixedMax = Mathf.Clamp(savedMaxHealth, 1f, fixedMaxTotal);
-        float fixedHealth = Mathf.Clamp(savedHealth, 1f, fixedMax);
 
-        if (fixedMaxTotal != savedMaxTotalHealth || fixedMax != savedMaxHealth || fixedHealth != savedHealth)
+        if (fixedMaxTotal != savedMaxTotalHealth || fixedMax != savedMaxHealth)
         {
             Debug.LogWarning("[PlayerStats] RestoreStats corrected out-of-range saved values: " +
-                             savedHealth + "/" + savedMaxHealth + " (maxTotal " + savedMaxTotalHealth + ")" +
-                             " -> " + fixedHealth + "/" + fixedMax + " (maxTotal " + fixedMaxTotal + ").");
+                             savedMaxHealth + " (maxTotal " + savedMaxTotalHealth + ") -> " +
+                             fixedMax + " (maxTotal " + fixedMaxTotal + ").");
         }
 
         maxTotalHealth = fixedMaxTotal;
         maxHealth = fixedMax;
-        health = fixedHealth;
+        health = fixedMax;
         ClampHealth();
     }
 }

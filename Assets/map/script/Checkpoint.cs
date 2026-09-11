@@ -4,7 +4,6 @@ public class Checkpoint : MonoBehaviour
 {
     private bool isPlayerInRange = false;
     private PlayerRespawn playerRespawn;
-    public bool isActiveCheckpoint = false;
 
     private void OnEnable()
     {
@@ -20,38 +19,22 @@ public class Checkpoint : MonoBehaviour
 
     private void HandleInteractInput()
     {
-        // ¹üÀ§ ¾È¿¡¼­ FÅ°¸¦ ´­·¶À» ¶§
+        // ë²”ìœ„ ì•ˆì—ì„œ í˜„ì¬ ì„¤ì •ëœ ìƒí˜¸ì‘ìš© í‚¤ë¥¼ ëˆŒë €ì„ ë•Œ
         if (isPlayerInRange)
         {
 
-            if (!isActiveCheckpoint)
+            // Phase 11 (D-01): checkpoint interaction is a save trigger. The checkpoint's
+            // own GameObject name is reused as the PlayerSpawner spawn point name (D-05).
+            if (SaveLoadManager.Instance != null)
+                SaveLoadManager.Instance.SaveAtCheckpoint(gameObject.name);
+
+            if (playerRespawn != null)
             {
-                // 1. ¾À¿¡ ÀÖ´Â ¸ğµç Ã¼Å©Æ÷ÀÎÆ®¸¦ Ã£¾Æ¼­ ²ü´Ï´Ù.
-                Checkpoint[] allCheckpoints = FindObjectsByType<Checkpoint>(FindObjectsSortMode.None);
-                foreach (Checkpoint cp in allCheckpoints)
-                {
-                    cp.isActiveCheckpoint = false;
-                }
-
-                // 2. ÀÌ Ã¼Å©Æ÷ÀÎÆ®¸¸ ÄÕ´Ï´Ù.
-                isActiveCheckpoint = true;
-
-                // Phase 11 (D-01): checkpoint activation is a save trigger. The checkpoint's
-                // own GameObject name is reused as the PlayerSpawner spawn point name (D-05).
-                if (SaveLoadManager.Instance != null)
-                    SaveLoadManager.Instance.SaveAtCheckpoint(gameObject.name);
-
-                if (playerRespawn != null)
-                {
-                    playerRespawn.UpdateCheckpoint(this.transform);
-                }
-                else
-                {
-                    Debug.LogError(" ½ÇÆĞ: PlayerRespawn ½ºÅ©¸³Æ®¸¦ Ã£Áö ¸øÇß½À´Ï´Ù.");
-                }
+                playerRespawn.UpdateCheckpoint(this.transform);
             }
             else
             {
+                Debug.LogError(" ì‹¤íŒ¨: PlayerRespawn ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
             }
         }
     }

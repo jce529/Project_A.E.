@@ -3071,7 +3071,6 @@ GameObject:
   - component: {fileID: 978357637}
   - component: {fileID: 978357636}
   - component: {fileID: 978357635}
-  - component: {fileID: 978357638}
   m_Layer: 5
   m_Name: Start_B
   m_TagString: Untagged
@@ -3193,22 +3192,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978357633}
   m_CullTransparentMesh: 1
---- !u!114 &978357638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978357633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d3cb358a495244ebde7ab0fadcdea7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadGameButton: {fileID: 0}
-  loadGameDisabledColor: {r: 0.05, g: 0.05, b: 0.05, a: 1}
-  slotSelectPanel: {fileID: 0}
-  newGameSceneName: Tutorial Map
 --- !u!1 &991887092
 GameObject:
   m_ObjectHideFlags: 0

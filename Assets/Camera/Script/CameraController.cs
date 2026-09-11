@@ -224,6 +224,9 @@ public class CameraController : MonoBehaviour
     private void ApplyHitShake()
     {
         if (_shakeTimer <= 0f) return;
+        // A paused frame (Time.timeScale = 0) advances no game time, so the countdown cannot
+        // progress and the camera must not be moved either - the shake resumes with the game.
+        if (Time.deltaTime <= 0f) return;
         _shakeTimer -= Time.deltaTime;
         // Guarded denominator mirrors the Mathf.Max(Time.deltaTime, 0.0001f) idiom already used
         // further down this file: a designer typing 0 into the Inspector must not yield NaN.

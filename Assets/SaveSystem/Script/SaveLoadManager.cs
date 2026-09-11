@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -148,6 +149,12 @@ public class SaveLoadManager : MonoBehaviour
     {
         _data.SceneName = SceneManager.GetActiveScene().name;
         _data.SpawnPointName = checkpointName;
+
+        // Checkpoints are recovery points as well as save triggers. Heal only here so the
+        // pause-menu save-anywhere action cannot be used as an unlimited combat heal.
+        PlayerStats ps = PlayerStats.Instance;
+        if (ps != null) ps.ResetHealthToMax();
+
         Save();
     }
 
@@ -184,6 +191,44 @@ public class SaveLoadManager : MonoBehaviour
     {
         bool defeated;
         return _data.BossProgress.TryGetValue(bossId, out defeated) && defeated;
+    }
+
+    // Returns one value from the live save-data cache as text. The key uses a JSON path,
+    // for example "BossProgress.TutorialBoss" or "PlayerStats.MaxHealth". Callers own
+    // the conversion to their required type so this API does not need a method per field.
+    // A missing/invalid key returns null, which remains distinguishable from values such
+    // as false, 0, or an empty string.
+    public string LoadData(string dataKey)
+    {
+        if (string.IsNullOrWhiteSpace(dataKey))
+        {
+            Debug.LogWarning("[SaveLoadManager] LoadData requires a non-empty data key.");
+            return null;
+        }
+
+        EnsureCollections();
+
+        JToken token;
+        try
+        {
+            token = JObject.FromObject(_data).SelectToken(dataKey, false);
+        }
+        catch (JsonException e)
+        {
+            Debug.LogWarning("[SaveLoadManager] LoadData received an invalid data key '" +
+                             dataKey + "': " + e.Message);
+            return null;
+        }
+
+        if (token == null || token.Type == JTokenType.Null)
+        {
+            Debug.LogWarning("[SaveLoadManager] LoadData could not find '" + dataKey + "'.");
+            return null;
+        }
+
+        return token.Type == JTokenType.String
+            ? token.Value<string>()
+            : token.ToString(Formatting.None);
     }
 
     // ---- Phase 14: slot-select screen API ---------------------------------------
@@ -296,7 +341,6 @@ public class SaveLoadManager : MonoBehaviour
             Debug.LogWarning("[SaveLoadManager] PlayerStats.Instance is null - player stats not captured.");
             return;
         }
-        _data.PlayerStats.Health = ps.Health;
         _data.PlayerStats.MaxHealth = ps.MaxHealth;
         _data.PlayerStats.MaxTotalHealth = ps.MaxTotalHealth;
     }
@@ -397,7 +441,7 @@ public class SaveLoadManager : MonoBehaviour
             return;
         }
 
-        ps.RestoreStats(_data.PlayerStats.Health, _data.PlayerStats.MaxHealth, _data.PlayerStats.MaxTotalHealth);
+        ps.RestoreStats(_data.PlayerStats.MaxHealth, _data.PlayerStats.MaxTotalHealth);
         Debug.Log("[SaveLoadManager] Restored stats: " + ps.Health + "/" + ps.MaxHealth +
                   " (maxTotal " + ps.MaxTotalHealth + "), scene=" + SceneManager.GetActiveScene().name +
                   ", spawnPoint=" + _data.SpawnPointName);
@@ -433,7 +477,7 @@ public class SaveLoadManager : MonoBehaviour
                   " exists=" + HasSaveFile() +
                   " scene=" + _data.SceneName +
                   " spawnPoint=" + _data.SpawnPointName +
-                  " hp=" + _data.PlayerStats.Health + "/" + _data.PlayerStats.MaxHealth +
+                  " reviveHp=" + _data.PlayerStats.MaxHealth + "/" + _data.PlayerStats.MaxHealth +
                   " maxTotal=" + _data.PlayerStats.MaxTotalHealth +
                   " bossProgress=" + _data.BossProgress.Count +
                   " gimmicks=" + _data.MapGimmickState.Count +
