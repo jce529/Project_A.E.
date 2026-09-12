@@ -58,6 +58,9 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        if (GetComponent<PlayerInteraction>() == null)
+            gameObject.AddComponent<PlayerInteraction>();
+
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
