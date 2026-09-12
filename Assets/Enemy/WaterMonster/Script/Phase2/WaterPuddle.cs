@@ -2,10 +2,9 @@ using UnityEngine;
 
 namespace WaterMonster.Phase2
 {
-    public class WaterPuddle : MonoBehaviour
+    public class WaterPuddle : MonoBehaviour, IPlayerInteractable
     {
         public bool isDestructible = true;
-        public bool playerInRange = false;
 
         [SerializeField] private Color indestructibleColor = new Color(0.3f, 0.3f, 1f, 0.5f);
         
@@ -18,33 +17,30 @@ namespace WaterMonster.Phase2
 
         public void SetIndestructible()
         {
+            if (!isDestructible) return;
             isDestructible = false;
             if (_sr != null)
                 _sr.color = indestructibleColor;
             
-            PuddleStackManager.Instance.RegisterIndestructible(this);
+            if (PuddleStackManager.Instance != null)
+                PuddleStackManager.Instance.RegisterIndestructible(this);
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        public bool CanInteract(PlayerInteraction player)
         {
-            if (other.CompareTag("Player"))
-            {
-                playerInRange = true;
-            }
+            var absorb = player != null ? player.GetComponent<PlayerAbsorb>() : null;
+            return absorb != null && absorb.CanAbsorb(this, true);
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        public void Interact(PlayerInteraction player)
         {
-            if (other.CompareTag("Player"))
-            {
-                playerInRange = false;
-            }
+            var absorb = player != null ? player.GetComponent<PlayerAbsorb>() : null;
+            if (absorb != null) absorb.Absorb(this, true);
         }
 
         public void OnReturnToPool()
         {
             isDestructible = true;
-            playerInRange = false;
             if (_sr != null)
                 _sr.color = Color.white;
 

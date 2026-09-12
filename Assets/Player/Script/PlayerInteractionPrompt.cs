@@ -10,6 +10,7 @@ public class PlayerInteractionPrompt : MonoBehaviour
     private TextMeshProUGUI label;
     private InputAction cachedAction;
     private string bindingText;
+    private string formattedText;
     private bool bindingDirty = true;
 
     private void OnEnable() => InputSystem.onActionChange += OnActionChange;
@@ -31,6 +32,7 @@ public class PlayerInteractionPrompt : MonoBehaviour
         {
             cachedAction = action;
             bindingText = GetBindingText(action);
+            formattedText = "[" + bindingText + "]";
             bindingDirty = false;
         }
         Camera camera = Camera.main;
@@ -60,7 +62,7 @@ public class PlayerInteractionPrompt : MonoBehaviour
             label.rectTransform.sizeDelta = new Vector2(240f, 60f);
         }
         canvasObject.SetActive(true);
-        label.text = "[" + bindingText + "]";
+        if (label.text != formattedText) label.text = formattedText;
         label.rectTransform.position = screenPosition;
     }
 

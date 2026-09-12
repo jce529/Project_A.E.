@@ -1,78 +1,85 @@
+using System.Collections.Generic;
 using UnityEngine;
 using WaterMonster.Phase2;
 
-/// <summary>
-/// Attach to the Player GameObject. Listens for InputHandler.OnInteractEvent (F key)
-/// and absorbs the nearest in-range WaterPuddle.
-/// Per D-17: absorb = RecoveryWater() + SetIndestructible().
-/// </summary>
+/// <summary>Player-owned puddle absorption. Interact is dispatched by PlayerInteraction.</summary>
 public class PlayerAbsorb : MonoBehaviour
 {
     public enum InputType { Interact, BasicAttack, Skill1, Skill2, Heal }
-
     [SerializeField] private WaterController _waterController;
     [SerializeField] private float absorbRadius = 2f;
     [SerializeField] private InputType _inputType = InputType.Interact;
+    private readonly List<Collider2D> hits = new List<Collider2D>(16);
+    private InputHandler subscribedInput;
+    private InputType subscribedType;
 
-    private void OnEnable()
+    private void OnEnable() => Subscribe();
+    private void Start() => Subscribe();
+    private void Subscribe()
     {
-        SubscribeInput(true);
+        if (subscribedInput == InputHandler.Instance && subscribedType == _inputType) return;
+        OnDisable();
+        subscribedInput = InputHandler.Instance;
+        subscribedType = _inputType;
+        if (subscribedInput == null) return;
+        switch (subscribedType)
+        {
+            case InputType.BasicAttack: subscribedInput.OnBasicAttackEvent += TryAbsorb; break;
+            case InputType.Skill1: subscribedInput.OnSkill1Event += TryAbsorb; break;
+            case InputType.Skill2: subscribedInput.OnSkill2Event += TryAbsorb; break;
+            case InputType.Heal: subscribedInput.OnHealEvent += TryAbsorb; break;
+        }
     }
-
     private void OnDisable()
     {
-        SubscribeInput(false);
+        if (subscribedInput != null)
+        {
+            switch (subscribedType)
+            {
+                case InputType.BasicAttack: subscribedInput.OnBasicAttackEvent -= TryAbsorb; break;
+                case InputType.Skill1: subscribedInput.OnSkill1Event -= TryAbsorb; break;
+                case InputType.Skill2: subscribedInput.OnSkill2Event -= TryAbsorb; break;
+                case InputType.Heal: subscribedInput.OnHealEvent -= TryAbsorb; break;
+            }
+        }
+        subscribedInput = null;
     }
 
-    private void SubscribeInput(bool subscribe)
+    public bool CanAbsorb(WaterPuddle puddle, bool fromInteraction)
     {
-        if (InputHandler.Instance == null) return;
+        return isActiveAndEnabled && puddle != null && puddle.isActiveAndEnabled
+            && puddle.isDestructible && (!fromInteraction || _inputType == InputType.Interact);
+    }
 
-        switch (_inputType)
-        {
-            case InputType.Interact:
-                if (subscribe) InputHandler.Instance.OnInteractEvent += TryAbsorb;
-                else InputHandler.Instance.OnInteractEvent -= TryAbsorb;
-                break;
-            case InputType.BasicAttack:
-                if (subscribe) InputHandler.Instance.OnBasicAttackEvent += TryAbsorb;
-                else InputHandler.Instance.OnBasicAttackEvent -= TryAbsorb;
-                break;
-            case InputType.Skill1:
-                if (subscribe) InputHandler.Instance.OnSkill1Event += TryAbsorb;
-                else InputHandler.Instance.OnSkill1Event -= TryAbsorb;
-                break;
-            case InputType.Skill2:
-                if (subscribe) InputHandler.Instance.OnSkill2Event += TryAbsorb;
-                else InputHandler.Instance.OnSkill2Event -= TryAbsorb;
-                break;
-            case InputType.Heal:
-                if (subscribe) InputHandler.Instance.OnHealEvent += TryAbsorb;
-                else InputHandler.Instance.OnHealEvent -= TryAbsorb;
-                break;
-        }
+    public bool Absorb(WaterPuddle puddle, bool fromInteraction)
+    {
+        if (!CanAbsorb(puddle, fromInteraction)) return false;
+        if (_waterController != null) _waterController.RecoveryWater();
+        puddle.SetIndestructible();
+        return true;
     }
 
     private void TryAbsorb()
     {
-        // Find all WaterPuddle colliders in range
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, absorbRadius);
+        if (!isActiveAndEnabled || _inputType == InputType.Interact) return;
+        var filter = new ContactFilter2D { useTriggers = true };
+        float radius = Mathf.Max(0f, absorbRadius);
+        Physics2D.OverlapCircle(transform.position, radius, filter, hits);
+        WaterPuddle nearest = null;
+        float nearestDistance = float.PositiveInfinity;
         foreach (var hit in hits)
         {
-            if (!hit.CompareTag("WaterPuddle")) continue;
-
-            var puddle = hit.GetComponent<WaterPuddle>();
-            if (puddle == null) continue;
-            if (!puddle.isDestructible) continue;   // already absorbed — skip
-            if (!puddle.playerInRange) continue;     // player not in puddle's trigger zone
-
-            // Absorb: recover water + make indestructible (per D-17)
-            if (_waterController != null)
+            var puddle = hit.GetComponentInParent<WaterPuddle>();
+            if (!CanAbsorb(puddle, false)) continue;
+            float distance = ((Vector2)(puddle.transform.position - transform.position)).sqrMagnitude;
+            if (distance > radius * radius) continue;
+            if (distance < nearestDistance || (distance == nearestDistance
+                && (nearest == null || puddle.GetInstanceID() < nearest.GetInstanceID())))
             {
-                _waterController.RecoveryWater();        // fills one empty bottle (RESEARCH Note #1)
+                nearest = puddle;
+                nearestDistance = distance;
             }
-            puddle.SetIndestructible();              // changes color + registers with PuddleStackManager
-            return; // absorb one puddle per interaction
         }
+        Absorb(nearest, false);
     }
 }
