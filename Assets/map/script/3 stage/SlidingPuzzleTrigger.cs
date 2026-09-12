@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlidingPuzzleTrigger : MonoBehaviour
+public class SlidingPuzzleTrigger : MonoBehaviour, IPlayerInteractable
 {
     [Header("띄울 슬라이딩 퍼즐 UI 화면")]
     public GameObject puzzleUI;
@@ -8,41 +8,25 @@ public class SlidingPuzzleTrigger : MonoBehaviour
     [Header("잠겨있는지 여부 (2층은 끄고, 3층은 체크!)")]
     public bool isLocked = false;
 
-    private bool isPlayerNearby = false;
-
-    // ==================================================================================
-    // 1. InputHandler 이벤트 연결 (구독)
-    // ==================================================================================
-    private void OnEnable()
+    private InputHandler subscribedInput;
+    private void Start() => SubscribePause();
+    private void OnEnable() => SubscribePause();
+    private void SubscribePause()
     {
-        if (InputHandler.Instance != null)
-        {
-            InputHandler.Instance.OnInteractEvent += HandleInteractInput;
-            InputHandler.Instance.OnPauseEvent += HandlePauseInput; // ESC(일시정지) 이벤트 추가 구독
-        }
+        if (subscribedInput == InputHandler.Instance) return;
+        OnDisable();
+        subscribedInput = InputHandler.Instance;
+        if (subscribedInput != null) subscribedInput.OnPauseEvent += HandlePauseInput;
     }
-
     private void OnDisable()
     {
-        if (InputHandler.Instance != null)
-        {
-            InputHandler.Instance.OnInteractEvent -= HandleInteractInput;
-            InputHandler.Instance.OnPauseEvent -= HandlePauseInput; // 이벤트 해제
-        }
+        if (subscribedInput != null) subscribedInput.OnPauseEvent -= HandlePauseInput;
+        subscribedInput = null;
     }
 
-    // ==================================================================================
-    // 2. 입력 처리 로직
-    // ==================================================================================
-    private void HandleInteractInput()
-    {
-        if (isPlayerNearby)
-        {
-            Interact();
-        }
-    }
+    public bool CanInteract(PlayerInteraction player) => !isLocked && puzzleUI != null;
+    public void Interact(PlayerInteraction player) => Interact();
 
-    // ESC 키를 눌렀을 때 실행될 함수
     private void HandlePauseInput()
     {
         // 만약 퍼즐 UI가 켜져 있는 상태라면, ESC를 눌렀을 때 창을 닫습니다.
@@ -54,7 +38,7 @@ public class SlidingPuzzleTrigger : MonoBehaviour
 
     public void Interact()
     {
-        if (isLocked)
+        if (isLocked || puzzleUI == null)
         {
             return;
         }
@@ -70,22 +54,4 @@ public class SlidingPuzzleTrigger : MonoBehaviour
         OpengameManager.instance.CheckMap5Condition();
     }
 
-    // ==================================================================================
-    // 3. 플레이어 접근 감지
-    // ==================================================================================
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isPlayerNearby = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isPlayerNearby = false;
-        }
-    }
 }
