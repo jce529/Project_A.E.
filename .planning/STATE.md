@@ -4,7 +4,7 @@ milestone: v2.0
 milestone_name: milestone
 status: executing
 last_updated: "2026-09-12T06:07:11.007Z"
-last_activity: 2026-09-12 - Completed quick task 260912-kih: 플레이어 최근접 상호작용 및 현재 키 UI 구현 (컴파일 통과, Unity Play 검증 대기)
+last_activity: 2026-09-13 - Completed quick task 260913-git: 세이브 포인트 및 ESC 저장 슬롯 선택 (컴파일 통과, Play 검증 대기)
 progress:
   total_phases: 10
   completed_phases: 4
@@ -27,7 +27,7 @@ Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Ass
 Plan: 14-01/02/03 실행 대기 (Wave 1/2 자율, Wave 3 씬 배치+Play 모드 체크포인트 포함 비자율) / 12-01 Task 3 Play 모드 체크포인트 대기 / Phase 13 후속 정리는 D-09/D-10(권장 등급 리팩토링)만 백로그로 남기고 마무리
 Status: Phase 14는 discuss-phase(`14-CONTEXT.md`/`14-DISCUSSION-LOG.md`, 커밋됨) + research(`14-RESEARCH.md`, 커밋됨) + UI-SPEC(`14-UI-SPEC.md`) + plan-phase(`14-01/02/03-PLAN.md`) 까지 전부 완료됐지만 **UI-SPEC/PLAN 3개와 ROADMAP.md 갱신분이 전부 미커밋(untracked/modified)**이며 코드 실행은 0%다 — `SaveLoadManager.cs`에 슬롯 관련 API(SlotCount/CurrentSlot/GetSavePath/SelectSlot/PeekSlotData/NewGameInSlot/LoadSlot) 부재, `SlotSelectPanel.cs`/`OverwriteConfirmPanel.cs` 파일 자체 없음, `Assets/SaveSystem/Check.md`에 Phase 14 가이드 없음("다중 슬롯 미지원 (D-02)" 문구 그대로). Phase 13 감사 보고서(`13-AUDIT-REPORT.md`) D-07(죽은 코드)·D-08(디버그 잔재)·기타(스테일 씬 엔트리) 전 항목 개별 판단·실행 완료. D-09(중복 로직)·D-10(긴 함수)은 회귀 위험이 큰 "권장" 등급이라 이번 라운드에서 의도적으로 미착수 — 백로그 15건은 보고서 하단 참고. Phase 12는 별도로 Play 모드 체크포인트 보류 중. **2026-08-20 변경분(SaveLoadManager.cs/BossController.cs/TutorialDeadState.cs/PlayerAttack.cs) Play 모드 재검증 아직 미수행.**
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
-Last activity: 2026-09-12 - Completed quick task 260912-kih: 플레이어 최근접 상호작용 및 현재 키 UI 구현 (컴파일 통과, Unity Play 검증 대기)
+Last activity: 2026-09-13 - Completed quick task 260913-git: 세이브 포인트 및 ESC 저장 슬롯 선택 (컴파일 통과, Play 검증 대기)
 
 Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0 마일스톤) 기준 재계산. 완료 phase: 5, 6, 9, 13 (4/10). Phase 7(1/2)·8(2/3)·10(3/4)·11(3/4)·12(0/1) 진행 중, Phase 14(0/3) 계획만 완료.
 
@@ -155,6 +155,7 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 | 260805-q2u | 구역 타일링 + 부드러운 경계 전환 (X bounds Lerp 재설계) | 2026-08-05 | 8103c3a | [260805-q2u-x-cameracontroller-cameraboundstrigger](./quick/260805-q2u-x-cameracontroller-cameraboundstrigger/) |
 | 260809-h9k | 경계 즉시 스냅 복귀 + 인접 구역 Exit/Enter 경쟁 상태 수정 + Y축 카메라 경계 추가 + Tutorial Map 구역 배치·실측 검증 | 2026-08-09 | 6afe518 | (문서 없음 - 채팅 세션에서 직접 진행) |
 | 260912-kih | 플레이어 최근접 상호작용 및 현재 키 UI (컴파일 통과, Play 미검증) | 2026-09-12 | 737216f | [260912-kih-centralize-interaction-detection-on-play](./quick/260912-kih-centralize-interaction-detection-on-play/) |
+| 260913-git | 세이브 포인트 및 ESC 저장 슬롯 선택 (컴파일 통과, Play 미검증) | 2026-09-13 | 53311c2 | [260913-git-save-point-esc-slot-selection](./quick/260913-git-save-point-esc-slot-selection/) |
 
 ### Roadmap Evolution
 
