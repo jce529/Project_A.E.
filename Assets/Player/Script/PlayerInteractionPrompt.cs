@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteractionPrompt : MonoBehaviour
 {
     [SerializeField] private Vector3 worldOffset = new Vector3(0f, 1.5f, 0f);
+    [SerializeField, Min(0.001f)] private float worldScale = 0.02f;
     private GameObject canvasObject;
     private TextMeshProUGUI label;
     private InputAction cachedAction;
@@ -13,11 +14,19 @@ public class PlayerInteractionPrompt : MonoBehaviour
     private string formattedText;
     private bool bindingDirty = true;
 
-    private void OnEnable() => InputSystem.onActionChange += OnActionChange;
+    private void OnEnable()
+    {
+        InputSystem.onActionChange += OnActionChange;
+    }
     private void OnDisable()
     {
         InputSystem.onActionChange -= OnActionChange;
         Hide();
+    }
+    private void OnDestroy()
+    {
+        // The canvas may belong to a target rather than the player hierarchy.
+        if (canvasObject != null) Destroy(canvasObject);
     }
     private void OnActionChange(object changed, InputActionChange change)
     {
@@ -35,22 +44,20 @@ public class PlayerInteractionPrompt : MonoBehaviour
             formattedText = "[" + bindingText + "]";
             bindingDirty = false;
         }
-        Camera camera = Camera.main;
         if (!isActiveAndEnabled || target == null || !target.isActiveAndEnabled
-            || camera == null || string.IsNullOrEmpty(bindingText))
+            || string.IsNullOrEmpty(bindingText))
         {
             Hide();
             return;
         }
-        Vector3 screenPosition = camera.WorldToScreenPoint(target.transform.position + worldOffset);
-        if (screenPosition.z <= 0f) { Hide(); return; }
         if (canvasObject == null)
         {
             canvasObject = new GameObject("Interaction Key Prompt", typeof(Canvas));
             canvasObject.transform.SetParent(transform, false);
             var canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.renderMode = RenderMode.WorldSpace;
             canvas.sortingOrder = 100;
+            ((RectTransform)canvas.transform).sizeDelta = new Vector2(240f, 60f);
             var textObject = new GameObject("Key", typeof(RectTransform));
             textObject.transform.SetParent(canvasObject.transform, false);
             label = textObject.AddComponent<TextMeshProUGUI>();
@@ -61,9 +68,15 @@ public class PlayerInteractionPrompt : MonoBehaviour
             label.raycastTarget = false;
             label.rectTransform.sizeDelta = new Vector2(240f, 60f);
         }
+        // World-space geometry follows the target and camera naturally, including zoom.
+        Transform canvasTransform = canvasObject.transform;
+        if (canvasTransform.parent != target.transform)
+            canvasTransform.SetParent(target.transform, false);
+        canvasTransform.localPosition = worldOffset;
+        canvasTransform.localRotation = Quaternion.identity;
+        canvasTransform.localScale = Vector3.one * Mathf.Max(0.001f, worldScale);
         canvasObject.SetActive(true);
         if (label.text != formattedText) label.text = formattedText;
-        label.rectTransform.position = screenPosition;
     }
 
     public static string GetBindingText(InputAction action)
@@ -73,6 +86,9 @@ public class PlayerInteractionPrompt : MonoBehaviour
 
     public void Hide()
     {
-        if (canvasObject != null) canvasObject.SetActive(false);
+        if (canvasObject == null) return;
+        canvasObject.SetActive(false);
+        // Keep the hidden canvas available when the previous target is removed or pooled.
+        canvasObject.transform.SetParent(transform, false);
     }
 }
