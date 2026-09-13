@@ -13,9 +13,11 @@ Purpose: Phase 15에서 발견된 결함과 수정·재검증 이력을 한곳�
 | [BUG-006](BUG-006-tutorialboss-wall-reference-missing.md) | TutorialBoss 격파 상태 로드 시 보스방 벽이 해제되지 않음 | 중간 | 해결됨 | 2026-09-11 |
 | [BUG-007](BUG-007-inputhandler-lost-on-scene-transition.md) | 씬 전환 후 InputHandler 액션 에셋 유실로 플레이어 입력 불가 | 높음 | 확인됨 — 미해결 | 2026-09-11 |
 
-## 최신 집계 (2026-09-11)
+| [BUG-009](BUG-009-interaction-prompt-camera-jitter.md) | 플레이어 이동 시 상호작용 키 UI 떨림 | 중간 | 해결됨 | 2026-09-12 |
 
-- 해결됨: 3건 — BUG-002, BUG-005, BUG-006
+## 최신 집계 (2026-09-13)
+
+- 해결됨: 4건 — BUG-002, BUG-005, BUG-006, BUG-009
 - 수정됨 — 재검증 필요: 2건 — BUG-001, BUG-004
 - 확인됨 — 미해결: 2건 — BUG-003, BUG-007
 - 최우선 조치: 플레이 진행을 차단하는 BUG-007 수정 및 Tutorial Map → 1 stage 실제 전환 재검증
