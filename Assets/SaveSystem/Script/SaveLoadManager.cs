@@ -141,6 +141,14 @@ public class SaveLoadManager : MonoBehaviour
         string json = JsonConvert.SerializeObject(_data, JsonSettings);
         File.WriteAllText(SavePath, json);
         Debug.Log("[SaveLoadManager] Saved to " + SavePath);
+
+        // Phase 16 (D-05): every save trigger - checkpoint, boss defeat, pause menu and the
+        // interval autosave itself - funnels through this one method, so restarting the
+        // autosave countdown here covers all of them with a single line. Placed after the
+        // write so a throwing File.WriteAllText does not reset anything. This is a
+        // notification, NOT a gate: D-03b forbids any state check inside this file, and none
+        // is added - AutoSaveTimer still owns the entire Playing / PlayerStats decision.
+        AutoSaveTimer.NotifySaveWritten();
     }
 
     // D-01 integration point A: Checkpoint.cs calls this on S-key activation.
