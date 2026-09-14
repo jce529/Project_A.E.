@@ -49,6 +49,7 @@ public class AutoSaveTimer : MonoBehaviour
         if (_instance != null) return;
         GameObject go = new GameObject("AutoSave");
         go.AddComponent<AutoSaveTimer>();
+        go.AddComponent<AutoSaveNotice>();
     }
 
     private void Awake()
@@ -122,6 +123,13 @@ public class AutoSaveTimer : MonoBehaviour
         // D-01: no slot dialog is involved. SaveSlotDialog lives in the manual callers, not in
         // SaveAnywhere(), so this writes CurrentSlot silently.
         SaveLoadManager.Instance.SaveAnywhere();
+
+        // D-10: tell the player the write happened. Resolved with GetComponent instead of a
+        // cached field because this runs once every three minutes, and it keeps the call free
+        // of any assumption about the order Bootstrap() adds the two components in.
+        AutoSaveNotice notice = GetComponent<AutoSaveNotice>();
+        if (notice != null) notice.Show();
+
         return true;
     }
 
