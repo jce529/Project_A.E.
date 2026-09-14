@@ -250,7 +250,7 @@ Plans:
 - [x] 10-01-PLAN.md — 하드컷 Base Deadzone + `_isBossZone` 분기 구조(`ApplyNormalStageCamera`/`ResetNormalStageState`) + 데드존 Gizmo
 - [x] 10-02-PLAN.md — Dynamic Asymmetrical Deadzone (밀기 방향 추적 + 유지 타이머 + SmoothDamp 오프셋 합성)
 - [x] 10-03-PLAN.md — Input-based Peeking (OnMoveEvent 구독 라이프사이클 + 4조건 가드 + 수직 SmoothDamp)
-- [ ] 10-04-PLAN.md — Assets/Camera/Check.md Phase 10 체크리스트 + 정적 회귀 검사 9종 + Play 모드 검증 체크포인트
+- [ ] 10-04-PLAN.md — 정적 9종 및 비보스 핵심 Play 검증 통과(2026-09-10); 수동 시각·보스 항목 보류
 
 ### Phase 11: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 - DontDestroyOnLoad, 메모리 캐싱(플레이 중 파일 I/O 없음), 로드 시점(이어하기/체크포인트 부활), 저장 시점(체크포인트 상호작용/보스 격파 자동저장), 확장 가능한 데이터 클래스(씬+좌표, 플레이어 스탯 하위클래스, 보스 진행도 Dictionary, 맵 기믹 상태 Dictionary, 아이템 목록), 비동기 씬 로드 완료 후 좌표 이동, Application.persistentDataPath에 .json 저장
 
@@ -282,7 +282,7 @@ Plans:
 - [x] 11-01-PLAN.md — Newtonsoft.Json manifest 직접 고정 + SaveData/PlayerStatsSaveData 스키마 신규 + PlayerStats.RestoreStats additive 메서드
 - [x] 11-02-PLAN.md — SaveLoadManager 싱글톤(부트스트랩/DontDestroyOnLoad) + 메모리 캐시 + save.json I/O + 코루틴 LoadSceneAsync 로드 흐름
 - [x] 11-03-PLAN.md — 저장 트리거 5곳 통합 (Checkpoint S키 + Group A 2종 HandleDeath + Group B 2종 Die 오버라이드)
-- [ ] 11-04-PLAN.md — ContextMenu 검증 훅 + Assets/SaveSystem/Check.md 체크리스트 + 정적 회귀 15항목 + Play 모드 검증 체크포인트
+- [ ] 11-04-PLAN.md — 훅/정적 15종 및 비보스 핵심 Play 검증 통과(2026-09-10); UI 일부·보스 항목 보류
 
 ### Phase 12: 피격 시 카메라 흔들림 (Camera Shake on Hit)
 
@@ -318,7 +318,7 @@ Plans:
 | 1 | 12-01 | no (Play 모드 검증 체크포인트 포함) |
 
 Plans:
-- [ ] 12-01-PLAN.md — CameraController Hit Shake 레이어(필드 2개 + Shake() + ApplyHitShake() + LateUpdate 무조건 호출) + PlayerStats.TakeDamage 호출 지점 + 정적 회귀 12항목 + Check.md Phase 12 체크리스트 + Play 모드 검증 체크포인트
+- [ ] 12-01-PLAN.md — 비보스 대부분 통과, `timeScale=0` 실패는 BUG-005로 기록; 사망 순간·보스 항목 보류
 
 ### Phase 13: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
 
@@ -418,6 +418,42 @@ Plans:
 | 3 | 14-03 | no (씬 배치 + Play 모드 검증 체크포인트) |
 
 Plans:
-- [ ] 14-01-PLAN.md — SaveLoadManager 슬롯화 (SlotCount/CurrentSlot/GetSavePath/SelectSlot/HasSaveFile(int) + PeekSlotData/NewGameInSlot/LoadSlot + Phase14 ContextMenu 훅)
-- [ ] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
-- [ ] 14-03-PLAN.md — MainMenuUI D-01/D-02/D-03 재배선 + Check.md Phase 14 배선 가이드·정적 회귀 12항목·Play 모드 체크리스트 + 씬 배치/실측 체크포인트
+- [x] 14-01-PLAN.md — SaveLoadManager 슬롯화 (SlotCount/CurrentSlot/GetSavePath/SelectSlot/HasSaveFile(int) + PeekSlotData/NewGameInSlot/LoadSlot + Phase14 ContextMenu 훅)
+- [x] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
+- [ ] 14-03-PLAN.md — MainMenu 배선/정적 13종/비보스 핵심 Play 검증 통과; UI 일부·보스 회귀 보류
+
+### Phase 15: 로드 시점 및 로드 범위 정의 - 세이브 데이터를 언제 로드할지(사망/체크포인트 부활/이어하기)와 로드 시 어디까지 복원할지(보스 진행도/맵 기믹/체력 불변식) 확정
+
+**Goal:** 플레이어가 죽으면 즉시 마지막 세이브가 자동 로드되고(세이브가 없으면 현재 씬 재시작), 로드가 실패하면 세이브 파일을 건드리지 않은 채 메인메뉴로 복귀하며, 로드된 세이브의 보스 진행도에 따라 이미 격파한 보스는 등장하지 않고 체력값은 `0 < health <= maxHealth <= maxTotalHealth` 불변식으로 보정된다.
+**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10 (`15-CONTEXT.md` 결정 ID — 이 페이즈는 v2.0 REQ-ID 체계 밖의 시스템 작업이라 결정 ID로 추적한다)
+**Depends on:** Phase 14
+**Plans:** 2/4 plans executed
+
+Plans:
+- [x] 15-01-PLAN.md — PlayerStats 사망 자동 로드(D-01/D-02) + 체력 불변식 보정(D-08) + Player.prefab 체력값 확정(D-09)
+- [x] 15-02-PLAN.md — SaveLoadManager 로드 실패 5분기 메인메뉴 복귀(D-04) + 세이브 파일 무손상 보장(D-05)
+- [ ] 15-03-PLAN.md — 보스 3종 IsBossDefeated() 자가 제거 가드(D-06/D-07) + TutorialBoss 보스방 벽 해제
+- [ ] 15-04-PLAN.md — 정적 회귀 18항목 + Check.md 작성 + Unity Play 모드 실측 검증 (체크포인트)
+
+### Phase 16: 일정 간격 자동저장 - 플레이 중 주기적으로 현재 진행 상황을 자동 저장해 세이브 부재/장시간 미저장 구간을 없앤다
+
+**Goal:** 플레이 중 실제 플레이 가능 시간 3분마다 현재 슬롯 세이브가 자동으로 갱신되고(현재 씬 기록, 회복 없음, 슬롯 대화상자 없음), 메인메뉴/일시정지/로딩 중에는 절대 발동하지 않으며, 저장이 일어나면 화면 우하단에 짧은 알림이 뜬 뒤 사라진다. 기존 저장 트리거 3종과 로드 경로는 한 줄도 바뀌지 않는다.
+**Requirements**: D-01, D-02, D-03, D-03b, D-03c, D-04, D-05, D-05b, D-06, D-07, D-07b, D-07c, D-08, D-09, D-10, D-11 (`16-CONTEXT.md` 결정 ID — 이 페이즈는 v2.0 REQ-ID 체계 밖의 시스템 작업이라 결정 ID로 추적한다)
+**Depends on:** Phase 15
+**Plans:** 3/3 plans executed
+
+Plans:
+- [x] 16-01-PLAN.md — AutoSaveTimer 신규(자기 부트스트랩 + 1초 틱 코루틴 + Playing/PlayerStats 이중 게이트 + SaveAnywhere() 직접 호출, D-01/D-03/D-03c/D-04/D-07b) + SaveLoadManager.Save() 말미 타이머 리셋 1줄(D-05)
+- [x] 16-02-PLAN.md — AutoSaveNotice 신규(런타임 생성 우하단 '자동 저장됨' 라벨, 1.2초 유지 + 0.6초 페이드아웃, D-10) + 타이머 연결
+- [x] 16-03-PLAN.md — Check.md/정적 회귀 기록(원문 18/22, 명세 보정 22/22 PASS) + Unity Play 모드 실측 29/29 PASS (B 메인메뉴 미발동·E 수동 저장 무회귀 포함, Assets 0줄 변경)
+
+## Backlog
+
+### Phase 999.1: 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (BACKLOG)
+
+**Goal:** 자동 스폰 몬스터와 향후 공격·피격·스킬·보스 패턴 오디오 확장을 수용하도록, 자동 생성되는 영속 `AudioManager`가 BGM/SFX 재생 권한과 `AudioMixer`, 데이터 기반 `AudioCue`, 위치·추적 재생, `AudioSource` 풀, 동시 재생 제한·재트리거 쿨다운·우선순위를 중앙에서 소유한다. `EnvironmentManager`는 BGM `AudioSource`나 필터를 직접 조작하지 않고 환경 상태만 판정해 `AudioManager`에 음향 상태 변경을 요청하며, BUG-007에서 정리할 `PersistentManagers` 자동 부트스트랩 구조와 통합한다.
+**Requirements:** TBD
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (promote with $gsd-review-backlog when ready)
