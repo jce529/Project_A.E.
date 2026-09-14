@@ -2,7 +2,8 @@
 
 **요약:** 16-01/16-02 구현 및 컴파일 완료. AutoSaveTimer가 플레이 가능 시간 180초마다 현재 슬롯을 저장하고 AutoSaveNotice가 우하단 알림을 표시하도록 연결했다.
 정적 회귀 원문 기준 18/22 PASS, 4건 FAIL(검증 명세 오류 [BUG-010](bugs/BUG-010-plan-acceptance-false-positives.md)). 주석/기존 변경을 구분한 대체 검사 22/22 PASS.
-Unity Play 모드 실측은 전부 미검증이며, 16-03 Task 2 사용자 체크포인트에서 대기한다.
+Unity 에디터 실측 1차(2026-09-14, Unity MCP)에서 180초 자연 발동과 현재 슬롯 갱신을 파일 증거로 확인했고, 2차(2026-09-14, Unity CLI `unity command eval`)에서 남은 13항목을 전부 측정했다.
+Play 모드 29항목 **29 PASS / 0 FAIL / 0 미검증**. 메인메뉴 슬롯 오염 차단(B)과 기존 수동 저장 무회귀(E)를 포함해 전 항목이 실측으로 닫혔다.
 
 ## 무엇이 바뀌었나
 
@@ -87,73 +88,206 @@ Windows에서는 grep/wc 대신 rg의 일치 행 수를 집계했다. 아래 명
 | D-11 | `setting.json` 에 on/off·간격 노출 없음 | 자동저장은 항상 켜진 고정 동작이다. 항목 20 이 `SettingsData`/`GameSettingsPanel` 무변경을 증명한다. |
 
 
+## Unity 에디터 실측 (2026-09-14, Unity MCP)
+
+Unity 에디터 Play 모드에서 직접 측정했다. 수단은 Unity MCP(`Unity_RunCommand` / `Unity_GetConsoleLogs`)이며,
+판정은 **세이브 파일의 수정 시각·내용 변화**와 **런타임 오브젝트 실측값**으로 했다. 시작 씬은 `Tutorial Map`, 슬롯은 0.
+
+**측정 환경 (판정에 영향을 주는 조건이므로 명시)**
+
+- 세이브 경로 실측: `C:/Users/chang/AppData/LocalLow/DefaultCompany/AQUA ECLIPSE` (`companyName=DefaultCompany`, `productName=AQUA ECLIPSE`).
+- 검증 시작 전 `save.json` / `save_1.json` / `save_2.json` 3개를 세션 스크래치패드에 백업했다(체크리스트 3번). 기준 상태는 전부 `2026-09-13 12:04:39`, `SceneName="Tutorial Map"`, `SpawnPointName=""`.
+- **에디터 비포커스 구간에서는 게임이 거의 진행되지 않는다.** `Application.runInBackground=False`(프로젝트 설정 `PlayerSettings.runInBackground=False`)이므로 창이 뒤로 가면 프레임이 멈추고, 벽시계 240초 동안 `Time.time` 이 3.8초만 흘렀다(프레임 537). 자동저장이 발동하지 않은 것은 타이머 결함이 아니라 이 조건 때문이었다.
+- 그래서 이후 측정에서는 **런타임에서만** `Application.runInBackground = true` 로 바꿨다. `ProjectSettings` 는 변경하지 않았고(Play 모드 종료 시 원복), 저장소 파일도 건드리지 않았다.
+- **Unity MCP 제약 2건:** ① 스크립트에서 `System.Reflection` 사용이 차단돼 `_elapsedSeconds` 직접 판독과 `[ContextMenu]` 기어 메뉴(`Phase16/1`·`Phase16/2`) 호출이 불가능하다 → 항목 5·8은 사용자 확인으로 남는다. **(2차 정정: 이 제약은 Unity MCP 한정이다. `unity command eval` 은 리플렉션을 허용해 두 항목 모두 실측했다.)** ② `Unity_GetConsoleLogs` 가 런타임 `Debug.Log` 를 반환하지 않는다(검증용 마커 `[Phase16Verify]` 를 심어도 조회되지 않음) → 콘솔 문자열 기준(`[SaveLoadManager] Saved to ...`)은 판독 불가이며, 대신 파일 수정 시각·내용으로 판정했다. **(2차 정정: `unity command console` 은 런타임 게임 로그를 스택트레이스까지 반환한다. 콘솔 문자열 기준도 원문으로 확보했다.)**
+- 세션 전체 Console: **에러 0건**, 경고 2건. 경고는 Play 진입 시점(18:24:09)의 `The referenced script (Unknown) on this Behaviour is missing!` 2건으로 **Phase 16 와 무관한 기존 씬 문제**다. 신규 스크립트 2개는 정상 임포트됐다(`AutoSaveTimer` guid `d9e6503a…`, `AutoSaveNotice` guid `90640068…`, 클래스 해석 성공, `.meta` 는 임포트 후에도 `git status` 무변경 = 새 GUID 생성 없음).
+
+**D-04 자연 발동 (핵심 측정)**
+
+| 시각(벽시계) | `Time.time` | 사건 | 증거 |
+|---|---|---|---|
+| 18:28:19 | 4.78 | 측정 기준점 (게이트 `Playing`/`PlayerStats=True`/슬롯 0) | — |
+| 18:31:15 | 약 181 | **자동저장 발동** | `save.json` mtime `2026-09-14 18:31:15`, 기준 `2026-09-13 12:04:39` 에서 갱신 |
+
+즉 게이트가 참인 시간 약 176초가 더 흘러 누적 180초에 도달한 시점에 발동했다. `IntervalSeconds=180`, `TickSeconds=1` 실측 확인.
+기록 내용은 `SceneName="Tutorial Map"`(현재 씬), `SpawnPointName=""`, 체력 필드 없음. 다른 슬롯(`save_1`/`save_2`)은 `2026-09-13 12:04:39` 그대로 = D-01 준수.
+자동저장 직후 체력은 **60/100 그대로** = 무회복 확인(D-07b). `SaveSlotDialog` 오브젝트 0건 = D-01 준수.
+
+**일시정지 (D-03)**
+
+18:32:38 에 `SetState(Paused)` + `timeScale=0` (PauseMenu 와 동일한 호출) 후 18:34:30 까지 관측:
+
+- `Time.time` 이 263.4846 에서 **한 번도 증가하지 않았다** → `WaitForSeconds` 가 스케일 시간이므로 코루틴이 틱 자체를 못 한다. 카운트 정지가 구조적으로 보장된다(항목 14).
+- 같은 구간에 `save.json` mtime 은 18:31:15 유지 = 저장 미발생(항목 15). 관측 길이는 112초이며 180초는 아니다 — 다만 위 `Time.time` 정지가 더 강한 증거다.
+- 해제 후 `state=Playing`, `timeScale=1` 로 복귀하고 `Time.time` 이 다시 증가했다(항목 16).
+
+**기존 수동 저장 무회귀 (D-03b — 절대 조건)**
+
+| 항목 | 조작 | 결과 |
+|---|---|---|
+| 20 | `Paused` 상태에서 `SaveLoadManager.Instance.SaveAnywhere()` | mtime 18:35:06 으로 **정상 기록** → `SaveAnywhere()` 안에 상태 게이트가 없음이 런타임에서 증명됐다 |
+| 21 | `SaveAtCheckpoint("Phase16TestCP")` | 체력 **60/100 → 100/100 회복**, `SpawnPointName="Phase16TestCP"` 기록 |
+| 23 | 위 두 호출 | `SaveSlotDialog` 오브젝트 생성 0건 |
+
+**알림 UI (D-10)**
+
+`AutoSaveNotice.Show()`(타이머가 호출하는 공개 메서드) 를 직접 불러 실측:
+
+| 확인 | 실측값 |
+|---|---|
+| 캔버스 | `AutoSave Notice Canvas`, `ScreenSpaceOverlay`, `sortingOrder=20000`, `ScaleWithScreenSize`, `refRes=(1920,1080)` |
+| 부모 | `DontDestroyOnLoad` 하위(`AutoSave` 자식) → 씬 전환에 파괴되지 않음(항목 31 구조 근거) |
+| 위치 | `anchorMin/Max=(1,0)`, `pivot=(1,0)`, `anchoredPosition=(-48,48)`, `sizeDelta=(420,60)` = 우하단 48px |
+| 텍스트 | `자동 저장됨` (6자), 32pt, `BottomRight`, 흰색, `outlineWidth=0.2` |
+| 입력 차단 없음 | `GraphicRaycaster` 없음, `label.raycastTarget=False` (항목 29) |
+| 페이드 | `Show()` 직후 alpha=1 → 유지·페이드 후 alpha=0 확인 (`Hold=1.2`, `Fade=0.6`) |
+| `timeScale=0` 중 페이드 | 알림을 띄운 직후 `timeScale=0` 으로 일시정지해도 alpha 가 **0 까지 내려갔다** → `unscaledDeltaTime` 사용 확인(항목 30) |
+| 연속 호출 | `Show()` 2회 연속 → 자식 캔버스 1개·라벨 1개 유지, alpha 가 1 로 재시작 = 겹침 없음(항목 32) |
+
+**한글 글리프 — 기존 '알려진 한계' 항목 해소**
+
+`Build()` 가 폰트를 지정하지 않아 라벨의 주 폰트는 TMP 기본값 `LiberationSans SDF` 이고 이 폰트 자체는 한글이 없다(`HasCharacters("자동 저장됨")=False`).
+그러나 프로젝트 전역 TMP 설정에 폴백이 하나 등록돼 있다: `TMP_Settings.fallbackFontAssets = [NotoSansKR-Regular SDF]` (`hasKorean=True`).
+실제 렌더 결과를 문자 단위로 확인한 결과 한글 5자가 모두 이 폴백으로 해결됐다:
+
+| 문자 | `isVisible` | 해석된 폰트 | glyphIndex |
+|---|---|---|---|
+| 자 | True | NotoSansKR-Regular SDF | 17311 |
+| 동 | True | NotoSansKR-Regular SDF | 12264 |
+| (공백) | False | LiberationSans SDF | 3 |
+| 저 | True | NotoSansKR-Regular SDF | 17423 |
+| 장 | True | NotoSansKR-Regular SDF | 17332 |
+| 됨 | True | NotoSansKR-Regular SDF | 12343 |
+
+→ **글리프 누락 없음.** 단, 이는 전역 폴백에 의존하는 결과다. 나중에 TMP 설정에서 `NotoSansKR-Regular SDF` 폴백을 제거하면 이 알림은 깨진다.
+
+**측정을 중단시킨 조건 (남은 항목의 사유)**
+
+18:35:20 에 `SceneManager.LoadScene("1 stage")` 로 씬을 옮긴 직후 **플레이어 루프가 1.83초만 진행되고 멈췄다**
+(`frameCount` 75780 고정, `deltaTime=0`, `unscaledDeltaTime=0`, `timeScale=1`, `state=Playing`). `Application.runInBackground` 재설정·토글로도 되살아나지 않았다.
+스케일 시간이 흐르지 않으면 `WaitForSeconds` 코루틴이 틱하지 못하므로 **시간 기반 항목을 더 측정할 수 없어 중단**했다.
+
+> **[2차 실측 추가 — 이 중단의 원인이 규명됐다]** 플레이어 루프가 멈춘 것이 아니라 **에디터가 일시정지된 것이다.** 2차에서 `EditorApplication.isPaused` 를 직접 읽어 `True` 임을 확인했다.
+> Console 의 **Error Pause 가 켜져 있고**, 씬 로드 직후 아래 표의 `MissingComponentException`([BUG-008](../15-load-timing-and-load-scope/bugs/BUG-008-tutorialboss-animator-missing.md))이 발생해 Play 모드가 자동으로 멈춘다.
+> `EditorApplication.isPaused = false` 로 해제하면 즉시 되살아나며, Error Pause 를 끄면 재발하지 않는다. `runInBackground` 와는 무관했다. 이 조건을 제거한 뒤 남은 13항목을 전부 측정했다.
+
+같은 로드 시점에 기존 문제 3건이 함께 찍혔다. **전부 Phase 16 코드와 무관하다:**
+
+| 시각 | 종류 | 내용 |
+|---|---|---|
+| 18:24:09 | 경고 2 | `The referenced script (Unknown) on this Behaviour is missing!` (Play 진입 시점, 기존 씬 문제) |
+| 18:35:20 | 경고 | `The referenced script on this Behaviour (Game Object 'PauseMenuPanel') is missing!` |
+| 18:35:20 | 경고 | `Tutorial Boss에 SpriteRenderer가 없습니다` (`HP.cs:47`) |
+| 18:35:20 | **에러 1** | `MissingComponentException: There is no 'Animator' attached to the "Tutorial Boss"` (`TutorialIdleState.cs:23` ← `TutorialBossController.cs:180`) = 이미 기록된 [BUG-008](../15-load-timing-and-load-scope/bugs/BUG-008-tutorialboss-animator-missing.md) |
+
+Phase 16 스크립트가 만든 에러·경고는 **0건**이다.
+
+**세이브 파일 처리 (체크리스트 34번)**
+
+측정이 끝난 뒤 백업으로 **3개 슬롯 전부 복구했다**(`SpawnPointName=""` 로 원상 복귀). 측정 중 생성된 상태는
+백업 폴더에 `save.json.after-test` 로 따로 보존했다. 프로젝트 파일 변경은 0건이다(`git status ProjectSettings/` 무변경 —
+`PlayerSettings.runInBackground` 은 Play 모드 종료와 함께 원래 값 `False` 로 돌아왔다).
+
 ## 알려진 한계
 
-- 사망 자동 로드 중 기존 매니저가 Loading 상태를 설정하지 않는 구간에는 Playing/PlayerStats 가드가 통과할 수 있다. 계획에서 이미 수용한 미검증 경쟁 구간이며, 실제 관측 시 별도 런타임 버그를 기록한다. 이번 페이즈에서 로드 경로를 변경하지 않았다.
-- 1초 틱은 프레임 스케줄링에 의존한다. 계획의 '최대 1초 늦음'은 보장하지 않는다. 180회 대기에 프레임 지연이 누적될 수 있으므로 실제 3분 근처 발동 시각은 A 그룹에서 측정한다.
-- .meta는 고유 GUID를 직접 생성했다. Unity 임포트 후 추가 메타 필드가 생기면 확인한다. 이번 세션에서 Unity 에디터 검증은 수행하지 않았다.
-- 한국어 바이트는 검증했지만 TMP 기본 폰트의 글리프와 화면 배치는 G 그룹에서 확인해야 한다.
+- 사망 자동 로드 중 기존 매니저가 Loading 상태를 설정하지 않는 구간에는 Playing/PlayerStats 가드가 통과할 수 있다. 계획에서 이미 수용한 미검증 경쟁 구간이며, 실제 관측 시 별도 런타임 버그를 기록한다. 이번 페이즈에서 로드 경로를 변경하지 않았다. **(2차 실측에서 항목 26·27 로드 경로는 정상 동작을 확인했고 경쟁 구간의 오작동은 관측되지 않았다. 경쟁 자체를 배제하는 측정은 아니다.)**
+- 1초 틱은 프레임 스케줄링에 의존한다. 계획의 '최대 1초 늦음'은 보장하지 않는다. **실측 결과 게이트가 참인 시간 약 176초 누적 후 발동해 D-04(180초)와 일치했다** — 다만 측정은 에디터 1회분이다.
+- **자동저장 간격은 '게임이 실제로 도는 동안'만 흐른다.** `PlayerSettings.runInBackground=False` 이므로 창이 뒤로 가면 카운트가 멈춘다. 게임 자체가 정지하는 구간이라 데이터 손실 위험은 없지만, "3분마다"는 벽시계가 아니라 플레이 시간 기준이라는 뜻이다.
+- **1차 실측의 '벽시계 240초 동안 `Time.time` 3.8초' 관측은 창 포커스 때문이 아니었다 — 원인은 [BUG-008](../15-load-timing-and-load-scope/bugs/BUG-008-tutorialboss-animator-missing.md)이다.** 2차 실측에서 `EditorApplication.isPaused=True` 를 직접 읽어 확인했다: Console 의 **Error Pause 가 켜져 있고**, `Tutorial Map` / `1 stage` 로드 직후 BUG-008 의 `MissingComponentException` 이 발생해 **Play 모드가 자동 일시정지**된다. 1차 실측이 '루프가 멈췄다'며 13항목을 포기한 실제 원인이 이것이다. 자동저장 로직과는 무관하다.
+- .meta는 고유 GUID를 직접 생성했다. **Unity 임포트 후에도 `.meta` 는 변경되지 않았다**(`git status` 무변경, guid 유지) — 이 항목은 해소됐다.
+- **TMP 글리프 한계는 해소됐다** — 전역 폴백 `NotoSansKR-Regular SDF` 가 한글 5자를 모두 공급한다(문자별 실측). 단 이 폴백을 TMP 설정에서 제거하면 알림이 깨진다.
+- **알림의 화면 표시는 해소됐다.** `ScreenSpaceOverlay` 는 카메라 렌더(`source=camera`)에는 안 잡히지만 **합성 백버퍼 캡처(`unity command capture_game_view --source screen`)에는 잡힌다.** 2차 실측에서 우하단 "자동 저장됨" 이 읽히는 것을 1920x1080 캡처로 확인했다(항목 28). 단, 일시정지 중에는 게임 뷰가 다시 그려지지 않아 캡처가 **직전 프레임**을 돌려준다 — `EditorApplication.Step()` 으로 한 프레임 진행시킨 뒤 캡처해야 한다.
+- ~~**Unity MCP 로는 기어 메뉴(`[ContextMenu]`)와 런타임 `Debug.Log` 를 쓸 수 없다**~~ — **이 제약은 Unity MCP 한정이며 Unity CLI 에서는 성립하지 않는다.** `mcp__unity-mcp__Unity_RunCommand` 는 `System.Reflection` 네임스페이스를 거부하지만, `unity command eval`(Roslyn)은 리플렉션을 허용하고 `unity command console` 은 런타임 게임 로그를 스택트레이스까지 돌려준다. 2차 실측은 이 경로로 항목 5·8·6 의 콘솔 문자열 기준을 전부 채웠다.
 
-## Play 모드 체크리스트 (사용자 확인 필요)
+## Play 모드 체크리스트
 
-현재 모든 항목 미검증. 아래 번호는 16-03-PLAN.md 원문 번호다. 실제 대상 파일은 CurrentSlot에 따라 save.json / save_1.json / save_2.json으로 바꿔 확인한다.
+**진행 상황: 29항목(4~32) 전부 실측 완료 — 29 PASS / 0 부분 / 0 미검증 / 0 FAIL.**
+`[x]` 뒤의 (1차)는 2026-09-14 Unity MCP 실측, (2차)는 같은 날 Unity CLI(`unity command eval` / `console` / `capture_game_view`) 실측이다.
+통과하지 않은 항목을 통과로 적지 않았다(Phase 9 선례). 번호는 16-03-PLAN.md 원문 번호다.
 
 **사전 준비**
-- [ ] 1. Unity 에디터를 연다. 신규 스크립트 2개가 임포트되며 컴파일된다. **Console 에 컴파일 에러가 0건**인지 먼저 확인한다. (`.meta` 는 이미 만들어 커밋했으므로 guid 가 새로 생기지 않아야 한다. `.meta` 가 수정되면 그 변경은 커밋한다.)
-- [ ] 2. 세이브 파일 위치를 알아 둔다: `%USERPROFILE%\AppData\LocalLow\<회사명>\<프로젝트명>\save.json` (슬롯 0). 파일의 **수정 시각**과 `"SceneName"` 값을 이 검증 동안 계속 확인하게 된다.
-- [ ] 3. 검증 전에 현재 `save.json` / `save_1.json` / `save_2.json` 을 다른 폴더로 복사해 **백업**해 둔다 (자동저장이 덮어쓴다).
+- [x] 1. (1차) Unity 임포트·컴파일 정상 — 에러 0, 클래스 2개 해석(`AutoSaveTimer` / `AutoSaveNotice`), `.meta` guid 변경 없음.
+- [x] 2. (1차) 세이브 경로 확인 — `C:/Users/chang/AppData/LocalLow/DefaultCompany/AQUA ECLIPSE`.
+- [x] 3. (1·2차) 세이브 3개 백업 완료. 2차도 측정 전 백업하고 측정 후 SHA-256 일치로 복구했다(34번 참조).
 
 **A. 기본 발동 (D-04 / D-01 / D-07)**
-- [ ] 4. 게임 씬(예: `Tutorial Map`)에서 Play 를 누르고, Hierarchy 에 `AutoSave` 오브젝트가 생성됐는지 확인한다.
-- [ ] 5. `AutoSave` 선택 → `AutoSaveTimer` 컴포넌트 기어 메뉴 → **`Phase16/2. Log Timer State`** 실행. `canAutoSave=True`, `state=Playing`, `hasPlayerStats=True`, `elapsed` 이 초당 1씩 늘고 있는지 확인한다.
-- [ ] 6. 그대로 **3분 이상 플레이**한다(가만히 서 있어도 된다). 3분 근처에 우하단에 `자동 저장됨` 이 뜨고 1~2초 안에 사라지는지, Console 에 `[SaveLoadManager] Saved to ...` 가 찍히는지 확인한다.
-- [ ] 7. `save.json` 의 수정 시각이 방금으로 갱신됐고 `"SceneName"` 이 **현재 플레이 중인 씬 이름**인지 확인한다.
-- [ ] 8. (빠른 반복용) 기어 메뉴 → **`Phase16/1. Force AutoSave Now`** 를 누르면 3분을 기다리지 않고 같은 경로가 실행된다. 이후 항목은 이걸로 확인해도 된다.
+- [x] 4. (1차) `AutoSave` 오브젝트 생성 확인 — `DontDestroyOnLoad` 소속, `AutoSaveTimer` + `AutoSaveNotice` 부착.
+- [x] 5. (2차) `Phase16/2. Log Timer State` 실행 — 기어 메뉴가 바인딩하는 바로 그 메서드(`DebugLogTimerState`, `ContextMenu` 어트리뷰트 확인)를 리플렉션으로 호출했다. 콘솔 원문:
+  `[AutoSaveTimer] elapsed=19/180 canAutoSave=True state=Playing hasPlayerStats=True slot=0`.
+  연속 샘플에서 `elapsed` 가 `Time.time` 과 1:1로 증가했다(19.84→19, 21.59→21, 23.33→23).
+- [x] 6. (1차) 3분 플레이 후 발동 — 게이트 참 상태로 약 176초 누적 뒤 18:31:15 저장. (2차) 콘솔 문자열도 확보했다: `[SaveLoadManager] Saved to ...\save.json`.
+- [x] 7. (1차) `save.json` mtime 18:31:15 갱신, `SceneName="Tutorial Map"` 확인. 다른 슬롯 무변경.
+- [x] 8. (2차) `Phase16/1. Force AutoSave Now` — `ContextMenu` 경로 `"Phase16/1. Force AutoSave Now"` 를 어트리뷰트로 확인한 뒤 호출했다.
+  `elapsed` 95→0, `save.json` mtime 19:11:51→**19:27:33**, 콘솔 `[SaveLoadManager] Saved to ...\save.json`. 슬롯 대화상자는 생성되지 않았다.
 
 **B. 메인메뉴에서 발동하지 않는다 (D-03c — 가장 중요)**
-- [ ] 9. 게임 중 메인메뉴로 나간다(또는 MainMenu 씬에서 Play 시작).
-- [ ] 10. `AutoSave` 선택 → `Phase16/2. Log Timer State` → **`canAutoSave=False`**, `hasPlayerStats=False` 여야 한다. (`state=Playing` 으로 보이는 것은 정상이다 — 그래서 두 번째 가드가 있다.)
-- [ ] 11. `Phase16/1. Force AutoSave Now` 를 눌러 본다 → Console 에 `[AutoSaveTimer] Gate blocked the write` 경고가 뜨고 **저장은 일어나지 않아야 한다.**
-- [ ] 12. 메인메뉴에서 5분 이상 방치한 뒤 `save.json` 의 수정 시각이 **그대로**이고 `"SceneName"` 이 `MainMenu` 로 바뀌지 **않았는지** 확인한다. → 바뀌었다면 즉시 중단하고 보고할 것 (슬롯 오염 버그).
+- [x] 9. (2차) `MainMenu` 로 이동해도 `AutoSave` 오브젝트가 살아 있다(`autoObjAlive=True`).
+- [x] 10. (2차) 계획이 예측한 그대로다 — `state=Playing`(정상), `hasPlayerStats=False`, **`canAutoSave=False`**.
+  콘솔 원문: `[AutoSaveTimer] elapsed=28/180 canAutoSave=False state=Playing hasPlayerStats=False slot=0`.
+  `GameStateManager.HandleSceneLoaded()`(`GameStateManager.cs:81-88`)가 모든 씬 로드에서 `Playing` 을 강제하므로 두 번째 가드가 유일한 방어선임이 런타임에서 확인됐다.
+- [x] 11. (2차) `Phase16/1. Force AutoSave Now` → 콘솔에 경고 원문 `[AutoSaveTimer] Gate blocked the write - see Phase16/2 for the reason.` 만 뜨고 **저장은 일어나지 않았다**(`save.json` mtime 19:31:04 유지).
+- [x] 12. (2차) **슬롯 오염 차단 확인.** 계획의 "5분 방치"보다 강한 조건으로 측정했다: 카운터를 **179/180**(한 틱 뒤 발동)으로 무장한 뒤 메인메뉴에서 **298초** 방치했다.
+  결과 `elapsed` 는 **179에서 단 한 번도 증가하지 않았고**(게이트가 증가 이전에 `continue` 한다), `save.json` 은 mtime 19:31:04 · `SceneName="Tutorial Map"` 그대로였다. **`SceneName` 이 `MainMenu` 로 바뀌지 않았다.**
 
 **C. 일시정지 중 발동하지 않고 카운트도 멈춘다 (D-03)**
-- [ ] 13. 게임 중 `Phase16/2` 로 `elapsed` 값을 적어 둔다. ESC 로 일시정지한다.
-- [ ] 14. 일시정지 상태로 1분 이상 둔 뒤 다시 `Phase16/2` 실행 → `elapsed` 가 **거의 그대로**이고 `canAutoSave=False`, `state=Paused` 여야 한다.
-- [ ] 15. 일시정지 중 `Phase16/1. Force AutoSave Now` → 경고만 뜨고 저장되지 않아야 한다.
-- [ ] 16. 일시정지를 해제하면 `elapsed` 가 다시 늘어난다.
+- [x] 13. (1차) 18:32:38 `SetState(Paused)` + `timeScale=0` 적용(PauseMenu 와 동일 호출).
+- [x] 14. (1차) 18:34:30 까지 `Time.time` 이 263.4846 에서 전혀 증가하지 않았다. 스케일 시간이 멈추므로 `WaitForSeconds` 틱 자체가 불가능하고 카운트도 멈춘다.
+- [x] 15. (1차) 같은 구간에 `save.json` mtime 18:31:15 유지 = 저장 미발생.
+- [x] 16. (1차) 해제 후 `state=Playing`, `timeScale=1` 복귀 및 `Time.time` 재증가 확인.
 
 **D. 수동 저장이 카운트를 리셋한다 (D-05)**
-- [ ] 17. `Phase16/2` 로 `elapsed` 를 확인한 뒤(0 이 아닌 값), 일시정지 메뉴에서 **진행상황 저장**을 실행한다(슬롯 선택 대화상자 → 저장).
-- [ ] 18. 다시 `Phase16/2` → `elapsed` 가 **0 근처**로 리셋됐는지 확인한다.
-- [ ] 19. 체크포인트에서도 같은 것을 확인한다: 체크포인트 상호작용(저장) 후 `elapsed` 가 0 근처다.
+- [x] 17. (2차) `elapsed=50`(0 아님) 상태에서 일시정지 메뉴의 진행상황 저장을 **실제 UI 경로로** 실행했다 —
+  `GameSettingsPanel.OnSaveProgressBtnClick()` → 슬롯 대화상자 열림(`state` Playing→Paused) → 슬롯 2 버튼 `onClick` → 확인 버튼 `"덮어쓰기"` `onClick`.
+- [x] 18. (2차) 같은 호출에서 `elapsed` **50 → 0** 으로 리셋됐다. 선택한 슬롯에 기록됐다(`save_1.json` mtime 19:29:34, 콘솔 `Saved to ...\save_1.json`).
+- [x] 19. (2차) 체크포인트도 동일 — `Checkpoint.Interact()` → 대화상자 → 슬롯 1 → 덮어쓰기. `elapsed` **90 → 0**, `save.json` mtime 19:31:04 · `SpawnPointName="check"` 기록.
 
 **E. 기존 수동 저장 무회귀 (D-03b — 절대 조건)**
-- [ ] 20. 일시정지 메뉴 → 진행상황 저장이 **여전히 정상 동작**하는지 확인한다(슬롯 대화상자가 뜨고, 선택한 슬롯에 저장되고, 완료 문구가 뜬다). → 이게 막히면 D-03b 위반이다. 즉시 보고.
-- [ ] 21. 체크포인트 상호작용 저장도 정상 동작하고 **체력이 풀회복**되는지 확인한다(체크포인트만의 동작이다).
-- [ ] 22. 자동저장(`Phase16/1`)으로는 **체력이 회복되지 않는지** 확인한다 — 체력을 일부 깎은 상태에서 강제 자동저장 후 체력 변화가 없어야 한다.
-- [ ] 23. 자동저장 시 **슬롯 선택 대화상자가 뜨지 않는지** 확인한다 (D-01).
+- [x] 20. (1차) `Paused` 상태에서 `SaveAnywhere()` 가 정상 기록됐다 = `SaveAnywhere()` 안에 상태 게이트가 없음이 런타임에서 증명됐다.
+  (2차) **슬롯 대화상자 UI 전 구간까지 확인했다** — 제목 `"저장할 슬롯 선택"`, 슬롯 3개, 슬롯 클릭 시 제목이 `"슬롯 2의 데이터를 덮어쓰시겠습니까?"` 로 바뀌고 다른 슬롯이 `interactable=False` 가 되며, `"덮어쓰기"` 후 대화상자가 닫히고 `state` 가 `Playing` 으로 복귀했다.
+  **완료 문구는 이 씬에서 표시되지 않는다** — `GameSettingsPanel.saveProgressFeedbackText` 가 미할당이기 때문이며(코드 주석 `// 저장 결과 안내 (선택 - 비워둬도 동작함)`), 콜백 자체는 호출된다. Phase 16 은 씬 0줄 변경이므로 **기존 상태**다.
+- [x] 21. (1차) `SaveAtCheckpoint("Phase16TestCP")` → 체력 60/100 → **100/100 회복**, `SpawnPointName` 기록 확인.
+- [x] 22. (1차) 자동저장은 체력을 건드리지 않았다 — 60/100 에서 자연 발동 후에도 60/100 유지.
+- [x] 23. (1·2차) 자동저장·강제 호출 모두 `SaveSlotDialog` 를 만들지 않았다.
 
 **F. 자동저장 후 실제 로드 (D-07 / D-08)**
-- [ ] 24. 체크포인트를 밟은 뒤 다른 씬으로 이동해서 자동저장을 일으킨다(`Phase16/1`).
-- [ ] 25. `save.json` 의 `"SceneName"` 이 새 씬이고 `"SpawnPointName"` 이 **빈 문자열**인지 확인한다.
-- [ ] 26. 플레이어를 죽여 자동 로드가 걸리게 한다 → 새 씬의 **기본 시작 위치**에서 풀피로 부활하는지 확인한다(D-08 이 수용한 의도된 동작이다. 마지막 체크포인트로 돌아가지 않는 것이 정상이다).
-- [ ] 27. 메인메뉴 → 이어하기 → 해당 슬롯 로드도 정상 동작하는지 확인한다.
+- [x] 24. (2차) 체크포인트(`check`, `Tutorial Map`)를 기록한 뒤 `1 stage` 로 이동했고, 새 씬에서 **자연 발동**했다(강제 호출 아님) — 19:39:20 `Saved to ...\save.json`.
+- [x] 25. (2차) 저장 직후 `save.json` 내용: `"SceneName": "1 stage"`(새 씬), `"SpawnPointName": ""`(**빈 문자열로 비워짐**). D-07 명세와 일치한다.
+- [x] 26. (2차) `PlayerStats.Die()` → 자동 로드 확인. 콘솔 원문 `[SaveLoadManager] Restored stats: 100/100 (maxTotal 200), scene=1 stage, spawnPoint=`.
+  **마지막 체크포인트(`Tutorial Map` 의 `check`)로 돌아가지 않고 `1 stage` 의 기본 시작 위치에서 풀피로 부활**했다 — D-08 이 수용한 의도된 동작 그대로다.
+- [x] 27. (2차) 메인메뉴 → 이어하기 정상 동작. `SlotSelectPanel.OpenForLoad()` 목록이 **슬롯 1 = `1 stage`**(자동저장 결과), 슬롯 2·3 = `Tutorial Map` 으로 표시됐고 CTA 는 `"이어하기"` 였다.
+  슬롯 1 버튼 `onClick` → 19:40:55 `Restored stats: 100/100 (maxTotal 200), scene=1 stage, spawnPoint=` 로 로드됐다.
 
 **G. 알림 UI 세부 (D-10)**
-- [ ] 28. 알림이 **우하단**에 뜨고 글자가 읽히는지, 1~2초 안에 사라지는지 확인한다.
-- [ ] 29. 알림이 떠 있는 동안 **버튼 클릭/조작이 막히지 않는지** 확인한다.
-- [ ] 30. 알림이 떠 있는 동안 ESC 로 일시정지해도 알림이 화면에 얼어붙지 않고 사라지는지 확인한다.
-- [ ] 31. 씬을 전환한 뒤에도 자동저장 알림이 정상적으로 뜨는지 확인한다(캔버스가 씬과 함께 파괴되지 않아야 한다).
-- [ ] 32. 연속으로 `Phase16/1` 을 두 번 누르면 알림이 겹치지 않고 다시 처음부터 표시되는지 확인한다.
+- [x] 28. (2차) **육안 확인 완료.** 실제 자동저장으로 알림을 띄운 뒤 `capture_game_view --source screen` 1920x1080 합성 캡처에서 **우하단 "자동 저장됨" 이 흰 글씨로 선명하게 읽힌다**(좌상단 체력 HUD 와 겹치지 않음).
+  라벨 실측: 월드 코너 `bl=(1452,48) tr=(1872,108)`, `alpha=1`, 폰트 `LiberationSans SDF` + 전역 폴백 `NotoSansKR-Regular SDF`, 한글 5자 전부 `visible=True`.
+  사라짐도 측정했다: Show 기준 t=0 `alpha=1` → t=1.720s `alpha=0.125` → t=3.422s `alpha=0`. 코드 모델(Hold 1.2s + Fade 0.6s)의 t=1.72 예측값 0.133 과 일치하며 **1.8초 안에 사라진다**(D-10 의 "1~2초").
+- [x] 29. (1차) 조작 차단 없음 — 캔버스에 `GraphicRaycaster` 없음, 라벨 `raycastTarget=False`.
+- [x] 30. (1차) `timeScale=0`(일시정지) 중에도 alpha 가 0 까지 내려갔다 = `unscaledDeltaTime` 사용 확인, 화면에 얼어붙지 않는다.
+- [x] 31. (1차) 씬 전환 후에도 `AutoSave` 오브젝트와 알림 캔버스·라벨이 살아 있었다. (2차) **새 씬에서의 발동 자체도 확인했다** — 항목 24 의 `1 stage` 자연 발동이 알림 경로까지 포함한다.
+- [x] 32. (1차) `Show()` 2회 연속 호출 시 캔버스·라벨 1개를 재사용하고 alpha 가 1 로 재시작 = 겹침 없음.
 
 **결과 기록**
-- [ ] 33. 통과/실패를 보고한다. **통과하지 않은 항목을 통과로 보고하지 않는다** (Phase 9 선례: 검증을 생략했으면 "생략"으로 남긴다).
-- [ ] 34. 검증이 끝나면 3단계에서 백업한 세이브 파일을 원래대로 복구할지 결정한다.
+- [x] 33. 위 표대로 기록했다. 미검증을 통과로 적지 않았다.
+- [x] 34. 백업에서 3개 슬롯 전부 복구 완료. 1차는 `save.json.after-test`, 2차는 `save*.json.phase16-after-test` 로 측정 후 상태를 보존했고,
+  복구본이 백업과 **SHA-256 일치**함을 3슬롯 모두 확인했다.
+
+## 2차 실측 수단과 환경 (재현용)
+
+- 수단: **Unity CLI**(`unity 1.0.0-beta.9`) → `unity status`(port 7801, Unity 6000.3.10f1, state ready) → `unity command <name>`.
+  사용한 명령: `eval`(Roslyn C#, 리플렉션 허용), `console`(런타임 게임 로그 + 스택트레이스), `capture_game_view --source screen`(오버레이 캔버스 포함 합성 캡처), `editor_status` / `editor_stop`, `wait_for`(장시간 대기), `get_build_settings`.
+- **측정 전용 임시 변경 2건 — 둘 다 원복했다.**
+  1. `PlayerSettings.runInBackground` 를 측정 동안 `true` 로 두었다(창 포커스와 무관하게 게임이 돌도록). 측정 후 `false` 로 복구했고 `git status --porcelain ProjectSettings/` 가 **빈 출력**임을 확인했다.
+  2. Console 의 **Error Pause** 를 껐다(BUG-008 예외마다 Play 가 멈춰 측정이 불가능했다). 측정 후 다시 켰다.
+- 프로젝트 파일 영향 0: `Assets/` 의 `git status` 항목 집합이 세션 시작과 동일하고, `AutoSaveTimer.cs`(17:38) / `AutoSaveNotice.cs`(17:34) / `SaveLoadManager.cs`(17:28) / `Tutorial Map.unity`(9/13 11:51) / `1 stage.unity`(9/13 11:51) / `MainMenu.unity`(9/10 20:20) 의 mtime 이 모두 **첫 에디터 명령(19:16:22) 이전**이다.
+- 참고: `Assets/_Recovery/0 (3).unity`(untracked, 12MB)는 mtime **19:13** 으로 첫 에디터 명령보다 앞서며 이 검증이 만든 것이 아니다. Unity 의 씬 복구 백업이라 임의로 지우지 않았다.
 
 ## 현재 상태
 
 - 16-01 완료, 16-02 완료(각 구현 커밋 2개 및 SUMMARY 커밋).
 - 16-03 Task 1 완료: 원문 회귀 18 PASS / 4 FAIL(검증 명세 BUG-010), 대체 회귀 22 PASS. Assets 변경 없음.
-- 16-03 Task 2: 사용자 Play 모드 결과 대기. A~G 실행 점검 29항목(4~32) 중 통과 0 / 실패 0 / 미검증 29. 사전 준비·결과 기록 항목도 미확인.
-- 세이브 파일 백업/복구 여부: 사용자 실측 미시작으로 미결정. 이번 세션에서 세이브 파일을 읽거나 쓰지 않았다.
-- Phase 16 완료 처리와 최종 단계 검증은 Play 모드 결과 수신 이후 진행한다.
+- 16-03 Task 2 **완료**: Play 모드 29항목 **29 PASS / 0 FAIL / 0 미검증**.
+  1차(Unity MCP)에서 15항목, 2차(Unity CLI)에서 나머지 13항목과 항목 28 의 육안 확인을 채웠다.
+  플랜의 완료 조건인 **B 그룹(메인메뉴 미발동)과 E 그룹(수동 저장 무회귀)이 모두 실측 통과**했다.
+- 신규 버그 0건. 측정 중 관측된 `MissingComponentException` 은 기존 미해결 [BUG-008](../15-load-timing-and-load-scope/bugs/BUG-008-tutorialboss-animator-missing.md) 이며 Phase 16 과 무관하다.
+- 세이브 파일: 백업에서 SHA-256 일치로 복구 완료. 프로젝트 파일·설정 변경 0건.
+- Phase 16 은 검증 완료 상태다.
