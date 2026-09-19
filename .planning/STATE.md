@@ -166,9 +166,10 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 - Phase 13 added: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
 - Phase 14 added (구): 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임 — **폐기됨(2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를 `setting.json`(SettingsData) 통합 방식으로 먼저 구현해, keybind.json 전용 설계를 대체함. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 rebase로 제거, 로드맵/플래닝 문서에서도 phase 자체를 삭제.
 - Phase 50 added (임시 번호, 다른 기기와 동기화 후 재번호 필요 - 그 기기는 이미 Phase 13까지 완료함): 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시 — **재번호 완료(2026-08-27)**: 위 구 Phase 14가 폐기되며 번호가 비어, 이 phase를 14로 재번호(폴더 `.planning/phases/50-2-3/` → `.planning/phases/14-save-slot-expansion/`)
-- Phase 15 added: 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외.
-- Phase 16 added: 인벤토리 시스템 — 고정 슬롯 수 + 스택 기반 자료구조, 추가/제거/사용 API, `PlayerInteraction` 연동 월드 아이템 획득. Depends on Phase 15.
-- Phase 17 added: 아이템 저장/로드 연동 — `SaveData.Items`(`List<string>` 스텁)를 `List<ItemSaveEntry>{itemId,count}`로 교체, `SaveVersion` 마이그레이션, `SaveLoadManager` 인벤토리 캡처/복원 로직. Depends on Phase 16 및 기존 `SaveLoadManager`.
+- Phase 16 added (최초 15로 잘못 생성됨 → 즉시 재번호): 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외. **재번호 사유**: `.planning/phases/15-load-timing-and-load-scope/`가 이미 완료된 상태(15-01~15-04 SUMMARY.md 존재, `PlayerStats.cs`/`SaveLoadManager` 사망 시 로드 처리)로 실재했으나 ROADMAP.md에 `### Phase 15` 헤딩이 누락되어 있었음 — `gsd-tools phase add`가 ROADMAP.md 헤딩만 스캔해 다음 번호를 15로 잘못 계산. 폴더/헤딩을 15→16으로 git mv 및 수정.
+- Phase 17 added: 인벤토리 시스템 — 고정 슬롯 수 + 스택 기반 자료구조, 추가/제거/사용 API, `PlayerInteraction` 연동 월드 아이템 획득. Depends on Phase 16.
+- Phase 18 added: 아이템 저장/로드 연동 — `SaveData.Items`(`List<string>` 스텁)를 `List<ItemSaveEntry>{itemId,count}`로 교체, `SaveVersion` 마이그레이션, `SaveLoadManager` 인벤토리 캡처/복원 로직. Depends on Phase 17 및 기존 `SaveLoadManager`.
+- **누락 발견**: `.planning/phases/15-load-timing-and-load-scope/`(완료됨, Phase 11/14 의존)가 ROADMAP.md `### Phase` 헤딩 목록에 없음 — 별도로 채워 넣어야 할 문서화 갭. 이번 세션에서는 번호 충돌만 해소하고 헤딩 보강은 하지 않음.
 
 ## Session Continuity
 
