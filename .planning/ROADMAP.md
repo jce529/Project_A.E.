@@ -421,3 +421,33 @@ Plans:
 - [ ] 14-01-PLAN.md — SaveLoadManager 슬롯화 (SlotCount/CurrentSlot/GetSavePath/SelectSlot/HasSaveFile(int) + PeekSlotData/NewGameInSlot/LoadSlot + Phase14 ContextMenu 훅)
 - [ ] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
 - [ ] 14-03-PLAN.md — MainMenuUI D-01/D-02/D-03 재배선 + Check.md Phase 14 배선 가이드·정적 회귀 12항목·Play 모드 체크리스트 + 씬 배치/실측 체크포인트
+
+### Phase 15: 아이템 코어: IItem 인터페이스(완료됨) 및 ItemData ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터) 정의. 데이터 레이어만, UI 제외.
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 14
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 15 to break down)
+
+### Phase 16: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 15.
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 15
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 16 to break down)
+
+### Phase 17: 아이템 저장/로드 연동: SaveData.Items를 List<ItemSaveEntry>(itemId,count)로 교체, SaveVersion 마이그레이션, SaveLoadManager 인벤토리 캡처/복원. Depends on Phase 16 및 기존 SaveLoadManager.
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 16
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 17 to break down)
