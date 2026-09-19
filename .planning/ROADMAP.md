@@ -422,6 +422,51 @@ Plans:
 - [ ] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
 - [ ] 14-03-PLAN.md — MainMenuUI D-01/D-02/D-03 재배선 + Check.md Phase 14 배선 가이드·정적 회귀 12항목·Play 모드 체크리스트 + 씬 배치/실측 체크포인트
 
+### Phase 15: 로드 시점 및 로드 범위 정의 - 사망 시 자동 로드, 로드 실패 폴백, 격파 보스 미등장, 체력 불변식 보정
+
+> **문서화 갭 백필 (2026-09-19)**: 이 페이즈는 15-CONTEXT.md/15-01~04-PLAN.md/15-UAT.md/Check.md까지
+> 실제로 존재하고 구현도 대부분 끝났지만, ROADMAP.md에 `### Phase 15` 헤딩 자체가 누락돼 있었다.
+> Item 시스템 페이즈 추가 작업 중 번호 충돌로 발견되어 뒤늦게 채워 넣는다. **주의**: 아래 상태는
+> 소스 문서 기준 그대로 옮긴 것이며 완료 처리가 아니다 — 15-UAT.md가 `status: partial`이고
+> Play 모드 실측이 0/34건, BUG-007(씬 전환 후 InputHandler 유실, severity: major)이 미해결이다.
+
+**Goal:** 세이브 데이터가 **언제** 로드되는지(사망/로드 실패)와 로드가 **무엇까지** 복원하는지
+(보스 진행도/체력 불변식)를 확정한다. 플레이어 HP가 0이 되면 게임오버 화면 없이 즉시 마지막
+세이브가 로드되거나(세이브 없으면 현재 씬 재시작), 로드가 어느 단계에서 실패해도 메인메뉴로
+안전하게 복귀하며, 씬 로드 시 이미 격파된 보스는 각자 자기 ID로 조회해 스스로 등장하지 않고,
+저장된 체력값은 불변식(0 < health <= maxHealth <= maxTotalHealth)에 맞게 강제 보정된다.
+**Requirements**: D-01 ~ D-10 (15-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 11, Phase 14
+**Success Criteria** (what must be TRUE):
+  1. 플레이어 HP가 0이 되면 게임오버 화면·선택 단계 없이 즉시 마지막 세이브가 로드된다 (D-01).
+  2. 세이브 파일이 없는 상태(체크포인트 미활성화)에서 사망하면 메인메뉴가 아니라 현재 씬이
+     처음부터 재시작된다 (D-02).
+  3. `FallZone`은 무수정으로 남아 낙하는 데미지 + `PlayerRespawn.RespawnPosition()` 복귀만
+     수행한다 — 사망과 다른 층위의 페널티로 취급된다 (D-03, 의도적 미변경).
+  4. 로드가 어느 단계에서 실패해도(세이브 파일 손상 / 씬 미등록 / 로드 후 `PlayerStats.Instance`
+     null) 메인메뉴로 복귀하고, 세이브 파일은 지우거나 덮어쓰지 않는다 (D-04, D-05).
+  5. 씬 로드 시 각 보스가 자기 ID로 `SaveLoadManager.Instance.IsBossDefeated()`를 조회해
+     격파된 상태면 스스로 비활성화된다 — 로드 경로가 보스 목록을 순회하지 않는다 (D-06, D-07).
+  6. 로드된 체력값이 `0 < health <= maxHealth <= maxTotalHealth`를 만족하도록 강제 보정되며,
+     역전되거나 손으로 고친 값도 정상화된다 (D-08).
+  7. `Player.prefab`의 시작 `maxHealth`는 100, 성장 상한 `maxTotalHealth`는 200이다 (D-09).
+  8. `MapGimmickState`와 `Items`는 쓰기 훅이 아직 없으므로 이번 페이즈에서 스텁으로 유지된다
+     (D-10, 저장 측이 먼저 생겨야 복원을 논할 수 있음 — Phase 16~18이 `Items`를 채우는 후속).
+**Plans:** 4 plans
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 15-01, 15-02, 15-03 | yes |
+| 2 | 15-04 | no (Play 모드 검증 체크포인트) |
+
+Plans:
+- [x] 15-01-PLAN.md — D-01/D-02/D-08/D-09를 `PlayerStats`/`Player.prefab`에 구현 (사망 시 자동 로드, 체력 불변식 보정, 기본 체력값)
+- [x] 15-02-PLAN.md — D-04/D-05를 `SaveLoadManager`에 구현 (로드 실패 5개 분기 → 메인메뉴 복귀, 세이브 파일 무손상 보존)
+- [x] 15-03-PLAN.md — D-06/D-07을 보스 스크립트 3종에 구현 (자가 제거 가드, `SaveLoadManager` 무수정)
+- [ ] 15-04-PLAN.md — 정적 회귀 검사(16 PASS/2 FAIL, 원인 플랜 특정됨) + Check.md Play 모드 체크리스트 34건 작성 — **Play 모드 실측 미완료, BUG-007 미해결로 미종결**
+
 ### Phase 16: 아이템 코어: IItem 인터페이스(완료됨) 및 ItemData ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터) 정의. 데이터 레이어만, UI 제외.
 
 **Goal:** [To be planned]
