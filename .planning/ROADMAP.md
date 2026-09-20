@@ -469,13 +469,48 @@ Plans:
 
 ### Phase 16: 아이템 코어: IItem 인터페이스(완료됨) 및 ItemData ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터) 정의. 데이터 레이어만, UI 제외.
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** 이 프로젝트 최초의 ScriptableObject 인 `ItemData`(`Assets/Item/Script/ItemData.cs`)가 존재해,
+아이템의 정적 데이터를 `id`(string) / `type`(Consumable|Progression) / `effectType`(Heal) / `amount`(float)
+**단 4개 필드**로 스키마화하고, 이미 완료된 `IItem` 인터페이스를 직접 구현한다(`ItemData : ScriptableObject, IItem`).
+`UseEffect(PlayerInteraction)` 는 스텁이 아니라 끝까지 구현되어, 소모품일 때 기존
+`PlayerStats.Heal(float)`(`Assets/Player/Script/PlayerStats.cs:37`)를 널 가드 없이 그대로 재사용해
+실제로 체력을 회복시키고, 진행아이템일 때는 의도적 no-op 다. 스키마가 실제로 동작함을 증명하기 위해
+소모품(Heal, amount 20) 1개 + 진행아이템 1개의 실제 `.asset` 파일을 `Assets/Item/` 에 만든다.
+**데이터 레이어 전용 phase** — 인벤토리(Phase 17), 월드 픽업/`PlayerInteraction` 배선(Phase 17),
+세이브 연동(Phase 18), 아이콘/이름 등 UI 메타데이터(추후 UI phase)는 전부 범위 밖이다.
+**Requirements**: D-01 ~ D-07 (16-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
 **Depends on:** Phase 15
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. `ItemData : ScriptableObject, IItem` 가 존재하고 `void UseEffect(PlayerInteraction player)` 를
+     `IItem` 시그니처 그대로 구현한다. 별도의 런타임 아이템 인스턴스 클래스는 없다 (D-01).
+  2. `UseEffect` 가 소모품일 때만 효과를 적용하고 진행아이템에서는 즉시 return 한다 — 스텁이 아니다 (D-02).
+  3. Heal 분기가 `player.GetComponent<PlayerStats>().Heal(amount)` 로 **기존** 메서드를 재사용하며,
+     `PlayerStats` 에 신규 메서드가 추가되지 않고 널 가드도 없다 (D-03 + 프로젝트 무-널가드 관행).
+  4. `ItemType` 이 `Consumable` / `Progression` 정확히 2값이고, `ConsumableEffectType` 이 `Heal`
+     1값이며, 타입별 SO 서브클래스가 0개다 (D-03, D-04).
+  5. `id` 가 `[SerializeField] private string id;` 수동 입력 필드이고 자동 생성/중복 검증 코드가 0줄이다 (D-05).
+  6. `[SerializeField]` 필드가 정확히 4개이며 `displayName`/`icon`/`description` 이 0건이다 (D-06).
+  7. `Assets/Item/` 에 `.asset` 파일 2개(`HealthPotion` = Consumable/Heal/20, `AncientKey` = Progression)가
+     존재하고, 둘 다 `ItemData.cs.meta` 의 guid(`501b19c5008706d0a3f2bf69aacf52f6`)를 `m_Script` 로
+     참조한다 (D-07).
+  8. Unity 6000.3.10f1 이 `Assets/Item/` 을 컴파일 에러 0건 / 임포트 에러 0건 / missing script 0건으로
+     받아들인다 — `.asset` YAML 을 에디터 없이 손으로 작성했기 때문에 반드시 실임포트로 확인한다.
+  9. Play 모드에서 `HealthPotion` 의 `UseEffect` 를 호출하면 플레이어 체력이 실제로 20 회복되고,
+     `AncientKey` 는 체력 변화 0 / 예외 0 이다 (D-02/D-07 의 end-to-end 증거).
+  10. `Assets/Player/Script/PlayerStats.cs`, `Assets/Player/Script/PlayerInteraction.cs`,
+      `Assets/Item/Script/IItem.cs`, `Assets/SaveSystem/Script/SaveData.cs` 가 0줄 변경이다.
+**Plans:** 2 plans
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 16-01 | yes |
+| 2 | 16-02 | no (Play 모드 검증 체크포인트 포함) |
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 16 to break down)
+- [ ] 16-01-PLAN.md — ItemData.cs 신규(ScriptableObject + IItem 구현, enum 2종, 필드 4개, UseEffect 본체, 에디터 전용 ContextMenu 훅) + guid 고정 .meta + 예시 .asset 2개(HealthPotion/AncientKey) 손수 작성
+- [ ] 16-02-PLAN.md — Unity 6000.3.10f1 배치모드 임포트 게이트(컴파일/YAML 실검증) + Assets/Item/Check.md 작성(정적 회귀 8항목 + Play 모드 체크리스트 10항목) + Play 모드 실측 체크포인트
 
 ### Phase 17: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 16.
 
