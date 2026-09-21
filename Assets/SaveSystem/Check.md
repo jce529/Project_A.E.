@@ -313,3 +313,12 @@ UI 조작은 `Button.onClick.Invoke()`로 **씬에 저장된 PersistentCall을 �
 
 검증 중 사용자 원본 세이브 3개는 임시 폴더에 백업했고, 로드는 읽기 전용이라 종료 후 `diff` 결과
 3개 파일 모두 바이트 단위로 동일함을 확인했다 (수정 시각도 `9월 3일 20:25` 유지).
+
+## Phase 19: 아이템 저장/로드 연동
+
+- [ ] 1. `Phase19/2. Log Resolvable Item Assets` prints `asset count = 2` with `health_potion_01` and `ancient_key_01`.
+- [ ] 2. Inventory에 HealthPotion x3 + AncientKey x1 을 넣고 `Phase11/1. Save Now` 실행 → Console 에 capture 경고 없음.
+- [ ] 3. `save.json` 에 `"SaveVersion": 3` 과 `"Items": [{"itemId":"health_potion_01","count":3},{"itemId":"ancient_key_01","count":1}]` 존재.
+- [ ] 4. Play 종료 → 재진입 → `Phase11/2. Load Game` → `Phase18: Log Slots` 가 동일 아이템/개수를 출력.
+- [ ] 5. 메인메뉴(Inventory 없는 씬)에서 `Phase11/1. Save Now` → `Inventory not found in scene` 경고 후 `save.json` 의 기존 Items 가 그대로 남아 있음.
+- [ ] 6. `save.json` 의 itemId 를 `bogus_id_99` 로 손으로 바꾼 뒤 Load → `Unknown itemId 'bogus_id_99' - skipped.` 경고만 뜨고 메인메뉴로 튕기지 않음.

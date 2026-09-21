@@ -488,6 +488,7 @@ public class SaveLoadManager : MonoBehaviour
         // run - including HP.Awake() which forces health = maxHealth. Stats must therefore
         // be restored AFTER this point, not before.
         ApplyPlayerStatsFromSave();
+        ApplyInventoryFromSave();
     }
 
     private void ApplyPlayerStatsFromSave()
@@ -503,6 +504,41 @@ public class SaveLoadManager : MonoBehaviour
         Debug.Log("[SaveLoadManager] Restored stats: " + ps.Health + "/" + ps.MaxHealth +
                   " (maxTotal " + ps.MaxTotalHealth + "), scene=" + SceneManager.GetActiveScene().name +
                   ", spawnPoint=" + _data.SpawnPointName);
+    }
+
+    // Phase 19 (D-02): replays the saved entries through Inventory.TryAddItem in the order
+    // they were captured. Slot indices are not stored, so items that occupied several slots
+    // may come back merged into fewer slots - accepted behavior, not a bug.
+    // Unlike ApplyPlayerStatsFromSave this does NOT AbortLoadToMainMenu when the Inventory
+    // is missing: a scene without an Inventory is a recoverable, non-fatal condition for
+    // items (the player simply keeps none), whereas missing PlayerStats is unrecoverable.
+    private void ApplyInventoryFromSave()
+    {
+        Inventory inv = FindAnyObjectByType<Inventory>();
+        if (inv == null)
+        {
+            Debug.LogWarning("[SaveLoadManager] Inventory not found after scene load - items not restored.");
+            return;
+        }
+
+        int restored = 0;
+        foreach (ItemSaveEntry entry in _data.Items)
+        {
+            ItemData item = ResolveItemData(entry.itemId);
+            if (item == null)
+            {
+                Debug.LogWarning("[SaveLoadManager] Unknown itemId '" + entry.itemId + "' - skipped.");
+                continue;
+            }
+            if (!inv.TryAddItem(item, entry.count))
+            {
+                Debug.LogWarning("[SaveLoadManager] Inventory full - could not restore '" +
+                                 entry.itemId + "' x" + entry.count + ".");
+                continue;
+            }
+            restored++;
+        }
+        Debug.Log("[SaveLoadManager] Restored " + restored + "/" + _data.Items.Count + " item entries.");
     }
 
     // ---- Verification hooks (D-04: no menu UI exists in this phase) -------------
@@ -591,4 +627,26 @@ public class SaveLoadManager : MonoBehaviour
 
     [ContextMenu("Phase14/4. Select Slot 2")]
     private void DebugSelectSlot2() { SelectSlot(2); Debug.Log("[SaveLoadManager] CurrentSlot=" + CurrentSlot); }
+
+    [ContextMenu("Phase19/1. Log Saved Items")]
+    private void DebugLogSavedItems()
+    {
+        Debug.Log("[SaveLoadManager] saveVersion=" + _data.SaveVersion +
+                  " itemEntries=" + _data.Items.Count);
+        foreach (ItemSaveEntry entry in _data.Items)
+        {
+            Debug.Log("[SaveLoadManager]   " + entry.itemId + " x" + entry.count);
+        }
+    }
+
+    [ContextMenu("Phase19/2. Log Resolvable Item Assets")]
+    private void DebugLogResolvableItems()
+    {
+        ItemData[] all = Resources.LoadAll<ItemData>("Items");
+        Debug.Log("[SaveLoadManager] Resources/Items asset count = " + all.Length);
+        foreach (ItemData item in all)
+        {
+            Debug.Log("[SaveLoadManager]   asset '" + item.name + "' -> Id '" + item.Id + "'");
+        }
+    }
 }
