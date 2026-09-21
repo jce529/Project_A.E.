@@ -2,31 +2,37 @@ using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
-    [Header("¿¬°á Á¤º¸")]
+    [Header("ì—°ê²° ì •ë³´")]
     public WaterController waterController;
     public AudioSource bgmSource;
 
-    // »õ·Î Ãß°¡µÈ ÇÊÅÍ ¿¬°á º¯¼ö!
+    // ìƒˆë¡œ ì¶”ê°€ëœ í•„í„° ì—°ê²° ë³€ìˆ˜!
     public AudioLowPassFilter lowPassFilter;
 
-    [Header("È¯°æ ¼³Á¤ (¹è°æ/Å¸ÀÏ »öÁ¶ µî)")]
+    [Header("í™˜ê²½ ì„¤ì • (ë°°ê²½/íƒ€ì¼ ìƒ‰ì¡° ë“±)")]
     public SpriteRenderer[] backgroundRenderers;
     public Color aliveColor = Color.white;
     public Color neutralColor = Color.gray;
     public Color witheredColor = new Color(0.4f, 0.2f, 0.2f);
 
-    [Header("BGM ¸Ô¸ÔÇÔ(Low Pass) ¼³Á¤")]
-    // 22000ÀÌ ¿øº» ¼Ò¸®(ÇÊÅÍ ¾øÀ½)ÀÔ´Ï´Ù. ¼ıÀÚ°¡ ³·¾ÆÁú¼ö·Ï ´õ ¸Ô¸ÔÇØÁı´Ï´Ù.
-    public float aliveCutoff = 22000f;    // Ã³À½ (»ı±â ÀÖÀ½ - ¾ÆÁÖ ¸¼Àº ¼Ò¸®)
-    public float neutralCutoff = 5000f;   // Áß°£ (½ºÅ©¸°¼¦¿¡ ÀÖ´Â ¼öÄ¡ Á¤µµÀÇ ¸Ô¸ÔÇÔ)
-    public float witheredCutoff = 1000f;  // ½Ãµê (¹°¼Ó¿¡ Àá±ä µí ¿õ¿õ°Å¸®´Â ¼Ò¸®)
+    [Header("BGM ë¨¹ë¨¹í•¨(Low Pass) ì„¤ì •")]
+    // 22000ì´ ì›ë³¸ ì†Œë¦¬(í•„í„° ì—†ìŒ)ì…ë‹ˆë‹¤. ìˆ«ìê°€ ë‚®ì•„ì§ˆìˆ˜ë¡ ë” ë¨¹ë¨¹í•´ì§‘ë‹ˆë‹¤.
+    public float aliveCutoff = 22000f;    // ì²˜ìŒ (ìƒê¸° ìˆìŒ - ì•„ì£¼ ë§‘ì€ ì†Œë¦¬)
+    public float neutralCutoff = 5000f;   // ì¤‘ê°„ (ìŠ¤í¬ë¦°ìƒ·ì— ìˆëŠ” ìˆ˜ì¹˜ ì •ë„ì˜ ë¨¹ë¨¹í•¨)
+    public float witheredCutoff = 1000f;  // ì‹œë“¦ (ë¬¼ì†ì— ì ê¸´ ë“¯ ì›…ì›…ê±°ë¦¬ëŠ” ì†Œë¦¬)
 
     private enum EnvironmentState { None, Alive, Neutral, Withered }
     private EnvironmentState currentState = EnvironmentState.None;
 
     void Start()
     {
+        AudioManager.Instance?.RegisterBgmSource(bgmSource);
         UpdateEnvironmentState();
+    }
+
+    void OnDestroy()
+    {
+        AudioManager.Instance?.UnregisterBgmSource(bgmSource);
     }
 
     void Update()
@@ -66,17 +72,17 @@ public class EnvironmentManager : MonoBehaviour
         {
             case EnvironmentState.Alive:
                 targetColor = aliveColor;
-                ChangeBGMCutoff(aliveCutoff); // ÇÊÅÍ ¼öÄ¡ º¯°æ
+                ChangeBGMCutoff(aliveCutoff); // í•„í„° ìˆ˜ì¹˜ ë³€ê²½
                 break;
 
             case EnvironmentState.Neutral:
                 targetColor = neutralColor;
-                ChangeBGMCutoff(neutralCutoff); // ÇÊÅÍ ¼öÄ¡ º¯°æ
+                ChangeBGMCutoff(neutralCutoff); // í•„í„° ìˆ˜ì¹˜ ë³€ê²½
                 break;
 
             case EnvironmentState.Withered:
                 targetColor = witheredColor;
-                ChangeBGMCutoff(witheredCutoff); // ÇÊÅÍ ¼öÄ¡ º¯°æ
+                ChangeBGMCutoff(witheredCutoff); // í•„í„° ìˆ˜ì¹˜ ë³€ê²½
                 break;
         }
 
@@ -89,19 +95,19 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
-    // ³ë·¡¸¦ ¸ØÃßÁö ¾Ê°í ÇÊÅÍÀÇ Cutoff Frequency ¼öÄ¡¸¸ ½µ½µ ¹Ù²ãÁÖ´Â ÇÔ¼ö
+    // ë…¸ë˜ë¥¼ ë©ˆì¶”ì§€ ì•Šê³  í•„í„°ì˜ Cutoff Frequency ìˆ˜ì¹˜ë§Œ ìŠ‰ìŠ‰ ë°”ê¿”ì£¼ëŠ” í•¨ìˆ˜
     void ChangeBGMCutoff(float targetCutoff)
     {
-        // ¿Àµğ¿À ¼Ò½º³ª ÇÊÅÍ°¡ ¿¬°á ¾È µÇ¾îÀÖÀ¸¸é ¿¡·¯ ¹æÁö
+        // ì˜¤ë””ì˜¤ ì†ŒìŠ¤ë‚˜ í•„í„°ê°€ ì—°ê²° ì•ˆ ë˜ì–´ìˆìœ¼ë©´ ì—ëŸ¬ ë°©ì§€
         if (bgmSource == null || lowPassFilter == null) return;
 
-        // BGMÀÌ ²¨Á®ÀÖ´Ù¸é Àç»ı ½ÃÀÛ
+        // BGMì´ êº¼ì ¸ìˆë‹¤ë©´ ì¬ìƒ ì‹œì‘
         if (!bgmSource.isPlaying)
         {
             bgmSource.Play();
         }
 
-        // ¸Ô¸ÔÇÔ Á¤µµ º¯°æ
+        // ë¨¹ë¨¹í•¨ ì •ë„ ë³€ê²½
         lowPassFilter.cutoffFrequency = targetCutoff;
     }
 }

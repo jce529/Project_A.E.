@@ -6,15 +6,20 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // �̱��� ����: ���� �ٲ� �� ������Ʈ�� �ϳ��� ������
+        // Legacy scene-local singleton. Global services are owned by PersistentManagers.
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 }

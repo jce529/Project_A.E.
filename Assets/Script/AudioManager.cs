@@ -1,46 +1,79 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// BGM/SFX 볼륨을 관리하는 싱글톤. DontDestroyOnLoad로 씬 전환 후에도 유지됨.
-// Inspector에서 bgmSource(BGM AudioSource)를 연결하세요.
-// SFX는 AudioManager.Instance.SfxVolume을 참조하거나 PlaySFX()를 사용하세요.
-// 볼륨 값은 설정 메모리에만 기록되며, 영구 저장은 설정 패널 저장 흐름이 담당합니다.
+/// <summary>
+/// Keeps global audio settings while scene-local objects own their AudioSources.
+/// Its lifetime is owned by the PersistentManagers root.
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    [Header("BGM AudioSource")]
-    [SerializeField] private AudioSource bgmSource;
+    private AudioSource bgmSource;
 
     public float BgmVolume { get; private set; } = 1f;
     public float SfxVolume { get; private set; } = 1f;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        Instance = null;
+    }
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+
+        Instance = this;
         LoadVolumes();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
+    private void OnEnable()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
     private void LoadVolumes()
     {
-        var s = SaveLoadManager.CurrentSettings;
-        BgmVolume = s.BgmVolume;
-        SfxVolume = s.SfxVolume;
-        if (bgmSource != null) bgmSource.volume = BgmVolume;
+        SettingsData settings = SaveLoadManager.CurrentSettings;
+        BgmVolume = settings.BgmVolume;
+        SfxVolume = settings.SfxVolume;
+        ApplyBgmVolume();
+    }
+
+    public void RegisterBgmSource(AudioSource source)
+    {
+        bgmSource = source;
+        ApplyBgmVolume();
+    }
+
+    public void UnregisterBgmSource(AudioSource source)
+    {
+        if (bgmSource == source)
+            bgmSource = null;
     }
 
     public void SetBGMVolume(float value)
     {
         BgmVolume = value;
-        if (bgmSource != null) bgmSource.volume = value;
+        ApplyBgmVolume();
     }
 
     public void SetSFXVolume(float value)
@@ -48,16 +81,31 @@ public class AudioManager : MonoBehaviour
         SfxVolume = value;
     }
 
-    // SFX AudioSource에서 직접 호출: 현재 SFX 볼륨을 적용한 뒤 재생
-    public void PlaySFX(AudioSource src, AudioClip clip = null)
+    public void PlaySFX(AudioSource source, AudioClip clip = null)
     {
-        if (src == null) return;
+        if (source == null)
+            return;
+
         if (clip != null)
-            src.PlayOneShot(clip, SfxVolume);
-        else
         {
-            src.volume = SfxVolume;
-            src.Play();
+            source.PlayOneShot(clip, SfxVolume);
+            return;
         }
+
+        source.volume = SfxVolume;
+        source.Play();
+    }
+
+    private void ApplyBgmVolume()
+    {
+        if (bgmSource != null)
+            bgmSource.volume = BgmVolume;
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // SaveLoadManager is also bootstrapped BeforeSceneLoad. Refreshing here makes
+        // the result independent of callback ordering between the two bootstraps.
+        LoadVolumes();
     }
 }

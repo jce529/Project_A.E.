@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -12,39 +13,51 @@ public class GameStateManager : MonoBehaviour
         GameClear,
         Puzzle
     }
-    //�̱��� ����
-    //������ ���� �� �ϳ��ν� �ϳ��� ��ü�� �����Ͽ� ����Ͽ� �� ��ü���� ����ϴ� ������ �����Դϴ�.
 
-    //��ɸ��� ���� Ŭ������ ������������ ����� ���� �޸����� �����̱� ������ �ϳ��� ���
-
-    // �̱��� �ν��Ͻ�
     public static GameStateManager Instance { get; private set; }
 
-    // ���� ���� ���¸� �ܺο��� ���� �� �ְ� ��
     public GameState CurrentState { get; private set; } = GameState.Playing;
-
-    // ���� ���� �� �̺�Ʈ�� �߻����� �ٸ� �ý����� �����ϵ��� ��
     public event Action<GameState> OnGameStateChange;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        Instance = null;
+    }
 
     private void Awake()
     {
-        // �̱��� �ʱ�ȭ
-        if (Instance == null)
-        {
-            Instance = this;
-            // ���� �ٲ� �ı����� �ʰ� ���� (�ɼ�)
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
     }
 
-    // ���¸� �����ϴ� �ٽ� �Լ�
+    private void OnEnable()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     public void SetState(GameState newState)
     {
-        if (CurrentState == newState) return;
+        if (CurrentState == newState)
+            return;
 
         CurrentState = newState;
 
@@ -62,7 +75,16 @@ public class GameStateManager : MonoBehaviour
                 break;
         }
 
-        // 2. �����ڵ鿡�� ���°� ����Ǿ����� �˸�
         OnGameStateChange?.Invoke(newState);
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool stateChanged = CurrentState != GameState.Playing;
+        CurrentState = GameState.Playing;
+        Time.timeScale = 1f;
+
+        if (stateChanged)
+            OnGameStateChange?.Invoke(CurrentState);
     }
 }

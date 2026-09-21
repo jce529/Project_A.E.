@@ -1,34 +1,24 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System;
 
 /// <summary>
-/// ������ ��� �Է��� �Ѱ��ϴ� �Ŵ��� Ŭ�����Դϴ�.
-/// Unity�� New Input System ��ȣ�� �޾Ƽ�, C# �̺�Ʈ(Action)�� ��ȯ�Ͽ� �ٸ� ��ũ��Ʈ�� �����մϴ�.
+/// Converts the shared Player input action map into C# events used by gameplay code.
+/// Its lifetime is owned by the PersistentManagers root.
 /// </summary>
 public class InputHandler : MonoBehaviour
 {
-    // ==================================================================================
-    // 1. �̱��� (Singleton) ����
-    // ==================================================================================
-    // ���� ���� �� �ϳ��� �����ؾ� �ϸ�, ��𼭵�(Player, UI ��) ������ �� �־�� �մϴ�.
     public static InputHandler Instance { get; private set; }
 
     [Header("Input Settings")]
-    // ����Ƽ �����Ϳ��� ���� .inputactions ����(�Ķ� ���� ������)�� ���⿡ �����մϴ�
+    [Tooltip("Assign Assets/InputSystem_Actions.inputactions on PersistentManagers.prefab.")]
     public InputActionAsset inputActions;
 
-
-    // ==================================================================================
-    // 2. �̺�Ʈ ���� (Events) - "��� ä��"
-    // ==================================================================================
-    // �ܺ� ��ũ��Ʈ(PlayerController ��)�� �� �̺�Ʈ���� ����(Subscribe, +=)�Ͽ� �Է��� �����մϴ�.
     public event Action<Vector2> OnMoveEvent;
     public event Action OnJumpEvent;
     public event Action OnPauseEvent;
     public event Action<bool> OnRunEvent;
     public event Action OnDashEvent;
-
     public event Action OnBasicAttackEvent;
     public event Action OnSkill1Event;
     public event Action OnSkill2Event;
@@ -36,159 +26,218 @@ public class InputHandler : MonoBehaviour
     public event Action OnInteractEvent;
     public event Action OnSkillQEvent;
 
-    // ==================================================================================
-    // 3. ���� ���� (Internal Variables)
-    // ==================================================================================
-    // Input Action Asset���� ������ ���� �׼ǵ��� �����صδ� �����Դϴ�.
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction pauseAction;
     private InputAction runAction;
     private InputAction dashAction;
-
     private InputAction basicAttack;
-    private InputAction skill_1;
-    private InputAction skill_2;
-    private InputAction heal;
+    private InputAction skill1Action;
+    private InputAction skill2Action;
+    private InputAction healAction;
     private InputAction interactAction;
     private InputAction skillQAction;
 
-    // ==================================================================================
-    // 4. �ʱ�ȭ (Awake)
-    // ==================================================================================
+    private bool initialized;
+    private bool callbacksBound;
+    private bool ownsRuntimeActions;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        Instance = null;
+    }
+
     private void Awake()
     {
-        // �̱��� �ʱ�ȭ: �� �ڽ��� ������ ���� ���, �̹� ������(�ߺ�) ���� �ı�.
-        if (Instance == null) 
-        { 
-            Instance = this;
-            // ���� �ٲ� �ı����� ���� (����, �Ŵ��� ���� �����Ǿ�� ��)
-            DontDestroyOnLoad(gameObject); 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
         }
-        else 
-        { 
-            Destroy(gameObject); 
-            return; 
-        }
-        if (inputActions == null)
-            inputActions = Resources.Load<UnityEngine.InputSystem.InputActionAsset>("InputSystem_Actions");
+
+        Instance = this;
 
         if (inputActions == null)
         {
-            UnityEngine.Debug.LogError("InputHandler: Input Action Asset이 할당되지 않았습니다! Inspector에서 InputSystem_Actions를 연결하거나 Resources 폴더에 넣으세요.");
+            Debug.LogError(
+                "InputHandler: InputSystem_Actions is not assigned on PersistentManagers.prefab.");
             return;
         }
-        // "Player"��� �̸��� �׼� ��(Map)�� ã���ϴ�. (�����Ϳ��� ���� Map �̸��� ���ƾ� ��)
-        var playerMap = inputActions.FindActionMap("Player");
+
+        // A private runtime copy prevents another component from enabling/disabling the
+        // imported asset shared by the project or from accumulating callback state on it.
+        inputActions = Instantiate(inputActions);
+        inputActions.name = "InputSystem_Actions (Runtime)";
+        ownsRuntimeActions = true;
+
+        InputActionMap playerMap = inputActions.FindActionMap("Player", false);
         if (playerMap == null)
         {
-            UnityEngine.Debug.LogError("InputHandler: 'Player' �׼� ���� ã�� �� �����ϴ�!");
+            Debug.LogError("InputHandler: the 'Player' action map could not be found.");
             return;
         }
 
-        // �����ϰ� ã�� (��� ������ ������ ����)
-        moveAction = playerMap.FindAction("Move");
-        jumpAction = playerMap.FindAction("Jump");
-        pauseAction = playerMap.FindAction("Pause");
-        runAction = playerMap.FindAction("Run");
-        dashAction = playerMap.FindAction("Dash");
-
-        basicAttack = playerMap.FindAction("BasicAttack");
-        skill_1 = playerMap.FindAction("Skill_1");
-        skill_2 = playerMap.FindAction("Skill_2");
-        heal = playerMap.FindAction("Heal");
-        interactAction = playerMap.FindAction("Interact");
-        skillQAction = playerMap.FindAction("Action");
+        moveAction = playerMap.FindAction("Move", false);
+        jumpAction = playerMap.FindAction("Jump", false);
+        pauseAction = playerMap.FindAction("Pause", false);
+        runAction = playerMap.FindAction("Run", false);
+        dashAction = playerMap.FindAction("Dash", false);
+        basicAttack = playerMap.FindAction("BasicAttack", false);
+        skill1Action = playerMap.FindAction("Skill_1", false);
+        skill2Action = playerMap.FindAction("Skill_2", false);
+        healAction = playerMap.FindAction("Heal", false);
+        interactAction = playerMap.FindAction("Interact", false);
+        skillQAction = playerMap.FindAction("Action", false);
 
         LoadBindingOverrides();
+        initialized = true;
     }
 
     private void OnEnable()
     {
-        if (inputActions != null) inputActions.Enable();
+        if (Instance != this || !initialized)
+            return;
 
-        // null üũ �� ���� (�ϳ��� ��� �������� �۵���)
-        if (moveAction != null)
-        {
-            moveAction.performed += ctx => OnMoveEvent?.Invoke(ctx.ReadValue<Vector2>());
-            moveAction.canceled += ctx => OnMoveEvent?.Invoke(Vector2.zero);
-        }
-        if (jumpAction != null) jumpAction.performed += ctx => OnJumpEvent?.Invoke();
-        if (runAction != null)
-        {
-            runAction.performed += ctx => OnRunEvent?.Invoke(true);
-            runAction.canceled += ctx => OnRunEvent?.Invoke(false);
-        }
-        if (dashAction != null) dashAction.performed += ctx => OnDashEvent?.Invoke();
-        if (pauseAction != null) pauseAction.performed += ctx => { Debug.Log("[InputHandler] ESC 키 눌림 - Pause 이벤트 발생"); OnPauseEvent?.Invoke(); };
-
-        if (basicAttack != null) basicAttack.performed += ctx => OnBasicAttackEvent?.Invoke();
-        if (skill_1 != null) skill_1.performed += ctx => OnSkill1Event?.Invoke();
-        if (skill_2 != null) skill_2.performed += ctx => OnSkill2Event?.Invoke();
-        if (heal != null) heal.performed += ctx => OnHealEvent?.Invoke();
-        if (interactAction != null) interactAction.performed += ctx => OnInteractEvent?.Invoke();
-        if (skillQAction != null) skillQAction.performed += ctx => OnSkillQEvent?.Invoke();
+        BindCallbacks();
+        inputActions.Enable();
     }
 
-    // ==================================================================================
-    // 6. ��Ȱ��ȭ (OnDisable)
-    // ==================================================================================
     private void OnDisable()
     {
-        if (inputActions != null) inputActions.Disable();
+        if (Instance != this)
+            return;
+
+        if (inputActions != null)
+            inputActions.Disable();
+
+        UnbindCallbacks();
     }
 
-    // ==================================================================================
-    // 7. ���� �� �ҷ����� (Save & Load)
-    // ==================================================================================
-    // ����ڰ� �ٲ� Ű ����(Rebinding)�� JSON ���ڿ��� ��ȯ�� �����մϴ�.
+    private void OnDestroy()
+    {
+        if (Instance != this)
+            return;
+
+        UnbindCallbacks();
+
+        if (inputActions != null)
+            inputActions.Disable();
+
+        if (ownsRuntimeActions && inputActions != null)
+            Destroy(inputActions);
+
+        Instance = null;
+    }
+
+    private void BindCallbacks()
+    {
+        if (callbacksBound)
+            return;
+
+        if (moveAction != null)
+        {
+            moveAction.performed += HandleMovePerformed;
+            moveAction.canceled += HandleMoveCanceled;
+        }
+
+        if (jumpAction != null) jumpAction.performed += HandleJumpPerformed;
+        if (pauseAction != null) pauseAction.performed += HandlePausePerformed;
+        if (runAction != null)
+        {
+            runAction.performed += HandleRunPerformed;
+            runAction.canceled += HandleRunCanceled;
+        }
+
+        if (dashAction != null) dashAction.performed += HandleDashPerformed;
+        if (basicAttack != null) basicAttack.performed += HandleBasicAttackPerformed;
+        if (skill1Action != null) skill1Action.performed += HandleSkill1Performed;
+        if (skill2Action != null) skill2Action.performed += HandleSkill2Performed;
+        if (healAction != null) healAction.performed += HandleHealPerformed;
+        if (interactAction != null) interactAction.performed += HandleInteractPerformed;
+        if (skillQAction != null) skillQAction.performed += HandleSkillQPerformed;
+
+        callbacksBound = true;
+    }
+
+    private void UnbindCallbacks()
+    {
+        if (!callbacksBound)
+            return;
+
+        if (moveAction != null)
+        {
+            moveAction.performed -= HandleMovePerformed;
+            moveAction.canceled -= HandleMoveCanceled;
+        }
+
+        if (jumpAction != null) jumpAction.performed -= HandleJumpPerformed;
+        if (pauseAction != null) pauseAction.performed -= HandlePausePerformed;
+        if (runAction != null)
+        {
+            runAction.performed -= HandleRunPerformed;
+            runAction.canceled -= HandleRunCanceled;
+        }
+
+        if (dashAction != null) dashAction.performed -= HandleDashPerformed;
+        if (basicAttack != null) basicAttack.performed -= HandleBasicAttackPerformed;
+        if (skill1Action != null) skill1Action.performed -= HandleSkill1Performed;
+        if (skill2Action != null) skill2Action.performed -= HandleSkill2Performed;
+        if (healAction != null) healAction.performed -= HandleHealPerformed;
+        if (interactAction != null) interactAction.performed -= HandleInteractPerformed;
+        if (skillQAction != null) skillQAction.performed -= HandleSkillQPerformed;
+
+        callbacksBound = false;
+    }
+
+    private void HandleMovePerformed(InputAction.CallbackContext context) =>
+        OnMoveEvent?.Invoke(context.ReadValue<Vector2>());
+
+    private void HandleMoveCanceled(InputAction.CallbackContext context) =>
+        OnMoveEvent?.Invoke(Vector2.zero);
+
+    private void HandleJumpPerformed(InputAction.CallbackContext context) => OnJumpEvent?.Invoke();
+    private void HandlePausePerformed(InputAction.CallbackContext context) => OnPauseEvent?.Invoke();
+    private void HandleRunPerformed(InputAction.CallbackContext context) => OnRunEvent?.Invoke(true);
+    private void HandleRunCanceled(InputAction.CallbackContext context) => OnRunEvent?.Invoke(false);
+    private void HandleDashPerformed(InputAction.CallbackContext context) => OnDashEvent?.Invoke();
+    private void HandleBasicAttackPerformed(InputAction.CallbackContext context) => OnBasicAttackEvent?.Invoke();
+    private void HandleSkill1Performed(InputAction.CallbackContext context) => OnSkill1Event?.Invoke();
+    private void HandleSkill2Performed(InputAction.CallbackContext context) => OnSkill2Event?.Invoke();
+    private void HandleHealPerformed(InputAction.CallbackContext context) => OnHealEvent?.Invoke();
+    private void HandleInteractPerformed(InputAction.CallbackContext context) => OnInteractEvent?.Invoke();
+    private void HandleSkillQPerformed(InputAction.CallbackContext context) => OnSkillQEvent?.Invoke();
+
     public void SaveBindingOverrides()
     {
-        if (inputActions == null) return;
+        if (inputActions == null)
+            return;
 
-        // Rebinding result is kept in memory only. It reaches disk when the
-        // settings save button calls SaveLoadManager.Instance.SaveSettings().
-        SaveLoadManager.CurrentSettings.InputBindingsJson = inputActions.SaveBindingOverridesAsJson();
+        SaveLoadManager.CurrentSettings.InputBindingsJson =
+            inputActions.SaveBindingOverridesAsJson();
     }
 
-    // ����� Ű ������ �ҷ��ͼ� �����մϴ�.
     public void LoadBindingOverrides()
     {
-        if (inputActions == null) return;
+        if (inputActions == null)
+            return;
 
         string json = SaveLoadManager.CurrentSettings.InputBindingsJson;
-        if (string.IsNullOrEmpty(json)) return;
-
-        inputActions.LoadBindingOverridesFromJson(json);
+        if (!string.IsNullOrEmpty(json))
+            inputActions.LoadBindingOverridesFromJson(json);
     }
 
     public InputAction GetAction(string actionName)
     {
-        // 1. ���� ��ü�� ���� �� �� ���
         if (inputActions == null)
         {
-            Debug.LogError("���� �˰�: InputHandler �ν����Ϳ� Input Action Asset�� ���� �� �ƽ��ϴ�!");
+            Debug.LogError("InputHandler: the runtime Input Action Asset is unavailable.");
             return null;
         }
 
-        // 2. �׼��� ã�ƺ��ϴ�.
-        InputAction foundAction = inputActions.FindAction(actionName);
-
-        // 3. �� ã���� ���
+        InputAction foundAction = inputActions.FindAction(actionName, false);
         if (foundAction == null)
-        {
-            Debug.LogError($"���� �˰�: '{actionName}'��� �׼��� ã�� �� �����ϴ�. ��Ÿ�� �ְų� 'Player/{actionName}' ó�� �� �̸��� ���� ��� �� ���� �ֽ��ϴ�.");
-
-            // ������: �����ϴ� ��� �׼� �̸��� ����غ� (�ʿ��� �� �ּ� ����)
-            
-            foreach (var map in inputActions.actionMaps)
-            {
-                foreach (var action in map.actions)
-                {
-                    Debug.Log($"�߰ߵ� �׼�: {map.name}/{action.name}");
-                }
-            }
-        }
+            Debug.LogError($"InputHandler: action '{actionName}' could not be found.");
 
         return foundAction;
     }

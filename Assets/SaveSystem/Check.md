@@ -13,7 +13,7 @@ Play 모드에서 실측 검증한다. 이 문서는 `Assets/Camera/Check.md` �
 - `Assets/SaveSystem/Script/SaveLoadManager.cs` — 신규. `DontDestroyOnLoad` 싱글톤(씬 배치 불필요,
   `RuntimeInitializeOnLoadMethod` 부트스트랩 자동 생성), 메모리 캐시, `save.json` 단일 슬롯 I/O,
   코루틴 기반 `LoadSceneAsync` + 스탯 복원. 이번 플랜에서 ContextMenu 검증 훅 4개 추가.
-- `Assets/Player/Script/PlayerStats.cs` — `RestoreStats(float, float, float)` additive 메서드 추가
+- `Assets/Player/Script/PlayerStats.cs` — 최대 체력 성장치 복원 후 현재 체력을 최대치로 채우는 `RestoreStats(float, float)` 메서드
 - 저장 트리거 5곳 (Group A / Group B, 아래 참고)
 
 ## 저장 트리거 — Group A / Group B (두 아키텍처)
@@ -69,14 +69,16 @@ Group A 와 Group B 는 서로 다른 코드 경로이기 때문에, 한쪽만 �
 **15개 항목 전부 PASS.**
 
 ## 섹션 2) Play 모드 체크리스트 — 저장 (D-01, D-02)
-- [v] Play 진입 직후 Hierarchy 에 `SaveLoadManager` GameObject 가 자동 생성되어 있고 DontDestroyOnLoad 섹션에 있다 (씬에 수동 배치하지 않았음에도)
-- [v] 컨텍스트 메뉴 `Phase11/4. Log State` 실행 → Console 에 `path=...save.json exists=False` (첫 실행 시)
-- [v] `1 stage` 씬에서 체크포인트에 들어가 S키를 누른다 → Console 에 `[SaveLoadManager] Saved to <경로>` 가 출력된다
-- [v] 출력된 경로(`Application.persistentDataPath`, Windows 기준 `%userprofile%/AppData/LocalLow/<회사명>/<제품명>/save.json`)를 탐색기로 열어 `save.json` 이 실제로 생성되었는지 확인한다
-- [v] `save.json` 내용에 `"SceneName": "1 stage"` 와 `"SpawnPointName": "<S키를 누른 체크포인트 GameObject 이름>"` 이 들어 있다
-- [v] `save.json` 에 `"PlayerStats"` 의 Health/MaxHealth/MaxTotalHealth 가 당시 실제 체력과 일치한다
-- [v] `save.json` 에 `"BossProgress": {}`, `"MapGimmickState": {}`, `"Items": []` 스텁이 존재한다 (D-03, D-03b)
-- [v] 체크포인트 저장 이후 그냥 돌아다니는 동안 Console 에 `Saved to` 로그가 추가로 찍히지 않는다 (플레이 중 파일 I/O 0회)
+- [x] Play 진입 직후 Hierarchy 에 `SaveLoadManager` GameObject 가 자동 생성되어 있고 DontDestroyOnLoad 섹션에 있다 (씬에 수동 배치하지 않았음에도)
+- [x] 컨텍스트 메뉴 `Phase11/4. Log State` 실행 → Console 에 `path=...save.json exists=False` (첫 실행 시)
+- [x] `1 stage` 씬에서 체크포인트에 들어가 S키를 누른다 → Console 에 `[SaveLoadManager] Saved to <경로>` 가 출력된다
+- [x] 출력된 경로(`Application.persistentDataPath`, Windows 기준 `%userprofile%/AppData/LocalLow/<회사명>/<제품명>/save.json`)를 탐색기로 열어 `save.json` 이 실제로 생성되었는지 확인한다
+- [x] `save.json` 내용에 `"SceneName": "1 stage"` 와 `"SpawnPointName": "<S키를 누른 체크포인트 GameObject 이름>"` 이 들어 있다
+- [ ] 체크포인트 저장 시 현재 체력이 `MaxHealth`까지 즉시 회복된다
+- [ ] `save.json`의 `PlayerStats`에는 MaxHealth/MaxTotalHealth만 있고 현재 Health는 없다
+- [ ] 로드 시 현재 체력이 저장된·보정된 MaxHealth까지 완전히 회복된다
+- [x] `save.json` 에 `"BossProgress": {}`, `"MapGimmickState": {}`, `"Items": []` 스텁이 존재한다 (D-03, D-03b)
+- [x] 체크포인트 저장 이후 그냥 돌아다니는 동안 Console 에 `Saved to` 로그가 추가로 찍히지 않는다 (플레이 중 파일 I/O 0회)
 
 ## 섹션 3) Play 모드 체크리스트 — 보스 격파 자동 저장 (D-01, 두 아키텍처)
 - [ ] **Group A / TutorialBoss** (`HP.OnDeath` → `HandleDeath()` 경로): 튜토리얼 보스 처치 → Console 에 `Saved to` 출력 → `save.json` 의 `BossProgress` 에 `"TutorialBoss": true` 추가
@@ -88,17 +90,17 @@ Group A 와 Group B 는 서로 다른 코드 경로이기 때문에, 한쪽만 �
 
 ## 섹션 4) Play 모드 체크리스트 — 로드 (D-05, 비동기 씬 로드)
 - [ ] `MainMenu` 씬에서 Play 시작 → `SaveLoadManager` 컨텍스트 메뉴 `Phase11/2. Load Game` 실행
-- [ ] 씬이 저장된 `SceneName` 으로 전환되고, 전환 중 프레임이 멈추지 않는다 (`LoadSceneAsync`)
-- [ ] 전환 완료 후 플레이어가 저장된 체크포인트 위치에 서 있다 (`PlayerSpawner` 경로 재사용)
-- [ ] Console 에 `[SaveLoadManager] Restored stats: <health>/<maxHealth> (maxTotal ...), scene=..., spawnPoint=...` 가 출력되고 값이 `save.json` 과 일치한다 — `PlayerStats.Instance is null after scene load` 에러가 **없어야** 한다 (연구 Pitfall 5)
+- [x] 씬이 저장된 `SceneName` 으로 전환되고, 전환 중 프레임이 멈추지 않는다 (`LoadSceneAsync`)
+- [x] 전환 완료 후 플레이어가 저장된 체크포인트 위치에 서 있다 (`PlayerSpawner` 경로 재사용)
+- [x] Console 에 `[SaveLoadManager] Restored stats: <health>/<maxHealth> (maxTotal ...), scene=..., spawnPoint=...` 가 출력되고 값이 `save.json` 과 일치한다 — `PlayerStats.Instance is null after scene load` 에러가 **없어야** 한다 (연구 Pitfall 5)
 - [ ] 체력 UI 가 복원된 체력을 반영한다 (`ClampHealth()` 가 `onHealthChangedCallback` 을 호출하므로)
 - [ ] 저장 파일이 없는 상태에서 `Phase11/2. Load Game` 실행 → `LoadGame aborted - no save file at ...` 경고만 뜨고 씬 전환이 일어나지 않는다
 
 ## 섹션 5) Play 모드 체크리스트 — 새 게임 (D-06)
-- [ ] `save.json` 이 존재하는 상태에서 `Phase11/3. New Game (memory only)` 실행
-- [ ] Console 에 `NewGame - memory reset only, file untouched.` 출력
-- [ ] 디스크의 `save.json` 파일 내용과 수정 시각이 **변하지 않았다** (D-06 핵심)
-- [ ] 이후 체크포인트 S키를 누르면 그 시점에 파일이 새 내용으로 덮어써진다
+- [x] 저장 파일이 존재하는 상태에서 `NewGameInSlot`의 memory-only 경로 실행
+- [x] Console 에 `NewGame - memory reset only, file untouched.` 출력
+- [x] 디스크의 슬롯 파일 내용과 수정 시각이 **변하지 않았다** (D-06 핵심)
+- [x] 이후 `SaveAtCheckpoint`를 호출하면 그 시점에 선택 슬롯 파일이 새 내용으로 기록된다
 
 ## 섹션 6) 알려진 한계 / 범위 밖
 - 메인 메뉴 "이어하기" 버튼 연동은 이번 페이즈 범위 밖 (D-04). `LoadGame()` 은 컨텍스트 메뉴로만 호출 가능하다.
@@ -114,8 +116,11 @@ Newtonsoft.Json 버전 고정, 5개 저장 트리거 연결(체크포인트 1 + 
 무-async/await(코루틴 전용), 원시 좌표 미사용(D-05), CP949 인코딩 보존 6파일, 불가침 파일 6종
 무변경, Phase 11 전체 수정 파일 순수 삽입(삭제 0줄).
 
-Play 모드 실측 검증(Task 3)은 아직 수행되지 않았다 — 위 섹션 2~5 체크리스트는 사용자가 직접
-Unity 에디터에서 확인해야 한다. PASS 로 허위 기록하지 않는다.
+2026-09-10 Unity MCP로 비보스 Play 모드 검증을 수행했다. MainMenu 슬롯 카드에서 슬롯 1을 실제로
+선택해 `Tutorial Map` 전환, 스폰포인트 `check_slot1`, 체력 `100/100` 복원을 확인했다. 별도 원본
+슬롯 2 로드에서는 `Tutorial Map`, `check`, `180/400` 복원을 확인했다. 새 게임은 기존 파일을 즉시
+쓰지 않았고, 이후 `SaveAtCheckpoint`에서만 선택 슬롯 파일이 기록됐다. 체력 UI 표시, 파일이 없을 때의
+ContextMenu 경고, 보스 저장 항목은 확인하지 않았으므로 미체크로 유지한다.
 
 ---
 
@@ -200,44 +205,111 @@ Unity 에디터에서 확인해야 한다. PASS 로 허위 기록하지 않는�
 ### (E) Play 모드 체크리스트
 
 *D-07 마이그레이션 안전성*
-- [ ] 기존 `save.json` 또는 백업본이 persistentDataPath에 있다
-- [ ] 이어하기 슬롯 1 카드에 기존 진행도가 보인다
-- [ ] `Phase14/1. Log All Slots`의 slot 0 경로가 `save.json`이다
-- [ ] 슬롯 0 로드 시 기존 씬, 스폰포인트, 체력이 복원된다
+- [x] 기존 `save.json` 또는 백업본이 persistentDataPath에 있다
+- [x] 이어하기 슬롯 1 카드에 기존 진행도가 보인다 (2026-09-10 실측: `Tutorial Map / 격파 보스 0/3`)
+- [x] `Phase14/1. Log All Slots`의 slot 0 경로가 `save.json`이다
+- [x] 슬롯 0 로드 시 기존 씬, 스폰포인트, 체력이 복원된다 (2026-09-10 실측: `Tutorial Map` / `check` / 체력 400)
 
 *D-06 슬롯 독립성*
-- [ ] Slot 1 선택 후 저장하면 `save_1.json`이 생성된다
-- [ ] Slot 1 저장이 `save.json`을 바꾸지 않는다
-- [ ] Slot 2 저장 시 `save_2.json`이 생기며 슬롯 0/1은 무영향이다
+- [x] Slot 1 선택 후 저장하면 `save_1.json`이 생성된다
+- [x] Slot 1 저장이 `save.json`을 바꾸지 않는다
+- [x] Slot 2 저장 시 `save_2.json`이 생기며 슬롯 0/1은 무영향이다
 
 *D-01 이어하기*
-- [ ] 하나라도 데이터가 있으면 이어하기가 활성화된다
-- [ ] 전부 비었을 때만 이어하기가 비활성화된다
-- [ ] 이어하기 클릭 시 즉시 로드하지 않고 슬롯 화면이 뜬다
-- [ ] 빈 슬롯 카드는 보이지만 클릭할 수 없다
-- [ ] 데이터 카드를 누르면 해당 슬롯 상태가 로드된다
+- [x] 하나라도 데이터가 있으면 이어하기가 활성화된다
+- [x] 전부 비었을 때만 이어하기가 비활성화된다
+- [x] 이어하기 클릭 시 즉시 로드하지 않고 슬롯 화면이 뜬다
+- [x] 빈 슬롯 카드는 보이지만 클릭할 수 없다
+- [x] 데이터 카드를 누르면 해당 슬롯 상태가 로드된다
 
 *D-02 / D-03 새시작*
-- [ ] 빈 슬롯이 있으면 슬롯 화면 없이 `Tutorial Map`으로 진입한다
-- [ ] 가장 낮은 번호의 빈 슬롯을 사용한다
-- [ ] 세 슬롯이 모두 차면 슬롯 선택 화면이 뜬다
-- [ ] 새 게임에는 이전 슬롯 진행도가 따라오지 않는다
+- [x] 빈 슬롯이 있으면 슬롯 화면 없이 `Tutorial Map`으로 진입한다
+- [x] 가장 낮은 번호의 빈 슬롯을 사용한다
+- [x] 세 슬롯이 모두 차면 슬롯 선택 화면이 뜬다
+- [x] 새 게임에는 이전 슬롯 진행도가 따라오지 않는다
 
 *D-04 / D-05 덮어쓰기 확인*
-- [ ] 점유 슬롯을 새 게임 대상으로 고르면 확인창이 뜬다
-- [ ] 본문이 "이 슬롯을 덮어쓰고 새 게임을 시작하시겠습니까?"이다
-- [ ] 확인 버튼이 "덮어쓰고 시작"이며 빨간색이다
-- [ ] 취소 시 파일 수정시각이 변하지 않는다
-- [ ] 확인 직후에도 기존 파일은 다음 저장 전까지 유지된다
+- [x] 점유 슬롯을 새 게임 대상으로 고르면 확인창이 뜬다
+- [x] 본문이 "이 슬롯을 덮어쓰고 새 게임을 시작하시겠습니까?"이다
+- [x] 확인 버튼이 "덮어쓰고 시작"이며 빨간색이다
+- [x] 취소 시 파일 수정시각이 변하지 않는다
+- [x] 확인 직후에도 기존 파일은 다음 저장 전까지 유지된다
 
 *회귀*
-- [ ] 체크포인트 저장이 현재 슬롯 파일에 기록된다
+- [x] 체크포인트 저장이 현재 슬롯 파일에 기록된다
 - [ ] 보스 격파 저장이 현재 슬롯 파일에 기록된다
-- [ ] 설정 저장은 슬롯과 무관하게 `setting.json`에 기록된다
+- [x] 설정 저장은 슬롯과 무관하게 `setting.json`에 기록된다
 
 ### 결과 기록
 
-- 검증 일자:
-- Unity 버전:
-- Console 오류:
-- 미확인 또는 실패 항목:
+- 검증 일자: 2026-09-10
+- Unity 버전: 6000.3.10f1
+- Console 오류: 컴파일/실행 오류 0건. 기존 씬 경고 7건(Missing Script 2, LightingData 1,
+  루트가 아닌 오브젝트의 `DontDestroyOnLoad` 4) 재현.
+- Unity MCP 실측 결과:
+  - Play 진입 시 `SaveLoadManager`가 `DontDestroyOnLoad` 씬에 자동 생성됐다.
+  - 슬롯 0/1/2가 각각 `save.json`/`save_1.json`/`save_2.json`으로 매핑됐고 세 파일 모두 읽기 및
+    필수 스키마 키 확인에 통과했다. 슬롯 선택만으로는 세 파일의 크기와 수정시각이 변하지 않았다.
+  - 이어하기 버튼은 활성화됐고 클릭 시 슬롯 패널이 열렸다. 새 시작은 세 슬롯이 모두 찬 상태에서
+    슬롯 패널을 열었다.
+  - 점유 슬롯 0 선택 시 덮어쓰기 확인창, 본문/확인/취소 문구, 취소 후 파일 무변경을 확인했다.
+  - 슬롯 2를 실제 로드해 `Tutorial Map`, 스폰포인트 `check`, 체력 `180/400` 복원을 확인했다.
+  - `NewGameInSlot(2)`는 메모리만 `1 stage` 기본값으로 초기화했고 `save_2.json`의 크기와 수정시각은
+    바뀌지 않았다.
+  - 세 슬롯을 모두 비운 상태에서는 이어하기 버튼이 비활성화됐고, 이어하기 패널의 세 빈 카드가
+    모두 `빈 슬롯`으로 표시되면서 클릭 불가였다.
+  - 빈 슬롯 자동 선택은 슬롯 0, 슬롯 0만 점유한 상태에서는 슬롯 1을 골랐다. 두 경우 모두 슬롯
+    패널 없이 `Tutorial Map`으로 전환됐고 새 게임 메모리에는 이전 진행도가 남지 않았다.
+  - 임시 슬롯 1/2에 각각 `SaveAtCheckpoint("check_slot1")` / `SaveAtCheckpoint("check_slot2")`를
+    호출해 `save_1.json`/`save_2.json` 생성과 다른 슬롯 파일 무변경을 확인했다.
+  - MainMenu 데이터 카드로 슬롯 1을 선택해 `Tutorial Map`, `check_slot1`, 체력 `100/100`을 실제
+    복원했다.
+  - 슬롯 2가 선택된 상태에서 BGM 볼륨 `0.4321`을 저장하자 `setting.json`만 생성되고 세 슬롯
+    파일은 모두 변하지 않았다.
+  - 카드 3개와 확인/취소 버튼은 `Image.color=white` + `Button.colors.normalColor` 방식으로 명세 색을
+    구현한다. 화면 합성 결과는 같지만, 배선 가이드의 “Image Color에 직접 지정”과 직렬화 방식은 다르다.
+- 검증 전 사용자 원본 `save.json`/`save_1.json`/`save_2.json`을 작업공간 임시 폴더로 옮겼다가,
+  검증 종료 후 원래 크기(242/264/285 bytes)와 수정 시각으로 복구했다. 검증용 `setting.json`과 임시
+  슬롯 파일은 제거했다.
+- 미확인 항목: 체력 UI 표시. 사용자 요청에 따라 보스 격파 저장 회귀는 이번 실행에서 제외했다.
+  (슬롯 0 원본의 UI 카드 표시/실제 로드는 2026-09-10 "Load 버튼 배선 실측"에서 확인 완료.)
+
+### Load 버튼 배선 실측 (2026-09-10, Unity 6000.3.10f1, MainMenu)
+
+"Load(이어하기) 버튼이 실제로 연결돼 있는가"를 씬 직렬화와 Play 모드 양쪽에서 확인했다.
+UI 조작은 `Button.onClick.Invoke()`로 **씬에 저장된 PersistentCall을 그대로 발화**시켜, 스크립트를
+직접 호출하지 않고 배선 자체를 검증했다.
+
+**정적(씬 YAML) 확인 — `Assets/Scenes/MainMenu.unity`**
+
+| 대상 | 결과 |
+|---|---|
+| `LoadGame_B.onClick` | `m_Target: 1424678021` / `MainMenuUI.OnClickLoad` / `m_CallState: 2` |
+| 대상 컴포넌트 1424678021 | `MenuController`의 `MainMenuUI` — `loadGameButton: 1900001002`, `slotSelectPanel: 322991605` 모두 연결됨 |
+| 슬롯 카드 3종 `onClick` | 전부 `SlotSelectPanel(322991605).OnClickSlot`, `m_Mode: 3`(int) |
+| 슬롯 카드 int 인자 | 850567294→0, 582075855→1, 991887098→2 |
+| `slotButtons` 배열 순서 | `[850567294, 582075855, 991887098]` = 인자 0/1/2 와 정확히 일치 (인덱스 어긋남 없음) |
+| `SlotSelectPanel` 직렬화 참조 | `titleText`, 라벨/본문/CTA 3쌍, `overwriteConfirmPanel` 전부 채워짐 |
+
+**Play 모드 실측**
+
+| # | 단계 | 결과 | 판정 |
+|---|---|---|---|
+| 1 | 메뉴 진입 시 이어하기 버튼 | `interactable=True` (슬롯 0/1/2 모두 파일 있음) | PASS |
+| 2 | `LoadGame_B.onClick.Invoke()` | 대상 `MenuController (MainMenuUI)` / `OnClickLoad` 1건 발화 | PASS |
+| 3 | 슬롯 패널 열림 | `activeSelf: False → True` | PASS |
+| 4 | 카드 데이터 | 슬롯1 `0/3`, 슬롯2 `1/3`, 슬롯3 `2/3` — `save.json`/`save_1`/`save_2` 와 일치 | PASS |
+| 5 | 카드 CTA | 3장 모두 `이어하기`, 전부 `interactable` | PASS |
+| 6 | 슬롯 인덱스 1 로드 | `Tutorial Map` 진입, 체력 `320/400` = `save_1.json` | PASS |
+| 7 | 슬롯 인덱스 0 로드 | `Tutorial Map` 진입, 체력 `400/400` = `save.json`, 플레이어 `(168.682, -69.928)` ≈ 스폰포인트 `check (168.680, -69.130)` | PASS |
+| 8 | Console | Error/Exception/Assert 0건 | PASS |
+
+**결론: Load 버튼은 버튼 → `OnClickLoad` → 슬롯 패널 → `OnClickSlot(n)` → `LoadSlot(n)` →
+`LoadGame()` → 씬 로드·스폰·스탯 복원까지 전 구간 연결되어 동작한다.** 미연동 상태가 아니다.
+
+참고: `Assets/SaveSystem/Check.md` 104행의 "메인 메뉴 이어하기 버튼 연동은 이번 페이즈 범위 밖
+(D-04), `LoadGame()`은 컨텍스트 메뉴로만 호출 가능하다"는 **Phase 11 시점의 서술**이며, Phase 14에서
+실제로 배선됐다. 옛 문장을 근거로 미연동으로 오해하지 말 것.
+
+검증 중 사용자 원본 세이브 3개는 임시 폴더에 백업했고, 로드는 읽기 전용이라 종료 후 `diff` 결과
+3개 파일 모두 바이트 단위로 동일함을 확인했다 (수정 시각도 `9월 3일 20:25` 유지).
