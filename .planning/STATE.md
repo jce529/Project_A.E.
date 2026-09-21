@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-09-20T00:00:00.000Z"
-last_activity: 2026-09-20 - 16-02-PLAN.md Task 1~2 완료 (Unity 배치모드 임포트 검증 + Check.md), Task 3 Play 모드 체크포인트 대기
+last_updated: "2026-09-21T00:35:26.860Z"
+last_activity: 2026-09-21
 progress:
-  total_phases: 11
-  completed_phases: 4
-  total_plans: 31
-  completed_plans: 22
-  percent: 71
+  total_phases: 18
+  completed_phases: 10
+  total_plans: 47
+  completed_plans: 41
+  percent: 72
 ---
 
 # GSD State
@@ -21,15 +21,15 @@ progress:
 
 ## Current Position
 
-Phase: 14 (save-slot-expansion) — PLANNED (계획 3개 작성 완료 — 14-01/14-02/14-03-PLAN.md, 실행 0% 착수 전)
+Phase: 17
 Phase 16 (iitem-itemdata-scriptableobject-id-useeffect-ui) — 16-01 COMPLETE. 16-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) 완료, Task 3(Play 모드 실측 체크포인트) 사용자 응답 대기 중
 Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙, 12-01-PLAN.md 미완료)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
 Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
-Plan: 2 of 2
+Plan: Not started
 Status: Executing Phase 16
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
-Last activity: 2026-09-20 - Completed 16-01-PLAN.md
+Last activity: 2026-09-21
 
 Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0 마일스톤) 기준 재계산. 완료 phase: 5, 6, 9, 13 (4/10). Phase 7(1/2)·8(2/3)·10(3/4)·11(3/4)·12(0/1) 진행 중, Phase 14(0/3) 계획만 완료.
 

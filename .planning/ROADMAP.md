@@ -499,7 +499,7 @@ Plans:
      `AncientKey` 는 체력 변화 0 / 예외 0 이다 (D-02/D-07 의 end-to-end 증거).
   10. `Assets/Player/Script/PlayerStats.cs`, `Assets/Player/Script/PlayerInteraction.cs`,
       `Assets/Item/Script/IItem.cs`, `Assets/SaveSystem/Script/SaveData.cs` 가 0줄 변경이다.
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 **Execution Waves:**
 
@@ -510,7 +510,7 @@ Plans:
 
 Plans:
 - [x] 16-01-PLAN.md — ItemData.cs 신규(ScriptableObject + IItem 구현, enum 2종, 필드 4개, UseEffect 본체, 에디터 전용 ContextMenu 훅) + guid 고정 .meta + 예시 .asset 2개(HealthPotion/AncientKey) 손수 작성
-- [ ] 16-02-PLAN.md — Unity 6000.3.10f1 배치모드 임포트 게이트(컴파일/YAML 실검증) + Assets/Item/Check.md 작성(정적 회귀 8항목 + Play 모드 체크리스트 10항목) + Play 모드 실측 체크포인트
+- [x] 16-02-PLAN.md — Unity 6000.3.10f1 배치모드 임포트 게이트(컴파일/YAML 실검증) + Assets/Item/Check.md 작성(정적 회귀 8항목 + Play 모드 체크리스트 10항목) + Play 모드 실측 체크포인트
 
 ### Phase 17: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 16.
 
