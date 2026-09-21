@@ -74,9 +74,11 @@ Task 1 의 Unity 배치모드 임포트 실행 후 `Assets/Item/` **밖**에서 
 
 ## 결과 기록
 
-- 검증 일자: 2026-09-21 (1차: 합성 오브젝트 / 2차: `Tutorial Map.unity`의 실제 Player 오브젝트, 사용자 요청으로 추가 수행)
-- 검증자: Claude (unity-mcp 를 통해 사용자가 이미 열어 둔 Unity 6000.3.10f1 에디터를 직접 조작, 사용자 명시적 요청에 따름)
+- 검증 일자: 2026-09-21 (1차: 합성 오브젝트 / 2차: `Tutorial Map.unity`의 실제 Player 오브젝트 / 3차: 공식 Unity CLI로 2차와 동일한 검증 재확인, 모두 사용자 요청으로 수행)
+- 검증자: Claude — 1~2차는 unity-mcp 로, 3차는 공식 **Unity CLI**(`unity` 커맨드, beta, `com.unity.pipeline` 패키지 경유)로 사용자가 이미 열어 둔 Unity 6000.3.10f1 에디터를 직접 조작. 사용자 명시적 요청에 따름.
 - PASS/FAIL 요약: PASS 10 / FAIL 0 / 미확인 0.
-  - **2차(실제 Player, Tutorial Map 씬) 핵심 증거** — 7번 HealthPotion: `before=50 → after=70` (정확히 +20). 8번 AncientKey no-op: `before=70 → after=70` (변화 0). 검증 종료 후 Console 에러 0건, `git status --porcelain`/씬 `isDirty` 전부 깨끗함(Play 모드 변경 전부 폐기 확인).
+  - **3차(공식 Unity CLI, 실제 Player, Tutorial Map 씬) 재확인** — `unity command editor_play` 로 Play 모드 진입 → `unity command eval_file` 로 동일 로직 실행 → `unity command console` 로그: `"HealthPotion before=50 after=70 expected=70 | AncientKey before=70 after=70"`. 2차와 완전히 동일한 수치. `unity command editor_stop` 으로 종료 후 `git status --porcelain Assets/Item Assets/Scenes/"Tutorial Map.unity" Assets/Player.prefab` 전부 빈 출력.
+  - **2차(unity-mcp, 실제 Player, Tutorial Map 씬) 핵심 증거** — 7번 HealthPotion: `before=50 → after=70` (정확히 +20). 8번 AncientKey no-op: `before=70 → after=70` (변화 0).
   - 검증 중 한때 "`PlayerInteraction` 이 실제 게임에 배선되어 있지 않다"는 우려가 있었으나(정적 grep 으로 전체 프로젝트 직렬화 파일에서 guid 참조 0건), `PlayerController.Awake()` 가 Play 모드 진입 시 동적으로 `AddComponent<PlayerInteraction>()` 하는 기존 로직을 확인해 해소됨 — Phase 16 의 버그가 아니라 기존 프로젝트의 의도된 런타임 배선.
-  - 1차(합성 오브젝트) 실측: 9번 클램프 `before=100 → after=100`. 1차 때는 무관한 기존 씬 문제 2건(InputHandler 미할당 Input Action Asset, TutorialBoss Animator 누락)이 Console 에 남았으나 2차에서는 재현되지 않았고, 둘 다 `Assets/Item/` 과 무관해 조사하지 않았다.
+  - 1차(합성 오브젝트) 실측: 9번 클램프 `before=100 → after=100`. 1차 때는 무관한 기존 씬 문제 2건(InputHandler 미할당 Input Action Asset, TutorialBoss Animator 누락)이 Console 에 남았으나 2·3차에서는 재현되지 않았고, 둘 다 `Assets/Item/` 과 무관해 조사하지 않았다.
+  - **참고**: 3차 검증을 위해 프로젝트에 `com.unity.pipeline`(0.7.0-exp.1) 패키지를 설치했다(`Packages/manifest.json`/`packages-lock.json` 변경). 이는 CLI가 실행 중인 에디터를 제어하기 위한 필수 의존성이며, `Assets/Item/` 범위 밖이라 이 커밋에는 포함하지 않았다 — 별도 커밋 여부는 사용자 확인 후 결정.
