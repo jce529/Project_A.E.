@@ -82,3 +82,36 @@ Task 1 의 Unity 배치모드 임포트 실행 후 `Assets/Item/` **밖**에서 
   - 검증 중 한때 "`PlayerInteraction` 이 실제 게임에 배선되어 있지 않다"는 우려가 있었으나(정적 grep 으로 전체 프로젝트 직렬화 파일에서 guid 참조 0건), `PlayerController.Awake()` 가 Play 모드 진입 시 동적으로 `AddComponent<PlayerInteraction>()` 하는 기존 로직을 확인해 해소됨 — Phase 17 의 버그가 아니라 기존 프로젝트의 의도된 런타임 배선.
   - 1차(합성 오브젝트) 실측: 9번 클램프 `before=100 → after=100`. 1차 때는 무관한 기존 씬 문제 2건(InputHandler 미할당 Input Action Asset, TutorialBoss Animator 누락)이 Console 에 남았으나 2·3차에서는 재현되지 않았고, 둘 다 `Assets/Item/` 과 무관해 조사하지 않았다.
   - **참고**: 3차 검증을 위해 프로젝트에 `com.unity.pipeline`(0.7.0-exp.1) 패키지를 설치했다(`Packages/manifest.json`/`packages-lock.json` 변경). 이는 CLI가 실행 중인 에디터를 제어하기 위한 필수 의존성이며, `Assets/Item/` 범위 밖이라 이 커밋에는 포함하지 않았다 — 별도 커밋 여부는 사용자 확인 후 결정.
+
+## Phase 18 인벤토리 검증
+
+**검증 대상 변경사항**
+
+| 파일 | 내용 |
+|---|---|
+| `Assets/Player/Script/Inventory.cs` | 신규(18-01). 20슬롯/99스택 고정, `InventorySlot` class, `TryAddItem`/`RemoveItem`/`UseItem`, ContextMenu 훅 4개 |
+| `Assets/Item/Script/WorldItem.cs` | 신규(18-02). `IPlayerInteractable` 구현, 성공 시에만 `Destroy(gameObject)` |
+| `Assets/Player.prefab` | 18-02. `PlayerInteraction` + `Inventory` 컴포넌트 배선 (순수 삽입 31줄) |
+
+**검증 방식 (2026-09-21):** Task 3의 GUI 수동 조작(오브젝트 생성, 드래그, 우클릭 등)을 사용자 요청에 따라 **공식 Unity CLI**(`unity` 커맨드, `com.unity.pipeline` 경유)로 대체 수행했다. `unity open .`으로 CLI가 직접 에디터를 열고(Unity Hub GUI 미사용), `unity command eval`로 실제 `Tutorial Map.unity`의 진짜 `Player` 프리팹 인스턴스와 `WorldItem` 테스트 오브젝트를 조작해 D-05~D-08을 실측했다. 클릭이 아니라 `PlayerInteraction.TryInteract()`/`Inventory.UseItem()`/ContextMenu 메서드를 리플렉션으로 직접 호출했으나, 이는 모두 **public 또는 실제 프로덕션 코드 경로**이며 로직을 우회하거나 모킹하지 않았다.
+
+**환경 이슈 발견 및 해결:** 최초 Play 모드 진입 후 `Object.Destroy()`가 호출되어도 오브젝트가 실제로 사라지지 않는 현상을 발견했다 — 원인은 `Application.runInBackground=false` + 에디터 창이 OS 포커스를 받지 못한 원격/백그라운드 세션이라 `Time.frameCount`가 완전히 멈춰(고정) 있었기 때문(엔진의 프레임 기반 소멸 처리가 아예 실행되지 않음). `Application.runInBackground=true`로 설정하자 즉시 프레임이 다시 진행되고 대기 중이던 `Destroy()` 호출들이 정상 처리됨을 확인했다. 이 설정 변경은 세션 한정이며 커밋 대상 파일이 아니다.
+
+- [x] 1. `Player` GameObject(`Tutorial Map.unity`의 실제 프리팹 인스턴스)에 `Player Interaction`과 `Inventory` 컴포넌트가 모두 존재한다 (D-03). — PASS. `eval`로 `GetComponent("PlayerInteraction")`/`GetComponent("Inventory")` 둘 다 non-null 확인.
+- [x] 2. 월드에 놓인 `WorldItem`(HealthPotion)이 `PlayerInteraction.FindNearest()`에 최근접 대상으로 잡힌다 (D-05, 신규 탐지 코드 없이 기존 인프라 재사용). — PASS. `TryInteract()` 호출 전 `CurrentTarget` 리플렉션 조회 결과 `TestWorldItem_Potion (WorldItem)`.
+- [x] 3. `PlayerInteraction.TryInteract()` 호출(interact 키와 동일 경로) → HealthPotion이 인벤토리에 들어가고, 여유 프레임 경과 후 월드 GameObject가 실제로 파괴된다 (D-05/D-06 성공 경로). — PASS. `slot0 = {item: health_potion_01, count: 1}` 확인, 프레임 재개 후 `GameObject.Find("TestWorldItem_Potion") == null`.
+- [x] 4. AncientKey도 동일하게 주우면 slot 1에 들어가고 slot 개수는 여전히 20이다 (D-08, 위치 고정). — PASS. `slot1 = {item: ancient_key_01, count: 1}`, `SlotCountTotal == 20` 유지.
+- [x] 5. 체력을 최대치 미만으로 만든 뒤 `Phase18: Use Slot 0` 실행 → 체력이 정확히 20 회복되고 slot 0이 in-place로 비워지며 slot 1(AncientKey)은 그대로 유지된다 (D-07/D-08). — PASS. 실측: `HP 40 → 60` (delta +20, `HealthPotion.amount=20`과 일치), `slot0.IsEmpty == true`, `slot1 == {ancient_key_01, 1}` (밀림 없음).
+- [x] 6. `Phase18: Use Slot 1`(Progression 아이템) 실행 → 체력 변화 0, 예외 0, slot 1이 비워진다. — PASS. 실측: `HP delta = 0`, 예외 0건, `slot1.IsEmpty == true`.
+- [x] 7. **(D-06, 가장 중요)** 인벤토리를 `Phase18: Fill All Slots`로 20슬롯×99스택 가득 채운 뒤, 새 HealthPotion 월드 아이템에 interact를 시도한다 → 월드 오브젝트가 파괴되지 않고 그대로 남아 있으며, 어떤 슬롯의 count도 99를 초과하지 않고, Console 예외가 0건이다. — **PASS.** 실측: `worldItemSurvived=True`, `anyCountOver99=False`, `filledSlotCount=20`, 콘솔 예외 0건.
+- [x] 8. Play 세션 전체에 걸쳐 Console 컴파일 에러/런타임 예외 0건. — PASS. `unity command console --level error` 누적 `error: 0`.
+- [x] 9. Play 종료 후 이 phase 범위 밖 파일(`ItemData.cs`, `IItem.cs`, `PlayerInteraction.cs`, `Checkpoint.cs`)이 이번 검증 세션으로 인해 변경되지 않았다. — PASS. `git status --porcelain`로 확인, 테스트용 GameObject는 모두 삭제하고 씬은 저장하지 않음(Edit 모드에서 생성한 테스트 오브젝트 2개는 Play 종료 후 되살아난 것을 확인 후 `delete_gameobject`로 정리, Play 모드 중 생성한 나머지 1개는 Play 종료 시 자동 폐기).
+- [x] 10. 컴파일 확인 — Unity Console 컴파일 에러 0건 / missing script 0건. — PASS. `unity command recompile_status` → `"compilationFailed": false`, `unity command console` → `consoleErrors: 0`.
+
+## 결과 기록 (Phase 18)
+
+- 검증 일자: 2026-09-21
+- 검증자: Claude — 공식 **Unity CLI**(`unity` 커맨드, `com.unity.pipeline` 경유)로 `unity open .`을 통해 직접 실행한 Unity 6000.3.10f1 에디터를 조작. 사용자 명시적 요청("컴퓨터 유즈 대신 CLI로 실행하고, CLI로 검증")에 따름.
+- PASS/FAIL 요약: **PASS 10 / FAIL 0 / 미확인 0.**
+- D-06(가장 중요한 기준)이 실제 프로덕션 코드 경로(`WorldItem.Interact` → `Inventory.TryAddItem` → 용량 사전검사)를 통해 실측 확인됨 — 가득 찬 인벤토리에서 픽업 시도 시 데이터 유실 없음.
+- 테스트 중 발견한 환경 특이사항(Application.runInBackground=false일 때 포커스 없는 세션에서 Play 모드 프레임이 진행되지 않아 Destroy()가 지연되는 현상)은 이 프로젝트 코드의 버그가 아니라 원격/백그라운드 세션 특유의 에디터 설정 이슈이며, Phase 18 코드와 무관하다.
