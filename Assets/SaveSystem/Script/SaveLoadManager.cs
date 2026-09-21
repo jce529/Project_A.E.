@@ -138,6 +138,7 @@ public class SaveLoadManager : MonoBehaviour
     public void Save()
     {
         CapturePlayerStats();
+        CaptureInventoryItems();
         string json = JsonConvert.SerializeObject(_data, JsonSettings);
         File.WriteAllText(SavePath, json);
         Debug.Log("[SaveLoadManager] Saved to " + SavePath);
@@ -353,6 +354,55 @@ public class SaveLoadManager : MonoBehaviour
         _data.PlayerStats.MaxTotalHealth = ps.MaxTotalHealth;
     }
 
+    // Phase 19 (D-01): itemId -> ItemData resolution. Deliberately NOT filename-based
+    // Resources.Load: both existing assets already have filename != Id
+    // (HealthPotion.asset -> health_potion_01, AncientKey.asset -> ancient_key_01), so a
+    // path-based load would silently return null. LoadAll + Id matching makes the filename
+    // irrelevant, which is the whole point of rejecting a manual registry ScriptableObject.
+    // Cached per instance (not static): this component is re-created every Play session by
+    // the RuntimeInitializeOnLoadMethod bootstrap, so the cache self-invalidates on each
+    // Play mode entry - the only time item assets change during development.
+    private Dictionary<string, ItemData> _itemLookupCache;
+
+    private ItemData ResolveItemData(string itemId)
+    {
+        if (_itemLookupCache == null)
+        {
+            _itemLookupCache = new Dictionary<string, ItemData>();
+            foreach (ItemData item in Resources.LoadAll<ItemData>("Items"))
+            {
+                if (item == null || string.IsNullOrEmpty(item.Id)) continue;
+                _itemLookupCache[item.Id] = item;
+            }
+        }
+        ItemData found;
+        return _itemLookupCache.TryGetValue(itemId, out found) ? found : null;
+    }
+
+    // Phase 19 (D-03): mirrors CapturePlayerStats exactly, including the "warn and skip"
+    // guard. Inventory has no Instance singleton, so the scene instance is located with
+    // FindAnyObjectByType. When there is no Inventory in the scene (main menu, boot scene)
+    // we must NOT write an empty list into _data.Items - that would silently erase the
+    // player's real saved items on the next write.
+    private void CaptureInventoryItems()
+    {
+        Inventory inv = FindAnyObjectByType<Inventory>();
+        if (inv == null)
+        {
+            Debug.LogWarning("[SaveLoadManager] Inventory not found in scene - items not captured.");
+            return;
+        }
+
+        List<ItemSaveEntry> entries = new List<ItemSaveEntry>();
+        for (int i = 0; i < inv.SlotCountTotal; i++)
+        {
+            InventorySlot slot = inv.GetSlot(i);
+            if (slot == null || slot.IsEmpty) continue;
+            entries.Add(new ItemSaveEntry { itemId = slot.item.Id, count = slot.count });
+        }
+        _data.Items = entries;
+    }
+
     // ---- Load flow -------------------------------------------------------------
     // Entry point for BOTH "continue game" and "checkpoint revive". There is no separate
     // revive method: reviving at a checkpoint is exactly "load the last saved state".
@@ -412,7 +462,7 @@ public class SaveLoadManager : MonoBehaviour
         if (_data.PlayerStats == null) _data.PlayerStats = new PlayerStatsSaveData();
         if (_data.BossProgress == null) _data.BossProgress = new Dictionary<string, bool>();
         if (_data.MapGimmickState == null) _data.MapGimmickState = new Dictionary<string, bool>();
-        if (_data.Items == null) _data.Items = new List<string>();
+        if (_data.Items == null) _data.Items = new List<ItemSaveEntry>();
     }
 
     // Coroutine-based (IEnumerator/StartCoroutine) - the codebase does not use C# Task-based keywords anywhere.
