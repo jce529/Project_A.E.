@@ -25,6 +25,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OnPauseInput()
     {
+        if (SaveSlotDialog.HandlePause()) return;
         if (gameObject.activeSelf)
             Close();
         else if (GameStateManager.Instance.CurrentState == GameStateManager.GameState.Playing)

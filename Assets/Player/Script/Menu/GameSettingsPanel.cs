@@ -60,7 +60,7 @@ public class GameSettingsPanel : MonoBehaviour
         SaveLoadManager.CurrentSettings.TutorialHint = value;
     }
 
-    // [진행상황 저장] 버튼 OnClick - 현재 슬롯 파일에 지금까지의 진행상황을 기록한다.
+    // [진행상황 저장] 버튼 OnClick - 선택한 슬롯에 진행상황을 기록한다.
     // 위치는 마지막으로 활성화한 체크포인트가 기준이다 (D-05: 원시 좌표를 저장하지 않음).
     public void OnSaveProgressBtnClick()
     {
@@ -71,8 +71,9 @@ public class GameSettingsPanel : MonoBehaviour
             return;
         }
 
-        SaveLoadManager.Instance.SaveAnywhere();
-        SetSaveFeedback(SaveDoneCopy);
+        SetSaveFeedback("");
+        SaveSlotDialog.Open(() => SaveLoadManager.Instance.SaveAnywhere(),
+            () => SetSaveFeedback(SaveDoneCopy));
     }
 
     private void SetSaveFeedback(string message)

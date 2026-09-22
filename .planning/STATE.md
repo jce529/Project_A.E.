@@ -4,10 +4,10 @@ milestone: v2.0
 milestone_name: milestone
 status: executing
 last_updated: "2026-09-21T00:35:26.860Z"
-last_activity: 2026-09-21
+last_activity: "2026-09-21 - merged 주창은 (Phase 14 slot wiring, Phase 15 완료 처리, Phase 16 interval-autosave COMPLETE, BUG-009 fix, Phase 999.1 backlog) into Item after renumbering Item's Phase 16-18 -> 17-19"
 progress:
   total_phases: 19
-  completed_phases: 10
+  completed_phases: 11
   total_plans: 47
   completed_plans: 41
   percent: 72
@@ -23,15 +23,17 @@ progress:
 
 Phase: 17
 Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — 17-01 COMPLETE. 17-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) 완료, Task 3(Play 모드 실측 체크포인트) 사용자 응답 대기 중
-Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙, 12-01-PLAN.md 미완료)
+Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Unity MCP 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 전환 마지막 피격만 수동 관찰 대기)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
+Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 비보스 핵심 통과, UI 일부·보스 회귀만 대기 (주창은 브랜치에서 구현, 병합으로 반영)
 Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
-Plan: Not started
-Status: Executing Phase 17
-**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
-Last activity: 2026-09-21
+Phase 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS, 주창은 브랜치에서 구현, 병합으로 반영)
+Plan: Not started (Phase 17 기준)
+Status: Executing Phase 17; Phase 12/14/15는 각자 별도 체크포인트 대기 중
+**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등)은 2026-09-08 커밋 `a9c427f`("feat: update save slots and main menu, remove unused scripts, add system docs")로 이미 정식 반영되어 해소됨 — 두 브랜치의 공통 조상에 포함된 상태였다. `.dead-code-backup/pre-cleanup-20260903-1430.zip`은 git 히스토리에 커밋된 적이 없어 이 저장소 상태와 무관. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)은 여전히 untracked — 용도 미확인.
+Last activity: "2026-09-21 - Item 브랜치의 Phase 16-18을 17-19로 재번호(주창은의 Phase 16 interval-autosave와 번호 충돌 방지) 후 주창은 병합"
 
-Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0 마일스톤) 기준 재계산. 완료 phase: 5, 6, 9, 13 (4/10). Phase 7(1/2)·8(2/3)·10(3/4)·11(3/4)·12(0/1) 진행 중, Phase 14(0/3) 계획만 완료.
+Progress: [████████░░] 72% (Item Phase 17 + 주창은 Phase 14/16 반영 병합, 정확한 plan 합산은 다음 상태 갱신에서 재계산 필요)
 
 ## Phase Status
 
@@ -42,11 +44,13 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 | 7 | 보스 공격 패턴 판단 로직 리팩토링 (1/2 plans) | In Progress (07-02 Play 모드 검증 체크포인트 대기) | - |
 | 8 | WaterMonster 보스 CombatState 마이그레이션 (2/3 plans) | In Progress (08-03 정적 회귀+Play 모드 일괄 검증 대기) | - |
 | 9 | 일반/보스 스테이지 카메라 줌 변화 | Complete (Play 모드 실측 미검증, UAT 보류) | 2026-07-30 |
-| 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (3/4 plans) | In Progress (10-04 Check.md+정적 회귀+Play 모드 검증 대기) | - |
-| 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (11-04 정적 회귀+Play 모드 검증 대기) | - |
-| 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (12-01 Task 0~2 완료, Task 3 Play 모드 체크포인트 보류) | - |
+| 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (3/4 plans) | In Progress (비보스 핵심 실측 통과, 수동 시각 확인·보스 항목 대기) | - |
+| 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (비보스 I/O·로드·새게임 실측 통과, UI 일부·보스 항목 대기) | - |
+| 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (Task 3 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 피격·보스 항목 대기) | - |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
-| 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (0/3 plans) | Planned (discuss-phase+research+UI-SPEC+plan-phase 완료, 실행 미착수, 산출물 일부 미커밋) | - |
+| 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (비보스 전부 통과 — 3슬롯 독립성 + Load 버튼 전 구간 실측, 체력 UI·보스 회귀만 대기) | - |
+| 15 | 로드 시점 및 로드 범위 정의 (3/4 plans) | In Progress (15-04 정적 회귀+Play 모드 검증 대기, BUG-007 미해결) | - |
+| 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
 | 17 | 아이템 코어: IItem + ItemData ScriptableObject (1/2 plans) | In Progress (17-02 Task 1~2 완료, Task 3 Play 모드 체크포인트 사용자 응답 대기) | - |
 
 ## Performance Metrics
@@ -61,6 +65,8 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 | Phase 11 P01 | 15min | 3 tasks | 3 files |
 | Phase 11 P02 | 8min | 2 tasks | 1 files |
 | Phase 11 P03 | 15min | 3 tasks | 5 files |
+| Phase 15 P01 | 6min | 3 tasks | 2 files |
+| Phase 15 P02 | 17min | 2 tasks | 1 files |
 | Phase 17 P01 | 25min | 2 tasks | 9 files |
 
 ## Performance Metrics
@@ -79,6 +85,11 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 
 ### Key Decisions
 
+- Every actionable load failure returns through `AbortLoadToMainMenu` and the centralized `MainMenuSceneName` constant; both synchronous and coroutine failures therefore have a visible outcome (Phase 15 Plan 2).
+- Load failure recovery never writes or deletes the existing save file, preserving it for manual recovery (Phase 15 Plan 2).
+- The no-save `LoadGame` guard remains a warning and return because no save is a valid new-game and death-restart condition handled by Phase 15 Plan 1 (Phase 15 Plan 2).
+- PlayerStats owns player-death recovery by overriding HP.Die without calling the base implementation; a save reloads, while no save restarts the active scene (Phase 15 Plan 1).
+- Restored health treats maxTotalHealth as the anchor and clamps maxHealth then health with a floor of 1 before assignment (Phase 15 Plan 1).
 - 물의 정령은 WaterMonsterController와 별도 독립 엔티티로 구현 (`SpiritController : BossController`)
 - 분신은 별도 GameObject로, 동일 상태머신 구조에 `isDummy` 플래그로 데미지 분기
 - 코드 공유는 BossController / BossStatsSystem 기반 클래스 수준으로만 제한
@@ -159,6 +170,7 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 | 260805-q2u | 구역 타일링 + 부드러운 경계 전환 (X bounds Lerp 재설계) | 2026-08-05 | 8103c3a | [260805-q2u-x-cameracontroller-cameraboundstrigger](./quick/260805-q2u-x-cameracontroller-cameraboundstrigger/) |
 | 260809-h9k | 경계 즉시 스냅 복귀 + 인접 구역 Exit/Enter 경쟁 상태 수정 + Y축 카메라 경계 추가 + Tutorial Map 구역 배치·실측 검증 | 2026-08-09 | 6afe518 | (문서 없음 - 채팅 세션에서 직접 진행) |
 | 260912-kih | 플레이어 최근접 상호작용 및 현재 키 UI (컴파일 통과, Play 미검증) | 2026-09-12 | 737216f | [260912-kih-centralize-interaction-detection-on-play](./quick/260912-kih-centralize-interaction-detection-on-play/) |
+| 260913-git | 세이브 포인트 및 ESC 저장 슬롯 선택 (컴파일 통과, Play 미검증) | 2026-09-13 | 53311c2 | [260913-git-save-point-esc-slot-selection](./quick/260913-git-save-point-esc-slot-selection/) |
 
 ### Roadmap Evolution
 
@@ -170,15 +182,22 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 - Phase 13 added: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
 - Phase 14 added (구): 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임 — **폐기됨(2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를 `setting.json`(SettingsData) 통합 방식으로 먼저 구현해, keybind.json 전용 설계를 대체함. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 rebase로 제거, 로드맵/플래닝 문서에서도 phase 자체를 삭제.
 - Phase 50 added (임시 번호, 다른 기기와 동기화 후 재번호 필요 - 그 기기는 이미 Phase 13까지 완료함): 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시 — **재번호 완료(2026-08-27)**: 위 구 Phase 14가 폐기되며 번호가 비어, 이 phase를 14로 재번호(폴더 `.planning/phases/50-2-3/` → `.planning/phases/14-save-slot-expansion/`)
-- Phase 17 added (최초 15로 잘못 생성됨 → 즉시 재번호): 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외. **재번호 사유**: `.planning/phases/15-load-timing-and-load-scope/`가 이미 완료된 상태(15-01~15-04 SUMMARY.md 존재, `PlayerStats.cs`/`SaveLoadManager` 사망 시 로드 처리)로 실재했으나 ROADMAP.md에 `### Phase 15` 헤딩이 누락되어 있었음 — `gsd-tools phase add`가 ROADMAP.md 헤딩만 스캔해 다음 번호를 15로 잘못 계산. 폴더/헤딩을 15→16으로 git mv 및 수정.
+- Phase 15 added: 로드 시점 및 로드 범위 정의 — 세이브 데이터를 언제 로드할지(플레이어 사망/체크포인트 부활/이어하기)와 로드 시 어디까지 복원할지(보스 진행도·맵 기믹·체력 불변식)를 확정한다. BUG-002의 로드 측 항목(역전된 저장 데이터 보정)과 BUG-003의 보스 진행도 복원 의존성을 이 페이즈로 이관.
+- Phase 16 added: 일정 간격 자동저장 — Phase 15 논의 중 "세이브가 없어 로드할 게 없는 상황"을 줄이자는 취지로 제안됨. 저장 시점을 늘리는 새 기능이라 Phase 15(로드 범위)와 분리해 별도 페이즈로 추가. (주창은 브랜치에서 진행, 3/3 완료 후 이 병합으로 Item에 반영)
+- Phase 17 added (Item 브랜치, 최초 15로 잘못 생성됨 → 즉시 재번호, 병합 시 주창은의 Phase 16과 번호가 겹쳐 17로 재번호): 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외. **재번호 사유**: `.planning/phases/15-load-timing-and-load-scope/`가 이미 완료된 상태(15-01~15-04 SUMMARY.md 존재, `PlayerStats.cs`/`SaveLoadManager` 사망 시 로드 처리)로 실재했으나 ROADMAP.md에 `### Phase 15` 헤딩이 누락되어 있었음 — `gsd-tools phase add`가 ROADMAP.md 헤딩만 스캔해 다음 번호를 15로 잘못 계산. 폴더/헤딩을 15→16으로 git mv 및 수정.
 - Phase 18 added: 인벤토리 시스템 — 고정 슬롯 수 + 스택 기반 자료구조, 추가/제거/사용 API, `PlayerInteraction` 연동 월드 아이템 획득. Depends on Phase 17.
 - Phase 19 added: 아이템 저장/로드 연동 — `SaveData.Items`(`List<string>` 스텁)를 `List<ItemSaveEntry>{itemId,count}`로 교체, `SaveVersion` 마이그레이션, `SaveLoadManager` 인벤토리 캡처/복원 로직. Depends on Phase 18 및 기존 `SaveLoadManager`.
 - **누락 백필 완료**: `.planning/phases/15-load-timing-and-load-scope/`(Phase 11/14 의존)의 `### Phase 15` 헤딩을 ROADMAP.md에 추가함. **주의**: 완료된 페이즈가 아님 — 15-UAT.md `status: partial`, Play 모드 실측 0/34건 미검증, BUG-007(씬 전환 후 InputHandler 유실, major)이 미해결 상태로 남아 있음. 15-04-PLAN.md(Play 모드 체크포인트, autonomous:false)가 미종결이라 Plans 체크박스도 미완료로 표시함.
 - Phase 17 Plan 01: `ItemData.cs`의 D-06 설명 주석("No displayName / icon / description...")이 같은 플랜의 금지-필드 grep 인수 기준과 리터럴로 충돌해("displayName"/"icon"/"description" 자체가 매치됨) "No name/image/blurb fields..."로 재작성 — Phase 9/10/11의 DontDestroyOnLoad/deadzoneHeight/async-await 자기모순 게이트와 동일 계열. 필드/로직 변경 없음 (Phase 17 Plan 1)
-- Phase 17 Plan 01 실행 시 배정된 워크트리(`worktree-agent-ab70cb16e75fe20bc`)가 `Item` 브랜치보다 120 커밋 뒤처진 무관한 브랜치를 체크아웃 중이었음(플랜/‎`Assets/Item/` 트리 전부 부재) — 워크트리 브랜치가 `Item`의 순수 조상(고유 커밋 0개)이라 안전하게 `Item`(`79caaf2`)로 fast-forward 머지해 해결. `Assets/Item.meta`/`Script.meta`/`IItem.cs.meta` 3개는 메인 체크아웃에만 untracked로 존재해 절대경로로 바이트 그대로 복사(내용 무수정) 후 Task 1에 포함 (Phase 17 Plan 1)
+- Phase 17 Plan 01 실행 시 배정된 워크트리(`worktree-agent-ab70cb16e75fe20bc`)가 `Item` 브랜치보다 120 커밋 뒤처진 무관한 브랜치를 체크아웃 중이었음(플랜/`Assets/Item/` 트리 전부 부재) — 워크트리 브랜치가 `Item`의 순수 조상(고유 커밋 0개)이라 안전하게 `Item`(`79caaf2`)로 fast-forward 머지해 해결. `Assets/Item.meta`/`Script.meta`/`IItem.cs.meta` 3개는 메인 체크아웃에만 untracked로 존재해 절대경로로 바이트 그대로 복사(내용 무수정) 후 Task 1에 포함 (Phase 17 Plan 1)
+- **2026-09-21 병합**: `Item` 브랜치의 Phase 16(아이템 코어)/17(인벤토리)/18(아이템 세이브·로드)를 17/18/19로 재번호한 뒤 `주창은` 브랜치(Phase 14 슬롯 배선, Phase 15 완료 처리, Phase 16 구간 자동저장 COMPLETE, BUG-009 수정, Phase 999.1 오디오 중앙화 백로그)를 병합. 코드 파일은 겹치지 않아 충돌 없었고, `.planning/ROADMAP.md`/`STATE.md` 서술만 수동으로 합침.
 
 ## Session Continuity
 
+- 2026-09-14: Phase 16 COMPLETE (16-01/02/03). 16-03 Task 2 Play 모드 실측 29/29 PASS via Unity CLI (commit 6703d34); B(메인메뉴 미발동)·E(수동 저장 무회귀) 포함 전 항목 실측. Assets·ProjectSettings 0줄 변경, 세이브 SHA-256 복구 확인. 다음 Play 모드 검증 전에 Console 의 Error Pause 를 끌 것 — BUG-008 예외로 Play 가 자동 정지한다. 상세는 `.planning/phases/16-interval-autosave/.continue-here.md`.
+
+
+- Last session: Completed 15-02-PLAN.md (2026-09-10); next implementation target is 15-03-PLAN.md.
 - 이전 마일스톤: v1.0 보스_물괴물_구현 (Phase 1~4 완료, 2026-04-16)
 - 새 마일스톤 Phase 5부터 번호 이어서 시작
 - 로드맵 원본: `.planning/ROADMAP.md`
