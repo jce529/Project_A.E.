@@ -4,9 +4,9 @@ milestone: v2.0
 milestone_name: milestone
 status: executing
 last_updated: "2026-09-21T00:35:26.860Z"
-last_activity: "2026-09-21 - merged 주창은 (Phase 14 slot wiring, Phase 15 완료 처리, Phase 16 interval-autosave COMPLETE, BUG-009 fix, Phase 999.1 backlog) into Item after renumbering Item's Phase 16-18 -> 17-19"
+last_activity: "2026-09-21 - promoted backlog Phase 999.1(오디오 중앙화)을 Phase 20으로 승격, branch 20-audio-centralization 생성"
 progress:
-  total_phases: 19
+  total_phases: 20
   completed_phases: 11
   total_plans: 47
   completed_plans: 41
@@ -52,6 +52,7 @@ Progress: [████████░░] 72% (Item Phase 17 + 주창은 Phase 
 | 15 | 로드 시점 및 로드 범위 정의 (3/4 plans) | In Progress (15-04 정적 회귀+Play 모드 검증 대기, BUG-007 미해결) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
 | 17 | 아이템 코어: IItem + ItemData ScriptableObject (1/2 plans) | In Progress (17-02 Task 1~2 완료, Task 3 Play 모드 체크포인트 사용자 응답 대기) | - |
+| 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (0/0 plans) | Planned (백로그 Phase 999.1에서 승격, discuss-phase/plan-phase 미착수) | - |
 
 ## Performance Metrics
 
@@ -191,6 +192,7 @@ Progress: [████████░░] 72% (Item Phase 17 + 주창은 Phase 
 - Phase 17 Plan 01: `ItemData.cs`의 D-06 설명 주석("No displayName / icon / description...")이 같은 플랜의 금지-필드 grep 인수 기준과 리터럴로 충돌해("displayName"/"icon"/"description" 자체가 매치됨) "No name/image/blurb fields..."로 재작성 — Phase 9/10/11의 DontDestroyOnLoad/deadzoneHeight/async-await 자기모순 게이트와 동일 계열. 필드/로직 변경 없음 (Phase 17 Plan 1)
 - Phase 17 Plan 01 실행 시 배정된 워크트리(`worktree-agent-ab70cb16e75fe20bc`)가 `Item` 브랜치보다 120 커밋 뒤처진 무관한 브랜치를 체크아웃 중이었음(플랜/`Assets/Item/` 트리 전부 부재) — 워크트리 브랜치가 `Item`의 순수 조상(고유 커밋 0개)이라 안전하게 `Item`(`79caaf2`)로 fast-forward 머지해 해결. `Assets/Item.meta`/`Script.meta`/`IItem.cs.meta` 3개는 메인 체크아웃에만 untracked로 존재해 절대경로로 바이트 그대로 복사(내용 무수정) 후 Task 1에 포함 (Phase 17 Plan 1)
 - **2026-09-21 병합**: `Item` 브랜치의 Phase 16(아이템 코어)/17(인벤토리)/18(아이템 세이브·로드)를 17/18/19로 재번호한 뒤 `주창은` 브랜치(Phase 14 슬롯 배선, Phase 15 완료 처리, Phase 16 구간 자동저장 COMPLETE, BUG-009 수정, Phase 999.1 오디오 중앙화 백로그)를 병합. 코드 파일은 겹치지 않아 충돌 없었고, `.planning/ROADMAP.md`/`STATE.md` 서술만 수동으로 합침.
+- Phase 20 added: Phase 999.1(중앙 집중형 오디오 시스템 및 AudioSource 풀링) 백로그를 정식 phase로 승격. `20-audio-centralization` 브랜치에서 진행. `## Backlog` 섹션은 이 승격으로 비어 다시 제거함. Requirements는 아직 TBD — discuss-phase/plan-phase 미착수 (0 plans).
 
 ## Session Continuity
 

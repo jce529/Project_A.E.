@@ -544,13 +544,12 @@ Plans:
 Plans:
 - [ ] TBD (run /gsd:plan-phase 19 to break down)
 
-## Backlog
-
-### Phase 999.1: 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (BACKLOG)
+### Phase 20: 중앙 집중형 오디오 시스템 및 AudioSource 풀링
 
 **Goal:** 자동 스폰 몬스터와 향후 공격·피격·스킬·보스 패턴 오디오 확장을 수용하도록, 자동 생성되는 영속 `AudioManager`가 BGM/SFX 재생 권한과 `AudioMixer`, 데이터 기반 `AudioCue`, 위치·추적 재생, `AudioSource` 풀, 동시 재생 제한·재트리거 쿨다운·우선순위를 중앙에서 소유한다. `EnvironmentManager`는 BGM `AudioSource`나 필터를 직접 조작하지 않고 환경 상태만 판정해 `AudioManager`에 음향 상태 변경을 요청하며, BUG-007에서 정리할 `PersistentManagers` 자동 부트스트랩 구조와 통합한다.
-**Requirements:** TBD
+**Requirements**: TBD (아직 discuss-phase/CONTEXT.md 잠금 결정 없음 — /gsd:plan-phase 20 실행 시 확정)
+**Depends on:** Nothing formally — `EnvironmentManager`/`AudioManager` 기존 코드에 얹는 독립 작업. BUG-007(씬 전환 후 InputHandler 유실, `.planning/phases/15-load-timing-and-load-scope/bugs/BUG-007-inputhandler-lost-on-scene-transition.md`, 미해결)이 도입할 `PersistentManagers` 부트스트랩 구조와 소프트 연계 — 그 구조가 먼저 생기면 통합, 없으면 `AudioManager` 자체 싱글톤 부트스트랩으로 진행.
 **Plans:** 0 plans
 
 Plans:
-- [ ] TBD (promote with $gsd-review-backlog when ready)
+- [ ] TBD (run /gsd:plan-phase 20 to break down)
