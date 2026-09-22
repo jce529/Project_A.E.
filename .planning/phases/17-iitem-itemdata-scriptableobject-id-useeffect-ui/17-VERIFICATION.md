@@ -5,7 +5,7 @@ status: passed
 score: 10/10 must-haves verified
 ---
 
-# Phase 16: 아이템 코어 (IItem + ItemData ScriptableObject) Verification Report
+# Phase 17: 아이템 코어 (IItem + ItemData ScriptableObject) Verification Report
 
 **Phase Goal:** Project's first ScriptableObject `ItemData` exists, implementing `IItem` directly (no separate
 runtime item class), schematizing item static data into exactly 4 fields (`id`/`type`/`effectType`/`amount`,
@@ -32,7 +32,7 @@ editor and at runtime (D-07), not just statically well-formed.
 | 7 | Clamp behavior at max health works (`PlayerStats.ClampHealth`) | ✓ VERIFIED | Check.md item 9: `before=100 -> after=100` after HealthPotion use at full health |
 | 8 | No pre-existing files were modified (PlayerStats.cs, PlayerInteraction.cs, IItem.cs, SaveData.cs) | ✓ VERIFIED | `git diff 58ac900 HEAD --stat` on all four files: empty diff |
 | 9 | `ItemData` is the project's only ScriptableObject | ✓ VERIFIED | `grep -rn "ScriptableObject" Assets --include=*.cs` matches only `ItemData.cs` |
-| 10 | Verification evidence is documented for Phase 17 developers | ✓ VERIFIED | `Assets/Item/Check.md` (75 lines): static regression table + 10-item Play-mode checklist, all checked with concrete before/after values |
+| 10 | Verification evidence is documented for Phase 18 developers | ✓ VERIFIED | `Assets/Item/Check.md` (75 lines): static regression table + 10-item Play-mode checklist, all checked with concrete before/after values |
 
 **Score:** 10/10 truths verified
 
@@ -55,7 +55,7 @@ editor and at runtime (D-07), not just statically well-formed.
 | `ItemData.cs` | `PlayerStats.Heal(float)` | `player.GetComponent<PlayerStats>().Heal(amount)` | ✓ WIRED | Exact string match, no null guard (project convention) |
 | `HealthPotion.asset` | `ItemData.cs` | `m_Script` guid reference | ✓ WIRED | guid `501b19c5008706d0a3f2bf69aacf52f6` matches |
 | `AncientKey.asset` | `ItemData.cs` | `m_Script` guid reference | ✓ WIRED | guid `501b19c5008706d0a3f2bf69aacf52f6` matches |
-| `Check.md` | `ItemData.UseOnPlayerFromInspector()` ContextMenu hook | Play-mode checklist items 7/8 | ✓ WIRED | `Phase16: Use On Player` referenced 3x in Check.md |
+| `Check.md` | `ItemData.UseOnPlayerFromInspector()` ContextMenu hook | Play-mode checklist items 7/8 | ✓ WIRED | `Phase17: Use On Player` referenced 3x in Check.md |
 | Unity batch-mode import log | `Assets/Item/*.asset` | Real editor import | ✓ WIRED | 0 compile errors, 0 missing-script, 0 diff after import (documented in Check.md item 8) |
 
 ### Data-Flow Trace (Level 4)
@@ -72,19 +72,19 @@ that the `.asset` YAML values (`amount: 20`, `type: 0/1`) actually flow through 
 
 ### Requirements Coverage
 
-Per 16-CONTEXT.md and ROADMAP.md, this phase's requirements are locked via CONTEXT.md decisions D-01
-through D-07 rather than formal `REQ-ID` entries in REQUIREMENTS.md. Confirmed: `grep -n "Phase 16\|D-0[1-7]" .planning/REQUIREMENTS.md` returns no matches — REQUIREMENTS.md does not track this phase, consistent
+Per 17-CONTEXT.md and ROADMAP.md, this phase's requirements are locked via CONTEXT.md decisions D-01
+through D-07 rather than formal `REQ-ID` entries in REQUIREMENTS.md. Confirmed: `grep -n "Phase 17\|D-0[1-7]" .planning/REQUIREMENTS.md` returns no matches — REQUIREMENTS.md does not track this phase, consistent
 with the init output's stated approach. No orphaned requirements.
 
 | Requirement | Source Plan | Description | Status | Evidence |
 |--------------|------------|--------------|--------|----------|
-| D-01 | 16-01 | ItemData implements IItem directly, no separate runtime class | ✓ SATISFIED | `ItemData : ScriptableObject, IItem` |
-| D-02 | 16-01, 16-02 | UseEffect fully implemented (not stub); Consumable applies effect, Progression no-op | ✓ SATISFIED | Code + runtime evidence (Check.md items 7/8) |
-| D-03 | 16-01, 16-02 | Heal is only consumable effectType this phase; reuses existing PlayerStats.Heal | ✓ SATISFIED | `PlayerStats.cs` 0-diff confirmed, `Heal(amount)` called directly |
-| D-04 | 16-01 | ItemType = 2 values (Consumable/Progression), no SO subclassing | ✓ SATISFIED | enum has exactly 2 values, no subclass grep matches |
-| D-05 | 16-01 | id is manually-typed `[SerializeField] string id`, no auto-gen/validation | ✓ SATISFIED | Field present as specified |
-| D-06 | 16-01 | Exactly 4 fields, no display metadata | ✓ SATISFIED | 4 `[SerializeField]` fields, 0 forbidden-field matches |
-| D-07 | 16-01, 16-02 | Two real .asset files exist and demonstrably work | ✓ SATISFIED | 2 assets exist, guid-wired, and runtime-verified via Play mode |
+| D-01 | 17-01 | ItemData implements IItem directly, no separate runtime class | ✓ SATISFIED | `ItemData : ScriptableObject, IItem` |
+| D-02 | 17-01, 17-02 | UseEffect fully implemented (not stub); Consumable applies effect, Progression no-op | ✓ SATISFIED | Code + runtime evidence (Check.md items 7/8) |
+| D-03 | 17-01, 17-02 | Heal is only consumable effectType this phase; reuses existing PlayerStats.Heal | ✓ SATISFIED | `PlayerStats.cs` 0-diff confirmed, `Heal(amount)` called directly |
+| D-04 | 17-01 | ItemType = 2 values (Consumable/Progression), no SO subclassing | ✓ SATISFIED | enum has exactly 2 values, no subclass grep matches |
+| D-05 | 17-01 | id is manually-typed `[SerializeField] string id`, no auto-gen/validation | ✓ SATISFIED | Field present as specified |
+| D-06 | 17-01 | Exactly 4 fields, no display metadata | ✓ SATISFIED | 4 `[SerializeField]` fields, 0 forbidden-field matches |
+| D-07 | 17-01, 17-02 | Two real .asset files exist and demonstrably work | ✓ SATISFIED | 2 assets exist, guid-wired, and runtime-verified via Play mode |
 
 ### Anti-Patterns Found
 
@@ -94,7 +94,7 @@ handlers, and hardcoded-empty returns found none. `UseEffect` is a real implemen
 
 ℹ️ Info: One explanatory comment in `ItemData.cs` was reworded during execution from the plan's literal
 text to avoid self-matching the plan's own forbidden-field grep gate (`displayName|icon|description`).
-Meaning preserved, no schema/logic change. Documented in 16-01-SUMMARY.md.
+Meaning preserved, no schema/logic change. Documented in 17-01-SUMMARY.md.
 
 ℹ️ Info: Play-mode checklist item 6 (making the player take damage) was reproduced via `SerializedObject`
 setting `health=50` directly rather than organic combat damage, because `PlayerStats.TakeDamage()` calls
@@ -103,7 +103,7 @@ documented as an equivalent-condition substitution in Check.md, not silently glo
 before/after health values (50->70, 50->50, 100->100) are the load-bearing evidence regardless of how the
 initial "damaged" state was produced.
 
-ℹ️ Info: Two Console errors unrelated to Phase 16 (`InputHandler` missing Input Action Asset,
+ℹ️ Info: Two Console errors unrelated to Phase 17 (`InputHandler` missing Input Action Asset,
 `TutorialBoss` missing Animator) appeared after exiting Play mode. Traced to pre-existing scene state,
 unrelated to any `Assets/Item/` file or the test GameObject created during verification. Documented
 honestly in Check.md rather than claimed as "0 errors" — does not affect this phase's goal, which was
@@ -119,7 +119,7 @@ scoped to `Assets/Item/`.
 | No U+FFFD encoding corruption in new files | `grep -rc $'\xef\xbf\xbd' Assets/Item/*.asset Assets/Item/Script/*.cs` | 0 for all | ✓ PASS |
 | UseEffect actually mutates runtime health (Play mode) | unity-mcp live Editor invocation, recorded in Check.md | before=50->after=70 (Heal), before=50->after=50 (no-op), before=100->after=100 (clamp) | ✓ PASS |
 
-Unity batch-mode compile/import gate (Step 7b equivalent) was already run as part of Plan 16-02 Task 1 and
+Unity batch-mode compile/import gate (Step 7b equivalent) was already run as part of Plan 17-02 Task 1 and
 is not re-run here since re-running the editor is outside this verifier's scope; its documented log results
 (0 compile errors, 0 Assets/Item import errors, 0 missing-script) are treated as artifact evidence per
 Check.md's static regression table, cross-checked here against the actual `.asset`/`.meta` file contents
@@ -130,7 +130,7 @@ which match exactly what the log claims.
 None. All 10 Play-mode checklist items were completed with concrete recorded evidence (unity-mcp driving
 a live, already-open Unity Editor at the user's explicit request — a legitimate, documented substitution
 for manual GUI clicking, not a shortcut that was waved away). The deviation is fully traceable in
-16-02-SUMMARY.md and Check.md, including the one substituted step (item 6) and the two unrelated,
+17-02-SUMMARY.md and Check.md, including the one substituted step (item 6) and the two unrelated,
 out-of-scope Console errors (item 10).
 
 ### Gaps Summary

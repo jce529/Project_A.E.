@@ -6,7 +6,7 @@ status: executing
 last_updated: "2026-09-21T00:35:26.860Z"
 last_activity: 2026-09-21
 progress:
-  total_phases: 18
+  total_phases: 19
   completed_phases: 10
   total_plans: 47
   completed_plans: 41
@@ -22,12 +22,12 @@ progress:
 ## Current Position
 
 Phase: 17
-Phase 16 (iitem-itemdata-scriptableobject-id-useeffect-ui) — 16-01 COMPLETE. 16-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) 완료, Task 3(Play 모드 실측 체크포인트) 사용자 응답 대기 중
+Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — 17-01 COMPLETE. 17-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) 완료, Task 3(Play 모드 실측 체크포인트) 사용자 응답 대기 중
 Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Play 모드 체크포인트 보류 중, 별도 트랙, 12-01-PLAN.md 미완료)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
 Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
 Plan: Not started
-Status: Executing Phase 16
+Status: Executing Phase 17
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
 Last activity: 2026-09-21
 
@@ -47,7 +47,7 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 | 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (12-01 Task 0~2 완료, Task 3 Play 모드 체크포인트 보류) | - |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
 | 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (0/3 plans) | Planned (discuss-phase+research+UI-SPEC+plan-phase 완료, 실행 미착수, 산출물 일부 미커밋) | - |
-| 16 | 아이템 코어: IItem + ItemData ScriptableObject (1/2 plans) | In Progress (16-02 Task 1~2 완료, Task 3 Play 모드 체크포인트 사용자 응답 대기) | - |
+| 17 | 아이템 코어: IItem + ItemData ScriptableObject (1/2 plans) | In Progress (17-02 Task 1~2 완료, Task 3 Play 모드 체크포인트 사용자 응답 대기) | - |
 
 ## Performance Metrics
 
@@ -61,7 +61,7 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 | Phase 11 P01 | 15min | 3 tasks | 3 files |
 | Phase 11 P02 | 8min | 2 tasks | 1 files |
 | Phase 11 P03 | 15min | 3 tasks | 5 files |
-| Phase 16 P01 | 25min | 2 tasks | 9 files |
+| Phase 17 P01 | 25min | 2 tasks | 9 files |
 
 ## Performance Metrics
 
@@ -170,12 +170,12 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 - Phase 13 added: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
 - Phase 14 added (구): 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임 — **폐기됨(2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를 `setting.json`(SettingsData) 통합 방식으로 먼저 구현해, keybind.json 전용 설계를 대체함. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 rebase로 제거, 로드맵/플래닝 문서에서도 phase 자체를 삭제.
 - Phase 50 added (임시 번호, 다른 기기와 동기화 후 재번호 필요 - 그 기기는 이미 Phase 13까지 완료함): 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시 — **재번호 완료(2026-08-27)**: 위 구 Phase 14가 폐기되며 번호가 비어, 이 phase를 14로 재번호(폴더 `.planning/phases/50-2-3/` → `.planning/phases/14-save-slot-expansion/`)
-- Phase 16 added (최초 15로 잘못 생성됨 → 즉시 재번호): 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외. **재번호 사유**: `.planning/phases/15-load-timing-and-load-scope/`가 이미 완료된 상태(15-01~15-04 SUMMARY.md 존재, `PlayerStats.cs`/`SaveLoadManager` 사망 시 로드 처리)로 실재했으나 ROADMAP.md에 `### Phase 15` 헤딩이 누락되어 있었음 — `gsd-tools phase add`가 ROADMAP.md 헤딩만 스캔해 다음 번호를 15로 잘못 계산. 폴더/헤딩을 15→16으로 git mv 및 수정.
-- Phase 17 added: 인벤토리 시스템 — 고정 슬롯 수 + 스택 기반 자료구조, 추가/제거/사용 API, `PlayerInteraction` 연동 월드 아이템 획득. Depends on Phase 16.
-- Phase 18 added: 아이템 저장/로드 연동 — `SaveData.Items`(`List<string>` 스텁)를 `List<ItemSaveEntry>{itemId,count}`로 교체, `SaveVersion` 마이그레이션, `SaveLoadManager` 인벤토리 캡처/복원 로직. Depends on Phase 17 및 기존 `SaveLoadManager`.
+- Phase 17 added (최초 15로 잘못 생성됨 → 즉시 재번호): 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외. **재번호 사유**: `.planning/phases/15-load-timing-and-load-scope/`가 이미 완료된 상태(15-01~15-04 SUMMARY.md 존재, `PlayerStats.cs`/`SaveLoadManager` 사망 시 로드 처리)로 실재했으나 ROADMAP.md에 `### Phase 15` 헤딩이 누락되어 있었음 — `gsd-tools phase add`가 ROADMAP.md 헤딩만 스캔해 다음 번호를 15로 잘못 계산. 폴더/헤딩을 15→16으로 git mv 및 수정.
+- Phase 18 added: 인벤토리 시스템 — 고정 슬롯 수 + 스택 기반 자료구조, 추가/제거/사용 API, `PlayerInteraction` 연동 월드 아이템 획득. Depends on Phase 17.
+- Phase 19 added: 아이템 저장/로드 연동 — `SaveData.Items`(`List<string>` 스텁)를 `List<ItemSaveEntry>{itemId,count}`로 교체, `SaveVersion` 마이그레이션, `SaveLoadManager` 인벤토리 캡처/복원 로직. Depends on Phase 18 및 기존 `SaveLoadManager`.
 - **누락 백필 완료**: `.planning/phases/15-load-timing-and-load-scope/`(Phase 11/14 의존)의 `### Phase 15` 헤딩을 ROADMAP.md에 추가함. **주의**: 완료된 페이즈가 아님 — 15-UAT.md `status: partial`, Play 모드 실측 0/34건 미검증, BUG-007(씬 전환 후 InputHandler 유실, major)이 미해결 상태로 남아 있음. 15-04-PLAN.md(Play 모드 체크포인트, autonomous:false)가 미종결이라 Plans 체크박스도 미완료로 표시함.
-- Phase 16 Plan 01: `ItemData.cs`의 D-06 설명 주석("No displayName / icon / description...")이 같은 플랜의 금지-필드 grep 인수 기준과 리터럴로 충돌해("displayName"/"icon"/"description" 자체가 매치됨) "No name/image/blurb fields..."로 재작성 — Phase 9/10/11의 DontDestroyOnLoad/deadzoneHeight/async-await 자기모순 게이트와 동일 계열. 필드/로직 변경 없음 (Phase 16 Plan 1)
-- Phase 16 Plan 01 실행 시 배정된 워크트리(`worktree-agent-ab70cb16e75fe20bc`)가 `Item` 브랜치보다 120 커밋 뒤처진 무관한 브랜치를 체크아웃 중이었음(플랜/‎`Assets/Item/` 트리 전부 부재) — 워크트리 브랜치가 `Item`의 순수 조상(고유 커밋 0개)이라 안전하게 `Item`(`79caaf2`)로 fast-forward 머지해 해결. `Assets/Item.meta`/`Script.meta`/`IItem.cs.meta` 3개는 메인 체크아웃에만 untracked로 존재해 절대경로로 바이트 그대로 복사(내용 무수정) 후 Task 1에 포함 (Phase 16 Plan 1)
+- Phase 17 Plan 01: `ItemData.cs`의 D-06 설명 주석("No displayName / icon / description...")이 같은 플랜의 금지-필드 grep 인수 기준과 리터럴로 충돌해("displayName"/"icon"/"description" 자체가 매치됨) "No name/image/blurb fields..."로 재작성 — Phase 9/10/11의 DontDestroyOnLoad/deadzoneHeight/async-await 자기모순 게이트와 동일 계열. 필드/로직 변경 없음 (Phase 17 Plan 1)
+- Phase 17 Plan 01 실행 시 배정된 워크트리(`worktree-agent-ab70cb16e75fe20bc`)가 `Item` 브랜치보다 120 커밋 뒤처진 무관한 브랜치를 체크아웃 중이었음(플랜/‎`Assets/Item/` 트리 전부 부재) — 워크트리 브랜치가 `Item`의 순수 조상(고유 커밋 0개)이라 안전하게 `Item`(`79caaf2`)로 fast-forward 머지해 해결. `Assets/Item.meta`/`Script.meta`/`IItem.cs.meta` 3개는 메인 체크아웃에만 untracked로 존재해 절대경로로 바이트 그대로 복사(내용 무수정) 후 Task 1에 포함 (Phase 17 Plan 1)
 
 ## Session Continuity
 
@@ -196,5 +196,5 @@ Progress: [███████░░░] 72% (21/29 plans) — Phase 5~14(v2.0
 - 마지막 세션: Phase 11 Play 모드 검증 부분 완료(체크포인트/로드/새게임 확인, 보스 4종 격파 저장은 사용자가 추후 확인 예정) + Phase 12(피격 시 카메라 흔들림) 로드맵 추가 + discuss-phase 완료(2026-08-11, `12-CONTEXT.md`/`12-DISCUSSION-LOG.md`). 결정 요약: 플레이어 피격 시만(D-01), `PlayerStats.TakeDamage`에서 `CameraController.Instance.Shake()` 호출(D-02), 고정 강도 랜덤 오프셋 감쇠(D-04~D-06), 보스존 포함 항상 흔들림 + 경계 클램프 이후 최종 적용(D-07/D-08), Inspector 노출은 `shakeMagnitude`/`shakeDuration` 2개만(D-09). 다음 재개 지점: `/gsd:plan-phase 12`
 - 마지막 세션(2026-08-27): quick task `260827-h5y`(PlayerPrefs → `setting.json` 전환) Task 1~3 완료(commits `ea05191`/`d42ea6f`/`ef745bb`/`0dfcd0d`), Task 4(Unity 컴파일 + 저장 버튼 OnClick 연결 + Play 모드 실측)는 사용자 확인 대기 중. 별도로 세이브 슬롯 확장을 Phase 50(임시 번호 — 다른 기기가 이미 Phase 13까지 진행해서 충돌 방지용으로 큰 번호 임시 예약, 동기화 후 재번호 필요)으로 로드맵에 추가하고 discuss-phase 완료(`50-CONTEXT.md`/`50-DISCUSSION-LOG.md`, 2026-08-27 재번호 후 `.planning/phases/14-save-slot-expansion/14-CONTEXT.md`/`14-DISCUSSION-LOG.md`로 이동). 결정 요약: 이어하기는 항상 슬롯 선택 화면(D-01), 새시작은 빈 슬롯 있으면 자동 시작·다 차있으면 슬롯 화면으로(D-02/D-03), 덮어쓰기는 항상 확인창(D-04/D-05), 슬롯별 별도 파일(D-06, 기존 save.json 유실 금지가 절대 기준·정확한 마이그레이션 방식은 연구 단계에서 결정). 다음 재개 지점: quick task Task 4 사용자 검증 완료 후, `/gsd:plan-phase 14`
 - 마지막 세션(2026-08-27): Phase 14 `/gsd:plan-phase 14` 완료 — `14-UI-SPEC.md` + `14-01/02/03-PLAN.md` 3개 작성(Wave 1 `14-01` SaveLoadManager 슬롯화, Wave 2 `14-02` SlotSelectPanel/OverwriteConfirmPanel 신규, Wave 3 `14-03` MainMenuUI 재배선+씬 배치, 자율/자율/비자율). 같은 날 원격 `origin/주창은`의 `setting.json` 통합 커밋을 머지(`83d082d`)하고 구 Phase 14(keybind.json)를 폐기·제거(`b6b41bc`, `4392d3e`). **`14-UI-SPEC.md`/`14-01/02/03-PLAN.md`와 이를 반영한 `ROADMAP.md` 변경분은 이 시점 이후 커밋되지 않고 워킹트리에 미커밋 상태로 남아 있음** — 코드 실행은 아직 0%. 다음 재개 지점: 미커밋 산출물 커밋 여부 결정 후 `/gsd:execute-phase 14` (Wave 1 `14-01`부터)
-- 마지막 세션(2026-09-20): Completed 16-01-PLAN.md — 프로젝트 최초 ScriptableObject `ItemData`(`Assets/Item/Script/ItemData.cs`) 신규, `IItem` 직접 구현, `id`/`type`/`effectType`/`amount` 4필드, `UseEffect`가 Consumable/Heal에서 기존 `PlayerStats.Heal(float)`을 널 가드 없이 재사용하고 Progression은 no-op, 에디터 전용 `ContextMenu` 검증 훅 포함. 예시 `.asset` 2개(`HealthPotion`=Consumable/Heal/20, `AncientKey`=Progression) `Assets/Item/`에 손수 작성, 둘 다 `ItemData.cs.meta`의 guid(`501b19c5008706d0a3f2bf69aacf52f6`)를 참조. commits `f53e5e9`/`33a3113`. 정적 회귀 검사(플랜 자체 6항목) 전부 PASS. Unity 에디터 실임포트/컴파일/Play 모드 검증은 계획대로 Plan 16-02로 이연됨. 다음 재개 지점: `/gsd:execute-phase` 16-02 (Unity 배치모드 임포트 게이트 + Check.md + Play 모드 체크포인트)
-- 마지막 세션(2026-09-20): 16-02-PLAN.md Task 1~2 완료. Task 1: Unity 6000.3.10f1 배치모드 임포트(`-batchmode -quit -nographics -projectPath`) 실행, 종료 코드 0, `Assets/` 경로 `error CS` 0건·`Assets/Item` 임포트 에러 0건·missing script 0건 전부 확인. `git status --porcelain Assets/Item` 빈 출력 — 16-01이 손으로 쓴 YAML이 Unity 표준 재직렬화 결과와 완전히 일치해 커밋할 변경 없음(정상 결과). `ProjectSettings/EditorBuildSettings.asset` 개행 정규화(내용 diff 없음)만 범위 밖에서 관측되어 커밋하지 않고 Check.md에 기록. Task 2: `Assets/Item/Check.md`(+ `.meta`, guid `05511fb05942d6634e84eccc8a623d1f`) 신규 작성 — 정적 회귀 결과 8항목 전부 PASS + Play 모드 체크리스트 10항목(미체크) + 임포트 부작용 절 + 알려진 한계. commit `a47a39a`. Task 3(Play 모드 실측 체크포인트, `checkpoint:human-verify` blocking)에서 정지 — 사용자가 `Assets/Item/Check.md`의 10항목을 Unity Play 모드에서 직접 확인하고 결과를 알려줘야 함. 다음 재개 지점: 사용자의 Play 모드 검증 결과 수신 후 Task 3 완료(Check.md 체크박스 갱신 + 결과 기록 절 채움) → 16-02-SUMMARY.md 작성 → Phase 16 완료 처리
+- 마지막 세션(2026-09-20): Completed 17-01-PLAN.md — 프로젝트 최초 ScriptableObject `ItemData`(`Assets/Item/Script/ItemData.cs`) 신규, `IItem` 직접 구현, `id`/`type`/`effectType`/`amount` 4필드, `UseEffect`가 Consumable/Heal에서 기존 `PlayerStats.Heal(float)`을 널 가드 없이 재사용하고 Progression은 no-op, 에디터 전용 `ContextMenu` 검증 훅 포함. 예시 `.asset` 2개(`HealthPotion`=Consumable/Heal/20, `AncientKey`=Progression) `Assets/Item/`에 손수 작성, 둘 다 `ItemData.cs.meta`의 guid(`501b19c5008706d0a3f2bf69aacf52f6`)를 참조. commits `f53e5e9`/`33a3113`. 정적 회귀 검사(플랜 자체 6항목) 전부 PASS. Unity 에디터 실임포트/컴파일/Play 모드 검증은 계획대로 Plan 17-02로 이연됨. 다음 재개 지점: `/gsd:execute-phase` 17-02 (Unity 배치모드 임포트 게이트 + Check.md + Play 모드 체크포인트)
+- 마지막 세션(2026-09-20): 17-02-PLAN.md Task 1~2 완료. Task 1: Unity 6000.3.10f1 배치모드 임포트(`-batchmode -quit -nographics -projectPath`) 실행, 종료 코드 0, `Assets/` 경로 `error CS` 0건·`Assets/Item` 임포트 에러 0건·missing script 0건 전부 확인. `git status --porcelain Assets/Item` 빈 출력 — 17-01이 손으로 쓴 YAML이 Unity 표준 재직렬화 결과와 완전히 일치해 커밋할 변경 없음(정상 결과). `ProjectSettings/EditorBuildSettings.asset` 개행 정규화(내용 diff 없음)만 범위 밖에서 관측되어 커밋하지 않고 Check.md에 기록. Task 2: `Assets/Item/Check.md`(+ `.meta`, guid `05511fb05942d6634e84eccc8a623d1f`) 신규 작성 — 정적 회귀 결과 8항목 전부 PASS + Play 모드 체크리스트 10항목(미체크) + 임포트 부작용 절 + 알려진 한계. commit `a47a39a`. Task 3(Play 모드 실측 체크포인트, `checkpoint:human-verify` blocking)에서 정지 — 사용자가 `Assets/Item/Check.md`의 10항목을 Unity Play 모드에서 직접 확인하고 결과를 알려줘야 함. 다음 재개 지점: 사용자의 Play 모드 검증 결과 수신 후 Task 3 완료(Check.md 체크박스 갱신 + 결과 기록 절 채움) → 17-02-SUMMARY.md 작성 → Phase 17 완료 처리

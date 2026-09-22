@@ -1,8 +1,8 @@
 using UnityEngine;
 
-// Phase 16 (D-01): the project's first ScriptableObject. ItemData implements IItem directly -
+// Phase 17 (D-01): the project's first ScriptableObject. ItemData implements IItem directly -
 // there is no separate runtime item instance class, so the static data and the use logic live
-// in one file. Phase 17's inventory will hold ItemData references and call UseEffect on them.
+// in one file. Phase 18's inventory will hold ItemData references and call UseEffect on them.
 [CreateAssetMenu(menuName = "Items/Item Data", fileName = "New Item")]
 public class ItemData : ScriptableObject, IItem
 {
@@ -20,7 +20,7 @@ public class ItemData : ScriptableObject, IItem
     }
 
     // D-05: manually typed into the Inspector. No auto-generation and no duplicate validation
-    // this phase. Kept as a string because Phase 18 will store it in SaveData as ItemSaveEntry.itemId.
+    // this phase. Kept as a string because Phase 19 will store it in SaveData as ItemSaveEntry.itemId.
     [SerializeField] private string id;
 
     // D-06: minimal schema. No name/image/blurb fields until a UI layer exists.
@@ -30,12 +30,12 @@ public class ItemData : ScriptableObject, IItem
     [SerializeField] private ConsumableEffectType effectType;
     [SerializeField] private float amount;
 
-    // The one accessor this phase needs: without it `id` would be a write-only field. Phase 17
+    // The one accessor this phase needs: without it `id` would be a write-only field. Phase 18
     // can add Type / amount accessors when the inventory actually needs them.
     public string Id => id;
 
     // D-02: fully implemented, not a stub. Consumables apply their effect for real; Progression
-    // items are an intentional no-op until Phase 17+ gives them meaning.
+    // items are an intentional no-op until Phase 18+ gives them meaning.
     public void UseEffect(PlayerInteraction player)
     {
         if (type != ItemType.Consumable) return;
@@ -52,12 +52,12 @@ public class ItemData : ScriptableObject, IItem
     }
 
 #if UNITY_EDITOR
-    // Phase 16 verification hook. There is no inventory and no world pickup yet (both Phase 17),
+    // Phase 17 verification hook. There is no inventory and no world pickup yet (both Phase 18),
     // so this is the only way to invoke UseEffect and prove D-02/D-03 end to end. Enter Play
     // mode, select the asset, then use the Inspector's context menu (three dots / right-click
-    // the header) -> "Phase16: Use On Player". Same pattern as the SaveLoadManager ContextMenu
+    // the header) -> "Phase17: Use On Player". Same pattern as the SaveLoadManager ContextMenu
     // hooks added in Phase 11 / Phase 14.
-    [ContextMenu("Phase16: Use On Player")]
+    [ContextMenu("Phase17: Use On Player")]
     private void UseOnPlayerFromInspector()
     {
         UseEffect(FindAnyObjectByType<PlayerInteraction>());

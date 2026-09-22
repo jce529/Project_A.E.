@@ -1,4 +1,4 @@
-# Phase 16: 아이템 코어 (IItem + ItemData ScriptableObject) - Discussion Log
+# Phase 17: 아이템 코어 (IItem + ItemData ScriptableObject) - Discussion Log
 
 > **Audit trail only.** Do not use as input to planning, research, or execution agents.
 > Decisions are captured in CONTEXT.md — this log preserves the alternatives considered.
@@ -97,7 +97,7 @@
 
 ## Deferred Ideas
 
-- 표시용 메타데이터(displayName/icon/description) — Phase 17 또는 이후 UI phase
+- 표시용 메타데이터(displayName/icon/description) — Phase 18 또는 이후 UI phase
 - 아이템 ID 중복/형식 검증 도구 — 필요 시 Editor 검증 스크립트
 - 소모품 effectType 확장 — 필요해지는 시점에 enum 값만 추가
 - (참고, 이번 phase 범위 밖) Phase 15 CONTEXT.md의 "자동저장을 Phase 16으로 분리" 기록이 재번호 이후

@@ -6,7 +6,7 @@ tags: [unity, scriptableobject, item-data, verification, unity-mcp]
 
 # Dependency graph
 requires:
-  - phase: 16-01
+  - phase: 17-01
     provides: "ItemData ScriptableObject + HealthPotion/AncientKey .asset files"
 provides:
   - "Unity 6000.3.10f1 editor import proof: 0 compile errors, 0 Assets/Item import errors, 0 missing-script references"
@@ -40,7 +40,7 @@ duration: ~40min (Task 1-2 by subagent ~15min; Task 3 checkpoint + unity-mcp ver
 completed: 2026-09-21
 ---
 
-# Phase 16 Plan 02: ItemData Editor/Play-mode Verification Summary
+# Phase 17 Plan 02: ItemData Editor/Play-mode Verification Summary
 
 **Unity 6000.3.10f1 batch-mode import proved the hand-written `.asset` YAML and `ItemData.cs` compile/import cleanly; a live-Editor scripted verification (via unity-mcp, in place of manual GUI Play-mode testing) then proved `UseEffect()` actually heals the player by exactly the configured amount, clamps at max health, and no-ops for Progression items.**
 
@@ -52,7 +52,7 @@ completed: 2026-09-21
 - **Files modified:** 1 (`Assets/Item/Check.md`, across two commits)
 
 ## Accomplishments
-- Unity 6000.3.10f1 batch-mode import: 0 compile errors, 0 `Assets/Item` import errors, 0 missing-script references. `Assets/Item/` had zero diff after import - the hand-authored `.asset` YAML from 16-01 matched Unity's own serialization exactly.
+- Unity 6000.3.10f1 batch-mode import: 0 compile errors, 0 `Assets/Item` import errors, 0 missing-script references. `Assets/Item/` had zero diff after import - the hand-authored `.asset` YAML from 17-01 matched Unity's own serialization exactly.
 - `Assets/Item/Check.md` created with the 8-item static regression table (all PASS) and a 10-item Play-mode checklist.
 - All 10 Play-mode checklist items verified and recorded, 9 as direct PASS and 1 (item 6) as a documented equivalent-condition substitution:
   - HealthPotion.UseEffect(): health 50 -> 70 (exactly +20)
@@ -92,7 +92,7 @@ See `key-decisions` in frontmatter. Summary: user redirected Task 3 from "click 
 
 ### Noted but not fixed
 - **Checklist item 6 substitution:** documented in Check.md rather than silently treated as identical to organic Play-mode damage. See key-decisions.
-- **Two unrelated Console errors on Play-mode exit** (`InputHandler` missing Input Action Asset; `TutorialBoss` missing `Animator`): traced to the scene that was already open, unrelated to any Phase 16 file or the test GameObject created during verification. Left alone per phase scope; documented honestly in Check.md's `## 결과 기록` instead of claiming a false "0 errors."
+- **Two unrelated Console errors on Play-mode exit** (`InputHandler` missing Input Action Asset; `TutorialBoss` missing `Animator`): traced to the scene that was already open, unrelated to any Phase 17 file or the test GameObject created during verification. Left alone per phase scope; documented honestly in Check.md's `## 결과 기록` instead of claiming a false "0 errors."
 
 ---
 
@@ -106,8 +106,8 @@ None beyond the two auto-fixed deviations above (both resolved before producing 
 None. Unity Editor was already open with unity-mcp connected; no new installation was needed despite the user's initial request to "install Unity CLI" - that request was satisfied via the already-available unity-mcp bridge instead.
 
 ## Next Phase Readiness
-- Phase 16 is functionally complete: `ItemData` schema locked, two working example assets exist, and `UseEffect()` is proven (not just statically well-typed) to heal/no-op correctly.
-- Phase 17 (inventory) can reference `Assets/Item/HealthPotion.asset` and `Assets/Item/AncientKey.asset` as real test data with confidence their runtime behavior matches their static definition.
+- Phase 17 is functionally complete: `ItemData` schema locked, two working example assets exist, and `UseEffect()` is proven (not just statically well-typed) to heal/no-op correctly.
+- Phase 18 (inventory) can reference `Assets/Item/HealthPotion.asset` and `Assets/Item/AncientKey.asset` as real test data with confidence their runtime behavior matches their static definition.
 - `Assets/Item/Check.md` is a complete, honest record for a future developer to reproduce or extend this verification.
 
 ---

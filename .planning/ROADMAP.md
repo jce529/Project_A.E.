@@ -451,7 +451,7 @@ Plans:
      역전되거나 손으로 고친 값도 정상화된다 (D-08).
   7. `Player.prefab`의 시작 `maxHealth`는 100, 성장 상한 `maxTotalHealth`는 200이다 (D-09).
   8. `MapGimmickState`와 `Items`는 쓰기 훅이 아직 없으므로 이번 페이즈에서 스텁으로 유지된다
-     (D-10, 저장 측이 먼저 생겨야 복원을 논할 수 있음 — Phase 16~18이 `Items`를 채우는 후속).
+     (D-10, 저장 측이 먼저 생겨야 복원을 논할 수 있음 — Phase 17~18이 `Items`를 채우는 후속).
 **Plans:** 4 plans
 
 **Execution Waves:**
@@ -467,7 +467,7 @@ Plans:
 - [x] 15-03-PLAN.md — D-06/D-07을 보스 스크립트 3종에 구현 (자가 제거 가드, `SaveLoadManager` 무수정)
 - [ ] 15-04-PLAN.md — 정적 회귀 검사(16 PASS/2 FAIL, 원인 플랜 특정됨) + Check.md Play 모드 체크리스트 34건 작성 — **Play 모드 실측 미완료, BUG-007 미해결로 미종결**
 
-### Phase 16: 아이템 코어: IItem 인터페이스(완료됨) 및 ItemData ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터) 정의. 데이터 레이어만, UI 제외.
+### Phase 17: 아이템 코어: IItem 인터페이스(완료됨) 및 ItemData ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터) 정의. 데이터 레이어만, UI 제외.
 
 **Goal:** 이 프로젝트 최초의 ScriptableObject 인 `ItemData`(`Assets/Item/Script/ItemData.cs`)가 존재해,
 아이템의 정적 데이터를 `id`(string) / `type`(Consumable|Progression) / `effectType`(Heal) / `amount`(float)
@@ -476,9 +476,9 @@ Plans:
 `PlayerStats.Heal(float)`(`Assets/Player/Script/PlayerStats.cs:37`)를 널 가드 없이 그대로 재사용해
 실제로 체력을 회복시키고, 진행아이템일 때는 의도적 no-op 다. 스키마가 실제로 동작함을 증명하기 위해
 소모품(Heal, amount 20) 1개 + 진행아이템 1개의 실제 `.asset` 파일을 `Assets/Item/` 에 만든다.
-**데이터 레이어 전용 phase** — 인벤토리(Phase 17), 월드 픽업/`PlayerInteraction` 배선(Phase 17),
-세이브 연동(Phase 18), 아이콘/이름 등 UI 메타데이터(추후 UI phase)는 전부 범위 밖이다.
-**Requirements**: D-01 ~ D-07 (16-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**데이터 레이어 전용 phase** — 인벤토리(Phase 18), 월드 픽업/`PlayerInteraction` 배선(Phase 18),
+세이브 연동(Phase 19), 아이콘/이름 등 UI 메타데이터(추후 UI phase)는 전부 범위 밖이다.
+**Requirements**: D-01 ~ D-07 (17-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
 **Depends on:** Phase 15
 **Success Criteria** (what must be TRUE):
   1. `ItemData : ScriptableObject, IItem` 가 존재하고 `void UseEffect(PlayerInteraction player)` 를
@@ -505,24 +505,14 @@ Plans:
 
 | Wave | Plans | Autonomous |
 |------|-------|------------|
-| 1 | 16-01 | yes |
-| 2 | 16-02 | no (Play 모드 검증 체크포인트 포함) |
+| 1 | 17-01 | yes |
+| 2 | 17-02 | no (Play 모드 검증 체크포인트 포함) |
 
 Plans:
-- [x] 16-01-PLAN.md — ItemData.cs 신규(ScriptableObject + IItem 구현, enum 2종, 필드 4개, UseEffect 본체, 에디터 전용 ContextMenu 훅) + guid 고정 .meta + 예시 .asset 2개(HealthPotion/AncientKey) 손수 작성
-- [x] 16-02-PLAN.md — Unity 6000.3.10f1 배치모드 임포트 게이트(컴파일/YAML 실검증) + Assets/Item/Check.md 작성(정적 회귀 8항목 + Play 모드 체크리스트 10항목) + Play 모드 실측 체크포인트
+- [x] 17-01-PLAN.md — ItemData.cs 신규(ScriptableObject + IItem 구현, enum 2종, 필드 4개, UseEffect 본체, 에디터 전용 ContextMenu 훅) + guid 고정 .meta + 예시 .asset 2개(HealthPotion/AncientKey) 손수 작성
+- [x] 17-02-PLAN.md — Unity 6000.3.10f1 배치모드 임포트 게이트(컴파일/YAML 실검증) + Assets/Item/Check.md 작성(정적 회귀 8항목 + Play 모드 체크리스트 10항목) + Play 모드 실측 체크포인트
 
-### Phase 17: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 16.
-
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 16
-**Plans:** 0 plans
-
-Plans:
-- [ ] TBD (run /gsd:plan-phase 17 to break down)
-
-### Phase 18: 아이템 저장/로드 연동: SaveData.Items를 List<ItemSaveEntry>(itemId,count)로 교체, SaveVersion 마이그레이션, SaveLoadManager 인벤토리 캡처/복원. Depends on Phase 17 및 기존 SaveLoadManager.
+### Phase 18: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 17.
 
 **Goal:** [To be planned]
 **Requirements**: TBD
@@ -531,3 +521,13 @@ Plans:
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 18 to break down)
+
+### Phase 19: 아이템 저장/로드 연동: SaveData.Items를 List<ItemSaveEntry>(itemId,count)로 교체, SaveVersion 마이그레이션, SaveLoadManager 인벤토리 캡처/복원. Depends on Phase 18 및 기존 SaveLoadManager.
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 18
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 19 to break down)

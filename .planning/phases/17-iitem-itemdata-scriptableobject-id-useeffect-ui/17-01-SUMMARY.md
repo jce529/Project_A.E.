@@ -12,7 +12,7 @@ provides:
   - "ItemData ScriptableObject (id/type/effectType/amount) implementing IItem directly"
   - "Two example .asset instances: HealthPotion (Consumable/Heal) and AncientKey (Progression)"
   - "Fixed guid 501b19c5008706d0a3f2bf69aacf52f6 for ItemData.cs, reusable by future .asset files"
-affects: [16-02, 17-inventory, 18-item-save-load]
+affects: [17-02, 17-inventory, 18-item-save-load]
 
 # Tech tracking
 tech-stack:
@@ -20,7 +20,7 @@ tech-stack:
   patterns:
     - "Single ScriptableObject class + enum branching instead of SO subclass hierarchy (ItemType: Consumable/Progression)"
     - "No null guard on GetComponent<PlayerStats>() in UseEffect - matches existing unguarded convention (PlayerStats.TakeDamage -> CameraController.Instance.Shake())"
-    - "Editor-only ContextMenu verification hook (#if UNITY_EDITOR) as the only way to invoke UseEffect before Phase 17 inventory/pickup exists"
+    - "Editor-only ContextMenu verification hook (#if UNITY_EDITOR) as the only way to invoke UseEffect before Phase 18 inventory/pickup exists"
 
 key-files:
   created:
@@ -47,7 +47,7 @@ duration: 25min
 completed: 2026-09-20
 ---
 
-# Phase 16 Plan 01: ItemData ScriptableObject Summary
+# Phase 17 Plan 01: ItemData ScriptableObject Summary
 
 **ItemData ScriptableObject implementing IItem directly (id/type/effectType/amount, 4 fields, no subclassing), with UseEffect wired to the existing PlayerStats.Heal for Consumable/Heal and a no-op for Progression, plus two example .asset instances (HealthPotion, AncientKey).**
 
@@ -100,7 +100,7 @@ _Note: no plan-metadata commit hash yet - this SUMMARY/STATE/ROADMAP commit foll
 
 **2. [Rule 3 - Blocking] Recovered missing worktree state via fast-forward merge + file copy**
 - **Found during:** Start of execution (files_to_read step)
-- **Issue:** This execution worktree was checked out on an unrelated branch 120 commits behind the `Item` branch, missing `.planning/phases/16-.../16-01-PLAN.md`, `Assets/Item/Script/IItem.cs`, and the three untracked `.meta` files referenced by the plan - execution could not start.
+- **Issue:** This execution worktree was checked out on an unrelated branch 120 commits behind the `Item` branch, missing `.planning/phases/16-.../17-01-PLAN.md`, `Assets/Item/Script/IItem.cs`, and the three untracked `.meta` files referenced by the plan - execution could not start.
 - **Fix:** Fast-forward merged the worktree's branch to `Item` (79caaf2), which was safe since the worktree branch had 0 commits not already in `Item`. Set aside an unrelated local `.claude/settings.local.json` change via a uniquely-tagged stash before merging, restored after (content matched post-merge, so dropped the stash entry). Then copied the three untracked `.meta` files byte-for-byte from the main repository checkout (read-only reference, not a git operation) since they don't exist as untracked files in this isolated worktree.
 - **Files modified:** Assets/Item.meta, Assets/Item/Script.meta, Assets/Item/Script/IItem.cs.meta (copied unmodified)
 - **Verification:** `git show :Assets/Item/Script/IItem.cs.meta | wc -c` = 59 (matches plan's acceptance criteria exactly); `git status --porcelain Assets/Player Assets/Item/Script/IItem.cs` empty (no unintended changes).
@@ -115,11 +115,11 @@ _Note: no plan-metadata commit hash yet - this SUMMARY/STATE/ROADMAP commit foll
 None beyond the two auto-fixed deviations above.
 
 ## User Setup Required
-None - no external service configuration required. Note: Unity editor import of the new `.asset` files (and the resulting `.meta` `MonoImporter`/`NativeFormatImporter` auto-fill) is deferred to Plan 16-02 per the plan's own scope ("에디터 임포트 실검증은 Plan 16-02 에서 수행한다").
+None - no external service configuration required. Note: Unity editor import of the new `.asset` files (and the resulting `.meta` `MonoImporter`/`NativeFormatImporter` auto-fill) is deferred to Plan 17-02 per the plan's own scope ("에디터 임포트 실검증은 Plan 17-02 에서 수행한다").
 
 ## Next Phase Readiness
-- `ItemData` schema is locked (id/type/effectType/amount) and available for Plan 16-02 (editor import verification) and Phase 17 (inventory) to reference.
-- Two real `.asset` instances exist in `Assets/Item/` for Phase 17 to use as test data.
+- `ItemData` schema is locked (id/type/effectType/amount) and available for Plan 17-02 (editor import verification) and Phase 18 (inventory) to reference.
+- Two real `.asset` instances exist in `Assets/Item/` for Phase 18 to use as test data.
 - `Assets/` outside `Assets/Item/` has zero content changes (verified via `git diff HEAD~2 --name-only` showing only the 9 files under `Assets/Item/`).
 
 ---

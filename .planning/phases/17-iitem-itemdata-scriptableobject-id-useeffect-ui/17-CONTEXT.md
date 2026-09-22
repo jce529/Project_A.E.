@@ -1,4 +1,4 @@
-# Phase 16: 아이템 코어 (IItem + ItemData ScriptableObject) - Context
+# Phase 17: 아이템 코어 (IItem + ItemData ScriptableObject) - Context
 
 **Gathered:** 2026-09-19
 **Status:** Ready for planning
@@ -10,8 +10,8 @@
 이번 phase는 `ItemData` ScriptableObject를 정의해 아이템의 정적 데이터(id, 종류, UseEffect 파라미터)를
 스키마화하고, `IItem`을 실제로 구현해 소모품 1종(체력 회복)이 end-to-end로 동작하는 것까지 만든다.
 
-**범위 밖**: 인벤토리 자료구조/슬롯/스택(Phase 17), 월드 아이템 획득 및 `PlayerInteraction` 연동 배선(Phase 17),
-세이브/로드 연동(Phase 18), 아이템 아이콘/이름 등 UI 표시 자체(추후 UI phase).
+**범위 밖**: 인벤토리 자료구조/슬롯/스택(Phase 18), 월드 아이템 획득 및 `PlayerInteraction` 연동 배선(Phase 18),
+세이브/로드 연동(Phase 19), 아이템 아이콘/이름 등 UI 표시 자체(추후 UI phase).
 
 </domain>
 
@@ -26,7 +26,7 @@
 ### UseEffect 동작 범위
 - **D-02:** `UseEffect()`는 스텁이 아니라 실제로 끝까지 구현한다. 종류(소모품/진행아이템)에 따라
   분기하며, **소모품만** `effectType`을 실제로 적용하고, **진행아이템은 빈 구현(no-op)**으로 둔다.
-  진행아이템의 실제 사용 의미(퀘스트 해결 등)는 인벤토리/콘텐츠 단계(Phase 17+)에서 처리한다.
+  진행아이템의 실제 사용 의미(퀘스트 해결 등)는 인벤토리/콘텐츠 단계(Phase 18+)에서 처리한다.
 - **D-03:** 소모품 `effectType` enum은 이번 phase에서 **`Heal` 하나만** 정의한다. `amount`(float)
   파라미터와 함께 `PlayerInteraction` → `GetComponent<PlayerStats>()` → 기존 `PlayerStats.Heal(float)`
   (`Assets/Player/Script/PlayerStats.cs:37`)를 호출해 실제 회복이 일어나야 한다. 신규 `PlayerStats`
@@ -49,7 +49,7 @@
 
 ### 예시 에셋
 - **D-07:** 클래스 정의뿐 아니라 실제 `.asset` 파일 1~2개를 `Assets/Item`에 생성해 스키마가
-  실제로 동작함을 눈으로 확인한다 — 소모품(Heal) 1개 + 진행아이템 1개. 이 에셋은 Phase 17
+  실제로 동작함을 눈으로 확인한다 — 소모품(Heal) 1개 + 진행아이템 1개. 이 에셋은 Phase 18
   인벤토리 개발 시 테스트 데이터로 재사용 가능하다.
 
 ### Claude's Discretion
@@ -80,12 +80,12 @@
 
 ### 선행 페이즈 결정 (참고 — 향후 연동 예정)
 - `.planning/phases/15-load-timing-and-load-scope/15-CONTEXT.md` — D-10: `SaveData.Items`는
-  현재 스텁이며 이번 phase가 그 스텁을 채우는 것은 아니다(Phase 18 담당). 다만 id를 string으로
+  현재 스텁이며 이번 phase가 그 스텁을 채우는 것은 아니다(Phase 19 담당). 다만 id를 string으로
   고정한 배경.
 - `Assets/SaveSystem/Script/SaveData.cs:33` `public List<string> Items` — Phase 18이 교체할
   스텁 필드. 이번 phase는 건드리지 않는다.
 
-**로드맵 원문 외 별도 ADR/스펙 문서는 없음 — ROADMAP.md Phase 16 섹션과 이 CONTEXT.md가 스펙 역할을 겸한다.**
+**로드맵 원문 외 별도 ADR/스펙 문서는 없음 — ROADMAP.md Phase 17 섹션과 이 CONTEXT.md가 스펙 역할을 겸한다.**
 
 </canonical_refs>
 
@@ -124,7 +124,7 @@
 <deferred>
 ## Deferred Ideas
 
-- **표시용 메타데이터(displayName/icon/description)** — Phase 17(인벤토리) 또는 이후 UI phase에서
+- **표시용 메타데이터(displayName/icon/description)** — Phase 18(인벤토리) 또는 이후 UI phase에서
   `ItemData`에 필드 추가 필요.
 - **아이템 ID 중복/형식 검증 도구** — 수동 관리로 시작, 아이템 수가 늘어나면 Editor 검증 스크립트
   필요할 수 있음.
@@ -135,7 +135,7 @@ None — `todo match-phase 16` 결과 매칭되는 todo 없음.
 
 ### 참고 (이번 phase와 무관한 발견)
 - Phase 15 CONTEXT.md에 "일정 간격 자동저장을 Phase 16으로 분리하기로 결정"이라는 기록이 있으나,
-  그 이후 Phase 16 번호가 재번호되며 실제로는 이 아이템 코어 phase가 배정되었다. 자동저장 아이디어는
+  그 이후 Phase 17 번호가 재번호되며 실제로는 이 아이템 코어 phase가 배정되었다. 자동저장 아이디어는
   현재 로드맵 어디에도 정식 phase로 남아있지 않다 — 별도 백로그 항목으로 필요시 재등록 검토 필요.
   (이번 discuss-phase 범위 밖이라 여기서는 기록만 남김.)
 
