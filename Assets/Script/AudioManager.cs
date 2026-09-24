@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -19,6 +20,20 @@ public class AudioManager : MonoBehaviour
     private AudioSource bgmSource;
     private AudioLowPassFilter bgmLowPass;
     private EnvironmentState currentEnvironmentState = EnvironmentState.None;
+    [SerializeField] private int poolSize = 16;
+
+    private class PoolSlot
+    {
+        public AudioSource Source;
+        public Transform SourceTransform;
+        public bool InUse;
+        public int Priority;
+        public float StartTime;
+        public Transform FollowTarget;
+    }
+
+    private PoolSlot[] pool;
+    private readonly Dictionary<AudioCue, float> lastPlayedTime = new Dictionary<AudioCue, float>();
 
     public float BgmVolume { get; private set; } = 1f;
     public float SfxVolume { get; private set; } = 1f;
@@ -38,6 +53,7 @@ public class AudioManager : MonoBehaviour
         }
 
         LoadMixer();
+        CreatePool();
         CreateBgmSource();
         LoadVolumes();
     }
@@ -73,6 +89,54 @@ public class AudioManager : MonoBehaviour
             case AudioCategory.BGM: return bgmGroup;
             case AudioCategory.UI: return uiGroup;
             default: return sfxGroup;
+        }
+    }
+
+    private void CreatePool()
+    {
+        pool = new PoolSlot[poolSize];
+        for (int i = 0; i < poolSize; i++)
+        {
+            var go = new GameObject("PooledSource_" + i);
+            go.transform.SetParent(transform, false);
+            var src = go.AddComponent<AudioSource>();
+            src.playOnAwake = false;
+            pool[i] = new PoolSlot { Source = src, SourceTransform = go.transform };
+        }
+    }
+
+    private PoolSlot AcquireSlot(int requestPriority)
+    {
+        for (int i = 0; i < pool.Length; i++)
+            if (!pool[i].InUse) return pool[i];
+
+        PoolSlot steal = null;
+        for (int i = 0; i < pool.Length; i++)
+        {
+            var slot = pool[i];
+            if (slot.Priority >= requestPriority) continue;
+            if (steal == null || slot.StartTime < steal.StartTime) steal = slot;
+        }
+        if (steal != null) steal.Source.Stop();
+        return steal;
+    }
+
+    private void Update()
+    {
+        if (pool == null) return;
+        for (int i = 0; i < pool.Length; i++)
+        {
+            var slot = pool[i];
+            if (!slot.InUse) continue;
+            if (!slot.Source.isPlaying)
+            {
+                slot.InUse = false;
+                slot.FollowTarget = null;
+                slot.Priority = 0;
+                continue;
+            }
+            if (slot.FollowTarget != null)
+                slot.SourceTransform.position = slot.FollowTarget.position;
         }
     }
 
