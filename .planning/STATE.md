@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-09-21T00:35:26.860Z"
-last_activity: "2026-09-21 - promoted backlog Phase 999.1(오디오 중앙화)을 Phase 20으로 승격, branch 20-audio-centralization 생성"
+last_updated: "2026-09-24T04:45:00Z"
+last_activity: 2026-09-24 -- Phase 20 plans 01-05 implemented; 06 Play mode checkpoint pending
 progress:
   total_phases: 20
   completed_phases: 11
-  total_plans: 47
-  completed_plans: 41
-  percent: 72
+  total_plans: 56
+  completed_plans: 49
+  percent: 88
 ---
 
 # GSD State
@@ -21,19 +21,19 @@ progress:
 
 ## Current Position
 
-Phase: 17
+Phase: 20 (audio-centralization) — EXECUTING
 Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — 17-01 COMPLETE. 17-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) 완료, Task 3(Play 모드 실측 체크포인트) 사용자 응답 대기 중
 Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Unity MCP 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 전환 마지막 피격만 수동 관찰 대기)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
 Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 비보스 핵심 통과, UI 일부·보스 회귀만 대기 (주창은 브랜치에서 구현, 병합으로 반영)
 Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
 Phase 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS, 주창은 브랜치에서 구현, 병합으로 반영)
-Plan: Not started (Phase 17 기준)
-Status: Executing Phase 17; Phase 12/14/15는 각자 별도 체크포인트 대기 중
+Plan: 6 of 6
+Status: Executing Phase 20; Play mode verification pending
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등)은 2026-09-08 커밋 `a9c427f`("feat: update save slots and main menu, remove unused scripts, add system docs")로 이미 정식 반영되어 해소됨 — 두 브랜치의 공통 조상에 포함된 상태였다. `.dead-code-backup/pre-cleanup-20260903-1430.zip`은 git 히스토리에 커밋된 적이 없어 이 저장소 상태와 무관. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)은 여전히 untracked — 용도 미확인.
-Last activity: "2026-09-21 - Item 브랜치의 Phase 16-18을 17-19로 재번호(주창은의 Phase 16 interval-autosave와 번호 충돌 방지) 후 주창은 병합"
+Last activity: 2026-09-24 -- Plans 20-01 through 20-05 implemented; Unity compile passed; Plan 20-06 Play mode checklist pending
 
-Progress: [████████░░] 72% (Item Phase 17 + 주창은 Phase 14/16 반영 병합, 정확한 plan 합산은 다음 상태 갱신에서 재계산 필요)
+Progress: [█████████░] 88% (49/56 plans; Phase 20 Plan 06 Play 모드 실측 대기)
 
 ## Phase Status
 
@@ -52,7 +52,7 @@ Progress: [████████░░] 72% (Item Phase 17 + 주창은 Phase 
 | 15 | 로드 시점 및 로드 범위 정의 (3/4 plans) | In Progress (15-04 정적 회귀+Play 모드 검증 대기, BUG-007 미해결) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
 | 17 | 아이템 코어: IItem + ItemData ScriptableObject (1/2 plans) | In Progress (17-02 Task 1~2 완료, Task 3 Play 모드 체크포인트 사용자 응답 대기) | - |
-| 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (0/0 plans) | Planned (백로그 Phase 999.1에서 승격, discuss-phase/plan-phase 미착수) | - |
+| 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (5/6 plans) | In Progress (Unity 컴파일 PASS, 20-06 Play 모드 실측 대기) | - |
 
 ## Performance Metrics
 
@@ -197,7 +197,6 @@ Progress: [████████░░] 72% (Item Phase 17 + 주창은 Phase 
 ## Session Continuity
 
 - 2026-09-14: Phase 16 COMPLETE (16-01/02/03). 16-03 Task 2 Play 모드 실측 29/29 PASS via Unity CLI (commit 6703d34); B(메인메뉴 미발동)·E(수동 저장 무회귀) 포함 전 항목 실측. Assets·ProjectSettings 0줄 변경, 세이브 SHA-256 복구 확인. 다음 Play 모드 검증 전에 Console 의 Error Pause 를 끌 것 — BUG-008 예외로 Play 가 자동 정지한다. 상세는 `.planning/phases/16-interval-autosave/.continue-here.md`.
-
 
 - Last session: Completed 15-02-PLAN.md (2026-09-10); next implementation target is 15-03-PLAN.md.
 - 이전 마일스톤: v1.0 보스_물괴물_구현 (Phase 1~4 완료, 2026-04-16)
