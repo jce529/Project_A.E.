@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-// Owns mixer volume, BGM playback, and environment filtering.
+// PersistentManagers creates and persists this manager, which owns mixer volume,
+// BGM playback, the voice pool, and environment filtering.
 // Settings are held in memory until the settings panel saves them.
 public class AudioManager : MonoBehaviour
 {
@@ -44,7 +45,6 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
