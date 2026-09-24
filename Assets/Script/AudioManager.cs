@@ -191,6 +191,54 @@ public class AudioManager : MonoBehaviour
         return Mathf.Log10(Mathf.Max(linear, 0.0001f)) * 20f;
     }
 
+    public void Play(AudioCue cue)
+    {
+        PlayInternal(cue, transform.position, null);
+    }
+
+    public void Play(AudioCue cue, Vector3 position)
+    {
+        PlayInternal(cue, position, null);
+    }
+
+    public void Play(AudioCue cue, Transform target)
+    {
+        if (target == null) return;
+        PlayInternal(cue, target.position, target);
+    }
+
+    private void PlayInternal(AudioCue cue, Vector3 position, Transform followTarget)
+    {
+        if (cue == null || pool == null) return;
+        AudioClip clip = cue.GetClip();
+        if (clip == null) return;
+
+        float now = Time.unscaledTime;
+        if (cue.Cooldown > 0f
+            && lastPlayedTime.TryGetValue(cue, out float last)
+            && now - last < cue.Cooldown)
+            return;
+
+        PoolSlot slot = AcquireSlot(cue.Priority);
+        if (slot == null) return;
+        lastPlayedTime[cue] = now;
+
+        slot.InUse = true;
+        slot.Priority = cue.Priority;
+        slot.StartTime = now;
+        slot.FollowTarget = followTarget;
+        slot.SourceTransform.position = position;
+
+        AudioSource src = slot.Source;
+        src.clip = clip;
+        src.volume = cue.GetVolume();
+        src.pitch = cue.GetPitch();
+        src.loop = cue.Loop;
+        src.spatialBlend = cue.SpatialBlend;
+        src.outputAudioMixerGroup = GetMixerGroup(cue.Category);
+        src.Play();
+    }
+
     public void SetEnvironmentState(EnvironmentState state)
     {
         if (state == currentEnvironmentState) return;
