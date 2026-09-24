@@ -494,23 +494,25 @@ Plans:
 
 ### Phase 18: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 17.
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** 고정 20슬롯/슬롯당 99스택의 `Inventory` 컴포넌트가 Player 에 붙어 있고, 월드에 놓인 아이템을 기존 `PlayerInteraction` 상호작용으로 주워 담고 `ItemData.UseEffect` 로 사용할 수 있다 — 인벤토리가 가득 찬 상태에서는 아이템이 유실되지 않고 월드에 남는다.
+**Requirements**: D-01 ~ D-08 (18-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
 **Depends on:** Phase 17
-**Plans:** 0 plans
+**Plans:** 2/2 plans complete (UAT 7/7 PASS, 2026-09-21)
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 18 to break down)
+- [x] 18-01-PLAN.md — Inventory 컴포넌트 (InventorySlot class, 원자적 TryAddItem, RemoveItem/UseItem, ContextMenu 검증 훅)
+- [x] 18-02-PLAN.md — WorldItem 월드 픽업 + Player.prefab 배선(Inventory/PlayerInteraction) + Play 모드 실측 검증 체크포인트
 
 ### Phase 19: 아이템 저장/로드 연동: SaveData.Items를 List<ItemSaveEntry>(itemId,count)로 교체, SaveVersion 마이그레이션, SaveLoadManager 인벤토리 캡처/복원. Depends on Phase 18 및 기존 SaveLoadManager.
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** 세이브 파일이 플레이어의 인벤토리를 실제로 보존한다 — 저장 시 비어있지 않은 슬롯이 `ItemSaveEntry(itemId, count)` 로 기록되고, 로드 시 그 아이템이 `Inventory` 에 그대로 돌아온다.
+**Requirements**: D-01 ~ D-04 (19-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈, Phase 17/18 선례)
 **Depends on:** Phase 18
-**Plans:** 0 plans
+**Plans:** 2/2 plans complete (Play 모드 왕복 검증 6/6 PASS, 2026-09-21)
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 19 to break down)
+- [x] 19-01-PLAN.md — `Assets/Item/*.asset` → `Assets/Resources/Items/` 이동(GUID 보존) + `SaveData` 스키마 교체(`ItemSaveEntry`, `Items` 재타입, `SaveVersion` 3)
+- [x] 19-02-PLAN.md — `SaveLoadManager` 인벤토리 캐처/복원(`CaptureInventoryItems`/`ApplyInventoryFromSave`/`ResolveItemData`) + `Phase19/` 디버그 훅 + Play 모드 왕복 검증 체크포인트
 
 ## Backlog
 

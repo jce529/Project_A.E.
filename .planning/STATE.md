@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-09-14T10:50:00.000Z"
-last_activity: 2026-09-14 - Phase 16 COMPLETE; 16-03 Task 2 Play mode verification 29/29 PASS via Unity CLI
+last_updated: "2026-09-24T00:00:00.000Z"
+last_activity: 2026-09-24 - Phase Status 표에 17/18/19(아이템 코어/인벤토리/세이브 연동, 전부 Complete) 및 15(In Progress) 반영 문서 동기화. 코드 변경 없음.
 progress:
   total_phases: 13
   completed_phases: 6
@@ -45,7 +45,11 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 | 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (Task 3 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 피격·보스 항목 대기) | - |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
 | 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (비보스 전부 통과 — 3슬롯 독립성 + Load 버튼 전 구간 실측, 체력 UI·보스 회귀만 대기) | - |
+| 15 | 로드 시점 및 로드 범위 정의 (2/4 plans) | In Progress (15-01/15-02 완료, 15-03 보스 가드·15-04 Play 모드 검증 대기) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
+| 17 | 아이템 코어: IItem + ItemData ScriptableObject (2/2 plans) | Complete (배치모드 임포트 0 error, Play 모드 실측 통과, 데이터 레이어 전용) | 2026-09-20 |
+| 18 | 인벤토리 시스템 (2/2 plans) | Complete (UAT 7/7 PASS — TryAddItem/WorldItem 픽업/UseEffect/풀 인벤토리 보호 전부 실측) | 2026-09-21 |
+| 19 | 아이템 저장/로드 연동 (2/2 plans) | Complete (Play 모드 왕복 검증 6/6 PASS — 저장→재시작→로드 아이템 복원 확인) | 2026-09-21 |
 
 ## Performance Metrics
 
@@ -201,3 +205,4 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 - 마지막 세션: Phase 11 Play 모드 검증 부분 완료(체크포인트/로드/새게임 확인, 보스 4종 격파 저장은 사용자가 추후 확인 예정) + Phase 12(피격 시 카메라 흔들림) 로드맵 추가 + discuss-phase 완료(2026-08-11, `12-CONTEXT.md`/`12-DISCUSSION-LOG.md`). 결정 요약: 플레이어 피격 시만(D-01), `PlayerStats.TakeDamage`에서 `CameraController.Instance.Shake()` 호출(D-02), 고정 강도 랜덤 오프셋 감쇠(D-04~D-06), 보스존 포함 항상 흔들림 + 경계 클램프 이후 최종 적용(D-07/D-08), Inspector 노출은 `shakeMagnitude`/`shakeDuration` 2개만(D-09). 다음 재개 지점: `/gsd:plan-phase 12`
 - 마지막 세션(2026-08-27): quick task `260827-h5y`(PlayerPrefs → `setting.json` 전환) Task 1~3 완료(commits `ea05191`/`d42ea6f`/`ef745bb`/`0dfcd0d`), Task 4(Unity 컴파일 + 저장 버튼 OnClick 연결 + Play 모드 실측)는 사용자 확인 대기 중. 별도로 세이브 슬롯 확장을 Phase 50(임시 번호 — 다른 기기가 이미 Phase 13까지 진행해서 충돌 방지용으로 큰 번호 임시 예약, 동기화 후 재번호 필요)으로 로드맵에 추가하고 discuss-phase 완료(`50-CONTEXT.md`/`50-DISCUSSION-LOG.md`, 2026-08-27 재번호 후 `.planning/phases/14-save-slot-expansion/14-CONTEXT.md`/`14-DISCUSSION-LOG.md`로 이동). 결정 요약: 이어하기는 항상 슬롯 선택 화면(D-01), 새시작은 빈 슬롯 있으면 자동 시작·다 차있으면 슬롯 화면으로(D-02/D-03), 덮어쓰기는 항상 확인창(D-04/D-05), 슬롯별 별도 파일(D-06, 기존 save.json 유실 금지가 절대 기준·정확한 마이그레이션 방식은 연구 단계에서 결정). 다음 재개 지점: quick task Task 4 사용자 검증 완료 후, `/gsd:plan-phase 14`
 - 마지막 세션(2026-08-27): Phase 14 `/gsd:plan-phase 14` 완료 — `14-UI-SPEC.md` + `14-01/02/03-PLAN.md` 3개 작성(Wave 1 `14-01` SaveLoadManager 슬롯화, Wave 2 `14-02` SlotSelectPanel/OverwriteConfirmPanel 신규, Wave 3 `14-03` MainMenuUI 재배선+씬 배치, 자율/자율/비자율). 같은 날 원격 `origin/주창은`의 `setting.json` 통합 커밋을 머지(`83d082d`)하고 구 Phase 14(keybind.json)를 폐기·제거(`b6b41bc`, `4392d3e`). **`14-UI-SPEC.md`/`14-01/02/03-PLAN.md`와 이를 반영한 `ROADMAP.md` 변경분은 이 시점 이후 커밋되지 않고 워킹트리에 미커밋 상태로 남아 있음** — 코드 실행은 아직 0%. 다음 재개 지점: 미커밋 산출물 커밋 여부 결정 후 `/gsd:execute-phase 14` (Wave 1 `14-01`부터)
+- **2026-09-24 문서 동기화**: `Item` 브랜치에서 진행되어 2026-09-21 병합된 Phase 17(아이템 코어)/18(인벤토리)/19(세이브 연동)이 전부 Play 모드 실측까지 완료된 상태였으나 `ROADMAP.md` 체크박스와 이 STATE.md Phase Status 표에 반영되지 않고 있던 것을 확인 — 체크박스 `[x]` 갱신 및 표 3행(17/18/19) 추가로 동기화, Phase 15도 실제 상태(2/4 plans, In Progress)로 표에 추가. **인벤토리 UI/키바인딩은 Phase 18-CONTEXT.md D-07에서 명시적으로 범위 밖("추후 UI phase")으로 확정된 상태이며 아직 phase 번호도 배정되지 않음** — 현재 완료된 것은 데이터/로직 레이어(Inventory/WorldItem/세이브 연동)뿐이고 화면 표시·키 입력은 미착수. 별도로 `20-audio-centralization` 브랜치(오디오 중앙화, Phase 999.1을 20으로 승격해 별 브랜치에서 진행 중)의 Play 모드 라이브 체크를 Unity CLI로 수행해 구조/볼륨/환경필터/씬전환 지속성 10개 항목 전부 통과 확인(사람의 청각/시각 확인만 미대체). 코드 변경 없음, 문서만 갱신.

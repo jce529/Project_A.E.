@@ -1,9 +1,10 @@
 {
   "schemaVersion": 1,
   "project": "AQUA ECLIPSE",
-  "verifiedCommit": "4392d3ee4320ad620b323a866734ab1253d0800b",
+  "verifiedCommit": "ec03fd9510a7c5d59d3a8e4397896046c768245a",
+  "verifiedBranch": "주창은",
   "includesWorkingTree": true,
-  "generatedAt": "2026-09-03T17:28:56.4311951+09:00",
+  "generatedAt": "2026-09-24T00:00:00+09:00",
   "documents": [
     {
       "path": "docs/ssot/README.md",
@@ -46,6 +47,20 @@
       "kind": "system",
       "status": "partial",
       "evidence": ["Assets/SaveSystem/Script/SaveData.cs", "Assets/SaveSystem/Script/SaveLoadManager.cs", "Assets/SaveSystem/Script/SettingsData.cs", "Assets/Script/SlotSelectPanel.cs", "Assets/Script/OverwriteConfirmPanel.cs", "Packages/manifest.json"]
+    },
+    {
+      "path": "docs/ssot/systems/item-and-inventory.md",
+      "kind": "system",
+      "status": "partial",
+      "evidence": ["Assets/Item/Script/ItemData.cs", "Assets/Item/Script/IItem.cs", "Assets/Item/Script/WorldItem.cs", "Assets/Player/Script/Inventory.cs", "Assets/Item/Check.md", ".planning/phases/18-inventory-system-depends-on-phase-17/18-UAT.md"]
+    },
+    {
+      "path": "docs/ssot/systems/audio.md",
+      "kind": "system",
+      "status": "partial",
+      "branch": "20-audio-centralization",
+      "note": "Not yet merged into 주창은 — documents the pending next state.",
+      "evidence": ["Assets/Script/AudioManager.cs", "Assets/Script/PersistentManagers.cs", "Assets/Audio/Script/AudioCue.cs", "Assets/Audio/Resources/Master.mixer", "Assets/Audio/Check.md"]
     }
   ],
   "unresolved": [
@@ -73,6 +88,16 @@
       "subject": "Phase 14 main-menu slot UI wiring",
       "reason": "Scripts compile, but MainMenu.unity does not yet serialize the required panel objects, references, and button callbacks.",
       "evidence": ["Assets/Script/MainMenuUI.cs", "Assets/Script/SlotSelectPanel.cs", "Assets/Script/OverwriteConfirmPanel.cs", "Assets/SaveSystem/Check.md"]
+    },
+    {
+      "subject": "Inventory UI and keybindings",
+      "reason": "Inventory/WorldItem (Phase 17-19) are only exercisable via editor-only [ContextMenu] hooks. No screen UI or key input path exists yet; explicitly deferred to an unscheduled future UI phase (18-CONTEXT.md D-07).",
+      "evidence": ["Assets/Player/Script/Inventory.cs", ".planning/phases/18-inventory-system-depends-on-phase-17/18-CONTEXT.md"]
+    },
+    {
+      "subject": "Audio centralization branch merge",
+      "reason": "20-audio-centralization branch (AudioManager/Master.mixer/PersistentManagers audio ownership) is verified in isolation but not yet merged into 주창은; merge-time conflicts with SoundSettingsPanel.cs or SaveLoadManager.cs are unconfirmed.",
+      "evidence": ["Assets/Script/AudioManager.cs", "Assets/Player/Script/Menu/SoundSettingsPanel.cs"]
     }
   ]
 }
