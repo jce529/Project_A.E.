@@ -524,3 +524,13 @@ Plans:
 
 Plans:
 - [ ] TBD (promote with $gsd-review-backlog when ready)
+
+### Phase 21: 인벤토리 UI(슬롯 그리드 표시/토글), 키 바인딩(인벤토리 열기/닫기 등 입력 액션), 월드 드롭 아이템 상호작용 시 인벤토리로 자동 획득되는 UI 피드백까지 다루는 페이즈. Depends on Phase 18/19.
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 18, Phase 19
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 21 to break down)
