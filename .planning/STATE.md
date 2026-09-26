@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-09-24T04:45:00Z"
-last_activity: 2026-09-24 -- Phase 20 plans 01-05 implemented; 06 Play mode checkpoint pending
+last_updated: "2026-09-26T00:00:00Z"
+last_activity: 2026-09-26 -- STATE.md corrected: Phase 17 (17-02 Task 3) was already fully verified (2026-09-21) but left marked pending; Phase 20 plans 01-05 implemented, 06 Play mode checkpoint still pending
 progress:
   total_phases: 20
-  completed_phases: 11
+  completed_phases: 12
   total_plans: 56
-  completed_plans: 49
-  percent: 88
+  completed_plans: 50
+  percent: 89
 ---
 
 # GSD State
@@ -22,7 +22,7 @@ progress:
 ## Current Position
 
 Phase: 20 (audio-centralization) — EXECUTING
-Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — 17-01 COMPLETE. 17-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) 완료, Task 3(Play 모드 실측 체크포인트) 사용자 응답 대기 중
+Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — COMPLETE (2/2 plans). 17-01 COMPLETE. 17-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) + Task 3(Play 모드 실측 체크포인트, unity-mcp로 Claude가 직접 검증 — 10/10 PASS, commit b770eb3) 전부 완료
 Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Unity MCP 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 전환 마지막 피격만 수동 관찰 대기)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
 Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 비보스 핵심 통과, UI 일부·보스 회귀만 대기 (주창은 브랜치에서 구현, 병합으로 반영)
@@ -31,9 +31,9 @@ Phase 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS, �
 Plan: 6 of 6
 Status: Executing Phase 20; Play mode verification pending
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등)은 2026-09-08 커밋 `a9c427f`("feat: update save slots and main menu, remove unused scripts, add system docs")로 이미 정식 반영되어 해소됨 — 두 브랜치의 공통 조상에 포함된 상태였다. `.dead-code-backup/pre-cleanup-20260903-1430.zip`은 git 히스토리에 커밋된 적이 없어 이 저장소 상태와 무관. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)은 여전히 untracked — 용도 미확인.
-Last activity: 2026-09-24 -- Plans 20-01 through 20-05 implemented; Unity compile passed; Plan 20-06 Play mode checklist pending
+Last activity: 2026-09-26 -- STATE.md corrected to reflect Phase 17 completion (2/2 plans, already verified 2026-09-21); Plans 20-01 through 20-05 implemented; Unity compile passed; Plan 20-06 Play mode checklist pending
 
-Progress: [█████████░] 88% (49/56 plans; Phase 20 Plan 06 Play 모드 실측 대기)
+Progress: [█████████░] 89% (50/56 plans; Phase 20 Plan 06 Play 모드 실측 대기)
 
 ## Phase Status
 
@@ -51,7 +51,7 @@ Progress: [█████████░] 88% (49/56 plans; Phase 20 Plan 06 Pl
 | 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (비보스 전부 통과 — 3슬롯 독립성 + Load 버튼 전 구간 실측, 체력 UI·보스 회귀만 대기) | - |
 | 15 | 로드 시점 및 로드 범위 정의 (3/4 plans) | In Progress (15-04 정적 회귀+Play 모드 검증 대기, BUG-007 미해결) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
-| 17 | 아이템 코어: IItem + ItemData ScriptableObject (1/2 plans) | In Progress (17-02 Task 1~2 완료, Task 3 Play 모드 체크포인트 사용자 응답 대기) | - |
+| 17 | 아이템 코어: IItem + ItemData ScriptableObject | Complete (2/2 plans, Task 3 Play 모드 실측 10/10 PASS) | 2026-09-21 |
 | 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (5/6 plans) | In Progress (Unity 컴파일 PASS, 20-06 Play 모드 실측 대기) | - |
 
 ## Performance Metrics
