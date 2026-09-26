@@ -565,7 +565,20 @@ Unity 에디터에서 `Assets/Scenes/Tutorial Map.unity` 를 열고 Play 모드�
 실측으로 확인됨 (비-ASCII 라인 수 5 유지, 표준 Read/Edit 툴 왕복으로 인한 훼손 없음).
 
 ### Play 모드 실측 결과 (12-01-PLAN.md Task 3)
-  (미검증 상태로 남겨두고 Task 3 에서 채운다)
+
+**비보스 케이스: Unity MCP 실측 완료 (2026-09-10)** — 통과
+
+Task 3 실행 결과: 피격 시 카메라 흔들림 기능을 Unity MCP(batch mode)로 직접 검증. 비보스 시나리오 전부 정상 동작 확인.
+
+**발견 항목: BUG-005 (카메라 흔들림이 일시정지 중에도 지속됨)**
+- 상태: 해결됨
+- 수정 커밋: `e81edbf` (2026-09-10)
+- 재검증: 7/7 PASS (2026-09-10, commit e81edbf 직후)
+- 상세: `.planning/phases/15-load-timing-and-load-scope/bugs/BUG-005-camera-shake-continues-while-paused.md` 참고
+
+**미보류 항목:**
+- 사망 전환 순간의 마지막 피격: 수동 관찰 대기
+- 보스 관련 시나리오: 수동 관찰 대기
 
 ## Phase 12 알려진 한계 (코드로 방어하지 않음)
   - 흔들림은 경계 클램프 이후 적용되므로 맵 가장자리에서 최대 shakeMagnitude 만큼 경계 밖이
