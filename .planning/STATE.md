@@ -25,7 +25,7 @@ Phase: 20 (audio-centralization) — EXECUTING
 Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — COMPLETE (2/2 plans). 17-01 COMPLETE. 17-02 Task 1(Unity 6000.3.10f1 배치모드 임포트 — 컴파일 에러 0/Item 임포트 에러 0/missing script 0, Assets/Item/ 무변경 커밋 없음) + Task 2(Assets/Item/Check.md 작성, commit a47a39a) + Task 3(Play 모드 실측 체크포인트, unity-mcp로 Claude가 직접 검증 — 10/10 PASS, commit b770eb3) 전부 완료
 Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Unity MCP 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 전환 마지막 피격만 수동 관찰 대기)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
-Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 비보스 핵심 통과, UI 일부·보스 회귀만 대기 (주창은 브랜치에서 구현, 병합으로 반영)
+Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 정적 배선만 반영, Play 모드 검증 미실행(2026-09-26 정정: `Assets/SaveSystem/Check.md` "(E) Play 모드 체크리스트" 전항목 미체크, `14-03-SUMMARY.md` 부재, `checkpoint:human-verify gate="blocking"` 미해소 확인 — 종전 "비보스 핵심 통과" 기록은 근거 없는 오기재였음) (주창은 브랜치에서 구현, 병합으로 반영)
 Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
 Phase 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS, 주창은 브랜치에서 구현, 병합으로 반영)
 Plan: 6 of 6
@@ -48,7 +48,7 @@ Progress: [█████████░] 89% (50/56 plans; Phase 20 Plan 06 Pl
 | 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (비보스 I/O·로드·새게임 실측 통과, UI 일부·보스 항목 대기) | - |
 | 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (Task 3 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 피격·보스 항목 대기) | - |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
-| 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (비보스 전부 통과 — 3슬롯 독립성 + Load 버튼 전 구간 실측, 체력 UI·보스 회귀만 대기) | - |
+| 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (14-03 정적 배선만 완료, Play 모드 검증 미실행 — blocking 체크포인트 대기, 2026-09-26 기재 정정) | - |
 | 15 | 로드 시점 및 로드 범위 정의 (3/4 plans) | In Progress (15-04 정적 회귀+Play 모드 검증 대기, BUG-007 미해결) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
 | 17 | 아이템 코어: IItem + ItemData ScriptableObject | Complete (2/2 plans, Task 3 Play 모드 실측 10/10 PASS) | 2026-09-21 |
