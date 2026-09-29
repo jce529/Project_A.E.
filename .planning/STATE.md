@@ -7,10 +7,10 @@ last_updated: "2026-09-14T10:50:00.000Z"
 last_activity: 2026-09-14 - Phase 16 COMPLETE; 16-03 Task 2 Play mode verification 29/29 PASS via Unity CLI
 progress:
   total_phases: 13
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 36
-  completed_plans: 30
-  percent: 83
+  completed_plans: 31
+  percent: 86
 ---
 
 # GSD State
@@ -22,14 +22,14 @@ progress:
 ## Current Position
 
 Phase: 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS)
-Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Unity MCP 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 전환 마지막 피격만 수동 관찰 대기)
+Phase 12 (camera-shake-on-hit) — COMPLETE (1/1 plans, 2026-09-29 Unity CLI Play 모드 실측 통과; 경계 피격·동적 오프셋/피킹·체감 4항목은 수동 확인 백로그, 보스 구역 진폭 ~1.4배 관찰)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
 Plan: 3 of 3
 Status: Phase 16 검증 완료 — 29/29 PASS / 0 FAIL / 0 미검증 (Unity CLI 실측, Assets·ProjectSettings 0줄 변경)
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
 Last activity: 2026-09-14 - Phase 16 완료. 16-03 Task 2 Play 모드 실측 29/29 PASS (Unity CLI eval/console/capture_game_view)
 
-Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완료)
+Progress: [█████████░] 86% (31/36 plans; Phase 12: 1/1, Phase 16: 3/3 완료)
 
 ## Phase Status
 
@@ -42,7 +42,7 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 | 9 | 일반/보스 스테이지 카메라 줌 변화 | Complete (Play 모드 실측 미검증, UAT 보류) | 2026-07-30 |
 | 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (3/4 plans) | In Progress (비보스 핵심 실측 통과, 수동 시각 확인·보스 항목 대기) | - |
 | 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (비보스 I/O·로드·새게임 실측 통과, UI 일부·보스 항목 대기) | - |
-| 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (Task 3 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 피격·보스 항목 대기) | - |
+| 12 | 피격 시 카메라 흔들림 (1/1 plans) | Complete (Play 모드 실측 통과, 수동 확인 4항목 백로그) | 2026-09-29 |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
 | 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (비보스 전부 통과 — 3슬롯 독립성 + Load 버튼 전 구간 실측, 체력 UI·보스 회귀만 대기) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
