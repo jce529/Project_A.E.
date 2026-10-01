@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-10-01T00:56:18.020Z"
+last_updated: "2026-10-01T00:58:35.902Z"
 last_activity: 2026-10-01
 progress:
   total_phases: 18
   completed_phases: 10
   total_plans: 52
-  completed_plans: 44
+  completed_plans: 45
   percent: 86
 ---
 
@@ -24,7 +24,7 @@ progress:
 Phase: 17 (spirit-boss-animation-integration) — EXECUTING
 Phase 12 (camera-shake-on-hit) — COMPLETE (1/1 plans, 2026-09-29 Unity CLI Play 모드 실측 통과; 경계 피격·동적 오프셋/피킹·체감 4항목은 수동 확인 백로그, 보스 구역 진폭 ~1.4배 관찰)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
 Last activity: 2026-10-01
@@ -63,6 +63,7 @@ Progress: [█████████░] 86% (31/36 plans; Phase 12: 1/1, Phas
 | Phase 15 P02 | 17min | 2 tasks | 1 files |
 | Phase 17 P01 | 25min | 3 tasks | 3 files |
 | Phase 17 P03 | 5min | 2 tasks | 2 files |
+| Phase 17 P02 | 5min | 2 tasks | 4 files |
 
 ## Performance Metrics
 
