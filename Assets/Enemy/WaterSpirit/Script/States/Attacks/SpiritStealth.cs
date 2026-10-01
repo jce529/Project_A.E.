@@ -12,6 +12,7 @@ public class SpiritStealth : IAttackStrategy
     public IEnumerator StealthRoutine(BossController boss)
     {
         if (!(boss is SpiritController spirit)) yield break;
+        spirit.PlayAnim("Stealth");
 
         // 1단계: 모든 Collider2D 비활성화 (피격 불가)
         var colliders = spirit.GetComponentsInChildren<Collider2D>();
