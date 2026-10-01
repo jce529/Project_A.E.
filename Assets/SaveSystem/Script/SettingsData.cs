@@ -19,6 +19,7 @@ public class SettingsData
     // Sound tab. Linear 0..1 slider values.
     public float BgmVolume = 1f;
     public float SfxVolume = 1f;
+    public float UiVolume = 1f;
 
     // Controls tab. Raw output of InputActionAsset.SaveBindingOverridesAsJson().
     // Empty string means "no rebinding applied".

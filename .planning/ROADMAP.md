@@ -407,7 +407,7 @@ Plans:
       주석 1줄이 제거되어 비-ASCII 라인 수가 0이 된다.
   11. `MainMenu.unity` 씬의 UI 배치/배선은 이 페이즈가 코드로 수행하지 않는다 — Phase 9 D-08
       선례대로 `Assets/SaveSystem/Check.md`의 배선 가이드를 따라 사용자가 직접 수행한다.
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 **Execution Waves:**
 
@@ -422,18 +422,50 @@ Plans:
 - [x] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
 - [ ] 14-03-PLAN.md — MainMenu 배선/정적 13종/비보스 핵심 Play 검증 통과; UI 일부·보스 회귀 보류
 
-### Phase 15: 로드 시점 및 로드 범위 정의 - 세이브 데이터를 언제 로드할지(사망/체크포인트 부활/이어하기)와 로드 시 어디까지 복원할지(보스 진행도/맵 기믹/체력 불변식) 확정
+### Phase 15: 로드 시점 및 로드 범위 정의 - 사망 시 자동 로드, 로드 실패 폴백, 격파 보스 미등장, 체력 불변식 보정
 
-**Goal:** 플레이어가 죽으면 즉시 마지막 세이브가 자동 로드되고(세이브가 없으면 현재 씬 재시작), 로드가 실패하면 세이브 파일을 건드리지 않은 채 메인메뉴로 복귀하며, 로드된 세이브의 보스 진행도에 따라 이미 격파한 보스는 등장하지 않고 체력값은 `0 < health <= maxHealth <= maxTotalHealth` 불변식으로 보정된다.
-**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10 (`15-CONTEXT.md` 결정 ID — 이 페이즈는 v2.0 REQ-ID 체계 밖의 시스템 작업이라 결정 ID로 추적한다)
-**Depends on:** Phase 14
-**Plans:** 2/4 plans executed
+> **문서화 갭 백필 (2026-09-19)**: 이 페이즈는 15-CONTEXT.md/15-01~04-PLAN.md/15-UAT.md/Check.md까지
+> 실제로 존재하고 구현도 대부분 끝났지만, ROADMAP.md에 `### Phase 15` 헤딩 자체가 누락돼 있었다.
+> Item 시스템 페이즈 추가 작업 중 번호 충돌로 발견되어 뒤늦게 채워 넣는다. **주의**: 아래 상태는
+> 소스 문서 기준 그대로 옮긴 것이며 완료 처리가 아니다 — 15-UAT.md가 `status: partial`이고
+> Play 모드 실측이 0/34건, BUG-007(씬 전환 후 InputHandler 유실, severity: major)이 미해결이다.
+
+**Goal:** 세이브 데이터가 **언제** 로드되는지(사망/로드 실패)와 로드가 **무엇까지** 복원하는지
+(보스 진행도/체력 불변식)를 확정한다. 플레이어 HP가 0이 되면 게임오버 화면 없이 즉시 마지막
+세이브가 로드되거나(세이브 없으면 현재 씬 재시작), 로드가 어느 단계에서 실패해도 메인메뉴로
+안전하게 복귀하며, 씬 로드 시 이미 격파된 보스는 각자 자기 ID로 조회해 스스로 등장하지 않고,
+저장된 체력값은 불변식(0 < health <= maxHealth <= maxTotalHealth)에 맞게 강제 보정된다.
+**Requirements**: D-01 ~ D-10 (15-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 11, Phase 14
+**Success Criteria** (what must be TRUE):
+  1. 플레이어 HP가 0이 되면 게임오버 화면·선택 단계 없이 즉시 마지막 세이브가 로드된다 (D-01).
+  2. 세이브 파일이 없는 상태(체크포인트 미활성화)에서 사망하면 메인메뉴가 아니라 현재 씬이
+     처음부터 재시작된다 (D-02).
+  3. `FallZone`은 무수정으로 남아 낙하는 데미지 + `PlayerRespawn.RespawnPosition()` 복귀만
+     수행한다 — 사망과 다른 층위의 페널티로 취급된다 (D-03, 의도적 미변경).
+  4. 로드가 어느 단계에서 실패해도(세이브 파일 손상 / 씬 미등록 / 로드 후 `PlayerStats.Instance`
+     null) 메인메뉴로 복귀하고, 세이브 파일은 지우거나 덮어쓰지 않는다 (D-04, D-05).
+  5. 씬 로드 시 각 보스가 자기 ID로 `SaveLoadManager.Instance.IsBossDefeated()`를 조회해
+     격파된 상태면 스스로 비활성화된다 — 로드 경로가 보스 목록을 순회하지 않는다 (D-06, D-07).
+  6. 로드된 체력값이 `0 < health <= maxHealth <= maxTotalHealth`를 만족하도록 강제 보정되며,
+     역전되거나 손으로 고친 값도 정상화된다 (D-08).
+  7. `Player.prefab`의 시작 `maxHealth`는 100, 성장 상한 `maxTotalHealth`는 200이다 (D-09).
+  8. `MapGimmickState`와 `Items`는 쓰기 훅이 아직 없으므로 이번 페이즈에서 스텁으로 유지된다
+     (D-10, 저장 측이 먼저 생겨야 복원을 논할 수 있음 — Phase 17~18이 `Items`를 채우는 후속).
+**Plans:** 4 plans
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 15-01, 15-02, 15-03 | yes |
+| 2 | 15-04 | no (Play 모드 검증 체크포인트) |
 
 Plans:
-- [x] 15-01-PLAN.md — PlayerStats 사망 자동 로드(D-01/D-02) + 체력 불변식 보정(D-08) + Player.prefab 체력값 확정(D-09)
-- [x] 15-02-PLAN.md — SaveLoadManager 로드 실패 5분기 메인메뉴 복귀(D-04) + 세이브 파일 무손상 보장(D-05)
-- [ ] 15-03-PLAN.md — 보스 3종 IsBossDefeated() 자가 제거 가드(D-06/D-07) + TutorialBoss 보스방 벽 해제
-- [ ] 15-04-PLAN.md — 정적 회귀 18항목 + Check.md 작성 + Unity Play 모드 실측 검증 (체크포인트)
+- [x] 15-01-PLAN.md — D-01/D-02/D-08/D-09를 `PlayerStats`/`Player.prefab`에 구현 (사망 시 자동 로드, 체력 불변식 보정, 기본 체력값)
+- [x] 15-02-PLAN.md — D-04/D-05를 `SaveLoadManager`에 구현 (로드 실패 5개 분기 → 메인메뉴 복귀, 세이브 파일 무손상 보존)
+- [x] 15-03-PLAN.md — D-06/D-07을 보스 스크립트 3종에 구현 (자가 제거 가드, `SaveLoadManager` 무수정)
+- [ ] 15-04-PLAN.md — 정적 회귀 검사(16 PASS/2 FAIL, 원인 플랜 특정됨) + Check.md Play 모드 체크리스트 34건 작성 — **Play 모드 실측 미완료, BUG-007 미해결로 미종결**
 
 ### Phase 16: 일정 간격 자동저장 - 플레이 중 주기적으로 현재 진행 상황을 자동 저장해 세이브 부재/장시간 미저장 구간을 없앤다
 
@@ -514,16 +546,22 @@ Plans:
 - [x] 19-01-PLAN.md — `Assets/Item/*.asset` → `Assets/Resources/Items/` 이동(GUID 보존) + `SaveData` 스키마 교체(`ItemSaveEntry`, `Items` 재타입, `SaveVersion` 3)
 - [x] 19-02-PLAN.md — `SaveLoadManager` 인벤토리 캐처/복원(`CaptureInventoryItems`/`ApplyInventoryFromSave`/`ResolveItemData`) + `Phase19/` 디버그 훅 + Play 모드 왕복 검증 체크포인트
 
-## Backlog
+### Phase 20: 중앙 집중형 오디오 시스템 및 AudioSource 풀링
 
-### Phase 999.1: 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (BACKLOG)
+**병합 메모(2026-09-24)**: 이 phase는 `20-audio-centralization` 브랜치에서 독립적으로 진행되어 `주창은`에 병합되었다. `AudioManager`/`Master.mixer`/`AudioCue` 코드는 이 병합으로 들어왔지만, **원래 계획된 `PersistentManagers` 통합(D-13, 아래 Depends 참고)은 아직 완료되지 않았다** — `주창은`의 `PersistentManagers.cs`는 BUG-007 수정용 MonoBehaviour+프리팹 구조를 그대로 유지했고, origin의 static Bootstrap 버전과 병합하지 않기로 결정했다(InputHandler 리팩토링이 커서 별도 검토 필요). 즉 **`AudioManager`가 현재 자동으로 부트스트랩되지 않을 수 있다** — Phase 20-06(Play 모드 체크포인트) 재실행 전에 `PersistentManagers`/`AudioManager` 배선을 반드시 재확인할 것.
 
 **Goal:** 자동 스폰 몬스터와 향후 공격·피격·스킬·보스 패턴 오디오 확장을 수용하도록, 자동 생성되는 영속 `AudioManager`가 BGM/SFX 재생 권한과 `AudioMixer`, 데이터 기반 `AudioCue`, 위치·추적 재생, `AudioSource` 풀, 동시 재생 제한·재트리거 쿨다운·우선순위를 중앙에서 소유한다. `EnvironmentManager`는 BGM `AudioSource`나 필터를 직접 조작하지 않고 환경 상태만 판정해 `AudioManager`에 음향 상태 변경을 요청하며, BUG-007에서 정리할 `PersistentManagers` 자동 부트스트랩 구조와 통합한다.
-**Requirements:** TBD
-**Plans:** 0 plans
+**Requirements**: D-01 ~ D-13 (`20-CONTEXT.md`의 잠금 결정이 이 phase의 사실상 요구사항 집합 — 별도 REQ-ID 없음)
+**Depends on:** Nothing formally — `EnvironmentManager`/`AudioManager` 기존 코드에 얹는 독립 작업. BUG-007(씬 전환 후 InputHandler 유실, `.planning/phases/15-load-timing-and-load-scope/bugs/BUG-007-inputhandler-lost-on-scene-transition.md`)이 도입한 `PersistentManagers` 부트스트랩 구조와의 통합은 **병합 시점에 보류됨**(위 병합 메모 참고).
+**Plans:** 6 plans (20-01~20-05 완료, 20-06 Play 모드 체크포인트는 PersistentManagers 통합 재검토 후 재실행 필요)
 
 Plans:
-- [ ] TBD (promote with $gsd-review-backlog when ready)
+- [x] 20-01-PLAN.md — AudioCue ScriptableObject + Master.mixer 에셋(Master>BGM/SFX/UI, 노출 파라미터 3종)
+- [x] 20-02-PLAN.md — AudioManager 볼륨을 AudioMixer dB로 전환 + SettingsData.UiVolume + SetEnvironmentState 신설, PlaySFX 제거
+- [x] 20-03-PLAN.md — 고정 크기(16) AudioSource 풀 + 우선순위 강탈 + Play 오버로드 3종 + Cue별 쿨다운
+- [x] 20-04-PLAN.md — PersistentManagers 부트스트랩(루트 DontDestroyOnLoad) + AudioManager 이관 + 씬 배치 AudioManager 제거 (origin 기준 — 병합 후 재검토 필요, 위 메모 참고)
+- [x] 20-05-PLAN.md — EnvironmentManager 오디오 소유권 이관(CP949 바이트 단위 편집)
+- [ ] 20-06-PLAN.md — Unity 배치모드 컴파일 게이트 + Assets/Audio/Check.md + Play 모드 체크포인트 — **PersistentManagers 통합 재확인 후 재실행 필요**
 
 ### Phase 21: 인벤토리 UI(슬롯 그리드 표시/토글), 키 바인딩(인벤토리 열기/닫기 등 입력 액션), 월드 드롭 아이템 상호작용 시 인벤토리로 자동 획득되는 UI 피드백까지 다루는 페이즈. Depends on Phase 18/19.
 
@@ -534,3 +572,5 @@ Plans:
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 21 to break down)
+
+## Backlog

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-09-24T00:00:00.000Z"
-last_activity: 2026-09-24 - Phase Status 표에 17/18/19(아이템 코어/인벤토리/세이브 연동, 전부 Complete) 및 15(In Progress) 반영 문서 동기화. 코드 변경 없음.
+last_updated: "2026-09-24T05:00:00.000Z"
+last_activity: 2026-09-24 - 로컬(Phase 17/18/19 아이템·인벤토리·세이브 연동 완료)과 원격(Phase 20 오디오 완료)을 merge로 통합. PersistentManagers.cs는 BUG-007 수정용 로컬 버전을 유지하기로 결정 — AudioManager 자동 부트스트랩 재배선이 후속 작업으로 필요(ROADMAP.md Phase 20 병합 메모 참고). Phase 21(인벤토리 UI/키바인딩) 신규 추가.
 progress:
-  total_phases: 13
-  completed_phases: 6
-  total_plans: 36
-  completed_plans: 30
-  percent: 83
+  total_phases: 21
+  completed_phases: 14
+  total_plans: 60
+  completed_plans: 54
+  percent: 90
 ---
 
 # GSD State
@@ -21,15 +21,21 @@ progress:
 
 ## Current Position
 
-Phase: 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS)
+Phase: 20 (audio-centralization) — MERGED, EXECUTING (PersistentManagers 재통합 필요 — 아래 워킹트리 리스크 참고)
+Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — COMPLETE (2/2 plans, Play 모드 실측 통과)
+Phase 18 (inventory-system) — COMPLETE (2/2 plans, UAT 7/7 PASS)
+Phase 19 (savedata-items) — COMPLETE (2/2 plans, Play 모드 왕복 검증 6/6 PASS)
 Phase 12 (camera-shake-on-hit) — EXECUTING (Task 3 Unity MCP 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 전환 마지막 피격만 수동 관찰 대기)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
-Plan: 3 of 3
-Status: Phase 16 검증 완료 — 29/29 PASS / 0 FAIL / 0 미검증 (Unity CLI 실측, Assets·ProjectSettings 0줄 변경)
-**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
-Last activity: 2026-09-14 - Phase 16 완료. 16-03 Task 2 Play 모드 실측 29/29 PASS (Unity CLI eval/console/capture_game_view)
+Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 비보스 핵심 통과, UI 일부·보스 회귀만 대기 (주창은 브랜치에서 구현, 병합으로 반영)
+Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
+Phase 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS, 주창은 브랜치에서 구현, 병합으로 반영)
+Plan: 20-06 (Play 모드 체크포인트, PersistentManagers 재검토 후 재실행 필요)
+Status: 2026-09-24 로컬↔원격 merge 완료. PersistentManagers.cs는 BUG-007 수정용 로컬(MonoBehaviour+프리팹) 버전 유지, origin의 static Bootstrap 버전은 폐기 — 그 결과 `AudioManager`가 현재 자동으로 부트스트랩되지 않을 가능성이 있음. Phase 20 재검증 전 `PersistentManagers`가 `AudioManager`를 실제로 생성/등록하는지부터 확인할 것.
+**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등)은 2026-09-08 커밋 `a9c427f`("feat: update save slots and main menu, remove unused scripts, add system docs")로 이미 정식 반영되어 해소됨 — 두 브랜치의 공통 조상에 포함된 상태였다. `.dead-code-backup/pre-cleanup-20260903-1430.zip`은 git 히스토리에 커밋된 적이 없어 이 저장소 상태와 무관. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)은 여전히 untracked — 용도 미확인. **신규**: `PersistentManagers.cs`가 로컬(BUG-007용) 버전으로 남아있어 `AudioManager`/`Master.mixer` 등록 경로가 끊겼을 수 있음 — 다음 세션에서 반드시 확인.
+Last activity: 2026-09-24 - 로컬 Phase 17/18/19(아이템·인벤토리·세이브)와 원격 Phase 20(오디오)을 실제 git merge로 통합. AudioManager.cs/EnvironmentManager.cs는 원격 버전 채택, PersistentManagers.cs/InputHandler.cs/GameStateManager.cs는 로컬(BUG-007) 버전 유지 — 두 시스템의 완전한 통합은 후속 세션 작업.
 
-Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완료)
+Progress: [█████████░] 90% (54/60 plans; Phase 20 Plan 06 PersistentManagers 재통합 후 Play 모드 재검증 대기)
 
 ## Phase Status
 
@@ -45,11 +51,13 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 | 12 | 피격 시 카메라 흔들림 (0/1 plans) | In Progress (Task 3 비보스 실측 통과, BUG-005 수정·재검증 완료, 사망 피격·보스 항목 대기) | - |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
 | 14 | 세이브 슬롯 확장 (슬롯 3개, 슬롯별 진행도) (2/3 plans) | In Progress (비보스 전부 통과 — 3슬롯 독립성 + Load 버튼 전 구간 실측, 체력 UI·보스 회귀만 대기) | - |
-| 15 | 로드 시점 및 로드 범위 정의 (2/4 plans) | In Progress (15-01/15-02 완료, 15-03 보스 가드·15-04 Play 모드 검증 대기) | - |
+| 15 | 로드 시점 및 로드 범위 정의 (3/4 plans) | In Progress (15-01/02/03 완료, 15-04 정적 회귀+Play 모드 검증 대기, BUG-007 미해결) | - |
 | 16 | 일정 간격 자동저장 (3/3 plans) | Complete (정적 회귀 22/22 대체 PASS, Play 모드 29/29 PASS, Assets·ProjectSettings 0줄 변경) | 2026-09-14 |
 | 17 | 아이템 코어: IItem + ItemData ScriptableObject (2/2 plans) | Complete (배치모드 임포트 0 error, Play 모드 실측 통과, 데이터 레이어 전용) | 2026-09-20 |
 | 18 | 인벤토리 시스템 (2/2 plans) | Complete (UAT 7/7 PASS — TryAddItem/WorldItem 픽업/UseEffect/풀 인벤토리 보호 전부 실측) | 2026-09-21 |
 | 19 | 아이템 저장/로드 연동 (2/2 plans) | Complete (Play 모드 왕복 검증 6/6 PASS — 저장→재시작→로드 아이템 복원 확인) | 2026-09-21 |
+| 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (5/6 plans) | In Progress (Unity 컴파일 PASS, PersistentManagers 재통합 필요 — 병합 메모 참고, 20-06 Play 모드 실측 대기) | - |
+| 21 | 인벤토리 UI + 키 바인딩 (0 plans) | Not Started (계획 전, `/gsd:plan-phase 21` 대기) | - |
 
 ## Performance Metrics
 
@@ -65,6 +73,7 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 | Phase 11 P03 | 15min | 3 tasks | 5 files |
 | Phase 15 P01 | 6min | 3 tasks | 2 files |
 | Phase 15 P02 | 17min | 2 tasks | 1 files |
+| Phase 17 P01 | 25min | 2 tasks | 9 files |
 
 ## Performance Metrics
 
@@ -180,13 +189,20 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 - Phase 14 added (구): 키바인딩(Keybinding)을 keybind.json으로 저장하고 SaveLoadManager에 위임 — **폐기됨(2026-08-27)**: quick task `260827-h5y`가 키바인딩을 포함한 설정 전체를 `setting.json`(SettingsData) 통합 방식으로 먼저 구현해, keybind.json 전용 설계를 대체함. 구현 커밋 2개(`36f76af`/`0c51c26`)는 원격 통합 결정에 따라 rebase로 제거, 로드맵/플래닝 문서에서도 phase 자체를 삭제.
 - Phase 50 added (임시 번호, 다른 기기와 동기화 후 재번호 필요 - 그 기기는 이미 Phase 13까지 완료함): 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시 — **재번호 완료(2026-08-27)**: 위 구 Phase 14가 폐기되며 번호가 비어, 이 phase를 14로 재번호(폴더 `.planning/phases/50-2-3/` → `.planning/phases/14-save-slot-expansion/`)
 - Phase 15 added: 로드 시점 및 로드 범위 정의 — 세이브 데이터를 언제 로드할지(플레이어 사망/체크포인트 부활/이어하기)와 로드 시 어디까지 복원할지(보스 진행도·맵 기믹·체력 불변식)를 확정한다. BUG-002의 로드 측 항목(역전된 저장 데이터 보정)과 BUG-003의 보스 진행도 복원 의존성을 이 페이즈로 이관.
-- Phase 16 added: 일정 간격 자동저장 — Phase 15 논의 중 "세이브가 없어 로드할 게 없는 상황"을 줄이자는 취지로 제안됨. 저장 시점을 늘리는 새 기능이라 Phase 15(로드 범위)와 분리해 별도 페이즈로 추가.
+- Phase 16 added: 일정 간격 자동저장 — Phase 15 논의 중 "세이브가 없어 로드할 게 없는 상황"을 줄이자는 취지로 제안됨. 저장 시점을 늘리는 새 기능이라 Phase 15(로드 범위)와 분리해 별도 페이즈로 추가. (주창은 브랜치에서 진행, 3/3 완료 후 이 병합으로 Item에 반영)
+- Phase 17 added (Item 브랜치, 최초 15로 잘못 생성됨 → 즉시 재번호, 병합 시 주창은의 Phase 16과 번호가 겹쳐 17로 재번호): 아이템 코어 — `IItem` 인터페이스(`Item` 브랜치에서 선행 완료, `Assets/Item/Script/IItem.cs`) + `ItemData` ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터). 데이터 레이어만, UI 제외. **재번호 사유**: `.planning/phases/15-load-timing-and-load-scope/`가 이미 완료된 상태(15-01~15-04 SUMMARY.md 존재, `PlayerStats.cs`/`SaveLoadManager` 사망 시 로드 처리)로 실재했으나 ROADMAP.md에 `### Phase 15` 헤딩이 누락되어 있었음 — `gsd-tools phase add`가 ROADMAP.md 헤딩만 스캔해 다음 번호를 15로 잘못 계산. 폴더/헤딩을 15→16으로 git mv 및 수정.
+- Phase 18 added: 인벤토리 시스템 — 고정 슬롯 수 + 스택 기반 자료구조, 추가/제거/사용 API, `PlayerInteraction` 연동 월드 아이템 획득. Depends on Phase 17.
+- Phase 19 added: 아이템 저장/로드 연동 — `SaveData.Items`(`List<string>` 스텁)를 `List<ItemSaveEntry>{itemId,count}`로 교체, `SaveVersion` 마이그레이션, `SaveLoadManager` 인벤토리 캡처/복원 로직. Depends on Phase 18 및 기존 `SaveLoadManager`.
+- **누락 백필 완료**: `.planning/phases/15-load-timing-and-load-scope/`(Phase 11/14 의존)의 `### Phase 15` 헤딩을 ROADMAP.md에 추가함. **주의**: 완료된 페이즈가 아님 — 15-UAT.md `status: partial`, Play 모드 실측 0/34건 미검증, BUG-007(씬 전환 후 InputHandler 유실, major)이 미해결 상태로 남아 있음. 15-04-PLAN.md(Play 모드 체크포인트, autonomous:false)가 미종결이라 Plans 체크박스도 미완료로 표시함.
+- Phase 17 Plan 01: `ItemData.cs`의 D-06 설명 주석("No displayName / icon / description...")이 같은 플랜의 금지-필드 grep 인수 기준과 리터럴로 충돌해("displayName"/"icon"/"description" 자체가 매치됨) "No name/image/blurb fields..."로 재작성 — Phase 9/10/11의 DontDestroyOnLoad/deadzoneHeight/async-await 자기모순 게이트와 동일 계열. 필드/로직 변경 없음 (Phase 17 Plan 1)
+- Phase 17 Plan 01 실행 시 배정된 워크트리(`worktree-agent-ab70cb16e75fe20bc`)가 `Item` 브랜치보다 120 커밋 뒤처진 무관한 브랜치를 체크아웃 중이었음(플랜/`Assets/Item/` 트리 전부 부재) — 워크트리 브랜치가 `Item`의 순수 조상(고유 커밋 0개)이라 안전하게 `Item`(`79caaf2`)로 fast-forward 머지해 해결. `Assets/Item.meta`/`Script.meta`/`IItem.cs.meta` 3개는 메인 체크아웃에만 untracked로 존재해 절대경로로 바이트 그대로 복사(내용 무수정) 후 Task 1에 포함 (Phase 17 Plan 1)
+- **2026-09-21 병합**: `Item` 브랜치의 Phase 16(아이템 코어)/17(인벤토리)/18(아이템 세이브·로드)를 17/18/19로 재번호한 뒤 `주창은` 브랜치(Phase 14 슬롯 배선, Phase 15 완료 처리, Phase 16 구간 자동저장 COMPLETE, BUG-009 수정, Phase 999.1 오디오 중앙화 백로그)를 병합. 코드 파일은 겹치지 않아 충돌 없었고, `.planning/ROADMAP.md`/`STATE.md` 서술만 수동으로 합침. **주의**: 이 병합은 원격(`origin/주창은`) 쪽 히스토리에서 일어난 것이며, 로컬 `주창은`은 이 시점에 별도로 자체 Phase 17/18/19 구현을 진행 중이었다 — 두 히스토리는 2026-09-24 실제 git merge로 재통합됨(아래 참고).
+- Phase 20 added: Phase 999.1(중앙 집중형 오디오 시스템 및 AudioSource 풀링) 백로그를 정식 phase로 승격. `20-audio-centralization` 브랜치에서 진행. `## Backlog` 섹션은 이 승격으로 비어 다시 제거함. Requirements는 아직 TBD — discuss-phase/plan-phase 미착수 (0 plans).
 - Phase 21 added: 인벤토리 UI(슬롯 그리드 표시/토글), 키 바인딩(인벤토리 열기/닫기 등 입력 액션), 월드 드롭 아이템 상호작용 시 인벤토리로 자동 획득되는 UI 피드백. Depends on Phase 18(Inventory)/19(저장·로드). (gsd-tools가 999.1 백로그 정수부를 잘못 집어 1000으로 산출한 것을 21로 수동 정정 — 실제 마지막 완료 페이즈는 19.)
 
 ## Session Continuity
 
 - 2026-09-14: Phase 16 COMPLETE (16-01/02/03). 16-03 Task 2 Play 모드 실측 29/29 PASS via Unity CLI (commit 6703d34); B(메인메뉴 미발동)·E(수동 저장 무회귀) 포함 전 항목 실측. Assets·ProjectSettings 0줄 변경, 세이브 SHA-256 복구 확인. 다음 Play 모드 검증 전에 Console 의 Error Pause 를 끌 것 — BUG-008 예외로 Play 가 자동 정지한다. 상세는 `.planning/phases/16-interval-autosave/.continue-here.md`.
-
 
 - Last session: Completed 15-02-PLAN.md (2026-09-10); next implementation target is 15-03-PLAN.md.
 - 이전 마일스톤: v1.0 보스_물괴물_구현 (Phase 1~4 완료, 2026-04-16)
@@ -206,4 +222,7 @@ Progress: [████████░░] 83% (30/36 plans; Phase 16: 3/3 완�
 - 마지막 세션: Phase 11 Play 모드 검증 부분 완료(체크포인트/로드/새게임 확인, 보스 4종 격파 저장은 사용자가 추후 확인 예정) + Phase 12(피격 시 카메라 흔들림) 로드맵 추가 + discuss-phase 완료(2026-08-11, `12-CONTEXT.md`/`12-DISCUSSION-LOG.md`). 결정 요약: 플레이어 피격 시만(D-01), `PlayerStats.TakeDamage`에서 `CameraController.Instance.Shake()` 호출(D-02), 고정 강도 랜덤 오프셋 감쇠(D-04~D-06), 보스존 포함 항상 흔들림 + 경계 클램프 이후 최종 적용(D-07/D-08), Inspector 노출은 `shakeMagnitude`/`shakeDuration` 2개만(D-09). 다음 재개 지점: `/gsd:plan-phase 12`
 - 마지막 세션(2026-08-27): quick task `260827-h5y`(PlayerPrefs → `setting.json` 전환) Task 1~3 완료(commits `ea05191`/`d42ea6f`/`ef745bb`/`0dfcd0d`), Task 4(Unity 컴파일 + 저장 버튼 OnClick 연결 + Play 모드 실측)는 사용자 확인 대기 중. 별도로 세이브 슬롯 확장을 Phase 50(임시 번호 — 다른 기기가 이미 Phase 13까지 진행해서 충돌 방지용으로 큰 번호 임시 예약, 동기화 후 재번호 필요)으로 로드맵에 추가하고 discuss-phase 완료(`50-CONTEXT.md`/`50-DISCUSSION-LOG.md`, 2026-08-27 재번호 후 `.planning/phases/14-save-slot-expansion/14-CONTEXT.md`/`14-DISCUSSION-LOG.md`로 이동). 결정 요약: 이어하기는 항상 슬롯 선택 화면(D-01), 새시작은 빈 슬롯 있으면 자동 시작·다 차있으면 슬롯 화면으로(D-02/D-03), 덮어쓰기는 항상 확인창(D-04/D-05), 슬롯별 별도 파일(D-06, 기존 save.json 유실 금지가 절대 기준·정확한 마이그레이션 방식은 연구 단계에서 결정). 다음 재개 지점: quick task Task 4 사용자 검증 완료 후, `/gsd:plan-phase 14`
 - 마지막 세션(2026-08-27): Phase 14 `/gsd:plan-phase 14` 완료 — `14-UI-SPEC.md` + `14-01/02/03-PLAN.md` 3개 작성(Wave 1 `14-01` SaveLoadManager 슬롯화, Wave 2 `14-02` SlotSelectPanel/OverwriteConfirmPanel 신규, Wave 3 `14-03` MainMenuUI 재배선+씬 배치, 자율/자율/비자율). 같은 날 원격 `origin/주창은`의 `setting.json` 통합 커밋을 머지(`83d082d`)하고 구 Phase 14(keybind.json)를 폐기·제거(`b6b41bc`, `4392d3e`). **`14-UI-SPEC.md`/`14-01/02/03-PLAN.md`와 이를 반영한 `ROADMAP.md` 변경분은 이 시점 이후 커밋되지 않고 워킹트리에 미커밋 상태로 남아 있음** — 코드 실행은 아직 0%. 다음 재개 지점: 미커밋 산출물 커밋 여부 결정 후 `/gsd:execute-phase 14` (Wave 1 `14-01`부터)
-- **2026-09-24 문서 동기화**: `Item` 브랜치에서 진행되어 2026-09-21 병합된 Phase 17(아이템 코어)/18(인벤토리)/19(세이브 연동)이 전부 Play 모드 실측까지 완료된 상태였으나 `ROADMAP.md` 체크박스와 이 STATE.md Phase Status 표에 반영되지 않고 있던 것을 확인 — 체크박스 `[x]` 갱신 및 표 3행(17/18/19) 추가로 동기화, Phase 15도 실제 상태(2/4 plans, In Progress)로 표에 추가. **인벤토리 UI/키바인딩은 Phase 18-CONTEXT.md D-07에서 명시적으로 범위 밖("추후 UI phase")으로 확정된 상태이며 아직 phase 번호도 배정되지 않음** — 현재 완료된 것은 데이터/로직 레이어(Inventory/WorldItem/세이브 연동)뿐이고 화면 표시·키 입력은 미착수. 별도로 `20-audio-centralization` 브랜치(오디오 중앙화, Phase 999.1을 20으로 승격해 별 브랜치에서 진행 중)의 Play 모드 라이브 체크를 Unity CLI로 수행해 구조/볼륨/환경필터/씬전환 지속성 10개 항목 전부 통과 확인(사람의 청각/시각 확인만 미대체). 코드 변경 없음, 문서만 갱신.
+- 마지막 세션(2026-09-20): Completed 17-01-PLAN.md — 프로젝트 최초 ScriptableObject `ItemData`(`Assets/Item/Script/ItemData.cs`) 신규, `IItem` 직접 구현, `id`/`type`/`effectType`/`amount` 4필드, `UseEffect`가 Consumable/Heal에서 기존 `PlayerStats.Heal(float)`을 널 가드 없이 재사용하고 Progression은 no-op, 에디터 전용 `ContextMenu` 검증 훅 포함. 예시 `.asset` 2개(`HealthPotion`=Consumable/Heal/20, `AncientKey`=Progression) `Assets/Item/`에 손수 작성, 둘 다 `ItemData.cs.meta`의 guid(`501b19c5008706d0a3f2bf69aacf52f6`)를 참조. commits `f53e5e9`/`33a3113`. 정적 회귀 검사(플랜 자체 6항목) 전부 PASS. Unity 에디터 실임포트/컴파일/Play 모드 검증은 계획대로 Plan 17-02로 이연됨. 다음 재개 지점: `/gsd:execute-phase` 17-02 (Unity 배치모드 임포트 게이트 + Check.md + Play 모드 체크포인트)
+- 마지막 세션(2026-09-20): 17-02-PLAN.md Task 1~2 완료. Task 1: Unity 6000.3.10f1 배치모드 임포트(`-batchmode -quit -nographics -projectPath`) 실행, 종료 코드 0, `Assets/` 경로 `error CS` 0건·`Assets/Item` 임포트 에러 0건·missing script 0건 전부 확인. `git status --porcelain Assets/Item` 빈 출력 — 17-01이 손으로 쓴 YAML이 Unity 표준 재직렬화 결과와 완전히 일치해 커밋할 변경 없음(정상 결과). `ProjectSettings/EditorBuildSettings.asset` 개행 정규화(내용 diff 없음)만 범위 밖에서 관측되어 커밋하지 않고 Check.md에 기록. Task 2: `Assets/Item/Check.md`(+ `.meta`, guid `05511fb05942d6634e84eccc8a623d1f`) 신규 작성 — 정적 회귀 결과 8항목 전부 PASS + Play 모드 체크리스트 10항목(미체크) + 임포트 부작용 절 + 알려진 한계. commit `a47a39a`. Task 3(Play 모드 실측 체크포인트, `checkpoint:human-verify` blocking)에서 정지 — 사용자가 `Assets/Item/Check.md`의 10항목을 Unity Play 모드에서 직접 확인하고 결과를 알려줘야 함. 다음 재개 지점: 사용자의 Play 모드 검증 결과 수신 후 Task 3 완료(Check.md 체크박스 갱신 + 결과 기록 절 채움) → 17-02-SUMMARY.md 작성 → Phase 17 완료 처리
+- **2026-09-24 문서 동기화**: `Item` 브랜치에서 진행되어 2026-09-21 병합된 Phase 17(아이템 코어)/18(인벤토리)/19(세이브 연동)이 전부 Play 모드 실측까지 완료된 상태였으나 `ROADMAP.md` 체크박스와 이 STATE.md Phase Status 표에 반영되지 않고 있던 것을 확인 — 체크박스 `[x]` 갱신 및 표 3행(17/18/19) 추가로 동기화, Phase 15도 실제 상태(3/4 plans, In Progress)로 표에 추가. **인벤토리 UI/키바인딩은 Phase 18-CONTEXT.md D-07에서 명시적으로 범위 밖("추후 UI phase")으로 확정된 상태이며 아직 phase 번호도 배정되지 않음** — 현재 완료된 것은 데이터/로직 레이어(Inventory/WorldItem/세이브 연동)뿐이고 화면 표시·키 입력은 미착수. 별도로 `20-audio-centralization` 브랜치(오디오 중앙화, Phase 999.1을 20으로 승격해 별 브랜치에서 진행 중)의 Play 모드 라이브 체크를 Unity CLI로 수행해 구조/볼륨/환경필터/씬전환 지속성 10개 항목 전부 통과 확인(사람의 청각/시각 확인만 미대체).
+- **2026-09-24 실제 merge**: 위 문서 동기화 직후 `git push` 시도 중 로컬 `주창은`(Phase 17/18/19 자체 구현)과 원격 `origin/주창은`(Phase 17 별도 구현 + Phase 20 오디오 완료, Phase 18/19는 빈 폴더만 존재)이 15 vs 38 커밋으로 크게 갈라져 있음을 발견. `git merge origin/주창은` 실행 — 문서(ROADMAP.md/STATE.md)와 Phase 17 계획 문서(`17-*.md`, `Assets/Item/Check.md`)는 로컬(더 완전한 버전)을 채택, `AudioManager.cs`/`EnvironmentManager.cs`는 원격(실측 검증된 Phase 20) 버전을 채택. **`PersistentManagers.cs`/`PersistentManagers.cs.meta`/`InputHandler.cs`/`GameStateManager.cs`는 로컬(BUG-007 입력 유실 수정용 MonoBehaviour+프리팹 구조) 버전을 그대로 유지하고 원격의 static Bootstrap 버전은 폐기** — origin의 `AudioManager`가 원래 그 static Bootstrap을 통해 자동 등록됐으므로, 이 결정으로 **`AudioManager`가 더 이상 자동으로 부트스트랩되지 않을 수 있다**. 두 구조의 완전한 통합(InputHandler 267줄 리팩토링 검토 포함)은 의도적으로 다음 세션으로 미룸 — 사용자가 "지금은 단순 충돌만 해결, InputHandler/PersistentManagers/GameStateManager는 로컬 버전 유지"를 명시적으로 선택함. 다음 재개 지점: `PersistentManagers.cs`가 `AudioManager`를 실제로 생성하는지 확인하고, 필요하면 로컬의 `Bootstrap()`에 `AudioManager` 컴포넌트 추가 배선.
