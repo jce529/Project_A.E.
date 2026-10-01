@@ -25,12 +25,14 @@ public class SpiritController : BossController
     [Range(0.1f, 3f)] public float StealthDuration = 0.5f;
     [Range(1f, 10f)] public float MinTeleportRadius = 3f;
     [Range(1f, 15f)] public float MaxTeleportRadius = 6f;
+    public RuntimeAnimatorController Stage2AnimController;
 
     [Header("Detection")]
     public LayerMask PlayerLayer; // 에디터에서 설정 가능하도록 노출
 
     public bool IsCharging { get; private set; }
     private bool _hasHitPlayerThisCharge;
+    private bool _dying;
 
     public bool IsStage2 { get; private set; } = false;
     public bool IsDummy => (Stats as SpiritStats)?.IsDummy ?? false;
@@ -46,10 +48,32 @@ public class SpiritController : BossController
 
     public void SetVelocity(Vector2 vel) => _rb.linearVelocity = vel;
 
+    private bool CanAnimate => Anim != null && Anim.runtimeAnimatorController != null;
+
+    public void PlayAnim(string trigger)
+    {
+        if (CanAnimate) Anim.SetTrigger(trigger);
+    }
+
+    private void PlayHitAnim() => PlayAnim("Hit");
+
+    protected override void Start()
+    {
+        base.Start();
+        if (Stats != null) Stats.OnDamageTaken += PlayHitAnim;
+    }
+
+    protected override void OnDestroy()
+    {
+        if (Stats != null) Stats.OnDamageTaken -= PlayHitAnim;
+        base.OnDestroy();
+    }
+
     public void OnStage2Trigger()
     {
         if (IsStage2) return;
         IsStage2 = true;
+        if (Anim != null && Stage2AnimController != null) Anim.runtimeAnimatorController = Stage2AnimController;
         ChangeState(new Stage2CombatState());
     }
 
@@ -71,9 +95,52 @@ public class SpiritController : BossController
         IsHeavyComboInProgress = false;
     }
 
+    public void BeginDeath()
+    {
+        if (_dying) return;
+        _dying = true;
+        StopAllCoroutines();
+        IsHeavyComboInProgress = false;
+        SetCharging(false);
+        StopMove();
+
+        if (!CanAnimate)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        float length = 0f;
+        foreach (var clip in Anim.runtimeAnimatorController.animationClips)
+        {
+            if (clip != null && clip.name == "WaterSpirit_Death") { length = clip.length; break; }
+        }
+
+        if (length <= 0f)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        PlayAnim("Death");
+        StartCoroutine(DeactivateAfter(length));
+    }
+
+    private System.Collections.IEnumerator DeactivateAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        gameObject.SetActive(false);
+    }
+
     protected override void Update()
     {
+        if (_dying) return;
         base.Update();
+        if (CanAnimate)
+        {
+            Anim.SetBool("Move", _rb.linearVelocity.sqrMagnitude > 0.01f);
+            Anim.SetBool("Groggy", CurrentState is GroggyState);
+        }
         // 상태 인터셉트 로직 유지
         if (CurrentState is CombatState && !(CurrentState is SpiritCombatState) && !(CurrentState is Stage2CombatState))
         {
