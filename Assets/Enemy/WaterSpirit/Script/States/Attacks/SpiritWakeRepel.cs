@@ -14,6 +14,7 @@ public class SpiritWakeRepel : IAttackStrategy
     private IEnumerator WakeRepelRoutine(BossController boss)
     {
         // 깨어나는 딜레이 (취약 종료 직전 짧은 예고)
+        if (boss is SpiritController spirit) spirit.PlayAnim("Repel");
         yield return new WaitForSeconds(0.4f);
         new SpiritRepel().ExecuteAttack(boss);
     }
