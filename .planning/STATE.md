@@ -21,7 +21,7 @@ progress:
 
 ## Current Position
 
-Phase: 20 (audio-centralization) — MERGED, EXECUTING (PersistentManagers 재통합 필요 — 아래 워킹트리 리스크 참고)
+Phase: 20 (audio-centralization) — MERGED, EXECUTING (PersistentManagers 경로 정상 확인 2026-10-01, 20-06 수동 UI 확인 2건 대기)
 Phase 17 (iitem-itemdata-scriptableobject-id-useeffect-ui) — COMPLETE (2/2 plans, Play 모드 실측 통과)
 Phase 18 (inventory-system) — COMPLETE (2/2 plans, UAT 7/7 PASS)
 Phase 19 (savedata-items) — COMPLETE (2/2 plans, Play 모드 왕복 검증 6/6 PASS)
@@ -30,12 +30,12 @@ Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Ass
 Phase 14 (save-slot-expansion) — 14-01/02 완료(슬롯화 API + 슬롯 UI), 14-03(MainMenu 배선/정적 회귀/Play 검증)은 비보스 핵심 통과, UI 일부·보스 회귀만 대기 (주창은 브랜치에서 구현, 병합으로 반영)
 Phase 15 (load-timing-and-load-scope) — 15-01/02/03 구현 완료, 15-04(Play 모드 검증)는 미종결(2026-09-19 확인: ROADMAP.md 헤딩 누락 상태로 방치돼 있었음, 백필함). 15-UAT.md `status: partial`, BUG-007(씬 전환 후 InputHandler 유실, major) 미해결.
 Phase 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS, 주창은 브랜치에서 구현, 병합으로 반영)
-Plan: 20-06 (Play 모드 체크포인트, PersistentManagers 재검토 후 재실행 필요)
-Status: 2026-09-24 로컬↔원격 merge 완료. PersistentManagers.cs는 BUG-007 수정용 로컬(MonoBehaviour+프리팹) 버전 유지, origin의 static Bootstrap 버전은 폐기 — 그 결과 `AudioManager`가 현재 자동으로 부트스트랩되지 않을 가능성이 있음. Phase 20 재검증 전 `PersistentManagers`가 `AudioManager`를 실제로 생성/등록하는지부터 확인할 것.
-**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등)은 2026-09-08 커밋 `a9c427f`("feat: update save slots and main menu, remove unused scripts, add system docs")로 이미 정식 반영되어 해소됨 — 두 브랜치의 공통 조상에 포함된 상태였다. `.dead-code-backup/pre-cleanup-20260903-1430.zip`은 git 히스토리에 커밋된 적이 없어 이 저장소 상태와 무관. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)은 여전히 untracked — 용도 미확인. **신규**: `PersistentManagers.cs`가 로컬(BUG-007용) 버전으로 남아있어 `AudioManager`/`Master.mixer` 등록 경로가 끊겼을 수 있음 — 다음 세션에서 반드시 확인.
+Plan: 20-06 (Play 모드 체크포인트 — 2026-10-01 Unity CLI 실측 8/10 PASS, 7번 배경색·10번 일시정지 메뉴 UI는 수동 확인 대기)
+Status: 2026-09-24 로컬↔원격 merge 완료. PersistentManagers.cs는 BUG-007 수정용 로컬(MonoBehaviour+프리팹) 버전 유지, origin의 static Bootstrap 버전은 폐기. **2026-10-01 확인 결과**: 프리팹이 `AudioManager`를 자식으로 이미 포함해 부트스트랩 경로는 끊기지 않았고, Play 모드에서 AudioManager 1개·풀 16개·BGMSource·씬 전환 생존까지 통과(`Assets/Audio/Check.md` 참고).
+**워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등)은 2026-09-08 커밋 `a9c427f`("feat: update save slots and main menu, remove unused scripts, add system docs")로 이미 정식 반영되어 해소됨 — 두 브랜치의 공통 조상에 포함된 상태였다. `.dead-code-backup/pre-cleanup-20260903-1430.zip`은 git 히스토리에 커밋된 적이 없어 이 저장소 상태와 무관. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)은 여전히 untracked — 용도 미확인. `PersistentManagers`→`AudioManager`/`Master.mixer` 등록 경로는 2026-10-01 확인으로 정상(위 Status 참고). **신규(2026-10-01)**: `PauseMenuPanel`/`ClearPanel`의 `UIPanelProperties` Missing Script는 6월 메뉴 리팩토링(`ad0e0ba`)에서 삭제된 스크립트의 잔재(코드 참조 없음, 씬 9개에 잔존) — Remove Component로 정리 가능. 2스테이지 물의 정령 보스는 어느 브랜치에도 씬/프리팹이 없음(5/17 `InGame.unity`에만 존재했다가 5/20 씬 정리 때 사라짐).
 Last activity: 2026-09-24 - 로컬 Phase 17/18/19(아이템·인벤토리·세이브)와 원격 Phase 20(오디오)을 실제 git merge로 통합. AudioManager.cs/EnvironmentManager.cs는 원격 버전 채택, PersistentManagers.cs/InputHandler.cs/GameStateManager.cs는 로컬(BUG-007) 버전 유지 — 두 시스템의 완전한 통합은 후속 세션 작업.
 
-Progress: [█████████░] 90% (54/60 plans; Phase 20 Plan 06 PersistentManagers 재통합 후 Play 모드 재검증 대기)
+Progress: [█████████░] 90% (54/60 plans; Phase 20 Plan 06 Play 모드 실측 8/10 PASS, 수동 UI 확인 2건 대기)
 
 ## Phase Status
 
@@ -56,7 +56,7 @@ Progress: [█████████░] 90% (54/60 plans; Phase 20 Plan 06 Pe
 | 17 | 아이템 코어: IItem + ItemData ScriptableObject (2/2 plans) | Complete (배치모드 임포트 0 error, Play 모드 실측 통과, 데이터 레이어 전용) | 2026-09-20 |
 | 18 | 인벤토리 시스템 (2/2 plans) | Complete (UAT 7/7 PASS — TryAddItem/WorldItem 픽업/UseEffect/풀 인벤토리 보호 전부 실측) | 2026-09-21 |
 | 19 | 아이템 저장/로드 연동 (2/2 plans) | Complete (Play 모드 왕복 검증 6/6 PASS — 저장→재시작→로드 아이템 복원 확인) | 2026-09-21 |
-| 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (5/6 plans) | In Progress (Unity 컴파일 PASS, PersistentManagers 재통합 필요 — 병합 메모 참고, 20-06 Play 모드 실측 대기) | - |
+| 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (5/6 plans) | In Progress (Unity 컴파일 PASS, PersistentManagers 경로 정상, 20-06 Play 모드 실측 8/10 PASS — 7번 배경색·10번 메뉴 UI 수동 확인 대기) | - |
 | 21 | 인벤토리 UI + 키 바인딩 (0 plans) | Not Started (계획 전, `/gsd:plan-phase 21` 대기) | - |
 
 ## Performance Metrics
