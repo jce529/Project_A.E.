@@ -452,7 +452,7 @@ Plans:
 **Goal:** 물의 정령 보스가 상태(Idle/Move/Charge/Repel/Clone/Ranged/Stealth/Hit/Groggy/Death)에 맞는 애니메이션을 재생하고, 2단계 진입 시 Stage2 오버라이드 컨트롤러로 교체되어 2단계용 스프라이트가 재생된다. 로직·상태머신의 기존 동작은 회귀 없이 유지된다.
 **Requirements**: TBD
 **Depends on:** Phase 16
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 **Already done (에셋 단계, 2026-10-01, Unity CLI):** 시트 10종 균일 격자 재슬라이스(PPU 600, 피벗=콜라이더 중심), `Assets/Enemy/WaterSpirit/Animations/` 에 클립 19개 + `WaterSpirit.controller`(Bool: Move/Groggy, Trigger: Charge/Repel/Clone/Ranged/Stealth/Hit/Death) + `WaterSpirit_Stage2.overrideController`, 프리팹 Animator 연결·틴트 흰색 초기화. 투사체/이펙트 스프라이트는 범위 외.
 **Remaining scope:** SpiritController 및 공격 상태의 `Anim.SetTrigger/SetBool` 호출 연동(WaterMonster 패턴 참고), 2단계 진입 시 `runtimeAnimatorController` 교체, Play 모드 검증.
 **Constraint 변경:** v2.0 "애니메이션 제외" 제약의 예외 페이즈(STATE.md의 'v3.0+ 연동 예정' 항목을 앞당김).
