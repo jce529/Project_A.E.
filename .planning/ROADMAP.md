@@ -447,6 +447,19 @@ Plans:
 - [x] 16-02-PLAN.md — AutoSaveNotice 신규(런타임 생성 우하단 '자동 저장됨' 라벨, 1.2초 유지 + 0.6초 페이드아웃, D-10) + 타이머 연결
 - [x] 16-03-PLAN.md — Check.md/정적 회귀 기록(원문 18/22, 명세 보정 22/22 PASS) + Unity Play 모드 실측 29/29 PASS (B 메인메뉴 미발동·E 수동 저장 무회귀 포함, Assets 0줄 변경)
 
+### Phase 17: 정령 보스 애니메이션 연동 - WaterSpirit 프리팹에 연결된 애니메이션 에셋을 SpiritController/공격 상태 로직과 연동한다
+
+**Goal:** 물의 정령 보스가 상태(Idle/Move/Charge/Repel/Clone/Ranged/Stealth/Hit/Groggy/Death)에 맞는 애니메이션을 재생하고, 2단계 진입 시 Stage2 오버라이드 컨트롤러로 교체되어 2단계용 스프라이트가 재생된다. 로직·상태머신의 기존 동작은 회귀 없이 유지된다.
+**Requirements**: TBD
+**Depends on:** Phase 16
+**Plans:** 1/4 plans executed
+**Already done (에셋 단계, 2026-10-01, Unity CLI):** 시트 10종 균일 격자 재슬라이스(PPU 600, 피벗=콜라이더 중심), `Assets/Enemy/WaterSpirit/Animations/` 에 클립 19개 + `WaterSpirit.controller`(Bool: Move/Groggy, Trigger: Charge/Repel/Clone/Ranged/Stealth/Hit/Death) + `WaterSpirit_Stage2.overrideController`, 프리팹 Animator 연결·틴트 흰색 초기화. 투사체/이펙트 스프라이트는 범위 외.
+**Remaining scope:** SpiritController 및 공격 상태의 `Anim.SetTrigger/SetBool` 호출 연동(WaterMonster 패턴 참고), 2단계 진입 시 `runtimeAnimatorController` 교체, Play 모드 검증.
+**Constraint 변경:** v2.0 "애니메이션 제외" 제약의 예외 페이즈(STATE.md의 'v3.0+ 연동 예정' 항목을 앞당김).
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 17 to break down)
+
 ## Backlog
 
 ### Phase 999.1: 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (BACKLOG)

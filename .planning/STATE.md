@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-09-14T10:50:00.000Z"
-last_activity: 2026-09-14 - Phase 16 COMPLETE; 16-03 Task 2 Play mode verification 29/29 PASS via Unity CLI
+last_updated: "2026-10-01T00:55:13.098Z"
+last_activity: 2026-10-01
 progress:
-  total_phases: 13
-  completed_phases: 7
-  total_plans: 36
-  completed_plans: 31
+  total_phases: 18
+  completed_phases: 10
+  total_plans: 52
+  completed_plans: 43
   percent: 86
 ---
 
@@ -21,13 +21,13 @@ progress:
 
 ## Current Position
 
-Phase: 16 (interval-autosave) — COMPLETE (3/3 plans, Play 모드 29/29 PASS)
+Phase: 17 (spirit-boss-animation-integration) — EXECUTING
 Phase 12 (camera-shake-on-hit) — COMPLETE (1/1 plans, 2026-09-29 Unity CLI Play 모드 실측 통과; 경계 피격·동적 오프셋/피킹·체감 4항목은 수동 확인 백로그, 보스 구역 진폭 ~1.4배 관찰)
 Phase 13 (codebase-cleanup-audit) — COMPLETE (5/5 plans, 보고서 전용, Assets 0줄 변경) + 후속 정리 라운드 COMPLETE (D-07/D-08 고위험 포함 전량 처리, 2026-08-20)
-Plan: 3 of 3
-Status: Phase 16 검증 완료 — 29/29 PASS / 0 FAIL / 0 미검증 (Unity CLI 실측, Assets·ProjectSettings 0줄 변경)
+Plan: 2 of 4
+Status: Ready to execute
 **워킹트리 리스크**: 미커밋 삭제 48건(`Assets/Player/Script/AttackBox.cs`, `Assets/Script/TakeDmg.cs`, `Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs` 등, 아직 커밋되지 않음) + `.dead-code-backup/pre-cleanup-20260903-1430.zip`(untracked) 존재. **이 삭제는 2026-08-20 Phase 13 후속 정리가 아니라 2026-09-03 14:30경 발생했다** — 백업 zip 파일명·mtime이 모두 `20260903-1430`이고, 같은 시각대에 `docs/ssot/`(14:11~14:12 생성)도 함께 만들어졌다. 즉 GSD 이력에 기록되지 않은 별도 정리 프로세스가 오늘 이 워킹트리에서 실행된 것으로, 커밋 전 zip 내용과 대조해 의도된 삭제인지 반드시 확인할 것. 현재 브랜치 `주창은`이 `origin/주창은` 대비 18 커밋 앞서 있고 origin에 미푸시. 루트 `*.sh` 스크립트 5종(2026-08-20자)과 `.agy/settings.json`(2026-08-27자)도 untracked 상태 — 용도 미확인.
-Last activity: 2026-09-14 - Phase 16 완료. 16-03 Task 2 Play 모드 실측 29/29 PASS (Unity CLI eval/console/capture_game_view)
+Last activity: 2026-10-01
 
 Progress: [█████████░] 86% (31/36 plans; Phase 12: 1/1, Phase 16: 3/3 완료)
 
@@ -61,6 +61,7 @@ Progress: [█████████░] 86% (31/36 plans; Phase 12: 1/1, Phas
 | Phase 11 P03 | 15min | 3 tasks | 5 files |
 | Phase 15 P01 | 6min | 3 tasks | 2 files |
 | Phase 15 P02 | 17min | 2 tasks | 1 files |
+| Phase 17 P01 | 25min | 3 tasks | 3 files |
 
 ## Performance Metrics
 
@@ -177,11 +178,11 @@ Progress: [█████████░] 86% (31/36 plans; Phase 12: 1/1, Phas
 - Phase 50 added (임시 번호, 다른 기기와 동기화 후 재번호 필요 - 그 기기는 이미 Phase 13까지 완료함): 세이브 슬롯 확장 - 슬롯 2개 추가(총 3슬롯), 슬롯별 독립 세이브 데이터 및 진행도 저장/표시 — **재번호 완료(2026-08-27)**: 위 구 Phase 14가 폐기되며 번호가 비어, 이 phase를 14로 재번호(폴더 `.planning/phases/50-2-3/` → `.planning/phases/14-save-slot-expansion/`)
 - Phase 15 added: 로드 시점 및 로드 범위 정의 — 세이브 데이터를 언제 로드할지(플레이어 사망/체크포인트 부활/이어하기)와 로드 시 어디까지 복원할지(보스 진행도·맵 기믹·체력 불변식)를 확정한다. BUG-002의 로드 측 항목(역전된 저장 데이터 보정)과 BUG-003의 보스 진행도 복원 의존성을 이 페이즈로 이관.
 - Phase 16 added: 일정 간격 자동저장 — Phase 15 논의 중 "세이브가 없어 로드할 게 없는 상황"을 줄이자는 취지로 제안됨. 저장 시점을 늘리는 새 기능이라 Phase 15(로드 범위)와 분리해 별도 페이즈로 추가.
+- Phase 17 added: 정령 보스 애니메이션 연동 — 프리팹 애니메이션 에셋(클립·컨트롤러·Stage2 오버라이드)은 완료, SpiritController/공격 상태 Anim 트리거 연동 + 2단계 컨트롤러 교체 + Play 모드 검증. v2.0 '애니메이션 제외' 제약의 예외 페이즈.
 
 ## Session Continuity
 
 - 2026-09-14: Phase 16 COMPLETE (16-01/02/03). 16-03 Task 2 Play 모드 실측 29/29 PASS via Unity CLI (commit 6703d34); B(메인메뉴 미발동)·E(수동 저장 무회귀) 포함 전 항목 실측. Assets·ProjectSettings 0줄 변경, 세이브 SHA-256 복구 확인. 다음 Play 모드 검증 전에 Console 의 Error Pause 를 끌 것 — BUG-008 예외로 Play 가 자동 정지한다. 상세는 `.planning/phases/16-interval-autosave/.continue-here.md`.
-
 
 - Last session: Completed 15-02-PLAN.md (2026-09-10); next implementation target is 15-03-PLAN.md.
 - 이전 마일스톤: v1.0 보스_물괴물_구현 (Phase 1~4 완료, 2026-04-16)
