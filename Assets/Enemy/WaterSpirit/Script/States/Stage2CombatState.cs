@@ -34,6 +34,7 @@ public class Stage2CombatState : SpiritCombatState
             return;
         }
 
+        spirit.PlayAnim("Clone");
         SpawnClones(spirit);
 
         // 사이클 카운터 초기화
