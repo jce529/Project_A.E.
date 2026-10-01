@@ -1,0 +1,175 @@
+11.20 Idle clip=WaterSpirit_Idle_S1 nt=5.38 ai=IdleState clones=0 active=True hp=1000 pos=73.37,-85.16
+11.26 Idle clip=WaterSpirit_Idle_S1 nt=5.40 ai=ChaseState clones=0 active=True hp=1000 pos=73.37,-85.16
+11.30 Idle clip=WaterSpirit_Idle_S1 nt=5.42 ai=SpiritCombatState clones=0 active=True hp=1000 pos=73.37,-85.16
+11.33 Charge clip=WaterSpirit_Charge_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=74.00,-87.87
+12.38 Charge clip=WaterSpirit_Charge_S1 nt=0.97 ai=SpiritCombatState clones=0 active=True hp=1000 pos=76.47,-83.48
+12.45 Idle clip=WaterSpirit_Idle_S1 nt=0.01 ai=SpiritCombatState clones=0 active=True hp=1000 pos=76.47,-83.48
+13.50 Idle clip=WaterSpirit_Idle_S1 nt=0.52 ai=SpiritCombatState clones=0 active=True hp=1000 pos=76.47,-83.48
+14.34 Ranged clip=WaterSpirit_Ranged_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=90.31,-86.42
+15.35 Ranged clip=WaterSpirit_Ranged_S1 nt=0.49 ai=SpiritCombatState clones=0 active=True hp=1000 pos=90.31,-86.42
+16.41 Ranged clip=WaterSpirit_Ranged_S1 nt=0.99 ai=SpiritCombatState clones=0 active=True hp=1000 pos=90.31,-86.42
+16.44 Idle clip=WaterSpirit_Idle_S1 nt=0.01 ai=SpiritCombatState clones=0 active=True hp=1000 pos=90.31,-86.42
+16.86 Charge clip=WaterSpirit_Charge_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=97.91,-87.69
+17.87 Charge clip=WaterSpirit_Charge_S1 nt=0.93 ai=SpiritCombatState clones=0 active=True hp=1000 pos=92.67,-85.29
+17.98 Idle clip=WaterSpirit_Idle_S1 nt=0.02 ai=SpiritCombatState clones=0 active=True hp=1000 pos=91.36,-84.69
+18.02 Move clip=WaterSpirit_Move_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=91.14,-84.59
+18.08 Idle clip=WaterSpirit_Idle_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=90.71,-84.39
+19.11 Idle clip=WaterSpirit_Idle_S1 nt=0.49 ai=SpiritCombatState clones=0 active=True hp=1000 pos=90.71,-84.39
+19.88 Ranged clip=WaterSpirit_Ranged_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=100.65,-93.58
+20.88 Ranged clip=WaterSpirit_Ranged_S1 nt=0.48 ai=SpiritCombatState clones=0 active=True hp=1000 pos=100.65,-93.58
+21.89 Ranged clip=WaterSpirit_Ranged_S1 nt=0.97 ai=SpiritCombatState clones=0 active=True hp=1000 pos=100.65,-93.58
+22.03 Idle clip=WaterSpirit_Idle_S1 nt=0.03 ai=SpiritCombatState clones=0 active=True hp=1000 pos=100.65,-93.58
+22.38 Charge clip=WaterSpirit_Charge_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=100.93,-88.82
+23.42 Charge clip=WaterSpirit_Charge_S1 nt=0.96 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.33,-94.84
+23.49 Idle clip=WaterSpirit_Idle_S1 nt=0.01 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+24.51 Idle clip=WaterSpirit_Idle_S1 nt=0.50 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+25.52 Idle clip=WaterSpirit_Idle_S1 nt=0.99 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+26.54 Idle clip=WaterSpirit_Idle_S1 nt=1.48 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+27.56 Idle clip=WaterSpirit_Idle_S1 nt=1.96 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+27.94 Repel clip=WaterSpirit_Repel_S1 nt=0.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+28.94 Repel clip=WaterSpirit_Repel_S1 nt=0.63 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+29.57 Idle clip=WaterSpirit_Idle_S1 nt=0.02 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+== TRIGGER_STAGE2 dmg 500
+30.61 Idle clip=WaterSpirit_Idle_S1 nt=0.52 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+31.61 Idle clip=WaterSpirit_Idle_S1 nt=1.00 ai=SpiritCombatState clones=0 active=True hp=1000 pos=103.51,-95.29
+31.76 Idle clip=WaterSpirit_Idle_S2 nt=1.07 ai=Stage2CombatState clones=2 active=True hp=500 pos=103.51,-95.29 T:Clone T:Hit
+31.84 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=103.51,-95.29 T:Hit
+31.88 Hit clip=WaterSpirit_Hit_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=103.51,-95.29
+32.73 Idle clip=WaterSpirit_Idle_S2 nt=0.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=103.51,-95.29
+32.95 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=114.48,-87.16
+33.95 Ranged clip=WaterSpirit_Ranged_S2 nt=0.48 ai=Stage2CombatState clones=2 active=True hp=500 pos=114.48,-87.16
+34.98 Ranged clip=WaterSpirit_Ranged_S2 nt=0.97 ai=Stage2CombatState clones=2 active=True hp=500 pos=114.48,-87.16
+35.07 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=114.48,-87.16
+35.48 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=121.94,-86.20
+36.49 Charge clip=WaterSpirit_Charge_S2 nt=0.93 ai=Stage2CombatState clones=2 active=True hp=500 pos=116.26,-88.13
+36.60 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=114.90,-88.59
+37.60 Idle clip=WaterSpirit_Idle_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=114.90,-88.59
+38.54 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=105.19,-87.23
+39.58 Ranged clip=WaterSpirit_Ranged_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=105.19,-87.23
+40.60 Ranged clip=WaterSpirit_Ranged_S2 nt=0.99 ai=Stage2CombatState clones=2 active=True hp=500 pos=105.19,-87.23
+40.68 Idle clip=WaterSpirit_Idle_S2 nt=0.03 ai=Stage2CombatState clones=2 active=True hp=500 pos=105.19,-87.23
+41.04 Stealth clip=WaterSpirit_Stealth nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=105.19,-87.23
+41.71 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=116.96,-83.56
+42.72 Charge clip=WaterSpirit_Charge_S2 nt=0.93 ai=Stage2CombatState clones=2 active=True hp=500 pos=111.32,-85.61
+42.84 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=111.32,-85.61
+43.87 Idle clip=WaterSpirit_Idle_S2 nt=0.52 ai=Stage2CombatState clones=2 active=True hp=500 pos=111.32,-85.61
+44.30 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=500 pos=111.32,-85.61 Groggy=1
+45.33 Groggy clip=WaterSpirit_Groggy_S2 nt=0.41 ai=GroggyState clones=0 active=True hp=500 pos=111.32,-85.61 Groggy=1
+46.33 Groggy clip=WaterSpirit_Groggy_S2 nt=0.81 ai=GroggyState clones=0 active=True hp=500 pos=111.32,-85.61 Groggy=1
+47.34 Groggy clip=WaterSpirit_Groggy_S2 nt=1.21 ai=GroggyState clones=0 active=True hp=500 pos=111.32,-85.61 Groggy=1
+48.37 Groggy clip=WaterSpirit_Groggy_S2 nt=1.63 ai=GroggyState clones=0 active=True hp=500 pos=111.32,-85.61 Groggy=1
+49.32 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=111.32,-85.61
+50.33 Clone clip=WaterSpirit_Clone_S2 nt=0.87 ai=Stage2CombatState clones=2 active=True hp=500 pos=111.32,-85.61
+50.52 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+51.52 Ranged clip=WaterSpirit_Ranged_S2 nt=0.48 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+52.55 Ranged clip=WaterSpirit_Ranged_S2 nt=0.98 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+52.64 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+53.65 Idle clip=WaterSpirit_Idle_S2 nt=0.51 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+54.70 Idle clip=WaterSpirit_Idle_S2 nt=1.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+55.55 Repel clip=WaterSpirit_Repel_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+56.56 Repel clip=WaterSpirit_Repel_S2 nt=0.64 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+57.11 Stealth clip=WaterSpirit_Stealth nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=119.34,-74.84
+57.75 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=116.96,-75.39
+58.77 Charge clip=WaterSpirit_Charge_S2 nt=0.93 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.60,-76.56
+58.86 Idle clip=WaterSpirit_Idle_S2 nt=0.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.60,-76.56
+59.87 Idle clip=WaterSpirit_Idle_S2 nt=0.49 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.60,-76.56
+60.33 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=500 pos=122.60,-76.56 Groggy=1
+61.34 Groggy clip=WaterSpirit_Groggy_S2 nt=0.41 ai=GroggyState clones=0 active=True hp=500 pos=122.60,-76.56 Groggy=1
+62.38 Groggy clip=WaterSpirit_Groggy_S2 nt=0.82 ai=GroggyState clones=0 active=True hp=500 pos=122.60,-76.56 Groggy=1
+63.39 Groggy clip=WaterSpirit_Groggy_S2 nt=1.23 ai=GroggyState clones=0 active=True hp=500 pos=122.60,-76.56 Groggy=1
+64.39 Groggy clip=WaterSpirit_Groggy_S2 nt=1.63 ai=GroggyState clones=0 active=True hp=500 pos=122.60,-76.56 Groggy=1
+65.36 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.60,-76.56
+66.38 Clone clip=WaterSpirit_Clone_S2 nt=0.87 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.60,-76.56
+66.56 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+67.56 Ranged clip=WaterSpirit_Ranged_S2 nt=0.48 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+68.58 Ranged clip=WaterSpirit_Ranged_S2 nt=0.97 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+68.66 Idle clip=WaterSpirit_Idle_S2 nt=0.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+69.68 Idle clip=WaterSpirit_Idle_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+70.69 Idle clip=WaterSpirit_Idle_S2 nt=0.98 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+71.59 Repel clip=WaterSpirit_Repel_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+72.60 Repel clip=WaterSpirit_Repel_S2 nt=0.64 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+73.12 Stealth clip=WaterSpirit_Stealth nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.85,-66.48
+73.74 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=135.51,-73.53
+74.74 Charge clip=WaterSpirit_Charge_S2 nt=0.93 ai=Stage2CombatState clones=2 active=True hp=500 pos=131.73,-69.51
+74.83 Idle clip=WaterSpirit_Idle_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=131.73,-69.51
+75.83 Idle clip=WaterSpirit_Idle_S2 nt=0.49 ai=Stage2CombatState clones=2 active=True hp=500 pos=131.73,-69.51
+76.29 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=500 pos=131.73,-69.51 Groggy=1
+77.31 Groggy clip=WaterSpirit_Groggy_S2 nt=0.41 ai=GroggyState clones=0 active=True hp=500 pos=131.73,-69.51 Groggy=1
+78.33 Groggy clip=WaterSpirit_Groggy_S2 nt=0.82 ai=GroggyState clones=0 active=True hp=500 pos=131.73,-69.51 Groggy=1
+79.36 Groggy clip=WaterSpirit_Groggy_S2 nt=1.23 ai=GroggyState clones=0 active=True hp=500 pos=131.73,-69.51 Groggy=1
+80.38 Groggy clip=WaterSpirit_Groggy_S2 nt=1.64 ai=GroggyState clones=0 active=True hp=500 pos=131.73,-69.51 Groggy=1
+81.34 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=131.73,-69.51
+82.36 Clone clip=WaterSpirit_Clone_S2 nt=0.87 ai=Stage2CombatState clones=2 active=True hp=500 pos=131.73,-69.51
+82.51 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+83.55 Ranged clip=WaterSpirit_Ranged_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+84.58 Ranged clip=WaterSpirit_Ranged_S2 nt=0.99 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+84.63 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+85.67 Idle clip=WaterSpirit_Idle_S2 nt=0.51 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+86.68 Idle clip=WaterSpirit_Idle_S2 nt=1.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+87.58 Repel clip=WaterSpirit_Repel_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+88.60 Repel clip=WaterSpirit_Repel_S2 nt=0.65 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+89.09 Stealth clip=WaterSpirit_Stealth nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=122.14,-67.26
+89.74 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=126.27,-58.50
+90.77 Charge clip=WaterSpirit_Charge_S2 nt=0.94 ai=Stage2CombatState clones=2 active=True hp=500 pos=129.36,-63.64
+90.83 Idle clip=WaterSpirit_Idle_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=129.73,-64.26
+90.87 Move clip=WaterSpirit_Move_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=129.98,-64.67
+90.95 Idle clip=WaterSpirit_Idle_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.23,-65.08
+91.99 Idle clip=WaterSpirit_Idle_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.23,-65.08
+92.33 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=500 pos=130.23,-65.08 Groggy=1
+93.34 Groggy clip=WaterSpirit_Groggy_S2 nt=0.41 ai=GroggyState clones=0 active=True hp=500 pos=130.23,-65.08 Groggy=1
+94.38 Groggy clip=WaterSpirit_Groggy_S2 nt=0.82 ai=GroggyState clones=0 active=True hp=500 pos=130.23,-65.08 Groggy=1
+95.38 Groggy clip=WaterSpirit_Groggy_S2 nt=1.22 ai=GroggyState clones=0 active=True hp=500 pos=130.23,-65.08 Groggy=1
+96.39 Groggy clip=WaterSpirit_Groggy_S2 nt=1.63 ai=GroggyState clones=0 active=True hp=500 pos=130.23,-65.08 Groggy=1
+97.33 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.23,-65.08
+98.34 Clone clip=WaterSpirit_Clone_S2 nt=0.87 ai=Stage2CombatState clones=2 active=True hp=500 pos=130.23,-65.08
+98.64 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=142.78,-71.81
+99.67 Ranged clip=WaterSpirit_Ranged_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=142.78,-71.81
+100.70 Ranged clip=WaterSpirit_Ranged_S2 nt=0.99 ai=Stage2CombatState clones=2 active=True hp=500 pos=142.78,-71.81
+100.74 Idle clip=WaterSpirit_Idle_S2 nt=0.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=142.78,-71.81
+101.15 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=146.47,-74.53
+102.17 Charge clip=WaterSpirit_Charge_S2 nt=0.94 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+102.27 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+103.32 Idle clip=WaterSpirit_Idle_S2 nt=0.52 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+104.33 Idle clip=WaterSpirit_Idle_S2 nt=1.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+105.38 Idle clip=WaterSpirit_Idle_S2 nt=1.51 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+106.44 Idle clip=WaterSpirit_Idle_S2 nt=2.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+106.69 Stealth clip=WaterSpirit_Stealth nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=143.89,-69.92
+107.31 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=141.22,-74.81
+108.33 Charge clip=WaterSpirit_Charge_S2 nt=0.94 ai=Stage2CombatState clones=2 active=True hp=500 pos=146.70,-73.04
+108.41 Idle clip=WaterSpirit_Idle_S2 nt=0.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=147.61,-72.74
+108.45 Move clip=WaterSpirit_Move_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=148.07,-72.59
+108.55 Idle clip=WaterSpirit_Idle_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=148.53,-72.45
+109.56 Idle clip=WaterSpirit_Idle_S2 nt=0.49 ai=Stage2CombatState clones=2 active=True hp=500 pos=148.53,-72.45
+109.87 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=500 pos=148.53,-72.45 Groggy=1
+110.90 Groggy clip=WaterSpirit_Groggy_S2 nt=0.41 ai=GroggyState clones=0 active=True hp=500 pos=148.53,-72.45 Groggy=1
+111.94 Groggy clip=WaterSpirit_Groggy_S2 nt=0.83 ai=GroggyState clones=0 active=True hp=500 pos=148.53,-72.45 Groggy=1
+112.97 Groggy clip=WaterSpirit_Groggy_S2 nt=1.24 ai=GroggyState clones=0 active=True hp=500 pos=148.53,-72.45 Groggy=1
+113.99 Groggy clip=WaterSpirit_Groggy_S2 nt=1.65 ai=GroggyState clones=0 active=True hp=500 pos=148.53,-72.45 Groggy=1
+114.87 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=148.53,-72.45
+115.89 Clone clip=WaterSpirit_Clone_S2 nt=0.87 ai=Stage2CombatState clones=2 active=True hp=500 pos=148.53,-72.45
+116.07 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=148.19,-75.74
+117.10 Charge clip=WaterSpirit_Charge_S2 nt=0.96 ai=Stage2CombatState clones=2 active=True hp=500 pos=152.04,-70.83
+117.18 Idle clip=WaterSpirit_Idle_S2 nt=0.01 ai=Stage2CombatState clones=2 active=True hp=500 pos=152.04,-70.83
+118.19 Idle clip=WaterSpirit_Idle_S2 nt=0.50 ai=Stage2CombatState clones=2 active=True hp=500 pos=152.04,-70.83
+119.09 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+120.11 Ranged clip=WaterSpirit_Ranged_S2 nt=0.49 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+121.11 Ranged clip=WaterSpirit_Ranged_S2 nt=0.97 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+121.18 Idle clip=WaterSpirit_Idle_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+122.19 Idle clip=WaterSpirit_Idle_S2 nt=0.49 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+123.20 Idle clip=WaterSpirit_Idle_S2 nt=0.97 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+124.10 Stealth clip=WaterSpirit_Stealth nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=156.48,-59.10
+124.74 Charge clip=WaterSpirit_Charge_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=154.33,-63.83
+125.75 Charge clip=WaterSpirit_Charge_S2 nt=0.93 ai=Stage2CombatState clones=2 active=True hp=500 pos=158.81,-59.84
+125.87 Idle clip=WaterSpirit_Idle_S2 nt=0.02 ai=Stage2CombatState clones=2 active=True hp=500 pos=159.17,-59.52
+126.91 Idle clip=WaterSpirit_Idle_S2 nt=0.52 ai=Stage2CombatState clones=2 active=True hp=500 pos=159.17,-59.52
+127.28 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=500 pos=159.17,-59.52 Groggy=1
+== KILL
+128.28 Groggy clip=WaterSpirit_Groggy_S2 nt=0.40 ai=GroggyState clones=0 active=True hp=500 pos=159.17,-59.52 Groggy=1
+129.29 Groggy clip=WaterSpirit_Groggy_S2 nt=0.80 ai=GroggyState clones=0 active=True hp=0 pos=159.17,-59.52 T:Hit T:Death Groggy=1
+129.39 Hit clip=WaterSpirit_Hit_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=0 pos=159.17,-59.52 T:Death Groggy=1
+129.43 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=0 pos=159.17,-59.52 T:Death Groggy=1
+129.46 Death clip=WaterSpirit_Death nt=0.00 ai=GroggyState clones=0 active=True hp=0 pos=159.17,-59.52 Groggy=1
+129.51 Groggy clip=WaterSpirit_Groggy_S2 nt=0.00 ai=GroggyState clones=0 active=True hp=0 pos=159.17,-59.52 Groggy=1
+130.51 Groggy clip=WaterSpirit_Groggy_S2 nt=0.40 ai=GroggyState clones=0 active=True hp=0 pos=159.17,-59.52 Groggy=1
+131.41 INACTIVE clip=- nt=0.00 ai=GroggyState clones=0 active=False hp=0 pos=159.17,-59.52
+131.52 INACTIVE clip=- nt=0.00 ai=GroggyState clones=0 active=False hp=0 pos=159.17,-59.52

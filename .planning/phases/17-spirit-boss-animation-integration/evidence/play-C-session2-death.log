@@ -1,0 +1,21 @@
+== KILL3 (armed hook3)
+290.69 Groggy clip=WaterSpirit_Groggy_S2 nt=1.64 ai=GroggyState clones=0 active=True hp=500 pos=242.01,-134.41 Groggy=1
+291.61 Clone clip=WaterSpirit_Clone_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=242.01,-134.41
+292.66 Clone clip=WaterSpirit_Clone_S2 nt=0.90 ai=Stage2CombatState clones=2 active=True hp=500 pos=242.01,-134.41
+292.81 Ranged clip=WaterSpirit_Ranged_S2 nt=0.00 ai=Stage2CombatState clones=2 active=True hp=500 pos=246.87,-146.22
+293.29 Hit clip=WaterSpirit_Hit_S2 nt=0.00 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22 T:Death
+293.34 Death clip=WaterSpirit_Death nt=0.00 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+293.46 Death clip=WaterSpirit_Death nt=0.07 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+293.58 Death clip=WaterSpirit_Death nt=0.15 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+293.70 Death clip=WaterSpirit_Death nt=0.22 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+293.80 Death clip=WaterSpirit_Death nt=0.29 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+293.92 Death clip=WaterSpirit_Death nt=0.37 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.04 Death clip=WaterSpirit_Death nt=0.44 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.16 Death clip=WaterSpirit_Death nt=0.52 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.32 Death clip=WaterSpirit_Death nt=0.61 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.47 Death clip=WaterSpirit_Death nt=0.71 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.57 Death clip=WaterSpirit_Death nt=0.77 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.69 Death clip=WaterSpirit_Death nt=0.85 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.81 Death clip=WaterSpirit_Death nt=0.92 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.93 Death clip=WaterSpirit_Death nt=1.00 ai=Stage2CombatState clones=0 active=True hp=0 pos=246.87,-146.22
+294.99 INACTIVE clip=- nt=0.00 ai=Stage2CombatState clones=0 active=False hp=0 pos=246.87,-146.22

@@ -1,0 +1,450 @@
+fileFormatVersion: 2
+guid: 064e0075ae390d34fb22196604348723
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9055985437025734402
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_0"
+  - first:
+      213: 2237514716503603286
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_1"
+  - first:
+      213: 6643202012231797010
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_2"
+  - first:
+      213: 386527019811097114
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_3"
+  - first:
+      213: 7202303450631152027
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_4"
+  - first:
+      213: 1245860901415676922
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_5"
+  - first:
+      213: 8385466654561621989
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_6"
+  - first:
+      213: -8204036451215367668
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_7"
+  - first:
+      213: 311812754896357515
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_8"
+  - first:
+      213: -6533660064090068608
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_9"
+  - first:
+      213: 574048831045670323
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_10"
+  - first:
+      213: 8144977954895789011
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_11"
+  - first:
+      213: -3108132617834961901
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_12"
+  - first:
+      213: 9028668753349320956
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_13"
+  - first:
+      213: -3760297117696781916
+    second: "\u110B\u1173\u11AB\u1109\u1175\u11AB_14"
+  - first:
+      213: -8438190314516822943
+    second: Stealth_0
+  - first:
+      213: 5934621214386907380
+    second: Stealth_1
+  - first:
+      213: 3077841202188550032
+    second: Stealth_2
+  - first:
+      213: 4760752810660337704
+    second: Stealth_3
+  - first:
+      213: -432729665389796462
+    second: Stealth_4
+  - first:
+      213: 2244004695154212104
+    second: Stealth_5
+  - first:
+      213: 2601607613072447394
+    second: Stealth_6
+  - first:
+      213: 446029378682680574
+    second: Stealth_7
+  - first:
+      213: -7956582611866300534
+    second: Stealth_8
+  - first:
+      213: 8354289421705243454
+    second: Stealth_9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 600
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Stealth_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 164451ccd9685ea80800000000000000
+      internalID: -8438190314516822943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_1
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f867003d820c5250800000000000000
+      internalID: 5934621214386907380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_2
+      rect:
+        serializedVersion: 2
+        x: 2416
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09f728b2440b6ba20800000000000000
+      internalID: 3077841202188550032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_3
+      rect:
+        serializedVersion: 2
+        x: 3624
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8281ade2577911240800000000000000
+      internalID: 4760752810660337704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_4
+      rect:
+        serializedVersion: 2
+        x: 4832
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 293eaaa79a2aef9f0800000000000000
+      internalID: -432729665389796462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_5
+      rect:
+        serializedVersion: 2
+        x: 6040
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80db9f8816e442f10800000000000000
+      internalID: 2244004695154212104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_6
+      rect:
+        serializedVersion: 2
+        x: 7248
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a792261754ca1420800000000000000
+      internalID: 2601607613072447394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_7
+      rect:
+        serializedVersion: 2
+        x: 8456
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4f4c35b5d903600800000000000000
+      internalID: 446029378682680574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_8
+      rect:
+        serializedVersion: 2
+        x: 9664
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8fc8a1354a849190800000000000000
+      internalID: -7956582611866300534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stealth_9
+      rect:
+        serializedVersion: 2
+        x: 10872
+        y: 0
+        width: 1208
+        height: 1475
+      alignment: 9
+      pivot: {x: 0.5, y: 0.23966102}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b6b8357f560f370800000000000000
+      internalID: 8354289421705243454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Stealth_0: -8438190314516822943
+      Stealth_1: 5934621214386907380
+      Stealth_2: 3077841202188550032
+      Stealth_3: 4760752810660337704
+      Stealth_4: -432729665389796462
+      Stealth_5: 2244004695154212104
+      Stealth_6: 2601607613072447394
+      Stealth_7: 446029378682680574
+      Stealth_8: -7956582611866300534
+      Stealth_9: 8354289421705243454
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_0": -9055985437025734402
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_1": 2237514716503603286
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_10": 574048831045670323
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_11": 8144977954895789011
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_12": -3108132617834961901
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_13": 9028668753349320956
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_14": -3760297117696781916
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_2": 6643202012231797010
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_3": 386527019811097114
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_4": 7202303450631152027
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_5": 1245860901415676922
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_6": 8385466654561621989
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_7": -8204036451215367668
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_8": 311812754896357515
+      "\u110B\u1173\u11AB\u1109\u1175\u11AB_9": -6533660064090068608
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
