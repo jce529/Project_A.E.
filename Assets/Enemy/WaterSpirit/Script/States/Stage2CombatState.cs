@@ -35,6 +35,8 @@ public class Stage2CombatState : SpiritCombatState
         }
 
         spirit.PlayAnim("Clone");
+        // P9: 첫 패턴(Charge 등 Any State 전이)이 Clone 연출을 즉시 덮어쓰지 않도록 Clone 클립 길이만큼 판단을 보류한다.
+        _decisionTimer = spirit.GetClipLength("WaterSpirit_Clone");
         SpawnClones(spirit);
 
         // 사이클 카운터 초기화
