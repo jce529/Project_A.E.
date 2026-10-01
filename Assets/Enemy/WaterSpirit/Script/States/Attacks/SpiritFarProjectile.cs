@@ -26,6 +26,7 @@ public class SpiritFarProjectile : IAttackStrategy
         boss.StopMove();
 
         // 조준 대기
+        spirit.PlayAnim("Ranged");
         yield return new WaitForSeconds(0.4f);
 
         new SpiritProjectileAttack().ExecuteAttack(boss);

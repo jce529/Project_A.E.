@@ -1,0 +1,1142 @@
+fileFormatVersion: 2
+guid: 94b0b2ebe75798b408cfcf664a0f425f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1917020687843664941
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_0"
+  - first:
+      213: 2168826069620651576
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_1"
+  - first:
+      213: -7546182406312711804
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_2"
+  - first:
+      213: 8750546733074856264
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_3"
+  - first:
+      213: -1822549234862586019
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_4"
+  - first:
+      213: -7863588807047367037
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_5"
+  - first:
+      213: 2870168373652722832
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_6"
+  - first:
+      213: 8349178143812784373
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_7"
+  - first:
+      213: 1849819459220667408
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_8"
+  - first:
+      213: 7955574725396413414
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_9"
+  - first:
+      213: 6377900577806795637
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_10"
+  - first:
+      213: 3811063517898490893
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_11"
+  - first:
+      213: 5346313752011346441
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_12"
+  - first:
+      213: -1518012521467785942
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_13"
+  - first:
+      213: -595582714505800000
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_14"
+  - first:
+      213: 25908173546596148
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_15"
+  - first:
+      213: -8306002256005610062
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_16"
+  - first:
+      213: -2373175965076464871
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_17"
+  - first:
+      213: 6591127547235484877
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_18"
+  - first:
+      213: -8070154647667301055
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_19"
+  - first:
+      213: 2268014169640811474
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_20"
+  - first:
+      213: 3835117888678416124
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_21"
+  - first:
+      213: 6672403348474605079
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_22"
+  - first:
+      213: -7111758833579647009
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_23"
+  - first:
+      213: -3583024995707344488
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_24"
+  - first:
+      213: -450997499026200759
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_25"
+  - first:
+      213: -2681032113408206692
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_26"
+  - first:
+      213: 6391313572374009392
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_27"
+  - first:
+      213: 4556411600744355362
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_28"
+  - first:
+      213: -5403380390843461378
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_29"
+  - first:
+      213: 1156174856402842600
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_30"
+  - first:
+      213: -5769108158239770395
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_31"
+  - first:
+      213: 7376841528879566825
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_32"
+  - first:
+      213: 1295613632273255607
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_33"
+  - first:
+      213: 6888751024076031303
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_34"
+  - first:
+      213: -7282920857802368807
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_35"
+  - first:
+      213: -1308911602935293891
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_36"
+  - first:
+      213: -7627214833758385980
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_37"
+  - first:
+      213: -7450835455680013612
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_38"
+  - first:
+      213: 5114790935663998282
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_39"
+  - first:
+      213: 4733573841245024848
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_40"
+  - first:
+      213: -3141134215559976440
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_41"
+  - first:
+      213: -773446193222665521
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_42"
+  - first:
+      213: -3213878470126367158
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_43"
+  - first:
+      213: -6736266486978721224
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_44"
+  - first:
+      213: -6231937878290424201
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_45"
+  - first:
+      213: 2251886334948161145
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_46"
+  - first:
+      213: -3401094411540378535
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_47"
+  - first:
+      213: -280093901519921015
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_48"
+  - first:
+      213: 4965931235711702961
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_49"
+  - first:
+      213: -7567094383346236734
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_50"
+  - first:
+      213: 4698476620156433767
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_51"
+  - first:
+      213: -3065771529562354003
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_52"
+  - first:
+      213: 5218652916977388263
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_53"
+  - first:
+      213: -5797315297615157245
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_54"
+  - first:
+      213: 3106742370238691356
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_55"
+  - first:
+      213: 36952463641537087
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_56"
+  - first:
+      213: -6075045115151652145
+    second: "\u1100\u1173\u1105\u1169\u1100\u11752_57"
+  - first:
+      213: 3459925058111100113
+    second: Groggy2_0
+  - first:
+      213: -3059246789871082563
+    second: Groggy2_1
+  - first:
+      213: 8001663577294355416
+    second: Groggy2_2
+  - first:
+      213: -7407709598310099691
+    second: Groggy2_3
+  - first:
+      213: 3382168205335606546
+    second: Groggy2_4
+  - first:
+      213: 1900612538215488540
+    second: Groggy2_5
+  - first:
+      213: 969529700548695545
+    second: Groggy2_6
+  - first:
+      213: 5057615545853619105
+    second: Groggy2_7
+  - first:
+      213: -4150470966691338520
+    second: Groggy2_8
+  - first:
+      213: -3409548728099232271
+    second: Groggy2_9
+  - first:
+      213: 7363935987950158286
+    second: Groggy2_10
+  - first:
+      213: 4607244218065427428
+    second: Groggy2_11
+  - first:
+      213: -9015724497715154032
+    second: Groggy2_12
+  - first:
+      213: 8547378480445991163
+    second: Groggy2_13
+  - first:
+      213: 3479260347175802223
+    second: Groggy2_14
+  - first:
+      213: -6539607447872676150
+    second: Groggy2_15
+  - first:
+      213: 8532365302063305092
+    second: Groggy2_16
+  - first:
+      213: -8698494378519135519
+    second: Groggy2_17
+  - first:
+      213: -844242271943886720
+    second: Groggy2_18
+  - first:
+      213: -2145594777103392597
+    second: Groggy2_19
+  - first:
+      213: -4107975744344744528
+    second: Groggy2_20
+  - first:
+      213: -8434858307955009890
+    second: Groggy2_21
+  - first:
+      213: -1547276133885341187
+    second: Groggy2_22
+  - first:
+      213: -4310428489239185955
+    second: Groggy2_23
+  - first:
+      213: -8035356727816776079
+    second: Groggy2_24
+  - first:
+      213: -277123081935608814
+    second: Groggy2_25
+  - first:
+      213: 5567977415313173117
+    second: Groggy2_26
+  - first:
+      213: -1696195134142449331
+    second: Groggy2_27
+  - first:
+      213: 4390751425342679706
+    second: Groggy2_28
+  - first:
+      213: 3935875129894143521
+    second: Groggy2_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 600
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Groggy2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d45f26428f140030800000000000000
+      internalID: 3459925058111100113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_1
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db3ea71d04f5b85d0800000000000000
+      internalID: -3059246789871082563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_2
+      rect:
+        serializedVersion: 2
+        x: 2404
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dbbfc001ae9b0f60800000000000000
+      internalID: 8001663577294355416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_3
+      rect:
+        serializedVersion: 2
+        x: 3606
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51599793e57823990800000000000000
+      internalID: -7407709598310099691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_4
+      rect:
+        serializedVersion: 2
+        x: 4808
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21536a13010efee20800000000000000
+      internalID: 3382168205335606546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_5
+      rect:
+        serializedVersion: 2
+        x: 6010
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1cdcfb9805506a10800000000000000
+      internalID: 1900612538215488540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_6
+      rect:
+        serializedVersion: 2
+        x: 7212
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f555683026747d00800000000000000
+      internalID: 969529700548695545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_7
+      rect:
+        serializedVersion: 2
+        x: 8414
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab2915ea82403640800000000000000
+      internalID: 5057615545853619105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_8
+      rect:
+        serializedVersion: 2
+        x: 9616
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e66acb55a09666c0800000000000000
+      internalID: -4150470966691338520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_9
+      rect:
+        serializedVersion: 2
+        x: 10818
+        y: 2116
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f5a2411f79dea0d0800000000000000
+      internalID: -3409548728099232271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec10c76e3c4f13660800000000000000
+      internalID: 7363935987950158286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_11
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eb1343c43830ff30800000000000000
+      internalID: 4607244218065427428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_12
+      rect:
+        serializedVersion: 2
+        x: 2404
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 093b6e03656b1e280800000000000000
+      internalID: -9015724497715154032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_13
+      rect:
+        serializedVersion: 2
+        x: 3606
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf82dc721736e9670800000000000000
+      internalID: 8547378480445991163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_14
+      rect:
+        serializedVersion: 2
+        x: 4808
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6514821ad0d84030800000000000000
+      internalID: 3479260347175802223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_15
+      rect:
+        serializedVersion: 2
+        x: 6010
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acedc0baca5ae35a0800000000000000
+      internalID: -6539607447872676150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_16
+      rect:
+        serializedVersion: 2
+        x: 7212
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4811a5b290d096670800000000000000
+      internalID: 8532365302063305092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_17
+      rect:
+        serializedVersion: 2
+        x: 8414
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ea72a7037db84780800000000000000
+      internalID: -8698494378519135519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_18
+      rect:
+        serializedVersion: 2
+        x: 9616
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0887a6c6026a844f0800000000000000
+      internalID: -844242271943886720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_19
+      rect:
+        serializedVersion: 2
+        x: 10818
+        y: 1058
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0a1d60be05932e0800000000000000
+      internalID: -2145594777103392597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bd196453d98df6c0800000000000000
+      internalID: -4107975744344744528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_21
+      rect:
+        serializedVersion: 2
+        x: 1202
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96d6970f0d51fa80800000000000000
+      internalID: -8434858307955009890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_22
+      rect:
+        serializedVersion: 2
+        x: 2404
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df11356dd88f68ae0800000000000000
+      internalID: -1547276133885341187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_23
+      rect:
+        serializedVersion: 2
+        x: 3606
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd5bc2d60284e24c0800000000000000
+      internalID: -4310428489239185955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_24
+      rect:
+        serializedVersion: 2
+        x: 4808
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1769fe211adac7090800000000000000
+      internalID: -8035356727816776079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_25
+      rect:
+        serializedVersion: 2
+        x: 6010
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 214aa267606772cf0800000000000000
+      internalID: -277123081935608814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_26
+      rect:
+        serializedVersion: 2
+        x: 7212
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7aa32575fd654d40800000000000000
+      internalID: 5567977415313173117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_27
+      rect:
+        serializedVersion: 2
+        x: 8414
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4971b72387e578e0800000000000000
+      internalID: -1696195134142449331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_28
+      rect:
+        serializedVersion: 2
+        x: 9616
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9a279c78251fec30800000000000000
+      internalID: 4390751425342679706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Groggy2_29
+      rect:
+        serializedVersion: 2
+        x: 10818
+        y: 0
+        width: 1202
+        height: 1058
+      alignment: 9
+      pivot: {x: 0.5, y: 0.13705105}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12682a5d3990f9630800000000000000
+      internalID: 3935875129894143521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Groggy2_0: 3459925058111100113
+      Groggy2_1: -3059246789871082563
+      Groggy2_10: 7363935987950158286
+      Groggy2_11: 4607244218065427428
+      Groggy2_12: -9015724497715154032
+      Groggy2_13: 8547378480445991163
+      Groggy2_14: 3479260347175802223
+      Groggy2_15: -6539607447872676150
+      Groggy2_16: 8532365302063305092
+      Groggy2_17: -8698494378519135519
+      Groggy2_18: -844242271943886720
+      Groggy2_19: -2145594777103392597
+      Groggy2_2: 8001663577294355416
+      Groggy2_20: -4107975744344744528
+      Groggy2_21: -8434858307955009890
+      Groggy2_22: -1547276133885341187
+      Groggy2_23: -4310428489239185955
+      Groggy2_24: -8035356727816776079
+      Groggy2_25: -277123081935608814
+      Groggy2_26: 5567977415313173117
+      Groggy2_27: -1696195134142449331
+      Groggy2_28: 4390751425342679706
+      Groggy2_29: 3935875129894143521
+      Groggy2_3: -7407709598310099691
+      Groggy2_4: 3382168205335606546
+      Groggy2_5: 1900612538215488540
+      Groggy2_6: 969529700548695545
+      Groggy2_7: 5057615545853619105
+      Groggy2_8: -4150470966691338520
+      Groggy2_9: -3409548728099232271
+      "\u1100\u1173\u1105\u1169\u1100\u11752_0": -1917020687843664941
+      "\u1100\u1173\u1105\u1169\u1100\u11752_1": 2168826069620651576
+      "\u1100\u1173\u1105\u1169\u1100\u11752_10": 6377900577806795637
+      "\u1100\u1173\u1105\u1169\u1100\u11752_11": 3811063517898490893
+      "\u1100\u1173\u1105\u1169\u1100\u11752_12": 5346313752011346441
+      "\u1100\u1173\u1105\u1169\u1100\u11752_13": -1518012521467785942
+      "\u1100\u1173\u1105\u1169\u1100\u11752_14": -595582714505800000
+      "\u1100\u1173\u1105\u1169\u1100\u11752_15": 25908173546596148
+      "\u1100\u1173\u1105\u1169\u1100\u11752_16": -8306002256005610062
+      "\u1100\u1173\u1105\u1169\u1100\u11752_17": -2373175965076464871
+      "\u1100\u1173\u1105\u1169\u1100\u11752_18": 6591127547235484877
+      "\u1100\u1173\u1105\u1169\u1100\u11752_19": -8070154647667301055
+      "\u1100\u1173\u1105\u1169\u1100\u11752_2": -7546182406312711804
+      "\u1100\u1173\u1105\u1169\u1100\u11752_20": 2268014169640811474
+      "\u1100\u1173\u1105\u1169\u1100\u11752_21": 3835117888678416124
+      "\u1100\u1173\u1105\u1169\u1100\u11752_22": 6672403348474605079
+      "\u1100\u1173\u1105\u1169\u1100\u11752_23": -7111758833579647009
+      "\u1100\u1173\u1105\u1169\u1100\u11752_24": -3583024995707344488
+      "\u1100\u1173\u1105\u1169\u1100\u11752_25": -450997499026200759
+      "\u1100\u1173\u1105\u1169\u1100\u11752_26": -2681032113408206692
+      "\u1100\u1173\u1105\u1169\u1100\u11752_27": 6391313572374009392
+      "\u1100\u1173\u1105\u1169\u1100\u11752_28": 4556411600744355362
+      "\u1100\u1173\u1105\u1169\u1100\u11752_29": -5403380390843461378
+      "\u1100\u1173\u1105\u1169\u1100\u11752_3": 8750546733074856264
+      "\u1100\u1173\u1105\u1169\u1100\u11752_30": 1156174856402842600
+      "\u1100\u1173\u1105\u1169\u1100\u11752_31": -5769108158239770395
+      "\u1100\u1173\u1105\u1169\u1100\u11752_32": 7376841528879566825
+      "\u1100\u1173\u1105\u1169\u1100\u11752_33": 1295613632273255607
+      "\u1100\u1173\u1105\u1169\u1100\u11752_34": 6888751024076031303
+      "\u1100\u1173\u1105\u1169\u1100\u11752_35": -7282920857802368807
+      "\u1100\u1173\u1105\u1169\u1100\u11752_36": -1308911602935293891
+      "\u1100\u1173\u1105\u1169\u1100\u11752_37": -7627214833758385980
+      "\u1100\u1173\u1105\u1169\u1100\u11752_38": -7450835455680013612
+      "\u1100\u1173\u1105\u1169\u1100\u11752_39": 5114790935663998282
+      "\u1100\u1173\u1105\u1169\u1100\u11752_4": -1822549234862586019
+      "\u1100\u1173\u1105\u1169\u1100\u11752_40": 4733573841245024848
+      "\u1100\u1173\u1105\u1169\u1100\u11752_41": -3141134215559976440
+      "\u1100\u1173\u1105\u1169\u1100\u11752_42": -773446193222665521
+      "\u1100\u1173\u1105\u1169\u1100\u11752_43": -3213878470126367158
+      "\u1100\u1173\u1105\u1169\u1100\u11752_44": -6736266486978721224
+      "\u1100\u1173\u1105\u1169\u1100\u11752_45": -6231937878290424201
+      "\u1100\u1173\u1105\u1169\u1100\u11752_46": 2251886334948161145
+      "\u1100\u1173\u1105\u1169\u1100\u11752_47": -3401094411540378535
+      "\u1100\u1173\u1105\u1169\u1100\u11752_48": -280093901519921015
+      "\u1100\u1173\u1105\u1169\u1100\u11752_49": 4965931235711702961
+      "\u1100\u1173\u1105\u1169\u1100\u11752_5": -7863588807047367037
+      "\u1100\u1173\u1105\u1169\u1100\u11752_50": -7567094383346236734
+      "\u1100\u1173\u1105\u1169\u1100\u11752_51": 4698476620156433767
+      "\u1100\u1173\u1105\u1169\u1100\u11752_52": -3065771529562354003
+      "\u1100\u1173\u1105\u1169\u1100\u11752_53": 5218652916977388263
+      "\u1100\u1173\u1105\u1169\u1100\u11752_54": -5797315297615157245
+      "\u1100\u1173\u1105\u1169\u1100\u11752_55": 3106742370238691356
+      "\u1100\u1173\u1105\u1169\u1100\u11752_56": 36952463641537087
+      "\u1100\u1173\u1105\u1169\u1100\u11752_57": -6075045115151652145
+      "\u1100\u1173\u1105\u1169\u1100\u11752_6": 2870168373652722832
+      "\u1100\u1173\u1105\u1169\u1100\u11752_7": 8349178143812784373
+      "\u1100\u1173\u1105\u1169\u1100\u11752_8": 1849819459220667408
+      "\u1100\u1173\u1105\u1169\u1100\u11752_9": 7955574725396413414
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

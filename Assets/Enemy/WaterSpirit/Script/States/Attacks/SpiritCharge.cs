@@ -34,6 +34,7 @@ public class SpiritCharge : IAttackStrategy
 
         // 2단계: Windup (기항 대기)
         boss.StopMove();
+        spirit.PlayAnim("Charge");
         yield return new WaitForSeconds(spirit.ChargeWindup);
 
         // 3단계: 돌진 시작

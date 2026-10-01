@@ -1,0 +1,17 @@
+     78 Charge1
+    254 Charge2
+     10 Clone2
+     16 Death
+    170 Groggy2
+      2 HeroKnight
+     10 Hit1
+     10 Hit2
+   1443 Idle1
+   1162 Idle2
+    213 Move1
+    139 Move2
+    348 Ranged1
+    337 Ranged2
+    110 Repel1
+     85 Repel2
+     69 Stealth

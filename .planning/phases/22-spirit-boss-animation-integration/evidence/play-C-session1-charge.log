@@ -1,0 +1,17 @@
+76.64 IsCharging=False v=0.0 Groggy=True ai=GroggyState
+81.34 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+90.28 IsCharging=True v=12.0 Groggy=False ai=Stage2CombatState
+90.92 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+92.33 IsCharging=False v=0.0 Groggy=True ai=GroggyState
+97.33 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+101.67 IsCharging=True v=12.0 Groggy=False ai=Stage2CombatState
+102.10 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+107.84 IsCharging=True v=12.0 Groggy=False ai=Stage2CombatState
+108.48 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+109.87 IsCharging=False v=0.0 Groggy=True ai=GroggyState
+114.87 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+116.59 IsCharging=True v=12.0 Groggy=False ai=Stage2CombatState
+117.10 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+125.26 IsCharging=True v=12.0 Groggy=False ai=Stage2CombatState
+125.79 IsCharging=False v=0.0 Groggy=False ai=Stage2CombatState
+127.28 IsCharging=False v=0.0 Groggy=True ai=GroggyState

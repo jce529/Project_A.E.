@@ -4,6 +4,7 @@ public class SpiritStats : BossStatsSystem
 {
     public bool IsDummy { get; set; } = false;
     private bool _stage2Triggered = false;
+    private bool _dying;
 
     // Phase 15 (D-06/D-07): boss-side judgement. A boss already recorded as defeated must not
     // come back after a load, so it removes itself the moment the scene brings it up. The load
@@ -27,7 +28,7 @@ public class SpiritStats : BossStatsSystem
     protected override void TakeDamage(DamageInfo info)
     {
         // D-01b: Guard clause
-        if (info.amount <= 0f) return;
+        if (_dying || info.amount <= 0f) return;
 
         // D-07a: 분신 (IsDummy == true) 은 데미지를 받지 않음 (S2-05)
         if (IsDummy)
@@ -66,7 +67,9 @@ public class SpiritStats : BossStatsSystem
 
     protected override void Die()
     {
-        
+        if (_dying) return;
+        _dying = true;
+
         // Bug 1 해결: 보스 사망 시 모든 분신 제거
         var spiritController = GetComponent<SpiritController>();
         if (spiritController != null)
@@ -79,6 +82,9 @@ public class SpiritStats : BossStatsSystem
         if (SaveLoadManager.Instance != null)
             SaveLoadManager.Instance.SaveOnBossDefeated("WaterSpirit");
 
-        gameObject.SetActive(false);
+        if (spiritController != null && spiritController.Anim != null && spiritController.Anim.runtimeAnimatorController != null)
+            spiritController.BeginDeath();
+        else
+            gameObject.SetActive(false);
     }
 }

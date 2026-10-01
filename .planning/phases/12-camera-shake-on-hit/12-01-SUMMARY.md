@@ -43,7 +43,7 @@ completed: PENDING
 
 # Phase 12 Plan 1: Camera Shake on Hit Summary
 
-**STATUS: PARTIAL - Tasks 0-2 complete and committed; Task 3 (Unity Play Mode human verification checkpoint) is pending and this plan is NOT yet closed out.**
+**STATUS: COMPLETE (2026-09-29) - Tasks 0-2 committed; Task 3 Play Mode verification run via Unity CLI (see "Task 3 Result" at the end). Four items remain as manual-check backlog.**
 
 CameraController gained a `shakeMagnitude`/`shakeDuration` Inspector-tunable hit-jolt layer
 (`Shake()` + `ApplyHitShake()`, linear decay, applied as the last unconditional statement of
@@ -203,9 +203,18 @@ Not applicable yet — this plan (and Phase 12) remain open pending Task 3. Once
 STATE.md's phase position, ROADMAP.md's plan-progress table, and REQUIREMENTS.md's D-01..D-09
 checkboxes still need to be updated (deferred to whichever agent picks up Task 3's resolution).
 
+## Task 3 Result (2026-09-29, Unity CLI + Play Mode, Tutorial Map)
+
+Frame-level sampler on `_shakeTimer` and camera position. Full table in `Assets/Camera/Check.md` (Phase 12 section).
+
+- PASS: basic shake (peak 0.228 <= 0.3, no residual offset, 0 envelope violations), refresh without accumulation (timer resets 0.118/0.138 -> 0.25, max 0.25), killing blow shakes (HP 89 -> 0, timer 0.25), boss/enemy hits do not shake, `timeScale=0` freezes the shake, `shakeDuration=0` yields no NaN, boss zone fires and returns exactly to the base position.
+- Observation (not a failure): in the boss zone the legacy `Lerp` restarts from the shaken `transform.position` (no deadzone re-anchor block), so the shake feeds back into follow smoothing: peak up to 0.433 (nominal 0.3) and up to 0.198 residual for 0.2-0.5 s. Normal zone is unaffected.
+- Backlog (manual, not measured): map-edge hit (D-08), dynamic offset / peeking after a hit, magnitude tuning feel (D-09), visual feel and Inspector group.
+- Side effect: `com.unity.pipeline` 0.8.0-exp.1 was installed to drive the Editor; it is NOT part of this phase's commits.
+
 ---
 *Phase: 12-camera-shake-on-hit*
-*Completed: PENDING (Tasks 0-2 done; Task 3 outstanding)*
+*Completed: 2026-09-29*
 
 ## Self-Check: PASSED
 

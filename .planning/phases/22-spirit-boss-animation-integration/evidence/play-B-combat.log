@@ -1,0 +1,60 @@
+195.00 PROJECTILES 0 -> 1
+195.72 PLAYER_HP 100 -> 88 ai=SpiritCombatState chg=False bossPos=(55.95, -90.12, 0.00) playerPos=(49.95, -91.40, 0.00)
+195.72 PROJECTILES 1 -> 0
+199.29 PLAYER_HP 88 -> 73 ai=SpiritCombatState chg=True bossPos=(50.14, -90.75, 0.00) playerPos=(49.95, -91.40, 0.00)
+204.26 PLAYER_HP 73 -> 63 ai=SpiritCombatState chg=False bossPos=(49.45, -93.05, 0.00) playerPos=(49.95, -91.40, 0.00)
+205.78 PROJECTILES 0 -> 1
+206.49 PLAYER_HP 63 -> 51 ai=SpiritCombatState chg=False bossPos=(46.63, -80.02, 0.00) playerPos=(40.63, -81.30, 0.00)
+206.49 PROJECTILES 1 -> 0
+209.52 PROJECTILES 0 -> 1
+210.25 PLAYER_HP 51 -> 39 ai=SpiritCombatState chg=False bossPos=(28.64, -80.79, 0.00) playerPos=(22.64, -82.07, 0.00)
+210.25 PROJECTILES 1 -> 0
+213.53 PLAYER_HP 39 -> 24 ai=SpiritCombatState chg=True bossPos=(21.91, -83.78, 0.00) playerPos=(22.64, -82.07, 0.00)
+213.55 PLAYER_HP 24 -> 100 ai=SpiritCombatState chg=True bossPos=(22.01, -83.56, 0.00) playerPos=(22.64, -82.07, 0.00)
+216.28 PROJECTILES 0 -> 1
+216.98 PLAYER_HP 100 -> 88 ai=SpiritCombatState chg=False bossPos=(32.56, -88.83, 0.00) playerPos=(26.56, -90.12, 0.00)
+216.98 PROJECTILES 1 -> 0
+220.04 PROJECTILES 0 -> 1
+220.82 PLAYER_HP 88 -> 76 ai=SpiritCombatState chg=False bossPos=(26.64, -78.12, 0.00) playerPos=(20.64, -79.40, 0.00)
+220.82 PROJECTILES 1 -> 0
+223.79 PROJECTILES 0 -> 1
+224.51 PLAYER_HP 76 -> 64 ai=SpiritCombatState chg=False bossPos=(9.62, -84.14, 0.00) playerPos=(3.62, -85.43, 0.00)
+224.51 PROJECTILES 1 -> 0
+227.91 PLAYER_HP 64 -> 49 ai=SpiritCombatState chg=True bossPos=(3.85, -85.21, 0.00) playerPos=(3.62, -85.43, 0.00)
+233.09 PLAYER_HP 49 -> 39 ai=SpiritCombatState chg=False bossPos=(2.30, -86.71, 0.00) playerPos=(3.62, -85.43, 0.00)
+234.62 PROJECTILES 0 -> 1
+235.33 PLAYER_HP 39 -> 27 ai=SpiritCombatState chg=False bossPos=(8.72, -74.11, 0.00) playerPos=(2.72, -75.39, 0.00)
+235.33 PROJECTILES 1 -> 0
+235.34 PLAYER_HP 27 -> 100 ai=SpiritCombatState chg=False bossPos=(8.72, -74.11, 0.00) playerPos=(2.72, -75.39, 0.00)
+238.36 PROJECTILES 0 -> 1
+239.09 PLAYER_HP 100 -> 88 ai=SpiritCombatState chg=False bossPos=(-9.22, -76.63, 0.00) playerPos=(-15.22, -77.91, 0.00)
+239.09 PROJECTILES 1 -> 0
+242.10 PROJECTILES 0 -> 1
+242.82 PLAYER_HP 88 -> 76 ai=SpiritCombatState chg=False bossPos=(-17.26, -66.09, 0.00) playerPos=(-23.26, -67.37, 0.00)
+242.82 PROJECTILES 1 -> 0
+245.86 PROJECTILES 0 -> 1
+246.58 PLAYER_HP 76 -> 64 ai=SpiritCombatState chg=False bossPos=(-27.78, -56.25, 0.00) playerPos=(-33.78, -57.54, 0.00)
+246.58 PROJECTILES 1 -> 0
+249.94 PLAYER_HP 64 -> 49 ai=SpiritCombatState chg=True bossPos=(-33.98, -56.94, 0.00) playerPos=(-33.78, -57.54, 0.00)
+252.61 PROJECTILES 0 -> 1
+253.33 PLAYER_HP 49 -> 37 ai=SpiritCombatState chg=False bossPos=(-24.83, -49.54, 0.00) playerPos=(-30.83, -50.82, 0.00)
+253.33 PROJECTILES 1 -> 0
+256.64 PLAYER_HP 37 -> 22 ai=SpiritCombatState chg=True bossPos=(-31.77, -51.34, 0.00) playerPos=(-30.83, -50.82, 0.00)
+256.65 PLAYER_HP 22 -> 100 ai=SpiritCombatState chg=True bossPos=(-31.77, -51.34, 0.00) playerPos=(-30.83, -50.82, 0.00)
+259.34 PROJECTILES 0 -> 1
+260.05 PLAYER_HP 100 -> 88 ai=SpiritCombatState chg=False bossPos=(-19.30, -47.52, 0.00) playerPos=(-25.30, -48.80, 0.00)
+260.05 PROJECTILES 1 -> 0
+263.36 PLAYER_HP 88 -> 73 ai=SpiritCombatState chg=True bossPos=(-26.04, -48.53, 0.00) playerPos=(-25.30, -48.80, 0.00)
+266.09 PROJECTILES 0 -> 1
+266.81 PLAYER_HP 73 -> 61 ai=SpiritCombatState chg=False bossPos=(-14.44, -43.68, 0.00) playerPos=(-20.44, -44.97, 0.00)
+266.81 PROJECTILES 1 -> 0
+277.86 PROJECTILES 0 -> 1
+278.57 PLAYER_HP 61 -> 49 ai=SpiritCombatState chg=False bossPos=(-15.38, -34.09, 0.00) playerPos=(-21.38, -35.37, 0.00)
+278.57 PROJECTILES 1 -> 0
+282.00 PLAYER_HP 49 -> 34 ai=SpiritCombatState chg=True bossPos=(-22.19, -35.89, 0.00) playerPos=(-21.38, -35.37, 0.00)
+284.63 PROJECTILES 0 -> 1
+285.34 PLAYER_HP 34 -> 22 ai=SpiritCombatState chg=False bossPos=(-32.46, -30.76, 0.00) playerPos=(-38.46, -32.04, 0.00)
+285.34 PROJECTILES 1 -> 0
+285.35 PLAYER_HP 22 -> 100 ai=SpiritCombatState chg=False bossPos=(-32.46, -30.76, 0.00) playerPos=(-38.46, -32.04, 0.00)
+288.72 PLAYER_HP 100 -> 85 ai=SpiritCombatState chg=True bossPos=(-38.48, -31.37, 0.00) playerPos=(-38.46, -32.04, 0.00)
+293.87 PLAYER_HP 85 -> 75 ai=SpiritCombatState chg=False bossPos=(-38.42, -33.77, 0.00) playerPos=(-38.46, -32.04, 0.00)

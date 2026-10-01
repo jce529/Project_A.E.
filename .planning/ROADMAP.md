@@ -318,7 +318,7 @@ Plans:
 | 1 | 12-01 | no (Play 모드 검증 체크포인트 포함) |
 
 Plans:
-- [ ] 12-01-PLAN.md — 비보스 대부분 통과, `timeScale=0` 실패는 BUG-005로 기록; 사망 순간·보스 항목 보류
+- [x] 12-01-PLAN.md — Play 모드 실측 통과(2026-09-29, Unity CLI); 경계 피격·동적 오프셋/피킹·체감 항목은 수동 확인 백로그
 
 ### Phase 13: 프로젝트 폴더를 돌면서 의미 없는 코드나, 주석, 리펙토링이 필요한 코드 살펴보는 페이즈
 
@@ -572,5 +572,18 @@ Plans:
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 21 to break down)
+
+### Phase 22: 정령 보스 애니메이션 연동 - WaterSpirit 프리팹에 연결된 애니메이션 에셋을 SpiritController/공격 상태 로직과 연동한다
+
+**Goal:** 물의 정령 보스가 상태(Idle/Move/Charge/Repel/Clone/Ranged/Stealth/Hit/Groggy/Death)에 맞는 애니메이션을 재생하고, 2단계 진입 시 Stage2 오버라이드 컨트롤러로 교체되어 2단계용 스프라이트가 재생된다. 로직·상태머신의 기존 동작은 회귀 없이 유지된다.
+**Requirements**: TBD
+**Depends on:** Phase 16
+**Plans:** 6/6 plans complete
+**Already done (에셋 단계, 2026-10-01, Unity CLI):** 시트 10종 균일 격자 재슬라이스(PPU 600, 피벗=콜라이더 중심), `Assets/Enemy/WaterSpirit/Animations/` 에 클립 19개 + `WaterSpirit.controller`(Bool: Move/Groggy, Trigger: Charge/Repel/Clone/Ranged/Stealth/Hit/Death) + `WaterSpirit_Stage2.overrideController`, 프리팹 Animator 연결·틴트 흰색 초기화. 투사체/이펙트 스프라이트는 범위 외.
+**Remaining scope:** SpiritController 및 공격 상태의 `Anim.SetTrigger/SetBool` 호출 연동(WaterMonster 패턴 참고), 2단계 진입 시 `runtimeAnimatorController` 교체, Play 모드 검증.
+**Constraint 변경:** v2.0 "애니메이션 제외" 제약의 예외 페이즈(STATE.md의 'v3.0+ 연동 예정' 항목을 앞당김).
+
+Plans:
+- [x] TBD (run /gsd:plan-phase 22 to break down) (completed 2026-10-01)
 
 ## Backlog
