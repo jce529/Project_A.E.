@@ -55,6 +55,17 @@ public class SpiritController : BossController
         if (CanAnimate) Anim.SetTrigger(trigger);
     }
 
+    // 현재 컨트롤러(오버라이드 포함)에서 이름이 prefix 로 시작하는 클립 길이. 없으면 0.
+    public float GetClipLength(string clipNamePrefix)
+    {
+        if (!CanAnimate) return 0f;
+        foreach (var clip in Anim.runtimeAnimatorController.animationClips)
+        {
+            if (clip != null && clip.name.StartsWith(clipNamePrefix)) return clip.length;
+        }
+        return 0f;
+    }
+
     private void PlayHitAnim() => PlayAnim("Hit");
 
     protected override void Start()
@@ -110,11 +121,7 @@ public class SpiritController : BossController
             return;
         }
 
-        float length = 0f;
-        foreach (var clip in Anim.runtimeAnimatorController.animationClips)
-        {
-            if (clip != null && clip.name == "WaterSpirit_Death") { length = clip.length; break; }
-        }
+        float length = GetClipLength("WaterSpirit_Death");
 
         if (length <= 0f)
         {
@@ -128,7 +135,15 @@ public class SpiritController : BossController
 
     private System.Collections.IEnumerator DeactivateAfter(float seconds)
     {
-        yield return new WaitForSeconds(seconds);
+        // P12: 대기 중이던 Hit 트리거가 먼저 소비되면 Death 상태 진입이 늦어진다.
+        //      Death 상태가 끝까지 재생될 때까지 기다리고, 진입하지 못하는 경우를 위해 길이 + 0.5초 상한을 둔다.
+        float deadline = Time.time + seconds + 0.5f;
+        while (Time.time < deadline)
+        {
+            var info = Anim.GetCurrentAnimatorStateInfo(0);
+            if (info.IsName("Death") && info.normalizedTime >= 1f) break;
+            yield return null;
+        }
         gameObject.SetActive(false);
     }
 
