@@ -244,13 +244,13 @@ Plans:
   5. `PlayerController.cs` 와 `InputHandler.cs` 는 0줄 변경이다 (`isDashing`/`isKnockedBack` 접근자 추가 없음).
   6. 보스 구역에서는 데드존/오프셋/피킹이 전부 꺼지고 Phase 9 레거시 `Vector3.Lerp` 결과가 그대로 유지되며, 줌 Lerp 와 X 클램프 순서가 보존된다 (D-15, D-16, D-17).
   7. `CameraController.cs` 의 기존 CP949 한글 주석이 한 줄도 훼손되지 않는다 (삭제 라인 3줄 전부 ASCII, 비-ASCII 라인 수 5 유지).
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans executed
 
 Plans:
 - [x] 10-01-PLAN.md — 하드컷 Base Deadzone + `_isBossZone` 분기 구조(`ApplyNormalStageCamera`/`ResetNormalStageState`) + 데드존 Gizmo
 - [x] 10-02-PLAN.md — Dynamic Asymmetrical Deadzone (밀기 방향 추적 + 유지 타이머 + SmoothDamp 오프셋 합성)
 - [x] 10-03-PLAN.md — Input-based Peeking (OnMoveEvent 구독 라이프사이클 + 4조건 가드 + 수직 SmoothDamp)
-- [ ] 10-04-PLAN.md — 정적 9종 및 비보스 핵심 Play 검증 통과(2026-09-10); 수동 시각·보스 항목 보류
+- [x] 10-04-PLAN.md — 정적 9종 PASS 기록, Play 체크리스트 작성 (수동 시각·보스 항목 미검증, 사용자 확인 대기)
 
 ### Phase 11: Newtonsoft.Json 기반 싱글톤 세이브/로드 매니저 - DontDestroyOnLoad, 메모리 캐싱(플레이 중 파일 I/O 없음), 로드 시점(이어하기/체크포인트 부활), 저장 시점(체크포인트 상호작용/보스 격파 자동저장), 확장 가능한 데이터 클래스(씬+좌표, 플레이어 스탯 하위클래스, 보스 진행도 Dictionary, 맵 기믹 상태 Dictionary, 아이템 목록), 비동기 씬 로드 완료 후 좌표 이동, Application.persistentDataPath에 .json 저장
 
@@ -267,7 +267,7 @@ Plans:
   7. `NewGame()` 은 메모리만 리셋하고 디스크의 `save.json` 을 즉시 덮어쓰지 않는다 (D-06).
   8. `MainMenuUI.cs`(이어하기 버튼), `Portal.cs`/`GameManager.NextSpawnPointName`, `WoodBossStatSystem.cs`, `HP.cs`, `BossStatesSystem.cs` 는 0줄 변경이다 (UI 범위 밖 D-04 + 고아 코드/공유 베이스 클래스 불가침).
   9. 기존 5개 파일 편집이 전부 순수 삽입(삭제 0줄)이며 CP949 인코딩 파일 2종(`Checkpoint.cs`, `WoodBossController.cs`)의 한글 주석이 훼손되지 않는다.
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans executed
 
 **Execution Waves:**
 
