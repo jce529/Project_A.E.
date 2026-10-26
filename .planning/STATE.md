@@ -40,7 +40,7 @@ Progress: [█████████░] 86% (31/36 plans; Phase 12: 1/1, Phas
 | 7 | 보스 공격 패턴 판단 로직 리팩토링 (1/2 plans) | In Progress (07-02 Play 모드 검증 체크포인트 대기) | - |
 | 8 | WaterMonster 보스 CombatState 마이그레이션 (2/3 plans) | In Progress (08-03 정적 회귀+Play 모드 일괄 검증 대기) | - |
 | 9 | 일반/보스 스테이지 카메라 줌 변화 | Complete (Play 모드 실측 미검증, UAT 보류) | 2026-07-30 |
-| 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (3/4 plans) | In Progress (비보스 핵심 실측 통과, 수동 시각 확인·보스 항목 대기) | - |
+| 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (4/4 plans) | Plans complete (수동 시각 확인·보스 항목 Play 검증 대기) | - |
 | 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (비보스 I/O·로드·새게임 실측 통과, UI 일부·보스 항목 대기) | - |
 | 12 | 피격 시 카메라 흔들림 (1/1 plans) | Complete (Play 모드 실측 통과, 수동 확인 4항목 백로그) | 2026-09-29 |
 | 13 | 코드베이스 정리 감사 (프로젝트 폴더 전수 스캔) | Complete (5/5 plans + 후속 정리 라운드 D-07/D-08 전량 실행 완료, D-09/D-10은 백로그) | 2026-08-20 |
