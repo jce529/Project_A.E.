@@ -35,6 +35,7 @@ public class SpiritController : BossController
     private bool _dying;
 
     public bool IsStage2 { get; private set; } = false;
+    public PatternHistory PatternHistory { get; } = new PatternHistory(); // Phase 7-03
     public bool IsDummy => (Stats as SpiritStats)?.IsDummy ?? false;
     public bool IsHeavyComboInProgress { get; private set; }
 
@@ -84,6 +85,7 @@ public class SpiritController : BossController
     {
         if (IsStage2) return;
         IsStage2 = true;
+        PatternHistory.Clear();
         if (Anim != null && Stage2AnimController != null) Anim.runtimeAnimatorController = Stage2AnimController;
         ChangeState(new Stage2CombatState());
     }

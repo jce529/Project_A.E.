@@ -11,6 +11,10 @@ public class SpiritCombatState : CombatState
     private const float WakeRepelWeight = 1.0f;
     private const float FarProjectileWeight = 1.0f;
 
+    // Phase 7-03: 재진입(Chase 복귀)해도 연속금지/D-04 체인이 끊기지 않도록 보스 보유 이력을 사용
+    protected override PatternHistory AcquireHistory(BossController boss)
+        => boss is SpiritController s ? s.PatternHistory : base.AcquireHistory(boss);
+
     private List<PatternCandidate> _candidates;
     private bool _noCandidateLogged;
 
