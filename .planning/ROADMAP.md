@@ -588,3 +588,13 @@ Plans:
 - [x] TBD (run /gsd:plan-phase 22 to break down) (completed 2026-10-01)
 
 ## Backlog
+
+### Phase 23: WaterMonster 3스테이지 보스 재구현 - 기획 문서 기준 페이즈(70/50/30%)·그로기·웅덩이 시스템·패턴 개편
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 8
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 23 to break down)
