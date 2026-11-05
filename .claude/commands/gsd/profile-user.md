@@ -19,8 +19,8 @@ Routes to the profile-user workflow which orchestrates the full flow: consent ga
 </objective>
 
 <execution_context>
-@D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/workflows/profile-user.md
-@D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/references/ui-brand.md
+@./.claude/get-shit-done/workflows/profile-user.md
+@./.claude/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <context>

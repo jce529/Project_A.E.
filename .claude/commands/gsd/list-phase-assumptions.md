@@ -17,7 +17,7 @@ Output: Conversational output only (no file creation) - ends with "What do you t
 </objective>
 
 <execution_context>
-@D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/workflows/list-phase-assumptions.md
+@./.claude/get-shit-done/workflows/list-phase-assumptions.md
 </execution_context>
 
 <context>

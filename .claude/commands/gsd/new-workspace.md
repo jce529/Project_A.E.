@@ -34,11 +34,11 @@ Create a physical workspace directory containing copies of specified git repos (
 </objective>
 
 <execution_context>
-@D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/workflows/new-workspace.md
-@D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/references/ui-brand.md
+@./.claude/get-shit-done/workflows/new-workspace.md
+@./.claude/get-shit-done/references/ui-brand.md
 </execution_context>
 
 <process>
-Execute the new-workspace workflow from @D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/workflows/new-workspace.md end-to-end.
+Execute the new-workspace workflow from @./.claude/get-shit-done/workflows/new-workspace.md end-to-end.
 Preserve all workflow gates (validation, approvals, commits, routing).
 </process>
