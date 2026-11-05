@@ -40,7 +40,12 @@ completed: 2026-11-05
 1. **D-05 텔레포트/장판 (수동 확인 대기)** — 실제 파괴 불가 웅덩이 2개 이상 상황이 필요하다. 임시 `PuddleStackManager` 로 카운트만 2 로 강제하면 보스가 패턴 선택을 멈추고 `WaterMonsterCombatState` 에 머물렀다(가드는 작동, `WaterTeleportState` 정상 이동은 미확인). 광폭화 장판 스폰도 ColorPrison 존과 구분되지 않아 판정하지 못했다.
 2. **D-07 WaterSpirit Stage 2 사이클** — 07-03 범위 밖이라 아무도 측정하지 않았다. 사람이 HP 50% 이하로 확인 필요.
 3. **WavePush 잠금이 CombatState 재진입 시 초기화됨(관찰)** — Chase 를 거쳐 3.6초 만에 재사용된 사례. 07-03 `PatternHistory` 기본(Enter 마다 새 이력) 때문이며, 08-02 이전 `_lastWaveTime` 도 상태 인스턴스 필드였던 것으로 보여 회귀는 아닐 가능성이 높다. 이전 빌드와 직접 비교는 하지 않았다. 45초 잠금을 재진입에도 유지하려면 WaterMonster 가 `AcquireHistory` 를 override 해야 한다(D-04a 해석 문제, 별도 결정 필요).
-4. **WaterColorPrison 존 누수 후보** — 광폭화 24회 시전 후 `WaterColorPrisonZonePrefab(Clone)` 136개 잔존(사용자도 "너무 많다"고 지적). 이 테스트 씬에서 `PlayerStats.TakeDamage`(PlayerStats.cs:75) NullReference 로 `ColorPrisonSequence` 코루틴이 `Destroy` 전에 중단된 것이 원인으로 추정된다. 실제 보스 씬에서의 누수는 미확인. 예외 시 정리 코드가 건너뛰어지는 구조(`WaterColorPrison.cs`)는 08-03 범위 밖의 별도 이슈 후보.
+4. **WaterColorPrison 존 잔존 — 확인 완료(2026-11-05): 정상 경로 누수 없음, 예외/비활성화 경로는 구조적으로 샐 수 있음.**
+   - 코드: 정상 경로에서는 `ColorPrisonSequence` 가 3.5초 뒤 `spawnedZones` 를 `Destroy` 하고 `ActiveZones.Clear()` 한다. 정리 코드에 `try/finally` 가 없다.
+   - 136개의 원인: 처음 테스트 씬에 `CameraController` 가 없어 `PlayerStats.TakeDamage` 끝의 `CameraController.Instance.Shake()`(PlayerStats.cs:75)가 NullReference 를 던졌고, 코루틴이 `Destroy` 전에 중단됐다(테스트 씬 특유). 앞서 "PlayerStats 초기화/UI 참조"라고 적은 추정은 틀렸고, 정확한 원인은 `CameraController` 부재다.
+   - 재측정: `CameraController` 를 추가하고 Player 프리팹(체력 100만으로 고정, 존 밖 배치라 80 데미지 경로 통과 추정)으로 `WaterColorPrison` 을 4초 간격 24회 시전 → 시전 중 4개(`ColorPrisonZoneCount`=4), 종료 후 **0개**. 즉 실제 보스 씬에서 정상 진행 중 누적 누수는 없다. 직접 호출(`ExecuteAttack`)이라 광폭화 자연 시전과 타이밍만 다르다.
+   - 실제로 새는 경로: 시전 1.5초 뒤 보스 GameObject 를 `SetActive(false)` 했더니 존 4개가 6초 뒤에도 잔존(코루틴이 보스 MonoBehaviour 에서 돌아 비활성화 시 중단). `WaterMonsterStats.Die()` 가 `SetActive(false)` 를 쓰므로 3.5초 시전 창 안에서 보스가 처치되면 씬 전환 전까지 존이 남는다. 사용자가 본 "너무 많다"는 이 경로 또는 예외 경로일 수 있으나 실제 보스 씬에서는 재현하지 못했다.
+   - 수정 후보(코드는 수정하지 않음, 사용자 결정): (a) `ColorPrisonSequence` 정리를 `try/finally` 로 감싸기 — 예외 경로 방지, 비활성화에는 무효 (b) 존 정리를 `WaterMonsterController.OnDisable` 에서 처리하거나 존 자체에 수명(`Destroy(go, 3.5f+α)`)을 줘서 코루틴과 분리 — 두 경로 모두 방지. 범위는 `WaterColorPrison.cs`(+선택적으로 `WaterColorPrisonZone.cs`) 한 파일 내외로 08-03 범위 밖.
 5. 광폭화 중 MeleeSwipe 가 50% 를 차지(자가 쿨다운 0.7초로 가장 짧음). 08-02 Pitfall 6 의 결과이며 밸런스 판단은 사람 몫.
 6. 측정 중 자동저장이 `%LocalLow%/DefaultCompany/AQUA ECLIPSE/save.json` 에 세이브를 썼다.
 
