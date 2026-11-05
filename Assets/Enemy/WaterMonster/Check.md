@@ -31,6 +31,23 @@
 2. 물괴물 보스 씬 열기
 3. Console Collapse를 끄고 검색창에 `WaterMonsterCombatState` 입력해 필터링
 
+## 정적 회귀 검사 (2026-10-31, 08-03 Task 1 — 소스 grep, Play 모드 아님)
+
+| # | 검사 | 판정 |
+|---|---|---|
+| A | `SpiritCombatState.cs` 의 2-인자 호출 `SelectWeightedPattern(dist, _candidates);` 유지 | PASS |
+| B | `CombatState.cs` 에 구 완전배제 `if (LastUsedPatternType == c.StrategyType) continue;` 0건 | PASS |
+| C | `CombatState.cs` 에 `if (lastUsedWeightMultiplier <= 0f) continue;` 존재 | PASS |
+| D | `float lastUsedWeightMultiplier = 0f)` 기본값(완전배제) 유지 | PASS |
+| E/F | `_lastWaveTime` 이 `CombatState.cs` / `WaterMonsterCombatState.cs` 양쪽에 0건 | PASS |
+| G/H | `WaveAttackCooldown = 45f` 및 `cooldownOverride: WaveAttackCooldown` | PASS |
+| I | `CanSpawnZone()`(74행)·`CanTeleport()`(84행) 가 `BuildCandidates(wmc)`(95행)보다 위 | PASS |
+| J/K | `baseCooldown * GetPatternCooldownMultiplier()` / `_isEnraged ? _enrageCooldownMultiplier : 1f;` | PASS |
+| L | Phase 8 커밋(`(08-`)이 바꾼 `.cs` 가 `CombatState.cs`, `WaterMonsterCombatState.cs` 2개뿐 | PASS |
+| M | 세 보스 `Check.md` 파일 존재 | PASS |
+
+정적 12/12 PASS. 아래 Play 모드 항목은 **전부 미검증** 상태다.
+
 ## 검증 항목
 
 - [ ] **D-02 랜덤성**: 30초 이상 교전 → `[WaterMonsterCombatState] 패턴 선택:` 로그가 고정 순서로
