@@ -5,14 +5,31 @@ namespace WaterMonster.Phase2
     public class WaterPuddle : MonoBehaviour, IPlayerInteractable
     {
         public bool isDestructible = true;
+        public float SpawnTime { get; private set; }
+        public float Age => Time.time - SpawnTime;
 
         [SerializeField] private Color indestructibleColor = new Color(0.3f, 0.3f, 1f, 0.5f);
+        [SerializeField] private bool _removableByPlayerAttack = true;
         
         private SpriteRenderer _sr;
 
         private void Awake()
         {
             _sr = GetComponent<SpriteRenderer>();
+            var body = GetComponent<Rigidbody2D>();
+            if (body == null) body = gameObject.AddComponent<Rigidbody2D>();
+            body.bodyType = RigidbodyType2D.Kinematic;
+            body.gravityScale = 0;
+        }
+
+        private void OnEnable() => SpawnTime = Time.time;
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!_removableByPlayerAttack || !isDestructible
+                || other.GetComponentInParent<PlayerAttackDamager>() == null) return;
+            if (PuddlePool.Instance != null) PuddlePool.Instance.Return(this);
+            else OnReturnToPool();
         }
 
         public void SetIndestructible()

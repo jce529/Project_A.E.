@@ -100,6 +100,7 @@ public class WaterMonsterController : BossController
     public bool IsPhase2 { get; private set; } = false;
 
     public WaterMonsterStats WaterStats { get; private set; }
+    private bool _started;
 
     protected override void Awake()
     {
@@ -149,8 +150,17 @@ public class WaterMonsterController : BossController
         }
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        _started = true;
+        WaterMonsterPuddleSystem.Ensure(this);
+    }
+
     protected override void OnDestroy()
     {
+        if (WaterMonsterPuddleSystem.Instance != null)
+            WaterMonsterPuddleSystem.Instance.Unbind(this);
         base.OnDestroy();
         if (_battleAreaDetached && _battleAreaBounds != null)
             Destroy(_battleAreaBounds.gameObject);
@@ -161,8 +171,13 @@ public class WaterMonsterController : BossController
         if (_weatherController != null)
             _weatherController.StopRain();
 
-        if (WaterMonster.Phase2.PuddlePool.Instance != null)
-            WaterMonster.Phase2.PuddlePool.Instance.ReturnAll();
+        if (WaterMonsterPuddleSystem.Instance != null
+            && WaterMonsterPuddleSystem.Instance.BoundBoss == this)
+        {
+            WaterMonsterPuddleSystem.Instance.Unbind(this);
+            if (PuddlePool.Instance != null)
+                PuddlePool.Instance.ReturnAll();
+        }
 
         ActivePatternCount = 0;
         if (_battleAreaDetached && _battleAreaBounds != null)
@@ -173,6 +188,7 @@ public class WaterMonsterController : BossController
     {
         if (_battleAreaDetached && _battleAreaBounds != null)
             _battleAreaBounds.gameObject.SetActive(true);
+        if (_started) WaterMonsterPuddleSystem.Ensure(this);
     }
 
     /// <summary>

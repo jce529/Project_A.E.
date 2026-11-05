@@ -7,10 +7,10 @@ using WaterMonster.Phase2;
 public class PuddleExplosionController : MonoBehaviour
 {
     [Header("Explosion Conditions")]
-    [SerializeField] private bool enableIndestructibleExplosion = true;
+    [SerializeField] private bool enableIndestructibleExplosion = false;
     [Tooltip("파괴 불가 웅덩이가 이 수에 도달하면 폭발")]
     [SerializeField] private int indestructibleThreshold = 5;
-    [SerializeField] private bool enableTotalExplosion = true;
+    [SerializeField] private bool enableTotalExplosion = false;
     [Tooltip("전체 활성 웅덩이 수가 이 수에 도달하면 일제 폭발")]
     [SerializeField] private int totalThreshold = 8;
 
@@ -24,6 +24,54 @@ public class PuddleExplosionController : MonoBehaviour
 
     private Coroutine _explosionRoutine;
     private bool _isExploding = false;
+    private int _generation;
+    public bool IsExploding => _isExploding;
+
+    public int StartExplosion(List<WaterPuddle> puddles)
+    {
+        if (_isExploding || puddles == null || puddles.Count == 0) return -1;
+        _isExploding = true;
+        int gen = ++_generation;
+        _explosionRoutine = StartCoroutine(ExplodeRoutine(new List<WaterPuddle>(puddles), gen));
+        return gen;
+    }
+
+    public bool IsRunning(int generation) => _isExploding && generation == _generation;
+
+    public void CancelAll()
+    {
+        StopAllCoroutines();
+        _generation++;
+        _isExploding = false;
+        _explosionRoutine = null;
+    }
+
+    private IEnumerator ExplodeRoutine(List<WaterPuddle> puddles, int gen)
+    {
+        foreach (var puddle in puddles)
+        {
+            if (puddle == null || !puddle.gameObject.activeSelf) continue;
+            var sr = puddle.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = warningColor;
+        }
+
+        yield return new WaitForSeconds(warningDuration);
+        if (gen != _generation) yield break;
+
+        foreach (var puddle in puddles)
+        {
+            if (puddle == null || !puddle.gameObject.activeSelf) continue;
+            ApplyExplosionDamage(puddle.transform.position);
+            if (PuddlePool.Instance != null) PuddlePool.Instance.Return(puddle);
+            else puddle.OnReturnToPool();
+        }
+
+        if (gen == _generation)
+        {
+            _isExploding = false;
+            _explosionRoutine = null;
+        }
+    }
 
     private void Start()
     {

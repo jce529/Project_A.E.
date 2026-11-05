@@ -31,6 +31,14 @@ namespace WaterMonster.Phase2
                 return;
             }
 
+            if (puddlePrefab == null)
+                puddlePrefab = Resources.Load<GameObject>("WaterPuddle");
+            if (puddlePrefab == null)
+            {
+                Debug.LogError("[PuddlePool] WaterPuddle prefab not found");
+                return;
+            }
+
             for (int i = 0; i < initialSize; i++)
             {
                 CreateNew();
