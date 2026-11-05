@@ -4,11 +4,12 @@ using UnityEngine;
 public class WaterPrisonMapAoe : WaterPrisonAttack
 {
     public override float Cooldown => 8f;
+    public override string AnimationName => WaterMonsterPatterns.PrisonAoe;
 
     public override void ExecuteAttack(BossController boss)
     {
-        if (boss.Anim != null) boss.Anim.SetTrigger(AnimationName);
-        boss.StartCoroutine(PrisonMapAoeSequence(boss));
+        WaterMonsterPatterns.TrySetTrigger(boss.Anim, AnimationName);
+        WaterMonsterPatterns.StartPattern(boss, PrisonMapAoeSequence(boss));
     }
 
     private IEnumerator PrisonMapAoeSequence(BossController boss)
