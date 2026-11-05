@@ -1,21 +1,14 @@
-using System.Linq;
-using System.Text;
-using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-
+// Unity CLI eval form: the eval wrapper is a method body, so there are no using directives and
+// non-default types are fully qualified (Linq and UnityEngine are available by default).
 const float RowStep = 44f;
-var report = new StringBuilder();
+var report = new System.Text.StringBuilder();
 if (EditorApplication.isPlayingOrWillChangePlaymode) throw new System.Exception("Run in Edit mode.");
-if (SceneManager.GetActiveScene().isDirty) throw new System.Exception("Active scene has unsaved changes - aborting.");
+if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().isDirty) throw new System.Exception("Active scene has unsaved changes - aborting.");
 var panelType = System.Type.GetType("ControlsSettingsPanel, Assembly-CSharp");
 
 foreach (var path in new[] { "Assets/Scenes/1 stage.unity", "Assets/Scenes/Tutorial Map.unity" })
 {
-    var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+    var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(path, UnityEditor.SceneManagement.OpenSceneMode.Single);
     var panel = Resources.FindObjectsOfTypeAll(panelType).Cast<Component>()
         .Single(c => c.gameObject.scene == scene);
     var so = new SerializedObject(panel);
@@ -32,10 +25,10 @@ foreach (var path in new[] { "Assets/Scenes/1 stage.unity", "Assets/Scenes/Tutor
     }
     if (exists) { report.AppendLine(path + ": Inventory entry already present - skipped"); continue; }
 
-    var srcButton = (Button)actionEntry.FindPropertyRelative("rebindButton").objectReferenceValue;
+    var srcButton = (UnityEngine.UI.Button)actionEntry.FindPropertyRelative("rebindButton").objectReferenceValue;
     var srcRow = (RectTransform)srcButton.transform.parent;
     var content = (RectTransform)srcRow.parent;
-    var resetRow = (RectTransform)((Button)so.FindProperty("resetButton").objectReferenceValue).transform;
+    var resetRow = (RectTransform)((UnityEngine.UI.Button)so.FindProperty("resetButton").objectReferenceValue).transform;
     while (resetRow.parent != content) resetRow = (RectTransform)resetRow.parent;
 
     // Precondition: the Action row must be the lowest key row (only the Reset row below it).
@@ -43,13 +36,13 @@ foreach (var path in new[] { "Assets/Scenes/1 stage.unity", "Assets/Scenes/Tutor
         if (child != srcRow && child != resetRow && child.anchoredPosition.y < srcRow.anchoredPosition.y)
             throw new System.Exception(path + ": row '" + child.name + "' sits below the Action row - layout differs, stop.");
 
-    var newRow = (RectTransform)Object.Instantiate(srcRow.gameObject, content).transform;
+    var newRow = (RectTransform)UnityEngine.Object.Instantiate(srcRow.gameObject, content).transform;
     newRow.name = "InventoryRow";
     newRow.SetSiblingIndex(srcRow.GetSiblingIndex() + 1);
     newRow.anchoredPosition = srcRow.anchoredPosition - new Vector2(0f, RowStep);
-    newRow.Find("ActionLabel").GetComponent<TMP_Text>().text = "Inventory";
-    var newButton = newRow.Find("KeyBtn").GetComponent<Button>();
-    var newKeyText = newRow.Find("KeyBtn/KeyText").GetComponent<TMP_Text>();
+    newRow.Find("ActionLabel").GetComponent<TMPro.TMP_Text>().text = "Inventory";
+    var newButton = newRow.Find("KeyBtn").GetComponent<UnityEngine.UI.Button>();
+    var newKeyText = newRow.Find("KeyBtn/KeyText").GetComponent<TMPro.TMP_Text>();
     newKeyText.text = "Tab";
     if (newButton.onClick.GetPersistentEventCount() != 0)
         throw new System.Exception(path + ": cloned KeyBtn has persistent onClick listeners - inspect before continuing.");
@@ -66,8 +59,8 @@ foreach (var path in new[] { "Assets/Scenes/1 stage.unity", "Assets/Scenes/Tutor
     added.FindPropertyRelative("keyLabel").objectReferenceValue = newKeyText;
     so.ApplyModifiedPropertiesWithoutUndo();
 
-    EditorSceneManager.MarkSceneDirty(scene);
-    EditorSceneManager.SaveScene(scene);
+    UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+    UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene);
     report.AppendLine($"{path}: row y={newRow.anchoredPosition.y}, reset y={resetRow.anchoredPosition.y}, content h={content.sizeDelta.y}, entries={entries.arraySize}");
 }
 return report.ToString();
