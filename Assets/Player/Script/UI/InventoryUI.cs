@@ -12,6 +12,7 @@ public class InventoryUI : MonoBehaviour
     private const int Columns = 5;
     private const float CellSize = 96f;
     private const float CellSpacing = 8f;
+    private const float ToastDuration = 2f;
     private static readonly Color PanelColor = new Color(0f, 0f, 0f, 0.8f);
     internal static readonly Color SlotColor = new Color(1f, 1f, 1f, 0.12f);
     internal static readonly Color SelectedColor = new Color(1f, 0.85f, 0.3f, 0.55f);
@@ -25,12 +26,15 @@ public class InventoryUI : MonoBehaviour
     private bool isOpen;
     private bool dirty = true;
     private bool pendingClose;
+    private TextMeshProUGUI toastLabel;
+    private float toastRemaining;
 
     private void Awake()
     {
         inventory = GetComponent<Inventory>();
         inventory.OnChanged += MarkDirty;
         BuildUI();
+        WorldItem.PickupResolved += HandlePickupResolved;
     }
 
     private void Start()
@@ -46,6 +50,7 @@ public class InventoryUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        WorldItem.PickupResolved -= HandlePickupResolved;
         if (inventory != null) inventory.OnChanged -= MarkDirty;
         if (InputHandler.Instance != null)
         {
@@ -78,6 +83,29 @@ public class InventoryUI : MonoBehaviour
     private void HandleStateChange(GameStateManager.GameState state)
     {
         if (isOpen && state != GameStateManager.GameState.Inventory) HidePanel();
+    }
+
+    // D-12: success and full-inventory messages. Only WorldItem raises this (D-13).
+    private void HandlePickupResolved(ItemData item, int count, bool added)
+    {
+        ShowToast(added ? $"{DisplayNameOf(item)} x{count} 획득" : "인벤토리가 가득 찼습니다");
+    }
+
+    // D-14: replace instead of queue - the newest message overwrites the old one and restarts
+    // the timer, so toasts never stack up over the screen.
+    private void ShowToast(string message)
+    {
+        toastLabel.text = message;
+        toastLabel.gameObject.SetActive(true);
+        toastRemaining = ToastDuration;
+    }
+
+    private void Update()
+    {
+        if (toastRemaining <= 0f) return;
+        // D-14: unscaled, so the countdown keeps running while timeScale is 0.
+        toastRemaining -= Time.unscaledDeltaTime;
+        if (toastRemaining <= 0f) toastLabel.gameObject.SetActive(false);
     }
 
     private void LateUpdate()
@@ -212,6 +240,16 @@ public class InventoryUI : MonoBehaviour
         detailRect.pivot = new Vector2(0.5f, 0f);
         detailRect.anchoredPosition = new Vector2(0f, 24f);
         detailRect.sizeDelta = new Vector2(gridWidth, 48f);
+
+        // The toast sits directly on the canvas, not under panelRoot, so it shows with the panel closed.
+        toastLabel = CreateText("Pickup Toast", canvasObject.transform, 32f, TextAlignmentOptions.Center);
+        var toastRect = toastLabel.rectTransform;
+        toastRect.anchorMin = toastRect.anchorMax = new Vector2(0.5f, 1f);
+        toastRect.pivot = new Vector2(0.5f, 1f);
+        toastRect.anchoredPosition = new Vector2(0f, -140f);
+        toastRect.sizeDelta = new Vector2(900f, 60f);
+        toastLabel.outlineWidth = 0.2f;
+        toastLabel.gameObject.SetActive(false);
 
         panelRoot.SetActive(false);
     }
