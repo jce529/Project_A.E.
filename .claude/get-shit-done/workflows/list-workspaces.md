@@ -11,7 +11,7 @@ Read all files referenced by the invoking prompt's execution_context before star
 ## 1. Setup
 
 ```bash
-INIT=$(node "D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/bin/gsd-tools.cjs" init list-workspaces)
+INIT=$(node "./.claude/get-shit-done/bin/gsd-tools.cjs" init list-workspaces)
 if [[ "$INIT" == @file:* ]]; then INIT=$(cat "${INIT#@file:}"); fi
 ```
 

@@ -24,7 +24,7 @@ Wait for response before continuing.
 **Check if project exists.**
 
 ```bash
-INIT=$(node "D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/get-shit-done/bin/gsd-tools.cjs" state load 2>/dev/null)
+INIT=$(node "./.gemini/get-shit-done/bin/gsd-tools.cjs" state load 2>/dev/null)
 ```
 
 Track whether `.planning/` exists — some routes require it, others don't.

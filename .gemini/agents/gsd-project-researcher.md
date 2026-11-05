@@ -111,7 +111,7 @@ Always include current year. Use multiple query variations. Mark WebSearch-only 
 Check `brave_search` from orchestrator context. If `true`, use Brave Search for higher quality results:
 
 ```bash
-node "D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/get-shit-done/bin/gsd-tools.cjs" websearch "your query" --limit 10
+node "./.gemini/get-shit-done/bin/gsd-tools.cjs" websearch "your query" --limit 10
 ```
 
 **Options:**

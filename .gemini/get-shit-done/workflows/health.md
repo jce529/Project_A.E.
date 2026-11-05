@@ -25,7 +25,7 @@ fi
 **Run health validation:**
 
 ```bash
-node "D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/get-shit-done/bin/gsd-tools.cjs" validate health $REPAIR_FLAG
+node "./.gemini/get-shit-done/bin/gsd-tools.cjs" validate health $REPAIR_FLAG
 ```
 
 Parse JSON output:
@@ -112,7 +112,7 @@ If yes, re-run with --repair flag and display results.
 Re-run health check without --repair to confirm issues are resolved:
 
 ```bash
-node "D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/get-shit-done/bin/gsd-tools.cjs" validate health
+node "./.gemini/get-shit-done/bin/gsd-tools.cjs" validate health
 ```
 
 Report final status.
@@ -166,13 +166,13 @@ When `--repair` is active, detect and clean up:
 
 ```bash
 # Check for stale task directories (older than 24 hours)
-TASKS_DIR="D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/tasks"
+TASKS_DIR="./.gemini/tasks"
 if [ -d "$TASKS_DIR" ]; then
   STALE_COUNT=$( (find "$TASKS_DIR" -maxdepth 1 -type d -mtime +1 2>/dev/null || true) | wc -l )
   if [ "$STALE_COUNT" -gt 0 ]; then
-    echo "⚠️  Found $STALE_COUNT stale task directories in D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/tasks/"
+    echo "⚠️  Found $STALE_COUNT stale task directories in ./.gemini/tasks/"
     echo "   These are leftover from crashed subagent sessions."
-    echo "   Run: rm -rf D:/새 폴더/Projeect_A.E/Projeect_A.E/.gemini/tasks/*  (safe — only affects dead sessions)"
+    echo "   Run: rm -rf ./.gemini/tasks/*  (safe — only affects dead sessions)"
   fi
 fi
 ```

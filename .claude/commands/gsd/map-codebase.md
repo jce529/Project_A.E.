@@ -20,7 +20,7 @@ Output: .planning/codebase/ folder with 7 structured documents about the codebas
 </objective>
 
 <execution_context>
-@D:/새 폴더/Projeect_A.E/Projeect_A.E/.claude/get-shit-done/workflows/map-codebase.md
+@./.claude/get-shit-done/workflows/map-codebase.md
 </execution_context>
 
 <context>
