@@ -201,7 +201,7 @@ Phase 7 의 `CombatState` 범용 헬퍼(`PatternCandidate` + `SelectWeightedPatt
 Plans:
 - [x] 08-01-PLAN.md — CombatState 헬퍼 확장 (쿨다운 오버라이드 + 광폭화 배율 훅 + 직전 패턴 가중치 감쇠 모드)
 - [x] 08-02-PLAN.md — WaterMonsterCombatState 후보 선언 데이터 레이어 전환 + WaterMonster Check.md 작성
-- [ ] 08-03-PLAN.md — 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종 일괄 Play 모드 검증 체크포인트
+- [x] 08-03-PLAN.md — 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종 일괄 Play 모드 검증 체크포인트
 
 ### Phase 9: 일반 스테이지와 보스 스테이지 진입 시 카메라 크기(줌) 변화
 

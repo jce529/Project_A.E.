@@ -44,7 +44,7 @@ Progress: [█████████░] 90% (54/60 plans; Phase 20 Plan 06 Pl
 | 5 | 보스 기반 엔티티 및 스테이지 1 공격 패턴 | Complete | 2026-04-30 |
 | 6 | 스테이지 전환 및 스테이지 2 은신·분신 시스템 | Complete | 2026-04-30 |
 | 7 | 보스 공격 패턴 판단 로직 리팩토링 (2/3 plans) | In Progress (07-03 Play 검증 D-03/D-04/D-05 PASS, D-07 Stage 2·D-08b 미검증 — 07-02 체크포인트는 08-03 이 흡수) | - |
-| 8 | WaterMonster 보스 CombatState 마이그레이션 (2/3 plans) | In Progress (08-03 Task 1 정적 회귀 통과, Task 2 Play 모드 일괄 검증 대기) | - |
+| 8 | WaterMonster 보스 CombatState 마이그레이션 (3/3 plans) | Plans complete (08-03 Play 검증: WaterMonster 8 PASS, D-05 텔레포트·WaterSpirit D-07 수동 확인 대기, ColorPrison 존 136개 잔존 조사 중) | - |
 | 9 | 일반/보스 스테이지 카메라 줌 변화 | Complete (Play 모드 실측 미검증, UAT 보류) | 2026-07-30 |
 | 10 | 카메라 데드존 3종 (Base/Dynamic Asymmetrical/Peeking) (4/4 plans) | Plans complete (수동 시각 확인·보스 항목 Play 검증 대기) | - |
 | 11 | Newtonsoft.Json 세이브/로드 매니저 (3/4 plans) | In Progress (비보스 I/O·로드·새게임 실측 통과, UI 일부·보스 항목 대기) | - |
