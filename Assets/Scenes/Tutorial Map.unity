@@ -11044,6 +11044,10 @@ MonoBehaviour:
     bindingIndex: 0
     rebindButton: {fileID: 2044766315}
     keyLabel: {fileID: 631738782}
+  - actionName: Inventory
+    bindingIndex: 0
+    rebindButton: {fileID: 336056294}
+    keyLabel: {fileID: 318903661}
   - actionName: BasicAttack
     bindingIndex: 1
     rebindButton: {fileID: 484974185}
@@ -11064,10 +11068,6 @@ MonoBehaviour:
     bindingIndex: 0
     rebindButton: {fileID: 1265993002}
     keyLabel: {fileID: 1591264277}
-  - actionName: Inventory
-    bindingIndex: 0
-    rebindButton: {fileID: 336056294}
-    keyLabel: {fileID: 318903661}
   listeningOverlay: {fileID: 362779148}
   resetButton: {fileID: 1844472303}
 --- !u!1 &1032195513

@@ -2027,6 +2027,10 @@ MonoBehaviour:
     bindingIndex: 0
     rebindButton: {fileID: 376476737}
     keyLabel: {fileID: 2094301225}
+  - actionName: Inventory
+    bindingIndex: 0
+    rebindButton: {fileID: 2010823530}
+    keyLabel: {fileID: 953098186}
   - actionName: BasicAttack
     bindingIndex: 1
     rebindButton: {fileID: 1294269769}
@@ -2047,10 +2051,6 @@ MonoBehaviour:
     bindingIndex: 0
     rebindButton: {fileID: 1687231206}
     keyLabel: {fileID: 1408623862}
-  - actionName: Inventory
-    bindingIndex: 0
-    rebindButton: {fileID: 2010823530}
-    keyLabel: {fileID: 953098186}
   listeningOverlay: {fileID: 1739240893}
   resetButton: {fileID: 1898288415}
 --- !u!114 &324690429
