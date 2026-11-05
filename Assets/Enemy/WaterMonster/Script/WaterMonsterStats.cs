@@ -15,6 +15,7 @@ public class WaterMonsterStats : BossStatsSystem
     private float _lastTickTime = 0f;
 
     public float CurrentHealth => _currentHealth;
+    public float IncomingDamageMultiplier { get; set; } = 1f;
 
     public void SetEnraged(bool value) { _isEnraged = value; }
 
@@ -52,6 +53,7 @@ public class WaterMonsterStats : BossStatsSystem
         // 기본 공격(Normal)과 파동참(WaveSlash)만 데미지를 줌
         if (info.type == DamageType.Normal || info.type == DamageType.WaveSlash)
         {
+            info.amount *= IncomingDamageMultiplier;
             base.TakeDamage(info);
             InvokeOnDamageTaken();
             return;

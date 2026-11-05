@@ -16,22 +16,76 @@ public class WaterMonsterController : BossController
     [Header("Phase 2 Settings")]
     [SerializeField] private WeatherController _weatherController;
     [SerializeField] [Range(0f, 1f)] private float _phase2HpThreshold = 0.70f;
-    private bool _phase2Triggered = false;
 
     [Header("Phase 3 Settings")]
     [SerializeField] private float _teleportCooldown = 8f;
     private float _lastTeleportTime = -999f;
     [SerializeField] [Range(0f,1f)] private float _phase3HpThreshold = 0.50f;
-    private bool _phase3Triggered = false;
     public bool IsPhase3 { get; private set; } = false;
 
-    [Header("Phase 4 Settings")]
+    [Header("Phase 3 Empowerment")]
     [SerializeField] [Range(0f, 1f)] private float _enrageHpThreshold = 0.30f;
+    // HP 30% phase 3 enhancement; no self-inflicted HP cost.
     public bool IsEnraged { get; private set; } = false;
     private bool _enrageTriggered = false;
 
+    [Header("Groggy / Phase Transition")]
+    [SerializeField] private float _groggyDuration = 3f;
+    [SerializeField] private float _phaseTransitionDuration = 1.5f;
+    [SerializeField] private float _groggyDamageMultiplier = 1f;
+    [SerializeField] private bool _groggyOnEmpower = false;
+
+    public float GroggyDuration => _groggyDuration;
+    public float PhaseTransitionDuration => _phaseTransitionDuration;
+    public float GroggyDamageMultiplier => _groggyDamageMultiplier;
+    public int CurrentPhase { get; private set; } = 1;
+    public event System.Action<int> PhaseEntered;
+    private int _pendingPhase;
+    private bool _pendingEmpower;
+    public bool HasPendingPhaseTransition => _pendingPhase > CurrentPhase || _pendingEmpower;
+
     [Header("Battle Area")]
     [SerializeField] private BoxCollider2D _battleAreaBounds;
+    private bool _battleAreaDetached;
+
+    [Header("Phase 3 Enhancement")]
+    [SerializeField] private float _phase3DamageMul = 1.2f;
+    [SerializeField] private float _phase3RadiusMul = 1.15f;
+    [SerializeField] private float _phase3WindupMul = 0.85f;
+    [SerializeField] private float _empoweredDamageMul = 1.4f;
+    [SerializeField] private float _empoweredRadiusMul = 1.3f;
+    [SerializeField] private float _empoweredWindupMul = 0.7f;
+    [SerializeField] private float _phase3CooldownMultiplier = 0.75f;
+    [SerializeField] private float _empoweredCooldownMultiplier = 0.5f;
+    [SerializeField] private int _phase3MaxConcurrentPatterns = 2;
+
+    public float EnhanceDamageMul => IsEnraged ? _empoweredDamageMul : IsPhase3 ? _phase3DamageMul : 1f;
+    public float EnhanceRadiusMul => IsEnraged ? _empoweredRadiusMul : IsPhase3 ? _phase3RadiusMul : 1f;
+    public float EnhanceWindupMul => IsEnraged ? _empoweredWindupMul : IsPhase3 ? _phase3WindupMul : 1f;
+    public float PatternCooldownMultiplier => IsEnraged ? _empoweredCooldownMultiplier : IsPhase3 ? _phase3CooldownMultiplier : 1f;
+    public int Phase3MaxConcurrentPatterns => _phase3MaxConcurrentPatterns;
+
+    public int ActivePatternCount { get; private set; }
+    public bool IsPatternRunning => ActivePatternCount > 0;
+    public PatternHistory PatternHistory { get; } = new PatternHistory();
+
+    public Coroutine RunPattern(IEnumerator routine)
+    {
+        return StartCoroutine(TrackPattern(routine));
+    }
+
+    private IEnumerator TrackPattern(IEnumerator routine)
+    {
+        ActivePatternCount++;
+        try
+        {
+            yield return StartCoroutine(routine);
+        }
+        finally
+        {
+            ActivePatternCount = Mathf.Max(0, ActivePatternCount - 1);
+        }
+    }
 
     [Header("Phase 4 Zone Settings")]
     [SerializeField] private GameObject _speedUpZonePrefab;
@@ -57,6 +111,11 @@ public class WaterMonsterController : BossController
         }
 
         SetupHitBox();
+        if (_battleAreaBounds != null && _battleAreaBounds.transform.IsChildOf(transform))
+        {
+            _battleAreaBounds.transform.SetParent(null, true);
+            _battleAreaDetached = true;
+        }
     }
 
     private void SetupHitBox()
@@ -90,26 +149,11 @@ public class WaterMonsterController : BossController
         }
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        if (WaterStats != null)
-        {
-            WaterStats.OnDamageTaken += CheckPhase2Trigger;
-            WaterStats.OnDamageTaken += CheckPhase3Trigger;
-            WaterStats.OnDamageTaken += CheckEnrageTrigger;
-        }
-    }
-
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        if (WaterStats != null)
-        {
-            WaterStats.OnDamageTaken -= CheckPhase2Trigger;
-            WaterStats.OnDamageTaken -= CheckPhase3Trigger;
-            WaterStats.OnDamageTaken -= CheckEnrageTrigger;
-        }
+        if (_battleAreaDetached && _battleAreaBounds != null)
+            Destroy(_battleAreaBounds.gameObject);
     }
 
     private void OnDisable()
@@ -119,6 +163,16 @@ public class WaterMonsterController : BossController
 
         if (WaterMonster.Phase2.PuddlePool.Instance != null)
             WaterMonster.Phase2.PuddlePool.Instance.ReturnAll();
+
+        ActivePatternCount = 0;
+        if (_battleAreaDetached && _battleAreaBounds != null)
+            _battleAreaBounds.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        if (_battleAreaDetached && _battleAreaBounds != null)
+            _battleAreaBounds.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -137,45 +191,47 @@ public class WaterMonsterController : BossController
         _lastTeleportTime = Time.time;
     }
 
-    private void CheckPhase2Trigger()
+    private void EvaluatePhaseThresholds()
     {
-        if (_phase2Triggered) return;
+        if (WaterStats == null) return;
 
-        if (WaterStats.CurrentHealth / WaterStats.MaxHealth <= _phase2HpThreshold)
+        float ratio = WaterStats.CurrentHealth / WaterStats.MaxHealth;
+        int target = ratio <= _phase3HpThreshold ? 3 : ratio <= _phase2HpThreshold ? 2 : 1;
+        if (target > CurrentPhase)
+            _pendingPhase = Mathf.Max(_pendingPhase, target);
+
+        if (CurrentPhase >= 3 && !_enrageTriggered && !_pendingEmpower && ratio <= _enrageHpThreshold)
         {
-            _phase2Triggered = true;
-            IsPhase2 = true;
-            if (_weatherController != null)
-                _weatherController.StartRain();
+            if (_groggyOnEmpower) _pendingEmpower = true;
+            else ActivateEnrage();
+        }
+
+        if (HasPendingPhaseTransition && !IsPatternRunning
+            && !(CurrentState is WaterMonsterGroggyState)
+            && !(CurrentState is WaterTeleportState))
+        {
+            ChangeState(new WaterMonsterGroggyState(
+                _pendingPhase > CurrentPhase ? _pendingPhase : CurrentPhase,
+                _pendingPhase <= CurrentPhase && _pendingEmpower));
         }
     }
 
-    private void CheckPhase3Trigger()
+    public void CompletePhaseTransition(int phase)
     {
-        if (_phase3Triggered) return;
-        if (WaterStats.CurrentHealth / WaterStats.MaxHealth <= _phase3HpThreshold)
-        {
-            _phase3Triggered = true;
-            IsPhase3 = true;
-        }
+        CurrentPhase = Mathf.Max(CurrentPhase, phase);
+        IsPhase2 = CurrentPhase >= 2;
+        IsPhase3 = CurrentPhase >= 3;
+        if (_pendingPhase <= CurrentPhase) _pendingPhase = 0;
+        if (CurrentPhase >= 2 && _weatherController != null)
+            _weatherController.StartRain();
+        PhaseEntered?.Invoke(CurrentPhase);
     }
 
-    private void CheckEnrageTrigger()
-    {
-        if (_enrageTriggered) return;
-        if (WaterStats.CurrentHealth / WaterStats.MaxHealth <= _enrageHpThreshold)
-        {
-            ActivateEnrage();
-        }
-    }
-
-    private void ActivateEnrage()
+    public void ActivateEnrage()
     {
         _enrageTriggered = true;
         IsEnraged = true;
-        WaterStats.SetEnraged(true);
-        if (CurrentState is WaterMonsterCombatState cs)
-            cs.SetEnraged(true);
+        _pendingEmpower = false;
     }
 
     protected override void Update()
@@ -191,12 +247,7 @@ public class WaterMonsterController : BossController
             ChangeState(new WaterMonsterCombatState());
         }
 
-        // Phase 4: Enrage fallback check (tick drain doesn't fire OnDamageTaken)
-        if (!_enrageTriggered && WaterStats != null
-            && WaterStats.CurrentHealth / WaterStats.MaxHealth <= _enrageHpThreshold)
-        {
-            ActivateEnrage();
-        }
+        EvaluatePhaseThresholds();
     }
 
     public bool CanSpawnZone()
