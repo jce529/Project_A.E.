@@ -43,11 +43,14 @@ expected: The persistent InputHandler retains a valid InputSystem_Actions asset 
 result: issue
 reported: "InputHandler loses its action asset after the scene transition and the player cannot move."
 severity: major
-evidence: Unity MCP confirmed both InputManager objects are children of Manager, DontDestroyOnLoad rejects the Tutorial handler, and 1 stage serializes inputActions as null while the fallback Resources.Load path also returns null.
+evidence: Unity MCP confirmed both InputManager objects are children of Manager, DontDestroyOnLoad rejects the Tutorial handler, and 1 stage resolves its broken inputActions reference as null while the fallback Resources.Load path also returns null. Follow-up hierarchy inspection confirmed the same child-object persistence defect affects GameManager, GameStateManager, and AudioManager; this expanded scope is tracked in BUG-007.
+retest: "Fix implemented. MainMenu → Tutorial Map → 1 stage retained the same InputHandler/GameStateManager/AudioManager instance IDs, one persistent root, an enabled Player action map, Playing state, Time.timeScale 1, one current EnvironmentManager, and one EventSystem. Physical key-input confirmation remains pending because Unity MCP approval was revoked during the extended run."
 
 ## Additional Findings
 
 - [BUG-009](bugs/BUG-009-interaction-prompt-camera-jitter.md): 2026-09-12 사용자 후속 보고 — quick-260912-kih의 대상 위 키 UI가 플레이어 이동 중 떨림. 2026-09-13 사용자 승인으로 World Space Canvas로 전환. 대상의 자식에 높이 오프셋을 적용하며 줌에 따라 글자도 확대/축소한다. 화면 좌표 계산과 렌더 콜백은 제거했고 C# 빌드 통과(오류 0). 2026-09-13 사용자 “확인완료했어 완료처리해줘”로 Play 수용 확인 및 종료 승인하여 해결됨. 세부 시나리오별 계측 로그는 미수집. 기존 6개 UAT 테스트 집계와 별도 후속 발견.
+
+- [BUG-008](bugs/BUG-008-tutorialboss-animator-missing.md): Tutorial Map Play Mode raised `MissingComponentException` when `TutorialIdleState.Enter()` called `Animator.SetTrigger` on a Tutorial Boss without a valid Animator component.
 
 ## Summary
 

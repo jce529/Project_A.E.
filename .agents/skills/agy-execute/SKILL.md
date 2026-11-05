@@ -1,19 +1,19 @@
 ---
 name: agy-execute
-description: This skill should be used when the user asks to hand off implementation/coding to the "agy" CLI, says phrases like "agy로 실행해줘", "실행은 agy한테 넘겨", "execute via agy", "agy에게 위임", or when a GSD phase PLAN.md has just been approved via /gsd:plan-phase and the next step is implementation (instead of running /gsd:execute-phase's internal executor). Governs the split where Claude Code does design/research/verification and agy does the actual code writing.
+description: This skill should be used when the user asks to hand off implementation/coding to the "agy" CLI, says phrases like "agy로 실행해줘", "실행은 agy한테 넘겨", "execute via agy", "agy에게 위임", or when a GSD phase PLAN.md has just been approved via /gsd:plan-phase and the next step is implementation (instead of running /gsd:execute-phase's internal executor). Governs the split where Codex does design/research/verification and agy does the actual code writing.
 version: 1.0.0
 ---
 
-# Agy 실행 위임 (설계는 Claude Code, 실행은 agy)
+# Agy 실행 위임 (설계는 Codex, 실행은 agy)
 
 ## 개요
 
 이 프로젝트의 개발 워크플로우는 도구 역할을 둘로 나눈다.
 
-- **Claude Code (나)**: 설계 담당 — 리서치, 계획 수립, `.planning/`에 GSD 산출물 작성, 계획 검증, 실행 결과 리뷰/검증.
+- **Codex (나)**: 설계 담당 — 리서치, 계획 수립, `.planning/`에 GSD 산출물 작성, 계획 검증, 실행 결과 리뷰/검증.
 - **agy CLI** (`C:\Users\chang\AppData\Local\agy\bin\agy.exe`, PATH 등록됨, 확인된 버전 1.1.15): 실행 담당 — 승인된 플랜에 따라 실제 코드를 작성/수정하는 별도의 코딩 에이전트.
 
-이는 CLAUDE.md의 GSD 사이클(`discuss-phase` → `plan-phase` → `execute-phase` → `verify-work`)을 그대로 따르되, **`execute-phase`에서 실제 코딩을 수행하는 부분만 내부 `gsd-executor` 서브에이전트 대신 `agy` CLI가 담당**하도록 바꾼 것이다. 기획/설계는 여전히 Claude Code, 즉 이 프레임워크의 1~4번 원칙(추측 금지, 단순성, 정밀한 변경, 목표 주도적 검증)을 그대로 적용한다.
+이는 AGENTS.md의 GSD 사이클(`discuss-phase` → `plan-phase` → `execute-phase` → `verify-work`)을 그대로 따르되, **`execute-phase`에서 실제 코딩을 수행하는 부분만 내부 `gsd-executor` 서브에이전트 대신 `agy` CLI가 담당**하도록 바꾼 것이다. 기획/설계는 여전히 Codex, 즉 이 프레임워크의 1~4번 원칙(추측 금지, 단순성, 정밀한 변경, 목표 주도적 검증)을 그대로 적용한다.
 
 ## 언제 이 스킬을 쓰는가
 
@@ -21,14 +21,14 @@ version: 1.0.0
 - `/gsd:plan-phase`로 `.planning/phases/N-*/N-0X-PLAN.md`가 승인되어 다음 단계가 실제 구현(코딩)일 때
 - 사용자가 "이제 실행 단계야"처럼 실제 파일 변경이 필요한 작업을 시작하려 할 때
 
-이 스킬이 적용되는 동안 Claude Code는 **`.planning/` 밖의 구현 코드를 직접 작성하지 않는다.** 오타 수정처럼 사소하거나, 사용자가 "네가 직접 고쳐줘"라고 명시적으로 요청한 경우는 예외다.
+이 스킬이 적용되는 동안 Codex는 **`.planning/` 밖의 구현 코드를 직접 작성하지 않는다.** 오타 수정처럼 사소하거나, 사용자가 "네가 직접 고쳐줘"라고 명시적으로 요청한 경우는 예외다.
 
-## Claude Code가 계속 담당하는 일
+## Codex가 계속 담당하는 일
 
 1. `/gsd:discuss-phase`, `/gsd:plan-phase`로 `.planning/phases/N-*/` 아래 `N-CONTEXT.md`, `N-RESEARCH.md`, `N-0X-PLAN.md` 작성.
-2. 계획에 모호함이나 트레이드오프가 있으면 코드를 짜기 전에 사용자에게 먼저 확인 (CLAUDE.md 1번 원칙).
+2. 계획에 모호함이나 트레이드오프가 있으면 코드를 짜기 전에 사용자에게 먼저 확인 (AGENTS.md 1번 원칙).
 3. agy 실행이 끝나면 diff 리뷰(`git status`, `git diff`), 빌드/콘솔 에러 확인, `.planning/STATE.md` 갱신, 필요하면 `/gsd:verify-work` 진행.
-4. agy가 계획 범위를 벗어난 파일을 건드렸다면 사용자에게 보고 (CLAUDE.md 3번 "정밀한 변경" 원칙은 agy의 산출물에도 그대로 적용).
+4. agy가 계획 범위를 벗어난 파일을 건드렸다면 사용자에게 보고 (AGENTS.md 3번 "정밀한 변경" 원칙은 agy의 산출물에도 그대로 적용).
 
 ## agy 실행 방법
 
@@ -39,11 +39,11 @@ version: 1.0.0
 PLAN.md 안의 `<context>` 블록에 있는 `@.planning/STATE.md`, `@...-CONTEXT.md`, `@...-RESEARCH.md`,
 `@Assets/.../Xxx.cs` 같은 `@경로` 줄은 **GSD 안에서만 통하는 문법**이다. 원래는 `/gsd:execute-phase`가
 `gsd-tools.cjs init execute-phase`로 이 줄들을 미리 펼쳐서 `<files_to_read>` 블록을 만들고,
-gsd-executor(`.claude/agents/gsd-executor.md` 22~24행)가 그걸 보고 실제로 Read 하도록 강제하는 구조다.
+gsd-executor(`.Codex/agents/gsd-executor.md` 22~24행)가 그걸 보고 실제로 Read 하도록 강제하는 구조다.
 agy는 이 문법을 모른다 — PLAN.md 원문을 그냥 `cat` 해서 넘기면 `@경로` 줄은 agy 입장에서 의미 없는
 텍스트일 뿐이고, STATE.md/CONTEXT.md/RESEARCH.md/실제 소스 파일 내용은 전달되지 않는다.
 
-그래서 agy를 부르기 **전에 Claude Code가 직접** 이 역할을 대신한다:
+그래서 agy를 부르기 **전에 Codex가 직접** 이 역할을 대신한다:
 
 1. PLAN.md의 `<context>` 블록에서 `@`로 시작하는 줄을 모두 추출한다.
 2. 각 경로를 실제로 Read 한다. 이때 파일을 전체 그대로 붙이지 않는다 — **PLAN.md가 이미
@@ -131,17 +131,17 @@ agy --continue -p "다음 태스크 계속 진행해줘"
 ### 6. 모델/추론 강도 지정 (선택)
 
 ```bash
-agy --model claude-sonnet-4-6 --effort high -p "..."
+agy --model Codex-sonnet-4-6 --effort high -p "..."
 ```
 
-사용 가능한 모델 목록은 `agy models`로 확인한다 (Claude Sonnet/Opus, Gemini 계열 등을 지원).
+사용 가능한 모델 목록은 `agy models`로 확인한다 (Codex Sonnet/Opus, Gemini 계열 등을 지원).
 
 ## agy가 막혔을 때 (에러 에스컬레이션)
 
 - **단순 문법/타이포/빌드 에러**: agy가 직접 고치도록 둔다 (위 프롬프트의 "3회 시도" 규칙).
 - **로직/아키텍처급 문제** (계획에 없는 구조 변경이 필요해 보임, 계획의 전제가 틀렸음을 발견함,
   3회 넘게 같은 에러가 반복됨): agy를 더 붙잡고 있지 말고, agy가 보고한 에러 로그만 가지고
-  Claude Code로 돌아온다. Claude Code가 원인을 분석해 PLAN.md를 갱신(또는 사용자에게 트레이드오프
+  Codex로 돌아온다. Codex가 원인을 분석해 PLAN.md를 갱신(또는 사용자에게 트레이드오프
   제시)한 뒤, 갱신된 내용으로 agy를 다시 호출한다. (GSD 자체의 `deviation_rules` Rule 4 "아키텍처
   변경은 STOP"과 동일한 기준.)
 
@@ -155,6 +155,6 @@ agy --model claude-sonnet-4-6 --effort high -p "..."
 
 ## 경계
 
-- 기본 워크플로우는 "Claude Code = 설계·검증, agy = 구현"이다.
-- 사소한 수정(오타, 한두 줄)이나 사용자가 명시적으로 요청한 경우는 예외로 Claude Code가 직접 고친다.
+- 기본 워크플로우는 "Codex = 설계·검증, agy = 구현"이다.
+- 사소한 수정(오타, 한두 줄)이나 사용자가 명시적으로 요청한 경우는 예외로 Codex가 직접 고친다.
 - agy 실행, 특히 `--dangerously-skip-permissions`를 쓰는 무인 실행은 비가역적일 수 있으므로 사용자 확인 없이 먼저 켜지 않는다.
