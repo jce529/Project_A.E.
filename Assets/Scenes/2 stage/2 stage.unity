@@ -3169,6 +3169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableWall
   wallTilemap: {fileID: 518375663}
+  unlockDataKey: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3324,6 +3325,25 @@ MonoBehaviour:
   target: {fileID: 718244562}
   smoothing: 5
   offset: {x: 0, y: 0, z: -10}
+  normalZoom: 5
+  zoomSmoothing: 3
+  minX: -1000
+  maxX: 1000
+  minY: -1000
+  maxY: 1000
+  deadzoneWidth: 3
+  deadzoneHeight: 2
+  maxOffsetDistance: 1.5
+  offsetSmoothTime: 0.35
+  offsetHoldDuration: 0.4
+  peekThreshold: 0.5
+  peekDistance: 3
+  peekSmoothTime: 0.35
+  peekReturnSmoothTime: 0.12
+  idleSpeedThreshold: 0.05
+  peekCancelSpeed: 12
+  shakeMagnitude: 0.3
+  shakeDuration: 0.25
 --- !u!1 &531131253
 GameObject:
   m_ObjectHideFlags: 0
@@ -5963,7 +5983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896e11b1992513d4eb5b0907dbbb5886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  isActiveCheckpoint: 0
 --- !u!61 &688334909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9064,7 +9083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06930edce16850f4f84fd3460b7b2bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
-  settingPanel: {fileID: 1310427900}
 --- !u!114 &1244793435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9208,7 +9226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896e11b1992513d4eb5b0907dbbb5886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Checkpoint
-  isActiveCheckpoint: 0
 --- !u!61 &1250312563
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10535,6 +10552,63 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!1001 &1434164723
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 73.37219
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -85.16213
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425417095846439629, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844189367804776969, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
+      propertyPath: m_Name
+      value: WaterSpirit
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 18d58005182526549904ad9fd526f0c9, type: 3}
 --- !u!1 &1463570039
 GameObject:
   m_ObjectHideFlags: 0
@@ -15204,3 +15278,4 @@ SceneRoots:
   - {fileID: 643471572}
   - {fileID: 1769671197}
   - {fileID: 1872697389}
+  - {fileID: 1434164723}
