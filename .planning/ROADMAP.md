@@ -597,9 +597,9 @@ Plans:
 **Plans:** 6 plans
 
 Plans:
-- [ ] 23-01-PLAN.md — 기반: 트리거 이름표/안전 호출, 패턴 실행 추적, 페이즈 모델 + 전환 전 그로기, 자가 HP 소모 비활성, BattleArea 분리 (wave 1)
-- [ ] 23-02-PLAN.md — 공격 패턴 사양화: 솟아오르기/점프/물 확산 폭발(신규)/감옥/감옥→전체(트리거 분리)/색깔 감옥 견고화/파도 좌측 먼저 (wave 2)
-- [ ] 23-03-PLAN.md — 웅덩이 시스템 기반: 런타임 생성, 2페이즈 초기 생성, 마시기/공격 제거, 지정 폭발 API (wave 2)
-- [ ] 23-04-PLAN.md — 웅덩이 패턴 3종 + WaterTeleportState 재구성(빈 대상 루프/HP 소모 제거) (wave 3)
-- [ ] 23-05-PLAN.md — WaterMonsterCombatState: 누적 후보, 단일/겹침 규칙, 쿨다운 배율 1회 적용, 보스 보유 패턴 이력 (wave 4)
+- [x] 23-01-PLAN.md — 기반: 트리거 이름표/안전 호출, 패턴 실행 추적, 페이즈 모델 + 전환 전 그로기, 자가 HP 소모 비활성, BattleArea 분리 (wave 1)
+- [x] 23-02-PLAN.md — 공격 패턴 사양화: 솟아오르기/점프/물 확산 폭발(신규)/감옥/감옥→전체(트리거 분리)/색깔 감옥 견고화/파도 좌측 먼저 (wave 2)
+- [x] 23-03-PLAN.md — 웅덩이 시스템 기반: 런타임 생성, 2페이즈 초기 생성, 마시기/공격 제거, 지정 폭발 API (wave 2)
+- [x] 23-04-PLAN.md — 웅덩이 패턴 3종 + WaterTeleportState 재구성(빈 대상 루프/HP 소모 제거) (wave 3)
+- [x] 23-05-PLAN.md — WaterMonsterCombatState: 누적 후보, 단일/겹침 규칙, 쿨다운 배율 1회 적용, 보스 보유 패턴 이력 (wave 4)
 - [ ] 23-06-PLAN.md — TestScene Unity CLI 실측 P1~P12, Check.md/SSOT 갱신, 시각 확인 + Open Decisions 승인 체크포인트 (wave 5)
