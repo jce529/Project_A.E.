@@ -25,6 +25,7 @@ public class InputHandler : MonoBehaviour
     public event Action OnHealEvent;
     public event Action OnInteractEvent;
     public event Action OnSkillQEvent;
+    public event Action OnInventoryEvent;
 
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -37,6 +38,7 @@ public class InputHandler : MonoBehaviour
     private InputAction healAction;
     private InputAction interactAction;
     private InputAction skillQAction;
+    private InputAction inventoryAction;
 
     private bool initialized;
     private bool callbacksBound;
@@ -89,6 +91,7 @@ public class InputHandler : MonoBehaviour
         healAction = playerMap.FindAction("Heal", false);
         interactAction = playerMap.FindAction("Interact", false);
         skillQAction = playerMap.FindAction("Action", false);
+        inventoryAction = playerMap.FindAction("Inventory", false);
 
         LoadBindingOverrides();
         initialized = true;
@@ -156,6 +159,7 @@ public class InputHandler : MonoBehaviour
         if (healAction != null) healAction.performed += HandleHealPerformed;
         if (interactAction != null) interactAction.performed += HandleInteractPerformed;
         if (skillQAction != null) skillQAction.performed += HandleSkillQPerformed;
+        if (inventoryAction != null) inventoryAction.performed += HandleInventoryPerformed;
 
         callbacksBound = true;
     }
@@ -186,9 +190,18 @@ public class InputHandler : MonoBehaviour
         if (healAction != null) healAction.performed -= HandleHealPerformed;
         if (interactAction != null) interactAction.performed -= HandleInteractPerformed;
         if (skillQAction != null) skillQAction.performed -= HandleSkillQPerformed;
+        if (inventoryAction != null) inventoryAction.performed -= HandleInventoryPerformed;
 
         callbacksBound = false;
     }
+
+    // Phase 21 (D-04/D-05): while the inventory panel is open, gameplay actions are suppressed here
+    // once instead of in every subscriber (PlayerController, PlayerAttack, PlayerInteraction, ...).
+    // Move/Run stay live so key releases are not lost; Pause/Inventory stay live because they close
+    // the panel. Paused has the same leak but is intentionally out of scope for this phase.
+    private static bool GameplayInputBlocked =>
+        GameStateManager.Instance != null &&
+        GameStateManager.Instance.CurrentState == GameStateManager.GameState.Inventory;
 
     private void HandleMovePerformed(InputAction.CallbackContext context) =>
         OnMoveEvent?.Invoke(context.ReadValue<Vector2>());
@@ -196,17 +209,18 @@ public class InputHandler : MonoBehaviour
     private void HandleMoveCanceled(InputAction.CallbackContext context) =>
         OnMoveEvent?.Invoke(Vector2.zero);
 
-    private void HandleJumpPerformed(InputAction.CallbackContext context) => OnJumpEvent?.Invoke();
+    private void HandleJumpPerformed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnJumpEvent?.Invoke(); }
     private void HandlePausePerformed(InputAction.CallbackContext context) => OnPauseEvent?.Invoke();
     private void HandleRunPerformed(InputAction.CallbackContext context) => OnRunEvent?.Invoke(true);
     private void HandleRunCanceled(InputAction.CallbackContext context) => OnRunEvent?.Invoke(false);
-    private void HandleDashPerformed(InputAction.CallbackContext context) => OnDashEvent?.Invoke();
-    private void HandleBasicAttackPerformed(InputAction.CallbackContext context) => OnBasicAttackEvent?.Invoke();
-    private void HandleSkill1Performed(InputAction.CallbackContext context) => OnSkill1Event?.Invoke();
-    private void HandleSkill2Performed(InputAction.CallbackContext context) => OnSkill2Event?.Invoke();
-    private void HandleHealPerformed(InputAction.CallbackContext context) => OnHealEvent?.Invoke();
-    private void HandleInteractPerformed(InputAction.CallbackContext context) => OnInteractEvent?.Invoke();
-    private void HandleSkillQPerformed(InputAction.CallbackContext context) => OnSkillQEvent?.Invoke();
+    private void HandleDashPerformed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnDashEvent?.Invoke(); }
+    private void HandleBasicAttackPerformed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnBasicAttackEvent?.Invoke(); }
+    private void HandleSkill1Performed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnSkill1Event?.Invoke(); }
+    private void HandleSkill2Performed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnSkill2Event?.Invoke(); }
+    private void HandleHealPerformed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnHealEvent?.Invoke(); }
+    private void HandleInteractPerformed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnInteractEvent?.Invoke(); }
+    private void HandleSkillQPerformed(InputAction.CallbackContext context) { if (!GameplayInputBlocked) OnSkillQEvent?.Invoke(); }
+    private void HandleInventoryPerformed(InputAction.CallbackContext context) => OnInventoryEvent?.Invoke();
 
     public void SaveBindingOverrides()
     {
