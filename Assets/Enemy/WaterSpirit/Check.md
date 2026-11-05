@@ -27,6 +27,16 @@
 2. 물의 정령 보스 씬 열기
 3. Console Collapse를 끄고 검색창에 `SpiritCombatState` 입력해 필터링
 
+## 정적 회귀 검사 (2026-10-31, 08-03 Task 1 — 소스 grep, Play 모드 아님)
+
+- PASS: `SpiritCombatState.cs` 의 2-인자 호출 `SelectWeightedPattern(dist, _candidates);` 그대로 유지
+  → 기본값 `lastUsedWeightMultiplier = 0f`(완전배제) 로 동작 (`CombatState.cs` 에 기본값 `= 0f` 및
+  `if (lastUsedWeightMultiplier <= 0f) continue;` 확인).
+- PASS: Phase 8 커밋이 바꾼 `.cs` 는 `CombatState.cs`, `WaterMonsterCombatState.cs` 2개뿐 —
+  `SpiritCombatState.cs` / `Stage2CombatState.cs` 는 Phase 8 에서 변경 0건.
+
+정적 회귀는 통과. 아래 Play 모드 항목(특히 D-05 완전배제 회귀)은 **전부 미검증** 상태다.
+
 ## 검증 항목
 
 - [ ] **D-03 랜덤성**: Play로 30초 이상 교전 → `[SpiritCombatState] 패턴 선택:` 로그가

@@ -1,6 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Phase 7-03 (갭: 07-02): 패턴 추적값을 상태 인스턴스와 분리한다. 기본은 Enter 마다 새 객체(기존 동작),
+// 보스가 AcquireHistory 를 override 하면 CombatState 재진입 사이에도 이력이 이어진다.
+public class PatternHistory
+{
+    public System.Type LastUsed;
+    public readonly Dictionary<System.Type, float> ReadyAt = new Dictionary<System.Type, float>();
+    public void Clear() { LastUsed = null; ReadyAt.Clear(); }
+}
+
 public class CombatState : IBossState
 {
     protected float _decisionTimer;
@@ -42,11 +51,14 @@ public class CombatState : IBossState
     }
 
     // 직전에 실행한 패턴 타입 — D-05a 연속사용금지 판정 및 D-04 체인 트리거에 사용된다.
-    protected System.Type LastUsedPatternType { get; private set; }
+    protected System.Type LastUsedPatternType => _history.LastUsed;
 
     // 패턴별 쿨다운 만료 시각. Execute() 에 early-return 분기가 있어 매 프레임 감산 방식은
     // 조용히 누락될 수 있으므로, Time.time 절대 시각 비교를 사용한다.
-    private readonly Dictionary<System.Type, float> _patternReadyAt = new Dictionary<System.Type, float>();
+    private PatternHistory _history = new PatternHistory();
+
+    // Phase 7-03: 기본 = Enter 마다 새 이력(WaterMonster 등 기존 동작 유지). Spirit 만 보스 보유 이력을 돌려준다.
+    protected virtual PatternHistory AcquireHistory(BossController boss) => new PatternHistory();
 
     // Phase 8 (D-03a): _patternReadyAt 에 기록할 쿨다운에 곱할 배율.
     // 기본 1f = 배율 없음(기존 동작). 광폭화처럼 쿨다운을 단축하는 보스가 override 한다.
@@ -61,8 +73,7 @@ public class CombatState : IBossState
         _attackWaitTimer = 0;
 
         // Phase 7: 패턴 추적값 초기화 (기존 SpiritCombatState._patternIndex = 0 과 동일한 세션 단위 리셋)
-        LastUsedPatternType = null;
-        _patternReadyAt.Clear();
+        _history = AcquireHistory(boss);
     }
 
     public virtual void Execute(BossController boss)
@@ -166,7 +177,7 @@ public class CombatState : IBossState
 
             if (c.MinDistance.HasValue && dist < c.MinDistance.Value) continue; // 거리 하한 (D-02b)
             if (c.MaxDistance.HasValue && dist > c.MaxDistance.Value) continue; // 거리 상한 (D-02b)
-            if (_patternReadyAt.TryGetValue(c.StrategyType, out float readyAt) && Time.time < readyAt) continue; // 쿨다운
+            if (_history.ReadyAt.TryGetValue(c.StrategyType, out float readyAt) && Time.time < readyAt) continue; // 쿨다운
 
             float weight = c.Weight;
             if (LastUsedPatternType == c.StrategyType)
@@ -208,9 +219,9 @@ public class CombatState : IBossState
     private IAttackStrategy CommitSelection(IAttackStrategy strategy, float? cooldownOverride = null)
     {
         System.Type t = strategy.GetType();
-        LastUsedPatternType = t;
+        _history.LastUsed = t;
         float baseCooldown = cooldownOverride ?? strategy.Cooldown;
-        _patternReadyAt[t] = Time.time + baseCooldown * GetPatternCooldownMultiplier();
+        _history.ReadyAt[t] = Time.time + baseCooldown * GetPatternCooldownMultiplier();
         return strategy;
     }
 
