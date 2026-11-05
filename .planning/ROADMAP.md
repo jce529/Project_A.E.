@@ -163,6 +163,7 @@ Plans:
 Plans:
 - [x] 07-01-PLAN.md — CombatState 범용 패턴 후보 평가 헬퍼 추가 + SpiritCombatState 후보 선언 데이터 레이어 전환
 - [ ] 07-02-PLAN.md — Play 모드 검증 체크포인트 (랜덤성/연속금지/강제 체인/Stage 2 사이클)
+- [ ] 07-03-PLAN.md — 갭 클로저: 패턴 추적값(PatternHistory) 재진입 유지 (Spirit 전용)
 
 ## Progress
 
