@@ -67,3 +67,7 @@ Idle 유지 후 다음 프레임에 재시도.
 전 항목 PASS(쿨다운은 간접 확인). 공격 지속시간은 TentacleStab 2.84~2.93초(기대 2.8), GroundTentacle 1.55~1.64초(기대 1.5).
 
 **참고:** 측정 중 자동저장(Phase 16)이 `%LocalLow%/DefaultCompany/AQUA ECLIPSE/save.json`에 기본값 세이브를 썼다.
+
+### 08-03 영향 확인 (2026-11-05)
+
+재실측하지 않고 위 2026-09-29 기록을 인용한다. 이유: TutorialBoss 의 상태(TutorialAttackState 등)는 CombatState 가 아니라 IBossState 를 직접 구현하므로(Assets/Enemy/Tutorial/TutorialBoss/State/), Phase 8 이 바꾼 CombatState.cs 의 헬퍼 확장과 07-03 의 PatternHistory 변경이 적용되지 않는다.
