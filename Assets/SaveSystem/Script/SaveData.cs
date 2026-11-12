@@ -25,8 +25,9 @@ public class SaveData
     // "WaterMonster"). Value = defeated. Entries are added on boss death only.
     public Dictionary<string, bool> BossProgress = new Dictionary<string, bool>();
 
-    // D-03: stub. Key = gimmick id string. Currently never written - the project has
-    // no persistent map gimmicks yet. Schema exists so later phases can fill it.
+    // D-03 / Phase 23: Key = gimmick id "{stage}.{area}.{name}" (lowercase, e.g. "s1.slide.success").
+    // Read/written through SaveLoadManager.GetGimmick / SetGimmick. SaveVersion unchanged -
+    // the field already existed, so older saves load as-is.
     public Dictionary<string, bool> MapGimmickState = new Dictionary<string, bool>();
 
     // Phase 19 (D-02): no longer a stub. One entry per non-empty inventory slot at save
