@@ -202,6 +202,31 @@ public class SaveLoadManager : MonoBehaviour
         return _data.BossProgress.TryGetValue(bossId, out defeated) && defeated;
     }
 
+    // Phase 23: persistent map-gimmick flags. Memory-cache only - no file I/O here; the value
+    // reaches disk through the existing Save() triggers (checkpoint, boss defeat, autosave).
+    // Key convention: "{stage}.{area}.{name}", lowercase (e.g. "s1.slide.success"). Keys are
+    // lowercased on both read and write. Stored in the active slot's _data.MapGimmickState.
+    public void SetGimmick(string key, bool value)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            Debug.LogWarning("[SaveLoadManager] SetGimmick requires a non-empty key.");
+            return;
+        }
+        EnsureCollections();
+        _data.MapGimmickState[key.Trim().ToLowerInvariant()] = value;
+    }
+
+    public bool GetGimmick(string key, bool defaultValue = false)
+    {
+        if (string.IsNullOrWhiteSpace(key)) return defaultValue;
+        EnsureCollections();
+        bool value;
+        return _data.MapGimmickState.TryGetValue(key.Trim().ToLowerInvariant(), out value)
+            ? value
+            : defaultValue;
+    }
+
     // Returns one value from the live save-data cache as text. The key uses a JSON path,
     // for example "BossProgress.TutorialBoss" or "PlayerStats.MaxHealth". Callers own
     // the conversion to their required type so this API does not need a method per field.
