@@ -10,7 +10,7 @@ files:
   created:
     - .planning/phases/29-watermonster-3-70-50-30/29-06-SUMMARY.md
 tasks-executed: [1, 2, 3]
-tasks-pending: [4]   # checkpoint:human-verify (V1~V6, OD-1~OD-9) — 사용자 몫
+tasks-pending: [4]   # checkpoint:human-verify — OD-1~OD-9 기본값 승인 완료(2026-11-05, 040b4e9). 남은 것: V1~V6 시각 확인, 재활성화 gap 처리 결정, TestScene 저장/폐기
 verify:
   task1: T1_OK
   task2: T2_OK
@@ -54,4 +54,4 @@ code-changes: 없음(.cs/.prefab/.unity/.controller 0건)
 - 이 plan 과 무관한 미커밋 변경(Spirit, Phase 21 `InputSystem_Actions.inputactions`, `Assets/Player/Interaction.md`, 씬, TextMesh Pro)은 건드리지 않았다.
 
 ## 다음
-- Task 4(checkpoint:human-verify): V1~V6 시각 확인과 OD-1~OD-9 승인/변경을 사용자에게 받아 Check.md `### Open Decisions 결과` 와 V 줄을 갱신.
+- Task 4(checkpoint:human-verify): **OD-1~OD-9 는 2026-11-05 기본값 승인 완료**(Check.md `### Open Decisions 결과`, 040b4e9). 남은 것은 (1) V1~V6 시각 확인 결과를 받아 Check.md V 줄 갱신, (2) 위 "관찰" 의 재활성화 gap 을 별도 plan 으로 만들지 결정, (3) TestScene 저장/폐기 후 `Tutorial Map.unity` 복구.
