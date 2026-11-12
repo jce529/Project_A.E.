@@ -16,3 +16,5 @@ MonoBehaviour:
   type: 1
   effectType: 0
   amount: 0
+  icon: {fileID: 0}
+  displayName: 고대의 열쇠

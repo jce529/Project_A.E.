@@ -8,7 +8,7 @@
 
 | 영역 | 구현 | 주요 상태 |
 |---|---|---|
-| 입력 | `InputHandler` | Input System 액션을 이벤트로 변환하고 바인딩 override를 설정 메모리에 반영 |
+| 입력 | `InputHandler` | Input System 액션(`Inventory`(Tab) 포함 12개)을 이벤트로 변환하고 바인딩 override를 설정 메모리에 반영. `GameState.Inventory` 동안 Jump/Dash/BasicAttack/Skill1/Skill2/Heal/Interact/SkillQ 이벤트는 발행하지 않고 Move/Run/Pause/Inventory 는 통과시킨다 |
 | 이동 | `PlayerController` | 걷기/달리기, 1회 점프, 대시, 사다리, 일방향 플랫폼 통과, 지면 속도 modifier |
 | 전투 | `PlayerAttack` | 3단 기본 콤보, 물 강화, 도약 및 Q 액션 |
 | 체력 | `PlayerStats : HP` | 현재/최대/성장 상한 체력, 피해 시 카메라 흔들림, 저장값 복원 |
@@ -20,6 +20,7 @@
 - 기본 공격은 공격 방향에 `attackBox`를 생성하고 3타에 피해량/쿨다운 변형을 적용한다. 공격 박스가 없거나 `SpriteRenderer`가 없으면 정상 실행되지 않는다.
 - `HP.Awake`는 시작 체력을 최대 체력으로 설정한다. `PlayerStats.RestoreStats`는 최대 성장 체력, 최대 체력, 현재 체력 순서로 복원한 뒤 clamp 및 UI callback을 수행한다.
 - `WaterController.Start`는 병 5개를 추가한다. 매 프레임 순수 물과 오염된 물의 개수에 따라 두 모드 플래그를 갱신한다.
+- 인벤토리 패널이 열린 동안(`GameState.Inventory`, `Time.timeScale` 0) 게임플레이 입력 8종은 `InputHandler` 한 곳에서 억제된다(구독자 수정 없음). `GameState.Paused` 에서도 일시정지 메뉴 버튼의 LMB 클릭이 BasicAttack 으로 새는 기존 누수가 있으며 Phase 21 에서는 고치지 않았다(관찰됨, 미수정).
 
 ## 의존성과 Unity wiring
 
