@@ -1,5 +1,5 @@
 ---
-phase: 23-watermonster-3-70-50-30
+phase: 29-watermonster-3-70-50-30
 plan: 01
 requirements-completed: [D-01, D-03, D-04, D-05]
 commits:
@@ -10,7 +10,7 @@ files:
   - Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs
   - Assets/Enemy/WaterMonster/Script/WaterMonsterStats.cs
   - Assets/Enemy/WaterMonster/Script/States/WaterMonsterGroggyState.cs
-  - .planning/phases/23-watermonster-3-70-50-30/23-01-SUMMARY.md
+  - .planning/phases/29-watermonster-3-70-50-30/29-01-SUMMARY.md
 deviation:
   - "Git index.lock 생성 권한 거부로 태스크별 커밋을 만들지 못함. 허용 파일의 수정 사항은 작업 트리에 남음."
   - "Task 2 dotnet build는 Unity가 신규 WaterMonsterGroggyState.cs를 csproj에 아직 포함하지 않아 CS0246 2건으로 실패."
@@ -19,7 +19,7 @@ unverified:
   - "Unity Play 모드에서 페이즈 전환 및 BattleArea 동작 미검증"
 ---
 
-# Phase 23 Plan 01 실행 요약
+# Phase 29 Plan 01 실행 요약
 
 ## Task 1
 

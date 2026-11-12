@@ -10,7 +10,7 @@
 - `BossController`는 `IdleState`에서 시작하고 시야/공격 거리, barrier 피해, 물 고갈 이벤트에 따라 chase/combat/counter/groggy 상태로 전환한다.
 - `TutorialBossController`는 전용 idle/attack/groggy/dead 상태와 tentacle/root 패턴을 사용하고 `HP.OnDeath`를 구독한다.
 - `SpiritController`/`SpiritStats`는 체력 50%에서 stage 2를 한 번 활성화하고, 분신은 피해를 무시한다.
-- `WaterMonsterController`/`WaterMonsterStats`는 Phase 23 기획 문서 기준 3페이즈 보스다. 체력 70% = 2페이즈, 50% = 3페이즈, 30% = 3페이즈 강화(`IsEnraged`)다. 임계치를 넘으면 `_pendingPhase`만 기록하고, 실행 중 패턴(`ActivePatternCount`)이 끝난 뒤 `WaterMonsterGroggyState`(그로기 3.0초 → `PhaseTransition` 1.5초)를 거쳐 `CompletePhaseTransition`으로 `CurrentPhase`를 올린다(그로기가 전환보다 먼저). 30% 강화는 기본적으로 그로기 없이 즉시 적용된다(`_groggyOnEmpower = false`).
+- `WaterMonsterController`/`WaterMonsterStats`는 Phase 29 기획 문서 기준 3페이즈 보스다. 체력 70% = 2페이즈, 50% = 3페이즈, 30% = 3페이즈 강화(`IsEnraged`)다. 임계치를 넘으면 `_pendingPhase`만 기록하고, 실행 중 패턴(`ActivePatternCount`)이 끝난 뒤 `WaterMonsterGroggyState`(그로기 3.0초 → `PhaseTransition` 1.5초)를 거쳐 `CompletePhaseTransition`으로 `CurrentPhase`를 올린다(그로기가 전환보다 먼저). 30% 강화는 기본적으로 그로기 없이 즉시 적용된다(`_groggyOnEmpower = false`).
 - WaterMonster 패턴 후보는 `WaterMonsterCombatState.BuildCandidates`가 매 판단마다 누적 구성한다.
 
   | 페이즈 | 후보(누적) |
@@ -36,7 +36,7 @@
 ## Unity wiring
 
 - `TutorialBossController` GUID는 `Assets/Tutorial Boss.prefab`과 `Assets/Scenes/1 stage.unity`에서 확인된다.
-- `WaterMonsterController`는 `Assets/Enemy/WaterMonster/WaterMonster.prefab`에만 있고 스테이지 씬에는 배치되지 않았다. Phase 23 검증은 `Assets/Scenes/TestScene.unity`에서 프리팹을 런타임 Instantiate 해 수행한다(`Assets/Enemy/WaterMonster/Check.md` Phase 23 섹션).
+- `WaterMonsterController`는 `Assets/Enemy/WaterMonster/WaterMonster.prefab`에만 있고 스테이지 씬에는 배치되지 않았다. Phase 29 검증은 `Assets/Scenes/TestScene.unity`에서 프리팹을 런타임 Instantiate 해 수행한다(`Assets/Enemy/WaterMonster/Check.md` Phase 29 섹션).
 - 동적 prefab, Animator state name, battle bounds 및 보스별 serialized reference의 완전성은 Play Mode 검증 대상이다.
 
 ## 근거

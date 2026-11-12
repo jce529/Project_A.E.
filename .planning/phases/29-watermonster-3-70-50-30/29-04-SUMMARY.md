@@ -1,5 +1,5 @@
 ---
-phase: 23-watermonster-3-70-50-30
+phase: 29-watermonster-3-70-50-30
 plan: 04
 requirements-completed: [D-06, D-04]
 files:
@@ -10,7 +10,7 @@ files:
 deviation: "Codex 사용 한도 중단 후 Claude sonnet 이 Task 1 파일 검수 및 Task 2 구현을 완료했다. 계획 대비 기능 차이 없음."
 ---
 
-# 23-04 Summary
+# 29-04 Summary
 
 ## 결과
 - Task 1 (Codex 작성): 웅덩이 생성/폭발/이동 전략 3종을 acceptance 대비 검수. 수정 없음.

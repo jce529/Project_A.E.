@@ -1,5 +1,5 @@
 ---
-phase: 23-watermonster-3-70-50-30
+phase: 29-watermonster-3-70-50-30
 plan: 03
 requirements-completed: [D-06]
 commits:
@@ -12,17 +12,17 @@ files:
   - Assets/Enemy/WaterMonster/Script/Phase3/PuddleExplosionController.cs
   - Assets/Enemy/WaterMonster/Script/Phase2/WaterMonsterPuddleSystem.cs
   - Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs
-  - .planning/phases/23-watermonster-3-70-50-30/23-03-SUMMARY.md
+  - .planning/phases/29-watermonster-3-70-50-30/29-03-SUMMARY.md
 deviation:
   - "보완 사항에 따라 컨트롤러의 OnDisable 정리는 BoundBoss == this일 때만 실행한다. Unbind 이후 기존 ReturnAll 호출도 소유자 경로에만 남겼다."
   - "Task 1 automated의 Player 디렉터리 git diff 검사는 작업 시작 전부터 있던 InputHandler.cs 및 Inventory.cs 변경으로 실패했다. Task 1 내용 검사는 통과했다."
   - "Task 2 dotnet build는 신규 WaterMonsterPuddleSystem.cs가 Unity 생성 csproj에 미포함이어서 CS0103 7건으로 실패했다. csproj는 수정하지 않았다."
 unverified:
   - "신규 WaterMonsterPuddleSystem.cs의 Unity 컴파일 및 Play 모드 동작은 오케스트레이터 확인 필요."
-  - "23-06 P14: 보스 사망·재활성화·새 보스 재바인딩, 폭발 취소, B 바인딩 후 A 비활성화 시 B의 웅덩이와 폭발 유지 실측 필요."
+  - "29-06 P14: 보스 사망·재활성화·새 보스 재바인딩, 폭발 취소, B 바인딩 후 A 비활성화 시 B의 웅덩이와 폭발 유지 실측 필요."
 ---
 
-# Phase 23 Plan 03 실행 요약
+# Phase 29 Plan 03 실행 요약
 
 ## Task 1
 
@@ -44,4 +44,4 @@ unverified:
 
 - 기존 수정 파일 5개의 BOM 없음·CRLF 유지, `git diff --check` 통과.
 - `.meta`, csproj, 씬, 프리팹은 수정하지 않았다.
-- Unity 재임포트 후 스크립트 컴파일과 23-06 P14 Play 모드 수명 동작을 확인해야 한다.
+- Unity 재임포트 후 스크립트 컴파일과 29-06 P14 Play 모드 수명 동작을 확인해야 한다.

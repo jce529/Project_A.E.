@@ -1,4 +1,4 @@
-# Phase 23: WaterMonster 3스테이지 보스 재구현 (기획 문서 기준) - Context
+# Phase 29: WaterMonster 3스테이지 보스 재구현 (기획 문서 기준) - Context
 
 **Gathered:** 2026-11-05
 **Status:** Ready for planning
@@ -7,9 +7,9 @@
 <domain>
 ## Phase Boundary
 
-`WaterMonster`(3스테이지 최종보스, `WaterMonsterController : BossController`)를 사용자의 기획 문서 `23-SOURCE-3스테이지-보스.md`(이하 "기획 문서")에 맞게 재구현한다. 애니메이션 클립은 아직 없으므로 **애니메이터에 들어갈 동작(패턴, 상태 전환)의 로직과 트리거 위주**로 만든다. 연출·이펙트·아트는 범위 밖이다.
+`WaterMonster`(3스테이지 최종보스, `WaterMonsterController : BossController`)를 사용자의 기획 문서 `29-SOURCE-3스테이지-보스.md`(이하 "기획 문서")에 맞게 재구현한다. 애니메이션 클립은 아직 없으므로 **애니메이터에 들어갈 동작(패턴, 상태 전환)의 로직과 트리거 위주**로 만든다. 연출·이펙트·아트는 범위 밖이다.
 
-기획 문서가 최우선이다. `23-SOURCE-제작가이드-new.md`(외형 피드백 + 일부 모션)는 보조이며 충돌하면 기획 문서가 이긴다.
+기획 문서가 최우선이다. `29-SOURCE-제작가이드-new.md`(외형 피드백 + 일부 모션)는 보조이며 충돌하면 기획 문서가 이긴다.
 
 **범위 밖:**
 - 애니메이션 클립/애니메이터 컨트롤러 제작, 스프라이트, 이펙트, UV 스크롤 문신 셰이더, 화면 어두워짐/검은 비 연출
@@ -59,8 +59,8 @@
 **Downstream agents MUST read these before planning or implementing.**
 
 ### 기획 (최우선)
-- `.planning/phases/23-watermonster-3-70-50-30/23-SOURCE-3스테이지-보스.md` — 페이즈 구조, 패턴 1~8 프로그래머 설계, 패턴 1~10 아트 애니메이션 목록
-- `.planning/phases/23-watermonster-3-70-50-30/23-SOURCE-제작가이드-new.md` — 외형/모션 보조 문서(그로기, 피격 경직, 2페이즈 전환, 웅덩이 이동, 사망 모션 설명)
+- `.planning/phases/29-watermonster-3-70-50-30/29-SOURCE-3스테이지-보스.md` — 페이즈 구조, 패턴 1~8 프로그래머 설계, 패턴 1~10 아트 애니메이션 목록
+- `.planning/phases/29-watermonster-3-70-50-30/29-SOURCE-제작가이드-new.md` — 외형/모션 보조 문서(그로기, 피격 경직, 2페이즈 전환, 웅덩이 이동, 사망 모션 설명)
 - 갭 분석 원문(저장소 밖): `C:\Users\chang\AppData\Roaming\Claude\side-session-notes\local_b8e3dcfc-602c-474f-aebf-11f0b4e2594b\watermonster_stage3_doc_gap_and_decisions.md`
 
 ### 기존 구현 (수정/재사용 대상)
@@ -111,5 +111,5 @@
 
 ---
 
-*Phase: 23-watermonster-3-70-50-30*
+*Phase: 29-watermonster-3-70-50-30*
 *Context gathered: 2026-11-05 via 사용자 기획 문서 + 대화 결정*

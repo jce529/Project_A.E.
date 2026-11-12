@@ -1,5 +1,5 @@
 ---
-phase: 23-watermonster-3-70-50-30
+phase: 29-watermonster-3-70-50-30
 plan: 06
 subsystem: WaterMonster verification (TestScene, Unity CLI)
 requirements-completed: [D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10, D-11, D-12, D-13]
@@ -8,7 +8,7 @@ files:
     - Assets/Enemy/WaterMonster/Check.md
     - docs/ssot/systems/boss-combat.md
   created:
-    - .planning/phases/23-watermonster-3-70-50-30/23-06-SUMMARY.md
+    - .planning/phases/29-watermonster-3-70-50-30/29-06-SUMMARY.md
 tasks-executed: [1, 2, 3]
 tasks-pending: [4]   # checkpoint:human-verify (V1~V6, OD-1~OD-9) — 사용자 몫
 verify:
@@ -22,12 +22,12 @@ fails: []
 code-changes: 없음(.cs/.prefab/.unity/.controller 0건)
 ---
 
-# 23-06 실행 요약 — Phase 23 실측 검증 (Task 1~3)
+# 29-06 실행 요약 — Phase 29 실측 검증 (Task 1~3)
 
 ## 결과
 - Unity 컴파일: `scriptCompilationFailed=False`, Editor Console `error CS` 0건, 신규 타입 로드 확인.
 - 정적 S1~S5 전부 PASS (Spirit 계열 CombatState 소스 무변경 — Spirit 회귀는 S1 로 판정, 재실측 안 함).
-- Play 실측 P1~P22 전부 PASS. 항목별 수치·로그 파일명은 `Assets/Enemy/WaterMonster/Check.md` "Phase 23" 섹션.
+- Play 실측 P1~P22 전부 PASS. 항목별 수치·로그 파일명은 `Assets/Enemy/WaterMonster/Check.md` "Phase 29" 섹션.
 - D 대응: D-01 P3/P9/P10, D-02 P1/P2/P4, D-03 P1/P4/P5, D-04 S2/P8/P10, D-05 P3/P9, D-06 P2/P3/P6/P7/P13/P14, D-07 P16, D-08 P17, D-09 P18, D-10 P19, D-11 P20, D-12 P11/P21, D-13 P22 — 모두 PASS.
 - SSOT `docs/ssot/systems/boss-combat.md`: 70/50/30 페이즈, 전환 전 그로기(`WaterMonsterGroggyState`), 누적 후보 표, 단일/겹침(상한 2), `WaterMonsterPuddleSystem.Ensure/Bind/Unbind`, 트리거 12종(`Attack_PrisonAoe` 포함), 비활성 기능(파일 유지), 회복 규칙 미변경, 근거 줄 번호 현행화.
 

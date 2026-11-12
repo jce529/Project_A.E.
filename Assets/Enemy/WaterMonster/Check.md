@@ -100,9 +100,9 @@
 - `[CombatState] 애니메이션 타임아웃으로 공격 강제 종료` 경고가 다수 찍혔다(테스트 씬의 애니메이터 상태 부재로 추정, 기존 동작).
 - 측정 중 자동저장이 `%LocalLow%/DefaultCompany/AQUA ECLIPSE/save.json` 에 세이브를 썼다.
 
-## Phase 23 — 기획 문서 기준 재구현 검증 (TestScene, Unity CLI)
+## Phase 29 — 기획 문서 기준 재구현 검증 (TestScene, Unity CLI)
 
-2026-11-05, 23-06 Task 1~3. `Assets/Scenes/TestScene.unity` 에서 Play 진입 후 `WaterMonster.prefab` 을 플레이어(-6, 0.22) 오른쪽 2칸(x=-4)에 런타임 Instantiate 했다.
+2026-11-05, 29-06 Task 1~3. `Assets/Scenes/TestScene.unity` 에서 Play 진입 후 `WaterMonster.prefab` 을 플레이어(-6, 0.22) 오른쪽 2칸(x=-4)에 런타임 Instantiate 했다.
 Unity CLI `run_script`(Roslyn, 리플렉션)로 PlayerLoop `PreLateUpdate` 맨 앞에 샘플러/시험 실행기를 끼워 매 프레임 상태를 읽고 값이 바뀐 시점만 기록했다(로그: `.planning/tmp/p23/P<n>.log`, 판정 요약: `.planning/tmp/p23/results.log`, 스크립트: `.planning/tmp/p23/p23lib.cs.txt`).
 플레이어 HP 는 리플렉션으로 1,000,000 으로 두고 피해는 감소량으로 측정했다. 특정 패턴 시험은 보스를 `IdleState`(VisionRange -1)로 묶고 `new <전략>().ExecuteAttack(boss)` 로 강제 호출했다. 시간 허용오차 ±0.06초(그로기 단계는 계획대로 ±0.1초).
 코드·프리팹·씬·애니메이터 변경 없음. TestScene 은 저장하지 않았다.
@@ -113,7 +113,7 @@ Unity CLI `run_script`(Roslyn, 리플렉션)로 PlayerLoop `PreLateUpdate` 맨 �
 - **자연 플레이 표본**(무작위 선택)은 "집합 포함·동시 실행 수·간격"처럼 운에 좌우되지 않는 조건만 판정한다. 특정 패턴의 등장 횟수는 참고값으로만 기록하고, 특정 패턴 동작은 강제 호출로 판정한다.
 
 ### Unity 컴파일
-`AssetDatabase.Refresh()` 후 `EditorApplication.isCompiling=False`, `EditorUtility.scriptCompilationFailed=False`, `console_status` groundTruth `compilationFailed=false`, `consoleErrors=0`(Editor Console 의 `error CS` 0건). 신규 타입 로드 확인: `WaterMonsterGroggyState`, `WaterMonster.Phase2.WaterMonsterPuddleSystem`, `WaterBurst`, `WaterPuddleMove`. (CLI 버퍼에 남은 `WaterPuddleMove.cs(15,30) error CS1729` 1건은 10:48Z 의 23-04 도중 기록이며 이후 재컴파일로 해소됨.)
+`AssetDatabase.Refresh()` 후 `EditorApplication.isCompiling=False`, `EditorUtility.scriptCompilationFailed=False`, `console_status` groundTruth `compilationFailed=false`, `consoleErrors=0`(Editor Console 의 `error CS` 0건). 신규 타입 로드 확인: `WaterMonsterGroggyState`, `WaterMonster.Phase2.WaterMonsterPuddleSystem`, `WaterBurst`, `WaterPuddleMove`. (CLI 버퍼에 남은 `WaterPuddleMove.cs(15,30) error CS1729` 1건은 10:48Z 의 29-04 도중 기록이며 이후 재컴파일로 해소됨.)
 
 ### 정적 회귀 (Task 1)
 
@@ -168,7 +168,7 @@ Unity CLI `run_script`(Roslyn, 리플렉션)로 PlayerLoop `PreLateUpdate` 맨 �
 - [ ] V6 수동 확인 대기 — 감옥 탈출 연타(점프 15회) 조작감.
 
 ### Open Decisions 결과
-2026-11-05 사용자가 OD-1~OD-9 의 **기본값을 승인**했다(수정 지시 없음). 기본값 목록은 `23-06-PLAN.md` Task 4 의 OD-1~OD-9. 값은 컨트롤러/웅덩이 시스템 Inspector 에서 조정 가능하며 변경하려면 별도 지시가 필요하다.
+2026-11-05 사용자가 OD-1~OD-9 의 **기본값을 승인**했다(수정 지시 없음). 기본값 목록은 `29-06-PLAN.md` Task 4 의 OD-1~OD-9. 값은 컨트롤러/웅덩이 시스템 Inspector 에서 조정 가능하며 변경하려면 별도 지시가 필요하다.
 - OD-1 웅덩이 제거 수단(기본 공격 판정) — 승인(기본값, 2026-11-05)
 - OD-2 그로기 3.0s / 피해 배율 1.0 / 전환 1.5s — 승인(기본값, 2026-11-05)
 - OD-3 30% 강화 진입 그로기 없음 — 승인(기본값, 2026-11-05)
@@ -179,4 +179,4 @@ Unity CLI `run_script`(Roslyn, 리플렉션)로 PlayerLoop `PreLateUpdate` 맨 �
 - OD-8 쿨다운 배율 0.75 / 0.5 — 승인(기본값, 2026-11-05)
 - OD-9 웅덩이 높이 보스 시작 y — 승인(기본값, 2026-11-05)
 
-V1~V6 시각 확인은 사용자가 아직 항목별 결과를 알려 주지 않아 위 "수동 확인 대기" 상태를 유지한다(OD 승인은 V 항목 확인을 대체하지 않는다). 재활성 시 웅덩이 시스템 비활성 문제(23-06-SUMMARY 판정 외 발견)는 수정 여부가 사용자 결정 대기다.
+V1~V6 시각 확인은 사용자가 아직 항목별 결과를 알려 주지 않아 위 "수동 확인 대기" 상태를 유지한다(OD 승인은 V 항목 확인을 대체하지 않는다). 재활성 시 웅덩이 시스템 비활성 문제(29-06-SUMMARY 판정 외 발견)는 수정 여부가 사용자 결정 대기다.

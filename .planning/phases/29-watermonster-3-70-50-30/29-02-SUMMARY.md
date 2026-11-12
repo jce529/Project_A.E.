@@ -1,5 +1,5 @@
 ---
-phase: 23-watermonster-3-70-50-30
+phase: 29-watermonster-3-70-50-30
 plan: 02
 requirements-completed: [D-07, D-08, D-09, D-10, D-11, D-12, D-13]
 commits:
@@ -14,7 +14,7 @@ files:
   - Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonMapAoe.cs
   - Assets/Enemy/WaterMonster/Script/States/Attacks/WaterColorPrison.cs
   - Assets/Enemy/WaterMonster/Script/States/Attacks/WaterWavePush.cs
-  - .planning/phases/23-watermonster-3-70-50-30/23-02-SUMMARY.md
+  - .planning/phases/29-watermonster-3-70-50-30/29-02-SUMMARY.md
 deviation:
   - "사용자 지시에 따라 git add/commit을 실행하지 않음. 커밋 해시는 오케스트레이터가 기입해야 함."
   - "POSIX 셸용 automated 명령을 동일 조건의 PowerShell 명령으로 실행함."
@@ -24,7 +24,7 @@ unverified:
   - "Unity Play 모드의 타이밍, 보스 비활성화 후 존 소멸, 겹침 중 존 수와 피해 판정은 오케스트레이터 확인 필요."
 ---
 
-# Phase 23 Plan 02 실행 요약
+# Phase 29 Plan 02 실행 요약
 
 ## Task 1
 

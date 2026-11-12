@@ -58,7 +58,7 @@ Progress: [█████████░] 90% (54/60 plans; Phase 20 Plan 06 Pl
 | 19 | 아이템 저장/로드 연동 (2/2 plans) | Complete (Play 모드 왕복 검증 6/6 PASS — 저장→재시작→로드 아이템 복원 확인) | 2026-09-21 |
 | 20 | 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (5/6 plans) | In Progress (Unity 컴파일 PASS, PersistentManagers 경로 정상, 20-06 Play 모드 실측 8/10 PASS — 7번 배경색·10번 메뉴 UI 수동 확인 대기) | - |
 | 21 | 인벤토리 UI + 키 바인딩 (0 plans) | Not Started (계획 전, `/gsd:plan-phase 21` 대기) | - |
-| 23 | WaterMonster 3스테이지 보스 재구현 (5/6 plans) | In Progress (23-01~05 구현 완료, 23-06 자동 실측 P1~P22 PASS — V1~V6 시각 확인·Open Decision 9건 승인 대기, 웅덩이 시스템 재활성화 gap 후보 1건) | - |
+| 29 | WaterMonster 3스테이지 보스 재구현 (5/6 plans) | In Progress (29-01~05 구현 완료, 29-06 자동 실측 P1~P22 PASS — V1~V6 시각 확인·Open Decision 9건 승인 대기, 웅덩이 시스템 재활성화 gap 후보 1건) | - |
 
 ## Performance Metrics
 

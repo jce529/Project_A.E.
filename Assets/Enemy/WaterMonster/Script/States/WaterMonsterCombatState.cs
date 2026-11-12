@@ -1,7 +1,7 @@
 // Phase 1+3 — WaterMonsterCombatState
 // Phase 1: ShouldTransitionToGroggy override (MaxWater=0 support)
 // Phase 8: 수작업 pool-random 을 CombatState 범용 헬퍼(PatternCandidate + SelectWeightedPattern)로 교체
-// Phase 23: 기획 문서 페이즈 구조 — 누적 후보 풀(D-02), 1·2페이즈 단일 사용 / 3페이즈 겹침(D-03),
+// Phase 29: 기획 문서 페이즈 구조 — 누적 후보 풀(D-02), 1·2페이즈 단일 사용 / 3페이즈 겹침(D-03),
 //           문서 밖 패턴·장판 스폰·구 텔레포트 가드 제거(D-04), 페이즈 배율은 컨트롤러 값 사용(D-01)
 
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ public class WaterMonsterCombatState : CombatState
     private bool _noCandidateLogged;
     private WaterMonsterController _wmc;
 
-    // Phase 23 (D-03): 이번 프레임에 SelectAttackStrategy 가 패턴을 골랐는지 — 배율을 선택 시 1회만 적용한다.
+    // Phase 29 (D-03): 이번 프레임에 SelectAttackStrategy 가 패턴을 골랐는지 — 배율을 선택 시 1회만 적용한다.
     private bool _selectedThisFrame;
 
     public override void Enter(BossController boss)
@@ -57,7 +57,7 @@ public class WaterMonsterCombatState : CombatState
             _decisionTimer *= GetPatternCooldownMultiplier();
     }
 
-    // Phase 23: 패턴 이력을 보스가 보유 — WavePush 45초 잠금과 직전 패턴 감쇠가
+    // Phase 29: 패턴 이력을 보스가 보유 — WavePush 45초 잠금과 직전 패턴 감쇠가
     //           Chase/그로기/웅덩이 이동을 거쳐 CombatState 에 재진입해도 유지된다.
     protected override PatternHistory AcquireHistory(BossController boss)
     {

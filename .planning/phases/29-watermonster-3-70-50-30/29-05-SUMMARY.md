@@ -1,5 +1,5 @@
 ---
-phase: 23-watermonster-3-70-50-30
+phase: 29-watermonster-3-70-50-30
 plan: 05
 subsystem: WaterMonster combat selection
 requirements-completed: [D-01, D-02, D-03, D-04]
@@ -18,7 +18,7 @@ unity_compile:
   note: "Assembly-CSharp.dll 이 편집 시각 이후 재생성됨. Editor.log 의 error CS 3건은 이전(plan 04 도중) 컴파일 기록으로 최신 컴파일 이전 라인."
 ---
 
-# 23-05 SUMMARY — WaterMonsterCombatState 페이즈 구조 연결
+# 29-05 SUMMARY — WaterMonsterCombatState 페이즈 구조 연결
 
 ## 변경 내용
 - **Task 1 (D-02, D-04):** 장판 스폰 early-return 과 `PuddleStackManager` 기반 구 텔레포트 가드 제거. `SelectAttackStrategy` 앞에 `HasPendingPhaseTransition` → null, 3페이즈 `ActivePatternCount >= Phase3MaxConcurrentPatterns` → null 가드 추가. `BuildCandidates` 는 매 판단 재구성하며 누적 구성:
