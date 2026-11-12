@@ -566,13 +566,13 @@ Plans:
 
 ### Phase 21: 인벤토리 UI(슬롯 그리드 표시/토글), 키 바인딩(인벤토리 열기/닫기 등 입력 액션), 월드 드롭 아이템 상호작용 시 인벤토리로 자동 획득되는 UI 피드백까지 다루는 페이즈. Depends on Phase 18/19.
 
-**Goal:** [To be planned]
+**Goal:** 플레이어가 인벤토리 5x4 슬롯 패널을 Tab으로 열고 닫으며 아이템을 선택·사용하고, 월드 아이템 획득 시 토스트 피드백을 받는다. 인벤토리가 열린 동안 게임플레이 입력 8종은 억제되고, 컨트롤 탭에서 인벤토리 키를 리바인딩할 수 있다.
 **Requirements**: TBD
 **Depends on:** Phase 18, Phase 19
-**Plans:** 0 plans
+**Plans:** 6/6 plans complete
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 21 to break down)
+- [x] 21-01~06-PLAN.md — Tab 액션·입력 억제, ItemData 메타, 런타임 패널, 획득 토스트, 리바인딩 행, SSOT 문서 (병합 커밋 60e42f0)
 
 ### Phase 22: 정령 보스 애니메이션 연동 - WaterSpirit 프리팹에 연결된 애니메이션 에셋을 SpiritController/공격 상태 로직과 연동한다
 
