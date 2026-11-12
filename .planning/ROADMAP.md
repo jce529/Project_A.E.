@@ -587,6 +587,87 @@ Plans:
 Plans:
 - [x] TBD (run /gsd:plan-phase 22 to break down) (completed 2026-10-01)
 
+### Phase 23: 맵 기믹 상태 저장 헬퍼 (MapGimmickState)
+**Goal:** `SaveData.MapGimmickState`(현재 스키마만 있고 쓰는 코드 없음)에 읽기/쓰기 헬퍼를 추가해, 1·2스테이지 맵 기믹의 영구 상태(퍼즐 해결, 수문, 안개 제거 등)를 세이브/로드로 유지할 수 있게 한다.
+**Requirements**: TBD (plan 단계에서 정의)
+**Depends on:** Phase 11, Phase 19 (SaveLoadManager 구조)
+**Success Criteria** (what must be TRUE):
+  1. `SetGimmick(key, bool)` / `GetGimmick(key, default)` 헬퍼가 `MapGimmickState`를 읽고 쓰며 세이브 파일에 기록된다.
+  2. 값을 설정한 뒤 저장 → 재로드하면 같은 값이 남는다.
+  3. 기존 `BossProgress` / `LoadData` 경로와 세이브 버전 호환이 깨지지 않는다.
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 23 to break down)
+
+### Phase 24: 1스테이지 진행 연결
+**Goal:** 1스테이지의 진행 흐름(시작 → 하층 → 물 상승 장판 → 상층 → 워터 슬라이드 성공/실패 분기 → 징검다리 → 폭포 → 물가르기 구간 → 보상방)을 상태로 연결하고, 체크포인트와 낙하 리스폰이 진행 위치와 맞게 동작하게 한다. 기믹 자체(장판, 슬라이드, 징검다리)는 전금재 구현을 사용한다.
+**Requirements**: TBD
+**Depends on:** Phase 23, 전금재 1스테이지 기믹 인터페이스 (완료 여부, 상태 변경 이벤트)
+**Success Criteria** (what must be TRUE):
+  1. 성공 경로(장판 → 상층 → 슬라이드 성공 → 다음 구간)가 막힘 없이 통과된다.
+  2. 실패 경로(슬라이드 실패 → 하층 낙하)가 하층 체크포인트로 리스폰된다.
+  3. 체크포인트 저장 후 재로드하면 진행 플래그가 유지된다.
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 24 to break down)
+
+### Phase 25: 2-1 진행 상태 머신
+**Goal:** 2-1 구역의 흐름(1 → 2 → 3 → 4 → 5 → 6)과 석등 퍼즐 상태를 연결한다. 5번 전투 종료 후 석판 조사가 가능해지고, 석등 퍼즐 해결 여부에 따라 6번에서 2-2 진입이 허용되거나 차단된다. 안개 제거는 영구 상태로 유지된다.
+**Requirements**: TBD
+**Depends on:** Phase 23, 석판 힌트용 "지정 구역 적 전멸" 이벤트 (전투 담당)
+**Success Criteria** (what must be TRUE):
+  1. 5번 전투 전에는 석판을 조사할 수 없고, 전투 종료 후에는 조사할 수 있다.
+  2. 석등 퍼즐 미해결 상태에서 6번의 2-2 진입이 차단되고, 해결 후에는 허용된다.
+  3. 퍼즐 해결 후 지정 구역 진입 시 안개가 제거되고, 재방문하거나 재로드해도 다시 나타나지 않는다.
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 25 to break down)
+
+### Phase 26: 2-2 진행 상태 머신
+**Goal:** 2-2 구역의 흐름(1 → 2 → 3 → 4 → 5 → 6 → 7 → 6 → 5 → 8 → 9 → 1)을 수문, 물길, 폭포, 석판 상태와 연결한다. 7번에서 8번으로 직접 갈 수 없고, 5번에서 물길을 바꾼 뒤에만 8번에 접근할 수 있다.
+**Requirements**: TBD
+**Depends on:** Phase 23, Phase 27 (레버·수문·폭포 구현)
+**Success Criteria** (what must be TRUE):
+  1. 7번에서 8번으로 직접 이동이 차단되고, 7 → 6 → 5 회귀 경로가 동작한다.
+  2. 물길 변경 전에는 8번에 진입할 수 없고, 변경 후에는 진입할 수 있다.
+  3. 폭포가 멈추기 전에는 석판에 접근할 수 없고, 석판 조사 후에만 9번으로 진행된다.
+  4. 9번에서 1번으로 돌아갈 수 있다.
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 26 to break down)
+
+### Phase 27: 2스테이지 기믹 구현
+**Goal:** 2스테이지 기믹을 구현한다: 석등 퍼즐(대형 석등 3개, ON/OFF), 석판 힌트 UI, 망원경(정적 관측 화면), 물레방아·상승 장치, 나무 몬스터 변신(2초 연속 체류), 레버·물길 A/B 전환, 수문·폭포 정지. 기획상 가고일은 별도 몬스터가 아니라 잡몹 나무다.
+**Requirements**: TBD
+**Depends on:** Phase 23, Phase 25, Phase 26 (상태 머신 인터페이스)
+**Success Criteria** (what must be TRUE):
+  1. 석등 3개를 각각 ON/OFF로 전환할 수 있고, 정답 패턴과 일치하면 퍼즐 해결 플래그가 저장된다.
+  2. 석판은 지정 구역 적 전멸 후에만 힌트를 보여주고, 닫은 뒤 다시 열 수 있다.
+  3. 나무 몬스터는 플레이어가 트리거 구역에 2초 이상 연속으로 머물 때만 변신하고, 2초 전 이탈 시 타이머가 초기화된다.
+  4. 레버 조작으로 물길 A/B가 서로 전환되고, 수문 조작으로 지정된 폭포가 멈춘다.
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 27 to break down)
+
+### Phase 28: 리소스 통합 및 1~2스테이지 통합 테스트
+**Goal:** 노민기의 아트 상태 세트(기본/작동/비활성/변화/상호작용)를 플래그 상태에 연결하고, 시작 → 1 → 2-1 → 2-2 → 9 → 1 전체 경로를 끊김 없이 완주하도록 통합한다. 막히는 버그를 수정하고 세이브/로드 후 상태 유지를 확인한다.
+**Requirements**: TBD
+**Depends on:** Phase 24, 25, 26, 27, 노민기 아트 리소스
+**Success Criteria** (what must be TRUE):
+  1. 플래그가 바뀔 때마다 오브젝트 비주얼이 대응하는 상태로 전환된다.
+  2. 시작부터 1스테이지 → 2-1 → 2-2 → 9 → 1까지 1회 완주가 가능하다.
+  3. 세이브/로드 후 모든 진행 플래그가 유지된다.
+  4. 플레이 가능 마일스톤 기준일은 2026-11-30이다 (일정표 상세 기준).
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 28 to break down)
+
 ## Backlog
 
 ### Phase 29: WaterMonster 3스테이지 보스 재구현 - 기획 문서 기준 페이즈(70/50/30%)·그로기·웅덩이 시스템·패턴 개편
