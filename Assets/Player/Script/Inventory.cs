@@ -25,12 +25,18 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<InventorySlot> slots = new List<InventorySlot>(
         SlotCount);
     private PlayerInteraction playerInteraction;
+    // Phase 21 (D-11): raised once after a successful state change so the UI can redraw without
+    // polling. Never raised on a failed (return false) path; return values and atomicity unchanged.
+    public event System.Action OnChanged;
 
     private void Awake()
     {
         playerInteraction = GetComponent<PlayerInteraction>();
         slots.Clear();
         for (int i = 0; i < SlotCount; i++) slots.Add(new InventorySlot());
+        // Phase 21 (D-10): the runtime-built inventory UI shares the Player's lifetime, so no scene
+        // or prefab wiring is needed. Same pattern as PlayerController adding PlayerInteraction.
+        if (GetComponent<InventoryUI>() == null) gameObject.AddComponent<InventoryUI>();
     }
 
     public int SlotCountTotal => slots.Count;
@@ -73,6 +79,7 @@ public class Inventory : MonoBehaviour
             slot.count = add;
             remaining -= add;
         }
+        OnChanged?.Invoke();
         return true;
     }
 
@@ -83,6 +90,7 @@ public class Inventory : MonoBehaviour
         if (slot.IsEmpty || slot.count < amount) return false;
         slot.count -= amount;
         if (slot.count <= 0) slot.Clear();
+        OnChanged?.Invoke();
         return true;
     }
 
@@ -95,6 +103,7 @@ public class Inventory : MonoBehaviour
         slot.item.UseEffect(playerInteraction);
         slot.count--;
         if (slot.count <= 0) slot.Clear();
+        OnChanged?.Invoke();
         return true;
     }
 

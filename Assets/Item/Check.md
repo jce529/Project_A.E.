@@ -115,3 +115,40 @@ Task 1 의 Unity 배치모드 임포트 실행 후 `Assets/Item/` **밖**에서 
 - PASS/FAIL 요약: **PASS 10 / FAIL 0 / 미확인 0.**
 - D-06(가장 중요한 기준)이 실제 프로덕션 코드 경로(`WorldItem.Interact` → `Inventory.TryAddItem` → 용량 사전검사)를 통해 실측 확인됨 — 가득 찬 인벤토리에서 픽업 시도 시 데이터 유실 없음.
 - 테스트 중 발견한 환경 특이사항(Application.runInBackground=false일 때 포커스 없는 세션에서 Play 모드 프레임이 진행되지 않아 Destroy()가 지연되는 현상)은 이 프로젝트 코드의 버그가 아니라 원격/백그라운드 세션 특유의 에디터 설정 이슈이며, Phase 18 코드와 무관하다.
+
+## Phase 21 인벤토리 UI 검증
+
+**검증 대상 변경사항:**
+
+| 변경 | 파일 |
+|---|---|
+| `Inventory` 입력 액션(Tab), `OnInventoryEvent`, `GameState.Inventory` 동안 게임플레이 입력 8종 억제 | `Assets/InputSystem_Actions.inputactions`, `Assets/Player/Script/InputHandler.cs` |
+| `ItemData` 표시 메타데이터(`icon`, `displayName`, `Type`) + 두 에셋 값 | `Assets/Item/Script/ItemData.cs`, `Assets/Resources/Items/*.asset` |
+| 런타임 인벤토리 패널, `Inventory.OnChanged` | `Assets/Player/Script/UI/InventoryUI.cs`, `Assets/Player/Script/Inventory.cs` |
+| 획득/가득 참 토스트, `WorldItem.PickupResolved` | `Assets/Item/Script/WorldItem.cs`, `InventoryUI.cs` |
+| 컨트롤 탭 Inventory 리바인딩 행 | `Assets/Scenes/1 stage.unity`, `Assets/Scenes/Tutorial Map.unity` |
+
+**검증 방식 (2026-11-05):** 워크트리에는 `Library` 가 없어 메인 체크아웃의 Unity 에디터(Tutorial Map)에 변경 파일을 복사해 Play 했고, 검증 후 메인을 원복했다. 에디터 창 포커스가 없어 실제 키/마우스 대신 **가상 `Keyboard`/`Mouse` 장치에 `InputSystem.QueueStateEvent`** 로 입력을 넣었다(UI 클릭은 `ExecuteEvents` 의 좌/우 `PointerEventData`). 토스트 시간은 CLI 왕복 지연이 커서 에디터 안의 프로브로 측정했다. 키 입력의 실제 손맛과 `1 stage` 씬 Play 는 확인하지 못했다.
+
+- [x] 1. 컴파일/임포트 — PASS. `recompile_status` `failed:false`, `Inventory` 액션 로드, `InventoryUI` 타입 존재. (D-01, D-02, D-10)
+- [x] 2. Tab 열기/닫기 — PASS. 열림 `state=Inventory ts=0 panel=True`, HUD 3개 `activeSelf=False`, 닫힘 `state=Playing ts=1`. 캡처 `.planning/phases/21-inventory-ui-keybinding-pickup/evidence/21-inventory-panel-open.png`. (D-01, D-04)
+- [x] 3. Esc 닫기 3회 + Paused 중 Tab — PASS. 3회 모두 `Playing`, 일시정지 메뉴 `activeSelf=False`. 일시정지 메뉴가 열린 상태의 Tab 은 `Paused` 유지. (D-05)
+- [x] 4. 열림 중 입력 억제 — PASS. 열림 중 8종 이벤트 전부 0, Move 1 / Tab 1 통과, 닫은 뒤 8종 전부 1. (D-02, D-05)
+- [x] 5. 월드 아이템 픽업 토스트 — PASS. `[체력 물약 x3 획득]` 1.92초, `[고대의 열쇠 x1 획득]`, 픽업 후 월드 오브젝트 소멸. (D-12, D-13)
+- [x] 6. 패널 표시 — PASS. HealthPotion 물병 아이콘 + 수량, AncientKey 텍스트 폴백 `고대의 열쇠` + 수량. (D-06, D-10)
+- [x] 7. 선택/사용/차단 — PASS. 좌클릭 선택(빈 슬롯 무반응), 우클릭 사용(수량 -1, 체력 50->70, 0 이면 슬롯 비움), AncientKey 우클릭 수량 불변. (D-08, D-09, D-11)
+- [x] 8. 가득 참 — PASS. `[인벤토리가 가득 찼습니다]` 1.96초, 월드 오브젝트 생존(Phase 18 D-06 유지). (D-12)
+- [x] 9. 토스트 교체/unscaled — PASS. 연속 발생 시 마지막 메시지 1개만(라벨 1개), `timeScale 0` 중에도 1.95초에 사라짐. (D-14)
+- [x] 10. 컨트롤 탭 Inventory 행 — PASS (순서 수정 후). `Tab` 표시, `I` 로 리바인딩(저장 JSON 포함), `I` 토글/`Tab` 무반응, 탭 재진입 라벨 `I`, Reset 후 라벨 `Tab`. 캡처 `evidence/21-controls-tab-inventory-row.png`. 순서 수정이 필요했던 이유는 [BUG-011](../../.planning/phases/21-inventory-ui-keybinding-pickup/bugs/BUG-011-controls-basicattack-bindingindex-out-of-range.md). (D-03)
+- [ ] 11. 저장 -> 로드 왕복 — 미확인. 메모리 수준 캡처/복원은 PASS (복원 전후 슬롯 동일, `Restored 3/3 item entries.`, `PickupResolved` 0회, 토스트 숨김). 디스크 `Save()`/`LoadGame()` 은 사용자의 `save.json` 을 덮어쓰므로 실행하지 않았다. (D-07)
+- [ ] 12. Phase 18 UAT 회귀 — 미확인(부분). 픽업, 사용, 가득 참 보호 3항목은 UI 경로로 같은 결과. 나머지 4항목은 다시 실행하지 않았다.
+- [ ] 13. Console 예외 0건 — FAIL. `InventoryUI`/`Inventory`/`WorldItem` 예외는 0건이나 `CameraBoundsTrigger.OnTriggerExit2D` NRE 1회(원인 미확정)와 Reset 시 `ArgumentOutOfRangeException`(기존 결함, BUG-011)이 있었다.
+- [x] 14. 계획 외 경로 0건 — PASS. 21-06 Task 2 의 부분집합 명령 출력이 빈 출력(기준 `8f6ea40`). 21-04 순수 삽입 검사: baseline 대비 삭제 0 / 추가 34.
+
+## 결과 기록 (Phase 21)
+
+- 검증 일자: 2026-11-05
+- 검증자: Claude (Unity CLI `unity command eval`, 메인 체크아웃 에디터). 코드 작성은 Codex `gpt-6.1-terra`.
+- PASS/FAIL 요약: **PASS 11 / FAIL 1 / 미확인 2.** (미확인: 저장 왕복 디스크 경로, Phase 18 UAT 나머지 4항목)
+- 발견된 결함: [BUG-011](../../.planning/phases/21-inventory-ui-keybinding-pickup/bugs/BUG-011-controls-basicattack-bindingindex-out-of-range.md) (기존 결함, Inventory 엔트리는 순서 수정으로 우회).
+- 환경 사고: Play 검증 중 입력 장치 문제로 에디터의 Input System 이 일시 손상됐다. 자세한 내용은 `21-06-SUMMARY.md`.

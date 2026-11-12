@@ -23,16 +23,27 @@ public class ItemData : ScriptableObject, IItem
     // this phase. Kept as a string because Phase 19 will store it in SaveData as ItemSaveEntry.itemId.
     [SerializeField] private string id;
 
-    // D-06: minimal schema. No name/image/blurb fields until a UI layer exists.
+    // D-06 (Phase 17): minimal schema. Phase 21 D-06 adds icon/displayName below; still no blurb field.
     [SerializeField] private ItemType type;
 
     // Consumable-only parameters. Leave them at their defaults on a Progression item.
     [SerializeField] private ConsumableEffectType effectType;
     [SerializeField] private float amount;
 
+    // Phase 21 (D-06): display metadata for the inventory UI. An empty icon makes the UI fall back
+    // to displayName text.
+    [SerializeField] private Sprite icon;
+    [SerializeField] private string displayName;
+
     // The one accessor this phase needs: without it `id` would be a write-only field. Phase 18
     // can add Type / amount accessors when the inventory actually needs them.
     public string Id => id;
+
+    // Phase 21 (D-06/D-09): read-only accessors for the inventory UI. Type lets the UI refuse to
+    // consume Progression items.
+    public Sprite Icon => icon;
+    public string DisplayName => displayName;
+    public ItemType Type => type;
 
     // D-02: fully implemented, not a stub. Consumables apply their effect for real; Progression
     // items are an intentional no-op until Phase 18+ gives them meaning.

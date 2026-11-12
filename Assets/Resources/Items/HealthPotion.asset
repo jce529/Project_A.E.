@@ -16,3 +16,5 @@ MonoBehaviour:
   type: 0
   effectType: 0
   amount: 20
+  icon: {fileID: -8637019419371064383, guid: e0ecab6c09cdfbc49b5ff003148564e6, type: 3}
+  displayName: 체력 물약
