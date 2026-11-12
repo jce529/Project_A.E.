@@ -10,6 +10,8 @@ public class StoneTabletHint : MonoBehaviour, IPlayerInteractable
     [Header("Gimmick keys (2-2 석판은 s2.b.* 로 변경)")]
     [SerializeField] private string unlockedKey = Gimmick2Store.TabletUnlocked;
     [SerializeField] private string readKey = Gimmick2Store.TabletRead;
+    [Tooltip("(선택) 전멸 시 함께 기록할 구역 전멸 플래그. 2-1 5번 구역이면 s2.a.area5.cleared (Phase 25 키와 일치)")]
+    [SerializeField] private string clearedKey = "";
     [Tooltip("비어있지 않으면 이 플래그가 true 일 때만 열 수 있음 (예: 2-2 는 s2.b.waterfall.stopped)")]
     [SerializeField] private string requiredFlagKey = "";
 
@@ -23,7 +25,12 @@ public class StoneTabletHint : MonoBehaviour, IPlayerInteractable
     {
         if (hintPanel != null) hintPanel.SetActive(false);
         if (Gimmick2Store.Get(unlockedKey)) { Unlocked = true; return; }
-        if (areaEnemies == null || areaEnemies.Length == 0) return; // 적 미지정이면 잠금 유지
+        if (areaEnemies == null || areaEnemies.Length == 0)
+        {
+            // Phase 28: 적 목록 없이 requiredFlagKey 만 있는 인스턴스(2-2 석판)는 선행 플래그만으로 열림.
+            if (!string.IsNullOrWhiteSpace(requiredFlagKey)) Unlocked = true;
+            return; // 둘 다 없으면 잠금 유지
+        }
         foreach (var hp in areaEnemies)
         {
             if (hp == null) continue;
@@ -49,6 +56,7 @@ public class StoneTabletHint : MonoBehaviour, IPlayerInteractable
         if (Unlocked) return;
         Unlocked = true;
         Gimmick2Store.Set(unlockedKey, true);
+        if (!string.IsNullOrWhiteSpace(clearedKey)) Gimmick2Store.Set(clearedKey, true);
         Changed?.Invoke(true);
     }
 
