@@ -18,3 +18,7 @@
 
 참고: 석등 개별 ON/OFF 는 저장 안 함(해결 플래그만 영구). 석판/망원경 UI 열림 중 GameStateManager Puzzle 상태로 전환. 가고일=잡몹 나무(별도 몬스터 클래스 없음). 25/26 세션에 위 이벤트명 통보함(응답 없음).
 미병합/미검증: Phase 23 병합, Unity 컴파일, Play 동작.
+
+## 추가(타 세션 계약 반영)
+- StoneTabletHint: Inspector `unlockedKey`(기본 s2.a.tablet.unlocked), `readKey`(기본 s2.a.tablet.read, 열 때 true 저장), `requiredFlagKey`(비어있지 않으면 해당 플래그 true 일 때만 열림). 2-2 석판 인스턴스는 unlockedKey/readKey 를 s2.b.tablet.* 로, requiredFlagKey=s2.b.waterfall.stopped 로 설정(Stage22Progress.CanAccessTablet 과 등가). 2-1 은 기본값, 필요 시 requiredFlagKey 지정.
+- Phase 23 병합 완료(b43dd2c). Stage2Events / Stage21Progress / Stage22Progress 는 직접 호출하지 않고 플래그 기반으로만 연동.

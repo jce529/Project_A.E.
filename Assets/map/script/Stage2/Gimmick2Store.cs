@@ -5,6 +5,7 @@ public static class Gimmick2Store
 {
     public const string LanternSolved = "s2.a.lantern.solved";
     public const string TabletUnlocked = "s2.a.tablet.unlocked";
+    public const string TabletRead = "s2.a.tablet.read";
     public const string TelescopeViewed = "s2.a.telescope.viewed";
     public const string TreeTransformed = "s2.a.tree.transformed";
     public const string WaterwayChanged = "s2.b.waterway.changed";
