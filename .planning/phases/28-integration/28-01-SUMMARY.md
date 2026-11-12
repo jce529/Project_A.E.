@@ -149,3 +149,25 @@ H. 알려진 한계 확인(의도)
 - 비활성(Disabled) 의미의 플래그 키 미정(아트와 합의).
 - STATE/ROADMAP/REQUIREMENTS 미수정(총괄 반영).
 - 모델 라우팅: jev_ask 는 입력 형식 오류로 실패, 정적 대조·병합·컴포넌트 모두 Claude(sonnet) 직접 수행(Codex 한도 폴백 불필요).
+
+## 12. Unity 에디터 작업 (총괄 지시 변경 반영)
+**방식:** 이 worktree 프로젝트를 별도 에디터 인스턴스(Unity 6000.3.10f1, pipeline 포트 7801)로 열어 `unity command eval_file` 로 생성했다. 메인 체크아웃 에디터(pid 41988, 포트 7800)와 그 AssetImportWorker 는 건드리지 않았고, 모든 명령에 `--project-path` 로 worktree 를 지정했다. 작업 후 worktree 에디터만 `EditorApplication.Exit` 로 종료(pid 39284 종료 확인, 메인 pid 41988 생존). 에디터가 건드린 `EditorBuildSettings.asset`, `ShaderGraphSettings.asset`, `.vscode/settings.json`, 생성된 `.slnx` 는 커밋 대상에서 제외(복원/삭제).
+
+**컴파일 확인(증거):** 첫 임포트(Library 약 2.7GB 신규 생성) 후 `console_status` → `compilationFailed:false`, `recompile_status` → `{"status":"idle","failed":false,"errors":[]}`, 콘솔 "CS####" 오류 0건. §9 병합 접점(SetGimmick/GetGimmick 시그니처 등) 컴파일 통과로 확인됨. 콘솔 error 60건은 전부 임포트 잡음: URP/2d.tooling 패키지 파일의 Windows 경로 길이 초과(`DirectoryNotFoundException`, `Asset import failed`), `Assets/Tile/Ground.prefab` 임포트 경고, `Library/Unused` Broken PPtr(신규 Library 정리 대상). 우리 코드와 무관. 단, 플레이 모드 동작은 검증하지 않음.
+
+**생성물 (기존 씬 미수정, additive 씬 + 프리팹):**
+| 프리팹 | 씬 | 내용 |
+|---|---|---|
+| `Assets/Prefabs/MapProgress/Stage1Progress.prefab` | `Assets/Scenes/MapProgress_Stage1Progress.unity` | Stage1Trigger 7개(키/requires 순서 설정, BoxCollider2D isTrigger), Stage1SlideResult 1개, ArtState 4개 |
+| `Assets/Prefabs/MapProgress/Stage21Progress.prefab` | `Assets/Scenes/MapProgress_Stage21Progress.unity` | Stage21AreaTrigger 1~6, Stage21Stage22Gate, Stage21FogController("Fog"), LanternSwitch×3 + LanternPuzzle(lanterns 연결, answer 기본값), StoneTabletHint(clearedKey=s2.a.area5.cleared, hintPanel 연결), Telescope(viewPanel 연결), TreeMonsterTransform(tree/monster 연결), ArtState 5개 |
+| `Assets/Prefabs/MapProgress/Stage22Progress.prefab` | `Assets/Scenes/MapProgress_Stage22Progress.unity` | Stage22ProgressMachine, Stage22ZoneTrigger Z1~Z9(zone 설정), Stage22Gate 3개(5→8, 8→9, 7→8; blocker 연결), WaterwayLever(A/B·visual 연결), FloodgateWaterfall(waterfall/visual 연결), RisingLift(platform/low/high), WaterWheel(wheelVisual·lift 연결), StoneTabletHint(unlockedKey=s2.b.tablet.unlocked, readKey=s2.b.tablet.read, requiredFlagKey=s2.b.waterfall.stopped, areaEnemies 비움), ArtState 6개 |
+ArtState_* = `FlagStateVisual` 부착 빈 오브젝트(§7 표대로 키만 지정, 스프라이트/애니메이터 슬롯은 비어 있음). 프리팹 직렬화에서 키/zone/from/to/참조 값이 설정됨을 YAML 로 확인(null 참조 0).
+사용법: 해당 씬 인스턴스를 기존 씬(`1 stage`, `2 stage`)에 프리팹으로 끌어다 놓고 구역 트리거를 실제 위치로 옮긴다(현재는 x축 8 간격 임시 배치). 
+
+**기존 씬에 반드시 직접 해야 하는 최소 목록 (프리팹으로 대체 불가):**
+1. 각 트리거/구역/석판/석등/레버 등 임시 위치를 실제 맵 위치로 이동, 시각 자식(On/Off, WaterwayA/B, Tree/Monster, Blocker 크기 등)을 실제 오브젝트로 교체하거나 연결.
+2. 1스테이지: Stage1SlideResult.lowerCheckpoint 에 하층 `Checkpoint` Transform 지정, 전금재 슬라이드 성공/실패 UnityEvent → OnSuccess()/OnFail(), 필요 시 Stage1ProgressGate 배치(문/발판).
+3. 2-1: StoneTabletHint.areaEnemies 에 5번 구역 적 HP 지정(비우면 영구 잠금), 안개 구역 Stage21AreaTrigger 에 removesFog 체크 및 Fog 를 실제 안개 오브젝트로, 출구 Stage21Stage22Gate.onAllowed → 2-2 이동, 구역 5 전투 석판.
+4. 씬 전환: 1→2-1, 2-1→2-2 연결 및 `2 stage.unity` Build Settings 등록(EditorBuildSettings 는 의도적으로 미수정).
+5. 플레이어 태그 "Player", 플레이어에 PlayerRespawn 존재 확인.
+6. `.meta`: 모든 신규 스크립트의 .meta 를 이 worktree 에디터가 생성·커밋했다(프리팹이 해당 GUID 를 참조하므로 반드시 함께 병합해야 함). 메인 에디터에서 같은 스크립트 .meta 를 따로 만들었다면 GUID 충돌 → 이 브랜치의 .meta 를 정본으로 사용.
