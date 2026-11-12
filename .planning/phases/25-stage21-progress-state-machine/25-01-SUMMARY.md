@@ -30,3 +30,11 @@
 ## 남은 이슈
 - Phase 23 브랜치 미병합(커밋 해시 수신 대기), .meta 파일은 에디터가 생성
 - Success Criteria 3(재로드 후 안개 유지)은 Play 검증 필요
+
+## Phase 27 확정 API 대응 (adfea8f 병합 후)
+phase-27 은 Stage2Events 대신 자체 컴포넌트(LanternPuzzle/StoneTabletHint/Telescope/TreeMonsterTransform, Assets/map/script/Stage2/)가
+플래그를 직접 기록하고 `Changed(bool)` 이벤트를 낸다. Phase 25 는 **플래그를 읽는 방식**이라 그대로 호환된다:
+- `CanInvestigateTablet()` = `s2.a.tablet.unlocked` (27 의 StoneTabletHint 가 구역 전멸 시 기록)
+- `CanEnterStage22()` / `TryRemoveFog()` = `s2.a.lantern.solved` (27 의 LanternPuzzle 이 기록)
+- Stage2Events.RaiseLanternSolved/RaiseAreaCleared/RaiseTabletOpened 는 선택 경로(미사용 가능). 27 병합 후 정리 여부 결정.
+- 27 전용 키(미사용): s2.a.telescope.viewed, s2.a.tree.transformed
