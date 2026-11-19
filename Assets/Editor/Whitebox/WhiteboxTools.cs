@@ -205,10 +205,12 @@ public static class WhiteboxTools
             foreach (long cell in standing)
             {
                 int x = X(cell), y = Y(cell);
+                // dx: a floor edge next to a ladder column (ladder in a 1-wide floor hole) also connects.
+                foreach (int dx in new[] { -1, 0, 1 })
                 foreach (int dy in new[] { 1, 2 })
                 {
                     int id;
-                    if (!ladderGroup.TryGetValue(Key(x, y + dy), out id)) continue;
+                    if (!ladderGroup.TryGetValue(Key(x + dx, y + dy), out id)) continue;
                     HashSet<int> ids;
                     if (!standingGroups.TryGetValue(cell, out ids)) standingGroups[cell] = ids = new HashSet<int>();
                     ids.Add(id);
