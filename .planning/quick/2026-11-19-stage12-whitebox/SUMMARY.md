@@ -13,7 +13,7 @@
 
 ## 알려진 문제·미작업
 - (해결) 1스테 Play 에서 Player 가 기존 `cameraBound`(비트리거 BoxCollider2D) 위에 걸려 떠 있던 문제는 사용자 승인으로 `isTrigger=true` 로 바꿔 해소했다. 이후 Player 가 Surface 위(y -15.96)에 정지한다. 비포커스 에디터는 Play 프레임이 거의 안 돌아 `EditorApplication.Step()` 으로 150프레임 진행해 확인했다.
-- 맵 진행 오브젝트(`MapProgress_*`) 위치 정렬: **미작업**. 기존 오브젝트(Tutorial Boss, fallzone, Check Group, portal)는 옛 위치 그대로다.
+- 맵 진행 오브젝트(MapProgress): 두 씬에 `Stage1Progress`, `Stage21Progress`, `Stage22Progress` 프리팹 인스턴스를 넣고 월드 위치만 새 맵 구간으로 맞췄다(트리거 7/6+Gate/9, 석등 3개, 석판, 망원경, 수문 3개, 물길 레버, 폭포, 상승 리프트 Low/High, 물레방아, ArtState). 스크립트·키·연결은 그대로이고 `Stage1SlideResult.lowerCheckpoint` 만 씬의 `check` 로 연결했다. 체크포인트(`check`/`check2`)와 `fallzone` 도 새 맵으로 옮겼다. Tutorial Boss, Enemy Group, Mistery, portal 은 그대로(옛 위치).
 - 슬라이드는 계단형 지형이고 실제 물 효과는 오브젝트 담당. 2-2 4~6번 세부 길은 층 바닥+사다리 수준.
 - 에디터 크래시 1회(작업 중, 사용자가 확인). 같은 시각 메인 에디터도 같이 종료된 것으로 보이며, 이후 이 작업은 워크트리 에디터만 사용했다.
 
