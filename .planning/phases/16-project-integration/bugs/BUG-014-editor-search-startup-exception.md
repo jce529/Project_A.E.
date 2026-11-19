@@ -19,3 +19,5 @@
 검증 시작을 delayCall 대신 다음 EditorApplication.update에서 실행하여 검색 초기화 예외가 검사 자체를 유실시키지 않게 했다. 정확히 UnityEditor.Search.SearchDatabase와 SearchInit.IndexationOnStartup을 함께 포함한 에디터 스택만 별도 환경 기록으로 분리한다. 다른 모든 게임 Error/Exception/Assert는 실패 처리한다.
 
 별도 에디터 검색 인덱스 진단 후 시작 예외가 사라지는지 확인해야 한다. 예외를 해결한 것으로 표시하지 않는다. 관련 증거: ../16-VERIFICATION.md 및 Integration/editor-environment.txt. 게임 코드를 바꿔 예외를 숨기지는 않았다.
+
+- 진단 및 검증기 우회 코드 기준 커밋 (에디터 자체 오류는 미해결): `a161ba22d42daf7d7fff6be3d2feb91fa2b48958`

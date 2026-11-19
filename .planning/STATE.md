@@ -13,6 +13,14 @@ progress:
   percent: 79
 ---
 
+# 2026-11-19 통합본 상태
+
+현재 통합 프로젝트: `D:/Projeect_A.E_Merged`, 브랜치 `codex/integrate-partner-projects`.
+Phase 16 통합 완료. 상세 검증: `.planning/phases/16-project-integration/16-VERIFICATION.md`.
+
+아래 Phase 15 상태와 워킹트리/미푸시 경고는 **원본 B 프로젝트의 역사 기록**이다. 이 새 통합 저장소의 Git 상태와 구분한다. 기존 기능 UAT와 미완료 보스 배치/연출 검증은 계속 유지한다.
+
+
 # GSD State
 
 ## Current Milestone

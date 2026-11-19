@@ -73,3 +73,5 @@ TutorialBoss의 씬/프리팹 배치와 상태 머신의 애니메이션 의존 
 ## 2026-11-19 통합 검증
 
 RequireComponent(Animator)를 선언하고 실제 프리팹/씬에 기존 TutorialBoss.controller를 연결했다. Tutorial Map과 1 stage를 포함한 12개 씬 시작 검사에서 MissingComponentException 0. 공격/피격/사망 전 경로의 수동 보스전 확인은 남아 있어 해결됨으로 올리지 않았다. 증거: Integration/play-verification.txt.
+
+- 통합본 Animator 계약 수정 커밋: `a161ba22d42daf7d7fff6be3d2feb91fa2b48958`. 전체 보스전 수동 확인은 계속 필요.

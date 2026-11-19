@@ -26,3 +26,5 @@ Assets/Compatibility/LegacyPhase1에 원래 GUID를 복원했다. boss는 원래
 ## 최종 검증 (2026-11-19)
 
 Integration/verification-summary.json 및 unity-verification.log의 통합 검사 통과. 12개 씬 각 120프레임, 게임 코드 오류 0; 상호작용 전용 검사와 저장/서비스 회귀 통과. 상세 증거는 각 보고서 참조. 수정 커밋은 후속 기록에 기재한다.
+
+- 수정 커밋: `a161ba22d42daf7d7fff6be3d2feb91fa2b48958`

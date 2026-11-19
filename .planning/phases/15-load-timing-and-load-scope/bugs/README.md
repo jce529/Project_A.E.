@@ -12,7 +12,7 @@ Purpose: Phase 15에서 발견된 결함과 수정·재검증 이력을 한곳�
 | [BUG-005](BUG-005-camera-shake-continues-while-paused.md) | 일시정지 중 카메라 흔들림 지속 | 중간 | 해결됨 | 2026-09-10 |
 | [BUG-006](BUG-006-tutorialboss-wall-reference-missing.md) | TutorialBoss 격파 상태 로드 시 보스방 벽이 해제되지 않음 | 중간 | 해결됨 | 2026-09-11 |
 | [BUG-007](BUG-007-inputhandler-lost-on-scene-transition.md) | Manager 계층의 전역 싱글톤 영속화 실패와 입력 유실 | 높음 | 수정됨 — 재검증 필요 | 2026-09-11 |
-| [BUG-008](BUG-008-tutorialboss-animator-missing.md) | TutorialBoss Animator 누락으로 Idle 진입 예외 | 중간 | 확인됨 — 미해결 | 2026-09-11 |
+| [BUG-008](BUG-008-tutorialboss-animator-missing.md) | TutorialBoss Animator 누락으로 Idle 진입 예외 | 중간 | 수정됨 — 재검증 필요 | 2026-09-11 |
 
 | [BUG-009](BUG-009-interaction-prompt-camera-jitter.md) | 플레이어 이동 시 상호작용 키 UI 떨림 | 중간 | 해결됨 | 2026-09-12 |
 
@@ -20,7 +20,7 @@ Purpose: Phase 15에서 발견된 결함과 수정·재검증 이력을 한곳�
 
 - 해결됨: 4건 — BUG-002, BUG-005, BUG-006, BUG-009
 - 수정됨 — 재검증 필요: 3건 — BUG-001, BUG-004, BUG-007
-- 확인됨 — 미해결: 2건 — BUG-003, BUG-008
+- 수정됨 — 재검증 필요: 2건 — BUG-003, BUG-008
 - 최우선 조치: BUG-007의 Tutorial Map → 1 stage 실제 키 입력 재검증 후 해결 판정
 
 ## 운영 규칙
