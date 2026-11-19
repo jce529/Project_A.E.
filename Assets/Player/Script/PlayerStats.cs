@@ -1,0 +1,137 @@
+/*
+ * Author: ariel oliveira [o.arielg@gmail.com]
+ * Modified based on user feedback.
+ * PlayerStats.cs: HP를 상속받아 플레이어 고유의 기능을 추가한 스크립트
+ */
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+// 1. HP 클래스를 상속받습니다.
+public class PlayerStats : HP
+{
+    #region Sigleton
+    private static PlayerStats instance;
+    public static PlayerStats Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindAnyObjectByType<PlayerStats>();
+            }
+            return instance;
+        }
+    }
+    #endregion
+
+    [SerializeField]
+    private float maxTotalHealth; // 플레이어만 가지는 최대 성장 가능 체력
+    public float MaxTotalHealth { get { return maxTotalHealth; } }
+
+    // Phase 15 (D-01): re-entrancy guard for Die(). The scene load kicked off below is
+    // asynchronous, so the dying player object survives for a few more frames and any further
+    // TakeDamage() would call Die() again and start a second load.
+    private bool _deathHandled = false;
+
+    // 2. 플레이어의 고유 기능인 '힐' 메서드를 추가합니다.
+    public override void Heal(float amount)
+    {
+        health += amount;
+        ClampHealth(); // 부모 클래스의 ClampHealth()를 호출하여 체력 보정 및 UI 업데이트
+    }
+
+    // Checkpoint activation restores the player immediately. Current health is intentionally
+    // transient and is not part of the JSON save schema.
+    public void ResetHealthToMax()
+    {
+        health = maxHealth;
+        ClampHealth();
+    }
+
+    // 3. 플레이어의 고유 기능인 '최대 체력 증가' 메서드를 추가합니다.
+    public void AddHealth()
+    {
+        if (maxHealth < maxTotalHealth)
+        {
+            maxHealth += 1;
+            health = maxHealth; // 최대 체력이 늘어나면 현재 체력도 채워줌
+
+            // 부모의 onHealthChangedCallback을 호출하여 UI 등 변경 사항 알림
+            if (onHealthChangedCallback != null)
+                onHealthChangedCallback.Invoke();
+        }
+    }
+
+    // (선택 사항) 플레이어가 데미지를 받을 때 특별한 처리가 필요하다면 TakeDamage를 override 합니다.
+    // 예: 무적 상태, 데미지 감소 등
+    
+    public override void TakeDamage(float dmg)
+    {
+
+        base.TakeDamage(dmg); // 부모 클래스(HP)의 원래 데미지 처리 로직 호출
+        // Phase 12 (D-02): player-only camera jolt. Placed after the base damage handling so
+        // the killing blow shakes too (D-03). No null guard on the singleton - that matches the
+        // unguarded convention already used by CameraZoomTrigger and CameraBoundsTrigger.
+        CameraController.Instance?.Shake();
+        GetComponent<PlayerAnimator>()?.PlayHitAnimation();
+        GetComponent<PlayerAttack>()?.ResetComboState();
+    }
+    
+
+    // Phase 15 (D-01): HP hits 0 -> immediately reload the last save. No game over screen and
+    // no new GameStateManager state - LoadGame() already reloads the scene, applies the spawn
+    // point and restores stats in one shot.
+    // Deliberately does NOT call the base implementation: HP.Die() would Destroy(gameObject)
+    // and the player would vanish from the scene. Overriding here (rather than flipping the
+    // prefab's ManualDeath flag) keeps the whole death policy in one code path and leaves
+    // HP.cs - a CP949-encoded shared file - untouched.
+    public override void Die()
+    {
+        if (_deathHandled) return;
+        _deathHandled = true;
+
+        SaveLoadManager mgr = SaveLoadManager.Instance;
+        if (mgr != null && mgr.HasSaveFile())
+        {
+            mgr.LoadGame();
+            return;
+        }
+
+        // D-02: no save file yet (the player never activated a checkpoint). The run is not
+        // over - restart the current scene instead of ejecting to the main menu. Synchronous
+        // LoadScene matches MainMenuUI / SlotSelectPanel / SignpostPortal; the asynchronous
+        // path exists only inside SaveLoadManager's own load routine.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // Restore saved maximum-health progression from SaveLoadManager and revive at full health.
+    // Additive only - HP.health / HP.maxHealth are protected and PlayerStats.maxTotalHealth
+    // is private with a getter-only property, so an external caller has no other way in.
+    // Saved values are never trusted as-is. maxTotalHealth is the anchor and maxHealth is
+    // clamped into 1..maxTotalHealth. Current health is not loaded; it is reset to the corrected
+    // maxHealth so every continue or death reload revives the player at full health.
+    public void RestoreStats(float savedMaxHealth, float savedMaxTotalHealth)
+    {
+        float fixedMaxTotal = Mathf.Max(1f, savedMaxTotalHealth);
+        float fixedMax = Mathf.Clamp(savedMaxHealth, 1f, fixedMaxTotal);
+
+        if (fixedMaxTotal != savedMaxTotalHealth || fixedMax != savedMaxHealth)
+        {
+            Debug.LogWarning("[PlayerStats] RestoreStats corrected out-of-range saved values: " +
+                             savedMaxHealth + " (maxTotal " + savedMaxTotalHealth + ") -> " +
+                             fixedMax + " (maxTotal " + fixedMaxTotal + ").");
+        }
+
+        maxTotalHealth = fixedMaxTotal;
+        maxHealth = fixedMax;
+        health = fixedMax;
+        ClampHealth();
+    }
+    private void OnEnable() => DialogueManager.OnDialogueAction += HandleDialogueAction;
+    private void OnDisable() => DialogueManager.OnDialogueAction -= HandleDialogueAction;
+    private void HandleDialogueAction(string actionId)
+    {
+        if (actionId == "Heal_50") Heal(50);
+        else if (actionId == "Damage_10") TakeDamage(10);
+    }
+}

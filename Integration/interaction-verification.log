@@ -1,0 +1,481 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 5836)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 20576)
+VBCSCompiler prewarm took 32.88 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/staging' branch; Version is '6000.6.9f1 (8c45277fb9c5) revision 9192743'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jgj10" at "2026-11-19T10:38:26.9147133Z"
+OS: 'Windows 11  (10.0.26200) Core' Language: 'ko' Physical Memory: 15690 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-11-19T10:38:26Z
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 23328, path: "C:/Program Files/WindowsApps/UnityTechnologies.UnityHub_4.0.1.65535_x64__2vrhnee42bhxm/app/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.19.0+4cc3dda
+  Session Id:              3b356b1b26d84fec81ee61188da8f7b1
+  Correlation Id:          e88adc6d26b56080fb38f9ca4ce6aa96
+  External correlation Id: 6710137966652635042
+  Machine Id:              hccgRewrxReoenJq3e6bRa3J27o=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jgj10" (connect: 0.00s, validation: 0.00s, handshake: 0.13s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jgj10-notifications" at "2026-11-19T10:38:27.0464175Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 14568583496722-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.15s
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.9f1\Editor\Unity.exe
+-batchmode
+-nographics
+-acceptSoftwareTermsForThisRunOnly
+-skipUpgradeDialogs
+-projectPath
+D:\Projeect_A.E_Merged
+-executeMethod
+PlayerInteractionVerification.Run
+-quit
+-logFile
+D:\Projeect_A.E_Merged\Integration\interaction-verification.log
+Successfully changed project path to: D:\Projeect_A.E_Merged
+D:/Projeect_A.E_Merged
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [28580]  Target information:
+
+Player connection [28580]  * "[IP] 192.168.56.1 [Port] 55504 [Flags] 2 [Guid] 1505655163 [EditorId] 1505655163 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [28580]  * "[IP] 192.168.7.1 [Port] 55504 [Flags] 2 [Guid] 1505655163 [EditorId] 1505655163 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [28580]  * "[IP] 192.168.28.1 [Port] 55504 [Flags] 2 [Guid] 1505655163 [EditorId] 1505655163 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [28580]  * "[IP] 192.168.0.20 [Port] 55504 [Flags] 2 [Guid] 1505655163 [EditorId] 1505655163 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [28580] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [28580] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-26100" after 0.5 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: 22b93ea2ac2aac29b30d36e557b3e729
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052576
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+Launching Unity Data Store - C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = D:/Projeect_A.E_MergedUnity Data Store running and initialised
+Refreshing native plugins compatible for Editor in 9.07 ms, found 5 plugins.
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.9f1 (8c45277fb9c5)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Projeect_A.E_Merged/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56100
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.006876 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  1.439 seconds
+Domain Reload Profiling: 2759ms
+	BeginReloadAssembly (336ms)
+		CreateAndSetChildDomain (38ms)
+	RebuildCommonClasses (10ms)
+	RebuildNativeTypeToScriptingClass (31ms)
+	initialDomainReloadingComplete (166ms)
+	LoadAllAssembliesAndSetupDomain (775ms)
+		LoadAssemblies (293ms)
+		TypeCache.Refresh (516ms)
+			TypeCache.ScanAssembly (489ms)
+		AnalyzeDomain (1ms)
+	FinalizeReload (1441ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (3ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			BeforeProcessingInitializeOnLoad (243ms)
+			ProcessInitializeOnLoadAttributes (266ms)
+			ProcessInitializeOnLoadMethodAttributes (466ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 72 packages:
+  Built-in packages:
+    com.unity.modules.accessibility@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.hierarchycore)
+  Embedded packages:
+    com.unity.collab-proxy@file:D:\Projeect_A.E_Merged\Packages\com.unity.collab-proxy (location: D:\Projeect_A.E_Merged\Packages\com.unity.collab-proxy)
+    com.unity.feature.2d@file:D:\Projeect_A.E_Merged\Packages\com.unity.feature.2d (location: D:\Projeect_A.E_Merged\Packages\com.unity.feature.2d)
+    com.unity.ide.rider@file:D:\Projeect_A.E_Merged\Packages\com.unity.ide.rider (location: D:\Projeect_A.E_Merged\Packages\com.unity.ide.rider)
+    com.unity.ide.visualstudio@file:D:\Projeect_A.E_Merged\Packages\com.unity.ide.visualstudio (location: D:\Projeect_A.E_Merged\Packages\com.unity.ide.visualstudio)
+    com.unity.inputsystem@file:D:\Projeect_A.E_Merged\Packages\com.unity.inputsystem (location: D:\Projeect_A.E_Merged\Packages\com.unity.inputsystem)
+    com.unity.multiplayer.center@file:D:\Projeect_A.E_Merged\Packages\com.unity.multiplayer.center (location: D:\Projeect_A.E_Merged\Packages\com.unity.multiplayer.center)
+    com.unity.render-pipelines.universal@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal)
+    com.unity.test-framework@file:D:\Projeect_A.E_Merged\Packages\com.unity.test-framework (location: D:\Projeect_A.E_Merged\Packages\com.unity.test-framework)
+    com.unity.timeline@file:D:\Projeect_A.E_Merged\Packages\com.unity.timeline (location: D:\Projeect_A.E_Merged\Packages\com.unity.timeline)
+    com.unity.ugui@file:D:\Projeect_A.E_Merged\Packages\com.unity.ugui (location: D:\Projeect_A.E_Merged\Packages\com.unity.ugui)
+    com.unity.visualscripting@file:D:\Projeect_A.E_Merged\Packages\com.unity.visualscripting (location: D:\Projeect_A.E_Merged\Packages\com.unity.visualscripting)
+    com.unity.nuget.newtonsoft-json@file:D:\Projeect_A.E_Merged\Packages\com.unity.nuget.newtonsoft-json (location: D:\Projeect_A.E_Merged\Packages\com.unity.nuget.newtonsoft-json)
+    com.unity.2d.animation@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.animation (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.animation)
+    com.unity.2d.aseprite@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.aseprite (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.aseprite)
+    com.unity.2d.common@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.common (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.common)
+    com.unity.2d.pixel-perfect@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.pixel-perfect (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.pixel-perfect)
+    com.unity.2d.psdimporter@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.psdimporter (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.psdimporter)
+    com.unity.2d.sprite@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.sprite (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.sprite)
+    com.unity.2d.spriteshape@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.spriteshape (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.spriteshape)
+    com.unity.2d.tilemap@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap)
+    com.unity.2d.tilemap.extras@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap.extras (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap.extras)
+    com.unity.2d.tooling@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tooling (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tooling)
+    com.unity.burst@file:D:\Projeect_A.E_Merged\Packages\com.unity.burst (location: D:\Projeect_A.E_Merged\Packages\com.unity.burst)
+    com.unity.collections@file:D:\Projeect_A.E_Merged\Packages\com.unity.collections (location: D:\Projeect_A.E_Merged\Packages\com.unity.collections)
+    com.unity.ext.nunit@file:D:\Projeect_A.E_Merged\Packages\com.unity.ext.nunit (location: D:\Projeect_A.E_Merged\Packages\com.unity.ext.nunit)
+    com.unity.graph-authoring@file:D:\Projeect_A.E_Merged\Packages\com.unity.graph-authoring (location: D:\Projeect_A.E_Merged\Packages\com.unity.graph-authoring)
+    com.unity.mathematics@file:D:\Projeect_A.E_Merged\Packages\com.unity.mathematics (location: D:\Projeect_A.E_Merged\Packages\com.unity.mathematics)
+    com.unity.nuget.mono-cecil@file:D:\Projeect_A.E_Merged\Packages\com.unity.nuget.mono-cecil (location: D:\Projeect_A.E_Merged\Packages\com.unity.nuget.mono-cecil)
+    com.unity.profiling.core@file:D:\Projeect_A.E_Merged\Packages\com.unity.profiling.core (location: D:\Projeect_A.E_Merged\Packages\com.unity.profiling.core)
+    com.unity.render-pipelines.core@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.core (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.core)
+    com.unity.render-pipelines.universal-config@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal-config (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal-config)
+    com.unity.searcher@file:D:\Projeect_A.E_Merged\Packages\com.unity.searcher (location: D:\Projeect_A.E_Merged\Packages\com.unity.searcher)
+    com.unity.shadergraph@file:D:\Projeect_A.E_Merged\Packages\com.unity.shadergraph (location: D:\Projeect_A.E_Merged\Packages\com.unity.shadergraph)
+    com.unity.test-framework.performance@file:D:\Projeect_A.E_Merged\Packages\com.unity.test-framework.performance (location: D:\Projeect_A.E_Merged\Packages\com.unity.test-framework.performance)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.06 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.9f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: D:/Projeect_A.E_Merged
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 3s866ms
+[1188/1577  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1573/1577  1s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\Editor\BuildPhase2Assets.cs(113,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\Editor\BuildPhase2Assets.cs(133,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\Editor\MergeVerification.cs(91,88): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(91,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(93,102): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(93,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(98,101): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(98,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(104,105): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(104,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(289,52): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(289,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(290,56): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(290,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+[1574/1577  0s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll, with 149 defines and 397 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[1575/1577  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[1576/1577  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (3.78 seconds), 5 items updated, 1577 evaluated
+Assets\Editor\BuildPhase2Assets.cs(113,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\Editor\BuildPhase2Assets.cs(133,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\Editor\MergeVerification.cs(91,88): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(91,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(93,102): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(93,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(98,101): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(98,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(104,105): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(104,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(289,52): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(289,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(290,56): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(290,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Total cache size 111475532
+Total cache size after purge 111475532, took 00:00:00.3608748
+AssetDatabase: script compilation time: 5.290158s
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 4.89 ms, found 5 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  4.009 seconds
+Domain Reload Profiling: 6655ms
+	BeginReloadAssembly (592ms)
+		DisableScriptedObjects (92ms)
+		CreateAndSetChildDomain (92ms)
+	RebuildCommonClasses (23ms)
+	RebuildNativeTypeToScriptingClass (43ms)
+	initialDomainReloadingComplete (160ms)
+	LoadAllAssembliesAndSetupDomain (1826ms)
+		LoadAssemblies (1001ms)
+		TypeCache.Refresh (479ms)
+			TypeCache.ScanAssembly (442ms)
+		AnalyzeDomain (197ms)
+			BuildScriptInfoCaches (174ms)
+			ResolveRequiredComponents (20ms)
+	FinalizeReload (4011ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (3ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			BeforeProcessingInitializeOnLoad (276ms)
+			ProcessInitializeOnLoadAttributes (2244ms)
+			ProcessInitializeOnLoadMethodAttributes (785ms)
+			AfterProcessingInitializeOnLoad (19ms)
+			EditorAssembliesLoaded (3ms)
+		AwakeInstancesAfterBackupRestoration (50ms)
+Starting new worker id: 0 with log in D:/Projeect_A.E_Merged/Logs/AssetImportWorkerHW0.log
+Refreshing native plugins compatible for Editor in 3.49 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=2ecf25d385259694e91ea128bb4c6cef): Total: 15.510 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=6607 ms
+		Asset DB Callback time: managed=531 ms, native=77 ms
+		Scripting: domain reloads=1, domain reload time=2812 ms, compile time=5294 ms, other=185 ms
+		Project Asset Count: scripts=1828, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 99.375ms
+	ApplyChangesToAssetFolders: 6.100ms
+	Scan: 431.136ms
+	Collect global state as custom dependencies: 58.929ms
+	OnSourceAssetsModified: 1.271ms
+	CategorizeScriptCompilationAssets: 114.976ms
+	ProcessAssetsWithTransientArtifactChanges: 217.816ms
+	CategorizeAssets: 132.548ms
+	CompileScripts: 5294.155ms
+	ImportOutOfDateAssets: 4057.822ms (4029.964ms without children)
+		ReloadNativeAssets: 0.061ms
+		UnloadImportedAssets: 3.137ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.171ms
+		ImportSchedulerStart: 22.478ms
+	PostProcessAllAssets: 536.083ms
+		XRBuildSystem.XRAssetImported 2.587ms
+		VCAutoAddAssetPostprocess 1.584ms
+		PostProcessCallbackCreateDeferredMaterials 0.080ms
+		MonoPostProcessAllAssets: 530.820ms
+			AssetPostprocessor.OnPostprocessAllAssets 345.023ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 44.395ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 34.139ms
+			SyncVS.PostprocessSyncProject 19.973ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 13.816ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 4.526ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 3.801ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 3.550ms
+			AssetChangedListener.OnPostprocessAllAssets 3.545ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 3.454ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 2.553ms
+			MaterialPostprocessor.OnPostprocessAllAssets 2.164ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 2.035ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 1.568ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 1.327ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 1.013ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.984ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.942ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.781ms
+			AssetProcessor.OnPostprocessAllAssets 0.721ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.706ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.623ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.589ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.567ms
+			PostProcessor.OnPostprocessAllAssets 0.565ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.546ms
+			AssetEvents.OnPostprocessAllAssets 0.533ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.512ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.458ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.415ms
+			PSDImportPostProcessor.OnPostprocessAllAssets 0.391ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.384ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.361ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.328ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.314ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.309ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.292ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.277ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.241ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.214ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.203ms
+	PostAssetChangesProfiler: 5.523ms
+	UnloadStreamsBegin: 2.109ms
+	PersistCurrentRevisions: 0.315ms
+	GenerateScriptTypeHashes: 5.682ms
+	GenerateScriptTypeSerializationHashes: 9.787ms
+	Untracked: 4425.060ms
+
+Application.AssetDatabase Initial Refresh End
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Scanning for USB devices : 3.605ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-AQUA ECLIPSE
+Unloading 87 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7726 unused Assets / (8.2 MB). Loaded Objects now: 8624.
+Memory consumption went from 451.7 MB to 443.5 MB.
+Total: 23.979500 ms (FindLiveObjects: 0.883400 ms CreateObjectMapping: 0.546200 ms MarkObjects: 16.917300 ms  DeleteObjects: 5.225500 ms)
+
+Opening scene 'Assets/Scenes/MainMenu.unity'
+Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/MainMenu.unity'
+	Deserialize:            437.374 ms
+	Integration:            137.159 ms
+	Integration of assets:  2.740 ms
+	Thread Wait Time:       11.597 ms
+	Total Operation Time:   588.871 ms
+Unloading 2 unused Assets / (111.1 KB). Loaded Objects now: 8858.
+Memory consumption went from 461.1 MB to 461.0 MB.
+Total: 20.248300 ms (FindLiveObjects: 0.603300 ms CreateObjectMapping: 0.249900 ms MarkObjects: 18.990900 ms  DeleteObjects: 0.054700 ms)
+
+InvalidOperationException: Interaction verification failed: other input absorption
+  at PlayerInteractionVerification.Require (System.Boolean condition, System.String scenario) [0x00014] in D:\Projeect_A.E_Merged\Assets\Editor\PlayerInteractionVerification.cs:135 
+  at PlayerInteractionVerification.VerifyPuddles (PlayerInteraction player) [0x001cd] in D:\Projeect_A.E_Merged\Assets\Editor\PlayerInteractionVerification.cs:115 
+  at PlayerInteractionVerification.Run () [0x00324] in D:\Projeect_A.E_Merged\Assets\Editor\PlayerInteractionVerification.cs:65 
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+(Filename: Assets/Editor/PlayerInteractionVerification.cs Line: 135)
+
+executeMethod method PlayerInteractionVerification.Run threw exception.
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 1
+MonoPathRemapper: Attempts to remap: 19664; Successful remaps: 9468
+Worker ready: AssetImportWorkerHW0 0
+Serialized file version minimum: 23, current 23
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-jgj10-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-jgj10 channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+Shut down UDS service system complete
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1795084738675,"processId":26100,"allocatedMemory":19906089,"memoryLabels":[{"Default":209169},{"Permanent":15516},{"NewDelete":80023},{"Thread":4198728},{"Manager":36413},{"VertexData":8},{"Geometry":824},{"Texture":24},{"Shader":848557},{"Material":132},{"GfxDevice":88288},{"Animation":952},{"Audio":984},{"FreeType":8},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":16992},{"Input":42840},{"JobScheduler":264},{"TextLib":336},{"Mono":48},{"MonoCode":64},{"ScriptingNativeRuntime":1292664},{"BaseObject":48784},{"Resource":1444},{"Renderer":2536},{"Transform":4781},{"File":7393},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":722186},{"StaticString":3808},{"Utility":2674806},{"Curl":2676},{"PoolAlloc":2600},{"AI":80},{"TypeTree":17165},{"ScriptManager":12688},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":8296},{"CloudService":7296},{"WebRequest":8503},{"VR":49650},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":768},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14536},{"Identifiers":7152},{"EntityIdStore":33088},{"Gui":128},{"EditorUtility":115949},{"VersionControl":8},{"Undo":931},{"AssetDatabase":8871267},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40441},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":260},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3620},{"Windowing":456},{"Licensing":12901},{"AssetReference":32},{"IPCStream":32}]}
+~StackAllocator(ALLOC_TEMP_MAIN) m_LastAlloc not NULL. Did you forget to call FreeAllStackAllocations()? To get more information, run app with -diag-temp-memory-leak-validation cmd line argument

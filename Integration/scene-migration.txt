@@ -1,0 +1,12 @@
+Assets/Scenes/MainMenu.unity: players=0, missingScripts=0, centralizedManagers=0
+Assets/Scenes/Tutorial Map.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/1 stage.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/2 stage/2 stage.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage extra/3 stage boss.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage extra/3 stage final test.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage extra/3 stage lake.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage extra/3 stage pump.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage extra/3 stage tower.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/3stage/3 stage main.unity: players=1, missingScripts=0, centralizedManagers=0
+Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity: players=1, missingScripts=0, centralizedManagers=0

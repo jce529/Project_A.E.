@@ -1,0 +1,10 @@
+[
+  {
+    "scene": "Assets/Scenes/1 stage.unity",
+    "result": "native-tool-timeout-25s"
+  },
+  {
+    "scene": "Assets/Scenes/Tutorial Map.unity",
+    "result": "native-tool-timeout-25s"
+  }
+]

@@ -1,0 +1,240 @@
+[
+  {
+    "scene": "1 stage",
+    "counts": {
+      "same": 73,
+      "B": 904,
+      "retained-modified-object": 1,
+      "A": 2
+    },
+    "conflicts": []
+  },
+  {
+    "scene": "Tutorial Map",
+    "counts": {
+      "same": 336,
+      "B": 681,
+      "merged": 27,
+      "A": 368,
+      "retained-modified-object": 3
+    },
+    "conflicts": [
+      {
+        "fileID": "210649651",
+        "header": [
+          "--- !u!114 &210649651",
+          "MonoBehaviour:"
+        ],
+        "script": [
+          "m_Script: {fileID: 11500000, guid: 8805644a0817f9f4ea011ef560e24f75, type: 3}"
+        ]
+      },
+      {
+        "fileID": "219304653",
+        "header": [
+          "--- !u!1 &219304653",
+          "GameObject:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "219304654",
+        "header": [
+          "--- !u!224 &219304654",
+          "RectTransform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "376928934",
+        "header": [
+          "--- !u!4 &376928934",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "425757930",
+        "header": [
+          "--- !u!4 &425757930",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "482171003",
+        "header": [
+          "--- !u!1 &482171003",
+          "GameObject:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "482171007",
+        "header": [
+          "--- !u!224 &482171007",
+          "RectTransform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "551481341",
+        "header": [
+          "--- !u!4 &551481341",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "567672314",
+        "header": [
+          "--- !u!4 &567672314",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "654461269",
+        "header": [
+          "--- !u!4 &654461269",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "674213771",
+        "header": [
+          "--- !u!4 &674213771",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "694150498",
+        "header": [
+          "--- !u!114 &694150498",
+          "MonoBehaviour:"
+        ],
+        "script": [
+          "m_Script: {fileID: 11500000, guid: 33ea3dced7b3e8f41af5de7c5e9f7db4, type: 3}"
+        ]
+      },
+      {
+        "fileID": "821726529",
+        "header": [
+          "--- !u!4 &821726529",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1117350460",
+        "header": [
+          "--- !u!4 &1117350460",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1136367921",
+        "header": [
+          "--- !u!4 &1136367921",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1263857376",
+        "header": [
+          "--- !u!224 &1263857376",
+          "RectTransform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1263857377",
+        "header": [
+          "--- !u!114 &1263857377",
+          "MonoBehaviour:"
+        ],
+        "script": [
+          "m_Script: {fileID: 11500000, guid: b5e17df526692ac4291a71a3c48e2f1e, type: 3}"
+        ]
+      },
+      {
+        "fileID": "1441045547",
+        "header": [
+          "--- !u!4 &1441045547",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1579923566",
+        "header": [
+          "--- !u!4 &1579923566",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1739497149",
+        "header": [
+          "--- !u!4 &1739497149",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1766755187",
+        "header": [
+          "--- !u!114 &1766755187",
+          "MonoBehaviour:"
+        ],
+        "script": [
+          "m_Script: {fileID: 11500000, guid: 51bcec5ca7012d345bc8320c48c627b8, type: 3}"
+        ]
+      },
+      {
+        "fileID": "1769671197",
+        "header": [
+          "--- !u!1001 &1769671197",
+          "PrefabInstance:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "1803309045",
+        "header": [
+          "--- !u!4 &1803309045",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "2018334313",
+        "header": [
+          "--- !u!4 &2018334313",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "2035771558",
+        "header": [
+          "--- !u!4 &2035771558",
+          "Transform:"
+        ],
+        "script": []
+      },
+      {
+        "fileID": "9223372036854775807",
+        "header": [
+          "--- !u!1660057539 &9223372036854775807",
+          "SceneRoots:"
+        ],
+        "script": []
+      }
+    ]
+  }
+]

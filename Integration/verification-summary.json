@@ -1,0 +1,16 @@
+{
+  "unity_version": "6000.6.9f1",
+  "runtime_csharp_files": 199,
+  "editor_csharp_files": 11,
+  "build_scenes": 11,
+  "verified_scenes": 12,
+  "frames_per_scene": 120,
+  "gameplay_errors": 0,
+  "interaction_tests": "passed",
+  "water_mutations_tested": 500,
+  "atomic_save_test": "passed",
+  "original_file_hashes_checked": 3684,
+  "duplicate_guids": 0,
+  "lost_original_asset_references": 0,
+  "editor_search_startup_exception": "recorded separately in editor-environment.txt; excluded only by exact editor startup stack"
+}

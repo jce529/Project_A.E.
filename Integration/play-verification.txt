@@ -1,0 +1,13 @@
+PASS Assets/Scenes/MainMenu.unity: 120 frames; 0 errors
+PASS Assets/Scenes/Tutorial Map.unity: 120 frames; 0 errors
+PASS Assets/Scenes/1 stage.unity: 120 frames; 0 errors
+PASS Assets/Scenes/2 stage/2 stage.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage boss.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage final test.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage lake.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage pump.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage tower.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage main.unity: 120 frames; 0 errors
+PASS Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity: 120 frames; 0 errors
+Failures: 0

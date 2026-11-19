@@ -1,0 +1,842 @@
+[
+  {
+    "path": "Assets/GameSystemTester.cs",
+    "sha256": "ef52ebf66453135ba2a9dd58af29510ddc384cc36d038bd41f9639095914862b"
+  },
+  {
+    "path": "Assets/Editor/AnimationEventCleaner.cs",
+    "sha256": "006c7705a816f93577486f0185831bb6545748627ff95533a66f3797a13cd752"
+  },
+  {
+    "path": "Assets/Editor/PlayerInteractionVerification.cs",
+    "sha256": "abdebd7d7219f4f0ec3e3b6f508bb55bb07929dc2cbdf5e1d0412e684b8d83b4"
+  },
+  {
+    "path": "Assets/Editor/BuildPhase2Assets.cs",
+    "sha256": "c392818cc2ea73cff38ae46baae225f76bd72348b49cef476a3f3c5461d82670"
+  },
+  {
+    "path": "Assets/Editor/BuildWaterMonsterAssets.cs",
+    "sha256": "d07cb5aaada42635e1d75d9a24bf302043ca5a7986f85bca4bed4a4ba1f360c4"
+  },
+  {
+    "path": "Assets/Editor/Phase1CLI.cs",
+    "sha256": "d076b4643d337a594251cc3ed2053294e60df73f2891fbe9f3ff7fddcf2808ea"
+  },
+  {
+    "path": "Assets/Editor/PlaceWaterMonsterInScene.cs",
+    "sha256": "9ab465850da564a1ad38845daec3c597be96e4edea160745029f83dd70be936d"
+  },
+  {
+    "path": "Assets/Editor/MergeVerification.cs",
+    "sha256": "d16ba7e871b87e75051c33d0adaa230fb677bc1e7d03378f2baca8eec8c86ffb"
+  },
+  {
+    "path": "Assets/Script/AudioManager.cs",
+    "sha256": "252459034d4f92f42dc09c541b7cc0903f3ab10ebcead22ef3f0fcf63101ca88"
+  },
+  {
+    "path": "Assets/Script/Chase.cs",
+    "sha256": "55396f0d99c40b591124ddb2e424a2bf0d3ea2c2c4b89ab0a383c045fdf8cbde"
+  },
+  {
+    "path": "Assets/Script/Damager.cs",
+    "sha256": "87eefaeaa0211883976f1bd41a3e1c6db38b4dd4def6784a8816c22ba5f92533"
+  },
+  {
+    "path": "Assets/Script/EnemyDamager.cs",
+    "sha256": "6aef9e40e05ad8933fe47a174934e6d1da361e36d79c550d180ab202c1d9b79d"
+  },
+  {
+    "path": "Assets/Script/EnvironmentManager.cs",
+    "sha256": "b2f27990ec5471f7df9862942a46d320d303644e7fec6489491c8a90459a6932"
+  },
+  {
+    "path": "Assets/Script/HP.cs",
+    "sha256": "e6e1170fda9d7c35da31700c315d665725dc1728fc2a5111f81372eb34fa1cb2"
+  },
+  {
+    "path": "Assets/Script/MainMenuUI.cs",
+    "sha256": "6bbb29e734f0db3de7251dceebf8a9740359fef7df926bddb8c58bf5e9b1f129"
+  },
+  {
+    "path": "Assets/Script/OverwriteConfirmPanel.cs",
+    "sha256": "9d9b343ccbfd86be6965e5bdbd6aefca6d91a196ca1d4505493ca69dd12892e2"
+  },
+  {
+    "path": "Assets/Script/PersistentManagers.cs",
+    "sha256": "755122ecdac693e4592dc9a1385e1727090ddec4e2278064f74d674cd1aef709"
+  },
+  {
+    "path": "Assets/Script/SaveSlotDialog.cs",
+    "sha256": "3a7bb176f48e6d77919310f86f92d4ddcf262fce8326cc6ca3a4a883259ee1fc"
+  },
+  {
+    "path": "Assets/Script/SlotSelectPanel.cs",
+    "sha256": "6c37dba4c3cf917a5faf2e5fe741aba0751e16d0de396a61cceaf3c1c34304e2"
+  },
+  {
+    "path": "Assets/Script/WaveEffect.cs",
+    "sha256": "c8320d31016e6be6a2b90cc732d33ea6cc60946b1f85195a5dc5304639593a4e"
+  },
+  {
+    "path": "Assets/Script/CorruptedWater.cs",
+    "sha256": "fc324f4bdbe4d0236fcb43b57f6330f8372e07bdd2a96547f7cce4770552f095"
+  },
+  {
+    "path": "Assets/Script/InteractivePrompt.cs",
+    "sha256": "d31a7234a636be03a527dc68ec860c5d9fc8c961351e81a929c953bafdbd4509"
+  },
+  {
+    "path": "Assets/Script/ObstacleInteraction.cs",
+    "sha256": "bd7026a84655c2ad70649fe253bbe5815aaf2a709941afaa93f8341e677e7fbc"
+  },
+  {
+    "path": "Assets/Script/PlatformController.cs",
+    "sha256": "d249420bab80c545a77aeded65252912cb51dd6b534cf9f0159d3ba8e7c0fff5"
+  },
+  {
+    "path": "Assets/Script/ProtoEnemy.cs",
+    "sha256": "1b06a3d06670c4287949bbfdb3baaf32a8ac0099e6f0abd2361d7ee1ae7fae91"
+  },
+  {
+    "path": "Assets/Script/PureWater.cs",
+    "sha256": "bf11697ac789863956ebb5a0e79202584536020d69196d5030dbed583eb1ecea"
+  },
+  {
+    "path": "Assets/Script/TakeDmg.cs",
+    "sha256": "270f8c313bc4dbf7a9037edc2a46a818a1bc9eb066b0b74729fbd81e01bea211"
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueData.cs",
+    "sha256": "078234aa8aa3a8bbbabe4e3219c22f6464b6095dde8e2b40b72616e63e53ccb2"
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueManager.cs",
+    "sha256": "ec74221e7c97b569aafe3abb5181d88d6e4b718c46d73c33e98597a9d8258365"
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueView.cs",
+    "sha256": "b003d34fcb298048719006c4734099b84dd0ce6506fe66dc184b1a0f5e3e74d3"
+  },
+  {
+    "path": "Assets/DialogueSystem/NPCDialogueTrigger.cs",
+    "sha256": "dd66c1b7a2a2a028e99d192b4a02b5a77fca6b70350deef4ddeb4ff01f29b11f"
+  },
+  {
+    "path": "Assets/Camera/Script/CameraBoundsTrigger.cs",
+    "sha256": "85208db6a2c8d09b140ea9fc7bc958c37e72e8a179bd6f17113522ec9cd9ef51"
+  },
+  {
+    "path": "Assets/Camera/Script/CameraController.cs",
+    "sha256": "fa56c69c9389d2711633803ad5733eb0c6ad99535ea512571882e7b8819423e0"
+  },
+  {
+    "path": "Assets/Camera/Script/CameraZoomTrigger.cs",
+    "sha256": "f70335f1fe545858ddb39de1ae941754cded6428f31fdb855bc6077a89d78b41"
+  },
+  {
+    "path": "Assets/Editor/Tools/CombatPrefabGenerator.cs",
+    "sha256": "f00cb4263dfdae5ffe7f9e888512d7bb7c1cb087eefb50facf4d27e13384ac45"
+  },
+  {
+    "path": "Assets/Editor/Tools/FluidMaterialCreator.cs",
+    "sha256": "3fcb9d48ac46396856d5e1c1710390355a9ea2833b881639bc2748acd0fc2147"
+  },
+  {
+    "path": "Assets/Editor/Tools/FluidNoiseTextureGenerator.cs",
+    "sha256": "f3b95a655fafc3fdc2ae54c942056446f3bc34426a9c4a0ce0cdbfd25264e00c"
+  },
+  {
+    "path": "Assets/Editor/Tools/WaterSpiritGenerator.cs",
+    "sha256": "fdaf1c769dcdb69a669e5e32175ed75297f1dca2052ed56c3b54dc2a76a35fda"
+  },
+  {
+    "path": "Assets/Enemy/Script/EnemyHitBox.cs",
+    "sha256": "d85b6947c04134fee9855ef7c970100f63737305be6bc23638573075e350eefb"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/BossHealthBarController.cs",
+    "sha256": "09a2a660aa1621314ffb97bc81dc551e47308fa6ca459306de25a360e9f983c0"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/HandCollision.cs",
+    "sha256": "170ee9288e412d09b67dbc7865c84a7cc09dff023ed0eaaa381472c4741ffb4e"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/FloorHandAttack.cs",
+    "sha256": "e17e376da5e66c713fe37b4ca661a5ed451b2302453ce7d000033c17447463d3"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/hand.cs",
+    "sha256": "65cc2cb3929cbd61dc26f211aa85b72dd8d1f69fc924d55a0b7a9c522915ef79"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossCharge.cs",
+    "sha256": "236ef95e38853507dcbeecdc91909a9b811e136a574c819af8cb2cc4f31bb560"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossHorn.cs",
+    "sha256": "89fea2443be96dfea838c2d60e45f8a884cceff7bb05d464635485310b654100"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossSmash.cs",
+    "sha256": "a32ea92c509590364f45eb4356c335de7a87c2acd48bc2211d46b3c1430edb5a"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossVine.cs",
+    "sha256": "505f885ec7cdc1c62d6858454e420d0ba63bbef82b1ae4464eb3547cbd3a2160"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/ExpandingShockWave.cs",
+    "sha256": "db4febc94cba4b6d4ae54f63a4f9731d08eed43113bfda62eee1e8229e09603f"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/Shockwave.cs",
+    "sha256": "ef3d261fcf0016fcba73095dafd7c125510824876dd0c8b5a714db7e708216da"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/SlowVine.cs",
+    "sha256": "6fb7269d1d614351239d46a9a55c941c958f91d2fa5fd8f7789bd8460bad9e44"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/St1BossManager.cs",
+    "sha256": "ab99659cbcb817aec9d9dd49306a3df19fe64967049b94b840e384a49f8aa0d4"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/bullet.cs",
+    "sha256": "d308b407053e7ee4bf8f7adf1bd677d48f4093fa034df65536903ae06f7c3110"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Charge.cs",
+    "sha256": "ee7ab53a9e0d6f9c1e67f99d176c8b164e9eee164178a4584255d7727881ca58"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/enemy.cs",
+    "sha256": "c769b46e99d9a307bd2fe4d96b98a1271cdd4c1baa9b287157fb96351a423d6d"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Droplet.cs",
+    "sha256": "c95e3b2d9c286db7ddb871b8960b6abaeac0b0f512bb62b5e4e3aebe05b9577e"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs",
+    "sha256": "1d1381a2eaa72bad9796e95d65629ab6276dd205f97fec8c1d39cd798d71e608"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Flying.cs",
+    "sha256": "271bbd96799328902ff0c283b02ec02017087edb39cb6ded9160ca2e13e41499"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Mimic.cs",
+    "sha256": "38a8b7d45ee8f309929e4f2b5e5390cd1c66c09f9e772e85e6c670f7c38ba728"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/NewMonoBehaviourScript.cs",
+    "sha256": "50edde7687bad071fb4e4d2aca92bc01d755081ee49594f857e45c1f8cfd5d79"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/patorl.cs",
+    "sha256": "c7b44ceab1ea2bbcde724de677d64dd08f87e8fb685091cf69222d6303e42093"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Puddle.cs",
+    "sha256": "a3e75359b84b3b191bfff12c33000b92f025db307f66060f73ced1763aa6fc16"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/SelfExplode.cs",
+    "sha256": "1440e8cf39a097b84a05766d20c035384616b666166f34b91384d3b8fe031ddc"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Trapper.cs",
+    "sha256": "0a9af209a6cfdadafb3d3633428486b4c93d7864339167ae0108bd5a497d4b5b"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/BossController.cs",
+    "sha256": "3cdf42f2eb3cceee3defcbc5298063211e04e99969fa08657a8be9a5f009ad6b"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/BossStatesSystem.cs",
+    "sha256": "73bc3a669f020cb338086c9ee319a7be6ff5825490035c06182b2ce44a13af04"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/ChaseStates.cs",
+    "sha256": "3c094a7cac8251d785065b9e8b96da90e64afe957b13f877112ffcb3b62cb670"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/CombatState.cs",
+    "sha256": "355b9a149985c562d08b30a7a7f7e40206e92598b5d03eb6e414b53ea0f43b9b"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/CounterState.cs",
+    "sha256": "37eae09a290d94e751a4fdd219f0fd7727b2c56580b5384dbc33dbb541c8fdaa"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/GroggyState.cs",
+    "sha256": "2de248b94199e1997a8117cc00af9874e0b35543e826873623969a102360e3aa"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/IBossState.cs",
+    "sha256": "2ea85238b9134c10ecdcf48db3da1db010e32174512e026af2999cc859b226c3"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/IdleState.cs",
+    "sha256": "8e7d162cce01ef1da0f403f14978569a50ce5e847d595a9235e06c7edc748d6b"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/HeavyAttack.cs",
+    "sha256": "263f541b70932d29413c1484d93a909fb03b785a0202ec78e477e7bf9d3babd5"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/IAttackStrategy.cs",
+    "sha256": "5e88a079e8a7f4b1e7a0e9dd22b5c846658174c3b2ffe6d3abec00276f58035a"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/LightAttack.cs",
+    "sha256": "bf422e301e62c2c18931f72720a6b84ed741a6e593e2dddb510e9c4e5db63059"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/RangedPokeAttack.cs",
+    "sha256": "d85dfba1aeb7ed54165bc43abddb3106364defb0b62dfa63e61dec9f5696e418"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TentaclePierceStrategy.cs",
+    "sha256": "35ad220d7262e5f83f82cb9f4fc3b1629466fc56075a06c480ee33ac3eebcd4c"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TutorialBossController.cs",
+    "sha256": "2fc76332c5e3afd856329359c227481ad003513697d3d9208997d4c25f197096"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TutorialRootSpikeStrategy.cs",
+    "sha256": "6482d5ce09284f936d8b204e115501ed9eef49121a0931255927a29a9b84a028"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TentacleSwipeStrategy.cs",
+    "sha256": "9575da31e5461563ca85e59e9e7cdd496bfe5fbc3552aa26de4fac4d94694ed7"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialAttackState.cs",
+    "sha256": "20a7adb5796779361a99740cf49d46bca83284fbf6cbca4c09ab813a7b8ad752"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialDeadState.cs",
+    "sha256": "81647ffb8f592ef77475c8df5c5bbcb6526c93cffd3b2e7433aba84c2ef96300"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialGroggyState.cs",
+    "sha256": "1e8dfb7218c06cdfc036a622a2fa239973ce4b5d5b6e82d004b47872a5de93c9"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialIdleState.cs",
+    "sha256": "93478f47cc482654e0deee4ebe3b16af13b8c975fab9a7b3342b9bb778100b0b"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script/RootSpike.cs",
+    "sha256": "379e1e9d83ff8c233055c7167b07e27f49de40a80a7e9fa04206a6fa8a470890"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script/SpriteColliderSync.cs",
+    "sha256": "c01f4035817fe4c163d2d8913b7cd22b71e5036d15778069504f1fcc49958a9d"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/WoodBossController.cs",
+    "sha256": "11f625af9239bf509e1ed95235344abcb1c89dbce59922e74a9ed620a76525d6"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/WoodBossStatSystem.cs",
+    "sha256": "e4695e7ba5757a455c83721834be4cd0aae07d4a35067b206de02ebb9b1a6fdb"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/FloorSweepStrategy.cs",
+    "sha256": "6249bf7b364d748aac27749a602ea06abf3123c123c383b8afff9c86a8de025d"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/IdleState.cs",
+    "sha256": "9398f3e2e7d9a7af923638da598fb63ccf4fc4b3a220a26148ad7c60e56eb2c6"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/RootSpikeStrategy.cs",
+    "sha256": "5b2040a93f90bf5daa91c6b75e869bba8b548daab8a4e3e32cbde3a67bdc3736"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/VineSwingStrategy.cs",
+    "sha256": "d0baeb46fed2f12dc0b25a3b88dc4e378537521362e66063318df3d20bc04407"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/WoodBossAttackState.cs",
+    "sha256": "406caf642a247aa4042f71109b2d6c0a4f71d03595a6377da69c9ac9d5598f0b"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/WoodBossChaseState.cs",
+    "sha256": "0f82cfec77340a3407739aebea97982ef2f03e351dedce7bb422bc92581e7051"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/Rootspikevisual.cs",
+    "sha256": "5a65ae319a34174083e229a7b1e0ba261cd671d7b9fb7ac959b03baba0873e09"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/SeedProjectile.cs",
+    "sha256": "a795f304c005c1cfe3199c65619d6d8eda4b2f624a333a5ce174685d9fd0cdb7"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs",
+    "sha256": "03b6c1535588f2f3c24ce63874a10338a4d5eb0b9f38e5482bea700dee110e7a"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/WaterMonsterStats.cs",
+    "sha256": "38d7ffb56b5f64eff7f5f8b1d98bfbfa9c63129cf030c55b48e24839ad25ee60"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PlayerAbsorb.cs",
+    "sha256": "188866f7109c2fea7ca2012f9e57edf4e61fc022772110f5ec2447fd3dd894e4"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PuddlePool.cs",
+    "sha256": "f5bf029a46159fa022552977d32cc966934338da6a384e6523153887f5ce7ad8"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PuddleSpawner.cs",
+    "sha256": "363741c9f3d873bffc9a0047db8285f48e5037b21cbd36f923741208681d5571"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PuddleStackManager.cs",
+    "sha256": "f2afd001588c9fc9d9fd3f08b9badf6ee9150ee356d6bb5ef7e05b67b6b2f0a6"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/WaterPuddle.cs",
+    "sha256": "85cf940c166aa53841ad21ac30c7336b5e8c0169b1775ecc236f0061754b9b5d"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/WeatherController.cs",
+    "sha256": "c41a7cb604b83b6877eaa32137552f14c01b3ed77130b8e7aed388b91ae9318b"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase3/PuddleExplosionController.cs",
+    "sha256": "09a8b1b3266bf5593b4819e364534a5d16c60b05bb1648f58d48a3348dfbb9d3"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase3/WaterTeleportState.cs",
+    "sha256": "f44a0aa77c8cd7aa7c7e8908730c15bbb30d0022ce5fddb4c6f1e84c87e0c38c"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase4/SlowDownZone.cs",
+    "sha256": "610268961feef6dbf2089effbe515dd5f304bfa67a05a9cde2a761a214c60afd"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase4/SpeedUpZone.cs",
+    "sha256": "6376b7c85574f28612f182a1273700fd7cfc40ad9b8d5de602e7ccd2617dc88c"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/WaterMonsterCombatState.cs",
+    "sha256": "b1f65cc6a2a43a88ff25aae2329811cefac08f068c147d996c34c091cde63d1d"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/GeyserEffect.cs",
+    "sha256": "3253bb66c6ceb4424cee74f026d5006ceefde1adda5a0174fa80922239513548"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterColorPrison.cs",
+    "sha256": "396a49263a7f1b495bc9c312c70812f65dd688377ca4098e37e4782b27669fae"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterColorPrisonZone.cs",
+    "sha256": "b35246256ff6ec70eab49b39fc753b18b4a725e7eee4703da9dc921f88cc3362"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterGeyser.cs",
+    "sha256": "ff7081ae3041621d489370e562babbf364f018f653612df7de80480e35258aff"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterJumpLand.cs",
+    "sha256": "05f7a7246b1eaa8e1ebd44ed3da9e99a3e4aad806b81eb0f1b535ebbc3efac6a"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterMeleeSwipe.cs",
+    "sha256": "786670bb1090a394ea2ff5906af24bcc0ceaa1dd3c875e4436eeefa37c926959"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonAttack.cs",
+    "sha256": "546d6688e825cb139ef08912fc6e0712dcd73c5b43e6a4e708156a849f1c299e"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonMapAoe.cs",
+    "sha256": "4dd8673f937e52affbacc95d2205305a670984c1ab8396a58d873dae5f594d8b"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonProjectile.cs",
+    "sha256": "d9a2585e085f9a3038526d9e05575a14583ed7be5976e9853945550d8868467f"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterRangedSpit.cs",
+    "sha256": "5036c506321839e7eb1df33dbc88782acc734dc392f808823c06574f2e5d80fe"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterSpitProjectile.cs",
+    "sha256": "4a0a517dd17c9a978ca45727f7fbbfbe96091d6dd8628491b663c998ef62d977"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterWaveProjectile.cs",
+    "sha256": "5edf81c0b9f1e5133ff1f1a0b5f9b23d4633086818b47f7f7563e5491a7ccdad"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterWavePush.cs",
+    "sha256": "422dab136e257e135edb011eac0b571ee099d4a2ed8a62a2de6d359c547297b8"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/SpiritController.cs",
+    "sha256": "b927adf9fe03a3a91d2f93a5acdd0ce8de42b61c5f32ef0ac32ece99f2b5e9b0"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/SpiritStats.cs",
+    "sha256": "9920c621bd016748300488b20b7f17bb20f92a16cfd15fefaa9f8ab7fa6f3bd0"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/SpiritCombatState.cs",
+    "sha256": "c2f423a60b81b234c463a69ecb88948e0002a04c12068f67f899e3f4e42d897c"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Stage2CombatState.cs",
+    "sha256": "15910db70aa6d9bdbfeb6558b303a9011ffdf0772daafbb8d7e8033ff0a1217a"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritCharge.cs",
+    "sha256": "98f550ad63ae66496573af7f5e8900a4c4dd6a362803376a0ae5d3e8fabc2033"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritExhaustion.cs",
+    "sha256": "3f0d9f3f27cf592b54123d69932ed681f78e8e88e45b84e9526459e2b9b1398d"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritFarProjectile.cs",
+    "sha256": "6f364fad59d1c2be6f813ab5056c0ceb0531bdc008c0489551e7ef22a459232f"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritProjectile.cs",
+    "sha256": "7d14d4a5f91862645d12ea0b19370d970d9313d570e1a544ced05af53669e1d3"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritProjectileAttack.cs",
+    "sha256": "7d44e24c31f1d82465e26cc5c04d58bd4e970f0f16ffc385f29622ea414b10f8"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritRepel.cs",
+    "sha256": "6bcb40b4aaec2dd307a2cb4269f8f4ceffd4f9bf9ed876c5c18d0b00cd1a3317"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritStealth.cs",
+    "sha256": "10fb9d2b04484bb157b3ffd8f5328404d10eecc19f264abee7689852ced0add4"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritWakeRepel.cs",
+    "sha256": "2f38e5729594e01f152cdfd21f2e4b01cefb2f70c2ddfbdd5ebde57d78b2e003"
+  },
+  {
+    "path": "Assets/ImportedAsset/HealthHeartSystem/Scripts/HealthBarHUDTester.cs",
+    "sha256": "69a864e3cb2afbad53c5aa6035c6490ccd137184bef8f887ea178a2c1a681ffb"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/ColorSwap/ColorSwap_HeroKnight.cs",
+    "sha256": "6cb3ff8348260dd83f76e0e4c8f38257d0499273279bfb709351fd4733a18b83"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/Demo/DestroyEvent_HeroKnight.cs",
+    "sha256": "83e0f93a02be801b03525887ebac21d8ef6c90d1a3d77cb6d413bc8ba7750ba6"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/Demo/HeroKnight.cs",
+    "sha256": "bb46f80229219d86cec133041a71df146d211d3dffc98de8c098134bfabf9e9d"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/Demo/Sensor_HeroKnight.cs",
+    "sha256": "b17039ec18f8283099ba9c8e0c81b6faa8bb7babfa36d758ec90e29a55aa29e8"
+  },
+  {
+    "path": "Assets/map/script/Checkpoint.cs",
+    "sha256": "4a6af0e31c9f7db9ffeb916d7a825c23ca47af2228f90c291fff68c29004e927"
+  },
+  {
+    "path": "Assets/map/script/FallZone.cs",
+    "sha256": "6cb372bebe9f84474b4142b779e2658c960d1f0a5620b060b3cd491b7e9ce0a8"
+  },
+  {
+    "path": "Assets/map/script/GameManager.cs",
+    "sha256": "bb8d1e4f04034ee0bd0b6c81b4cf407701fff0eedb4008a649e515f00d46f3ea"
+  },
+  {
+    "path": "Assets/map/script/InteractableWall.cs",
+    "sha256": "4b4813c475f6b0db6ed6973db6346549296a345cbbce126244488ffa03e2ef44"
+  },
+  {
+    "path": "Assets/map/script/MapManger.cs",
+    "sha256": "49614e61c4b3afd82281cfccbcd23b8d8fdec03aaa98ea3c6ecc130f632f5935"
+  },
+  {
+    "path": "Assets/map/script/PlayerRespawn.cs",
+    "sha256": "a99c6a5284d57f7e675b500e89f70b4c1069358749b068dc1ef7dd2ad4055bd9"
+  },
+  {
+    "path": "Assets/map/script/PlayerSpawner.cs",
+    "sha256": "686da1102881c7415440720fd725b59bec0994957a36d8a440790b1a7307719c"
+  },
+  {
+    "path": "Assets/map/script/RoomSwitch.cs",
+    "sha256": "b2a4e222afa4dc0dfe98f29a7acfecc1bf22aeab5663a8e0e3d9b4b3a20cfbbf"
+  },
+  {
+    "path": "Assets/map/script/SignpostPortal.cs",
+    "sha256": "8009697c18fa6d960570a4663fd6b96039f0bbdccbc89655903c4a3614faac73"
+  },
+  {
+    "path": "Assets/map/script/portal.cs",
+    "sha256": "4b469b787122f91ff631abb65d1eaa7cb14bbf9ed44c496f1481f85051a9b4bb"
+  },
+  {
+    "path": "Assets/map/script/3 stage/FloorPuzzleManager.cs",
+    "sha256": "b888404d6ab8f1966dcd2e6077bb20e0f2830a45063064ae0b1488cf2d11d5f8"
+  },
+  {
+    "path": "Assets/map/script/3 stage/OpengameManger.cs",
+    "sha256": "aa03308625f9b63b307bc0da24f080c3bcd961a3c12f14e33524711849f2ee33"
+  },
+  {
+    "path": "Assets/map/script/3 stage/RotatablePipe.cs",
+    "sha256": "28502933d567f4fdb32a5e110c87c82dbef7a1568658de06763c0d09c4d43464"
+  },
+  {
+    "path": "Assets/map/script/3 stage/SlidingPuzzleManager.cs",
+    "sha256": "6a7452554430e5b1fe4d3b1618d604d062a44fd74ec98f40197417ef7d3b910c"
+  },
+  {
+    "path": "Assets/map/script/3 stage/SlidingPuzzleTrigger.cs",
+    "sha256": "2a49a44e974198b57eac664c4a3d4305b558ca66d4e6baedd2b773c19514d13c"
+  },
+  {
+    "path": "Assets/Player/Animation/PlayerIdle.cs",
+    "sha256": "ab34cf67352684e87269da4c2ea4c3eac5179ce3fddf48d620f2bc4eb636f0d8"
+  },
+  {
+    "path": "Assets/Player/Script/GameStateManager.cs",
+    "sha256": "9ec90e6c18f1bd257260fbed760ff21f48e5d433ff28737037c10d632c92d680"
+  },
+  {
+    "path": "Assets/Player/Script/InputHandler.cs",
+    "sha256": "91dc87248dfc9de7c16fbee24fe81616fac77ac49cd14bcb16bd9500564bfad2"
+  },
+  {
+    "path": "Assets/Player/Script/IPlayerInteractable.cs",
+    "sha256": "d530444c7e85d32c80f51072960a82dd339d314e8c611b66e86931576046c422"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAnimator.cs",
+    "sha256": "69ad8b7c3bf327aa5950528eca683287dac27f231a5cb295e55bd5725b368698"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttack.cs",
+    "sha256": "e9da9f2754f4f162c4acae5065d6bd5ee52193f447449cffaf7af0268a6048f7"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttackBase.cs",
+    "sha256": "525ef86600105f4a8ddff3fb81f98030fc0da9023c7bef4d3c599ad4cbc3859c"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttackDamager.cs",
+    "sha256": "f38a500423b28a4c8285817f2aa443e5ca984ae3c9bdbf9fb555b742127b04b7"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerController.cs",
+    "sha256": "9ded7304d52cf788cf366d9e6efb9857ccd4e0639607ac50f375ddc6f7de0c43"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInputHandler.cs",
+    "sha256": "05ce1dace73acaf5537ee27cf3312679b117f9928225db607655bdb61df686d0"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteraction.cs",
+    "sha256": "20929ba6969c8c358742ec620ffcb4c12c306c7e07a40b18daefc2f8cd20c692"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteractionPrompt.cs",
+    "sha256": "5368a6d81550c0f9fe2c6516b5385dff8aa2c4f623980a4db4f12f18ccd16282"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerSpeedDisplay.cs",
+    "sha256": "53075b74ce412c6f77e91c482255e737e8c448267f7082ee1488e924f36b2b6d"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerStats.cs",
+    "sha256": "e8a7e8fc763d810bd0d240a39c51d95cf13a4de79d447b41fad24f6ff3b8a65f"
+  },
+  {
+    "path": "Assets/Player/Script/PrisonDebuff.cs",
+    "sha256": "280bfbc72c1394500b83e249f31a13269e1ab394836bb95a324f0f6afc54217a"
+  },
+  {
+    "path": "Assets/Player/Script/WaterController.cs",
+    "sha256": "3460f6809233054c855851274094781c980d26a8aafeb0d48e8c2c6dd7dda0c8"
+  },
+  {
+    "path": "Assets/Player/Script/AttackBox.cs",
+    "sha256": "1f7c883cb333e33c499ddf8f602b2e8943afb7f149233a2ea44a057a213ece6d"
+  },
+  {
+    "path": "Assets/Player/Script/LadderMovement.cs",
+    "sha256": "280576668dfc31f158516ec87b421485fe2bbc9c67b7f09244fbf4167da8eda8"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/ControlsSettingsPanel.cs",
+    "sha256": "30d7b403838ee10c4d4342d2750459ee5546d4b41d5b74adc1c81d774c3d09f5"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/GameSettingsPanel.cs",
+    "sha256": "2b44603fe47d1e276d615cd9b81dbebbbda7498d8ccded72dfedad5ed8882116"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/GraphicsSettingsPanel.cs",
+    "sha256": "bd935fee6e5da922f772ff8c99098c15d04191e12c78cc7b89d39e0df58b529d"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenu.cs",
+    "sha256": "a816dddf93a58b6866ac68446aef5913a1623c83609cf4c43706e6fe38eea95a"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenuTabController.cs",
+    "sha256": "78fd7cdcab9d4c2291de74ed3b031264a0b615a98b8317d88d3a3ae16b8708b4"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/SoundSettingsPanel.cs",
+    "sha256": "6a48df9263e7dd7578d6d15a255cc7b49662f7a0b8c7942aba6d8f9ec3f457f7"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/ContolMenuController.cs",
+    "sha256": "5bb7cb055cf1985ca62af539215de6a26117d2b362840ea557421a299c0e15fa"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/KeyBindingMenuController.cs",
+    "sha256": "9d2e2ba460512975abf6ce8cb2a3f03153b6e43f7f13f1cefdf00d61688f5f63"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenuController.cs",
+    "sha256": "f05314297387cc675f0df80cd1f1ef4d33ee29a5cc25ef4c4543eb594bd95e4c"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/RebindButton.cs",
+    "sha256": "7069880142ef68b8e19032eea47363f01dadbc59e237cc025f6e389ca1e94fc2"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/SettingMenuController.cs",
+    "sha256": "1b55ebf607a8504774d38d4512a57a77fdb86d526439cb635e87ed85c823c5f1"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/UIManager.cs",
+    "sha256": "b0551dac39ef94bb1066bd134263d985864329a66ff2200ee81d606de700b1ee"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/UIPanelProperties.cs",
+    "sha256": "9b2637dbd2767a0443a2c1a1672d4af36e3e8fccea2bc21c420fce23c88b23c3"
+  },
+  {
+    "path": "Assets/Player/Script/UI/InGameHUDController.cs",
+    "sha256": "98cecf7ff3b15367005064930d99eb6ef1d23dd7633d40a1e783f7ac6b54d9ad"
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerHealthUI.cs",
+    "sha256": "8457c0b6b897e6c58ccbc80b235bd2b686aaf04ae89fac4737e3f14c85f5aeb1"
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerWaterUI.cs",
+    "sha256": "8ca41a55decd5d547c69092d842e3275ec8cf338042e1a66e86d10258a5038fd"
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerUI.cs",
+    "sha256": "834e46fb7e3591f5837535c33b1c10231a801f613cd93d61a856de9b5cb6ea1e"
+  },
+  {
+    "path": "Assets/Player/Script/SkillScript/FlashSlice.cs",
+    "sha256": "c12f4c5a4a16e4df88fdf16d5a78b55c11a7b83bdfb27a09108b5989889af1c5"
+  },
+  {
+    "path": "Assets/Player/Script/SkillScript/WaveSlice.cs",
+    "sha256": "56b84c7d5178c9e6f6f2de2cd2c7d7409f51fe69df3057d1d9d5276140531552"
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SaveData.cs",
+    "sha256": "7825ffebb949727548cc1b6410d1f0c08e25984e44c2c331bf20563976f89f4b"
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SaveLoadManager.cs",
+    "sha256": "48ad8f946f19249bd5b28059d7a76373d2da60df9b7cdc63b4a26615f30ad2cf"
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SettingsData.cs",
+    "sha256": "389b1125f341604ac703009aa38e7e06299005d87a7d0c9d997b1cd290fcdb14"
+  },
+  {
+    "path": "Assets/SaveSystem/Script/AtomicFile.cs",
+    "sha256": "79c500827edbff8725f2683aa3a47d68db5f823040a0aaf56c52de0366e6fde4"
+  },
+  {
+    "path": "Assets/Script/Combat/CombatSpawner.cs",
+    "sha256": "ca593f05878b166ab26e12eba988c38a99b423b32cae6c3136605a17b641f04e"
+  },
+  {
+    "path": "Assets/Script/Combat/DamageInfo.cs",
+    "sha256": "a2bace8ea0fffb5d577893812e7c744a7ce501970a7707c2cc04fe8b796e3bc4"
+  },
+  {
+    "path": "Assets/Script/Combat/HealPopup.cs",
+    "sha256": "d4f0f6f01dd5293270b626e910afa2b8290bd6c1fc1d2b07988187aed63fd3d1"
+  },
+  {
+    "path": "Assets/Script/Combat/HealPopupSpawner.cs",
+    "sha256": "8cd53a592f72a8af4d7df55f14668aa6d83a59e6e608556d42d8d73af9421de1"
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/ElevatorButton.cs",
+    "sha256": "3c92614acbb0b809a2f9efb7420759d9b623ff06116386bf7fead9b60b15e679"
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/FloatingPlatform.cs",
+    "sha256": "4895d3707695c76efe2e837dfea3fc1fedd65db7eedd928f8067dad17dff8231"
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/WaterElevator.cs",
+    "sha256": "8ce95f007de86d08f88bd2e8a0aaf15da8928bf4cbb75214683509c702633217"
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/WaterGate.cs",
+    "sha256": "df7c14aa1fbb2bf7819890bc85f48b750182ef37a65e28bc2c7d3f8601d7faae"
+  },
+  {
+    "path": "Assets/Script/Txt/DOUBLESPACE.cs",
+    "sha256": "bd1ca85bf21190438f2c725d5f41ec24b6df8c5506bd80f4e24e6eeaf89aabfb"
+  },
+  {
+    "path": "Assets/Script/Txt/SHIFT.cs",
+    "sha256": "3e4c143205785037922964569e8d892e288005f807ffe2f9272adc9b7c5a273f"
+  },
+  {
+    "path": "Assets/Script/Txt/SPACE.cs",
+    "sha256": "ae63103e3e3eb3890b1e113e1d46797ca07f27a256f1ebfc5783058467c58c3f"
+  },
+  {
+    "path": "Assets/Script/Txt/TxtController.cs",
+    "sha256": "429457cbfbd2939e007187b12e9184d453231baa3afc10f7850f39915bb360e9"
+  },
+  {
+    "path": "Assets/Script/Txt/WASD.cs",
+    "sha256": "2600f2b1702ed9cbc3985f025f6ff4bc6c10905bafcb60a35c823e55651a8e72"
+  },
+  {
+    "path": "Assets/Compatibility/LegacyPhase1/boss.cs",
+    "sha256": "e0aa5ed886ed70bccb781bd06465869b8a89db244b36a454de3705043d7efc8f"
+  },
+  {
+    "path": "Assets/Compatibility/LegacyPhase1/HealthBarController.cs",
+    "sha256": "438b01f4df7fca0f51926dee827c14b58d021b60da84418c701a9877b05bfd3f"
+  },
+  {
+    "path": "Assets/Compatibility/LegacyPhase1/WaterUIController.cs",
+    "sha256": "e64998201a5945a61c5ca6308a854e858b3dd09603c54a4d0a662fdeaa7df4fa"
+  }
+]

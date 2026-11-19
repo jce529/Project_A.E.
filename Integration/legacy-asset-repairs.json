@@ -1,0 +1,19 @@
+[
+  {
+    "path": "Assets/Scenes/1 stage.unity",
+    "type": "UIPanelProperties",
+    "repair": "restore-script-from-explicit-class-identifier"
+  },
+  {
+    "path": "Assets/Tile/Ground.prefab",
+    "repair": "remove-dangling-child-transform-references",
+    "removed_ids": [
+      "4596473436313619864",
+      "8310918732386554736",
+      "6915848439043433481",
+      "4030998002174885539",
+      "12457103147130450",
+      "1488931945121513919"
+    ]
+  }
+]

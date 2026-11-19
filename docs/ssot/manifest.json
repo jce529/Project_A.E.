@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "project": "AQUA ECLIPSE",
+  "verifiedCommit": "4392d3ee4320ad620b323a866734ab1253d0800b",
+  "includesWorkingTree": true,
+  "generatedAt": "2026-09-03T17:28:56.4311951+09:00",
+  "documents": [
+    {
+      "path": "docs/ssot/README.md",
+      "kind": "index",
+      "status": "editor-verification-required",
+      "evidence": ["ProjectSettings/EditorBuildSettings.asset"]
+    },
+    {
+      "path": "docs/ssot/flows/save-load-and-spawn.md",
+      "kind": "flow",
+      "status": "partial",
+      "evidence": ["Assets/SaveSystem/Script/SaveLoadManager.cs", "Assets/map/script/Checkpoint.cs", "Assets/map/script/PlayerSpawner.cs"]
+    },
+    {
+      "path": "docs/ssot/flows/scene-entry-and-transition.md",
+      "kind": "flow",
+      "status": "editor-verification-required",
+      "evidence": ["Assets/Script/MainMenuUI.cs", "Assets/Script/SlotSelectPanel.cs", "Assets/Script/OverwriteConfirmPanel.cs", "Assets/map/script/SignpostPortal.cs", "ProjectSettings/EditorBuildSettings.asset"]
+    },
+    {
+      "path": "docs/ssot/prefabs/player.md",
+      "kind": "prefab",
+      "status": "editor-verification-required",
+      "evidence": ["Assets/Player.prefab", "Assets/Player/Script/PlayerAttack.cs", "Assets/Player/Script/PlayerStats.cs"]
+    },
+    {
+      "path": "docs/ssot/systems/boss-combat.md",
+      "kind": "system",
+      "status": "partial",
+      "evidence": ["Assets/Enemy/NewBoss/Script/BossController.cs", "Assets/Enemy/Tutorial/TutorialBoss/TutorialBossController.cs", "Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs", "Assets/Enemy/WaterSpirit/Script/SpiritStats.cs"]
+    },
+    {
+      "path": "docs/ssot/systems/player-runtime.md",
+      "kind": "system",
+      "status": "partial",
+      "evidence": ["Assets/Player.prefab", "Assets/Player/Script/PlayerController.cs", "Assets/Player/Script/PlayerStats.cs", "Assets/Player/Script/WaterController.cs"]
+    },
+    {
+      "path": "docs/ssot/systems/save-and-settings.md",
+      "kind": "system",
+      "status": "partial",
+      "evidence": ["Assets/SaveSystem/Script/SaveData.cs", "Assets/SaveSystem/Script/SaveLoadManager.cs", "Assets/SaveSystem/Script/SettingsData.cs", "Assets/Script/SlotSelectPanel.cs", "Assets/Script/OverwriteConfirmPanel.cs", "Packages/manifest.json"]
+    }
+  ],
+  "unresolved": [
+    {
+      "subject": "PlayerAttack.attackBox",
+      "reason": "Player prefab serializes a null reference although basic attack instantiates this field.",
+      "evidence": ["Assets/Player.prefab", "Assets/Player/Script/PlayerAttack.cs"]
+    },
+    {
+      "subject": "Player health bounds",
+      "reason": "Player prefab maxHealth (400) exceeds maxTotalHealth (200); intent is not established by source.",
+      "evidence": ["Assets/Player.prefab", "Assets/Player/Script/PlayerStats.cs"]
+    },
+    {
+      "subject": "WaterMonster scene wiring",
+      "reason": "No current Unity scene or prefab references the WaterMonsterController script GUID.",
+      "evidence": ["Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs"]
+    },
+    {
+      "subject": "Non-build scenes",
+      "reason": "Multiple scene assets exist outside the enabled EditorBuildSettings scene list.",
+      "evidence": ["ProjectSettings/EditorBuildSettings.asset"]
+    },
+    {
+      "subject": "Phase 14 main-menu slot UI wiring",
+      "reason": "Scripts compile, but MainMenu.unity does not yet serialize the required panel objects, references, and button callbacks.",
+      "evidence": ["Assets/Script/MainMenuUI.cs", "Assets/Script/SlotSelectPanel.cs", "Assets/Script/OverwriteConfirmPanel.cs", "Assets/SaveSystem/Check.md"]
+    }
+  ]
+}

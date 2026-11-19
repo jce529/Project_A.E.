@@ -1,0 +1,35 @@
+FAIL Assets/Scenes/MainMenu.unity: 120 frames; 1 errors
+ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+System.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <2bdc0b2cb99347f4b2a172256836a5e9>:0)
+UnityEditor.Search.SearchDatabase+<EnumerateAll>d__78.MoveNext () (at <13a2bf6b84f543b08462b048fe1a6788>:0)
+System.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <6bde52aea2b5439b9db9b3d84de5cc1b>:0)
+System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <6bde52aea2b5439b9db9b3d84de5cc1b>:0)
+UnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () (at <13a2bf6b84f543b08462b048fe1a6788>:0)
+UnityEditor.Search.SearchInit.IndexationOnStartup () (at <13a2bf6b84f543b08462b048fe1a6788>:0)
+UnityEditor.EditorApplication.Internal_CallDelayFunctions () (at <053efca9ef2c41f6a2d0584e35765f52>:0)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+PASS Assets/Scenes/Tutorial Map.unity: 120 frames; 0 errors
+FAIL Assets/Scenes/1 stage.unity: 120 frames; 1 errors
+MissingComponentException: There is no 'Animator' attached to the "Tutorial Boss" game object, but a script is trying to access it.
+You probably need to add a Animator to the game object "Tutorial Boss". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <6a3be24f609f4c7e856c987d6a26bd21>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <6a3be24f609f4c7e856c987d6a26bd21>:0)
+UnityEngine.Animator.SetTriggerString (System.String name) (at <a4d9eef45d374670a492e74c0382fa0a>:0)
+UnityEngine.Animator.SetTrigger (System.String name) (at <a4d9eef45d374670a492e74c0382fa0a>:0)
+TutorialBoss.TutorialIdleState.Enter (BossController boss) (at Assets/Enemy/Tutorial/TutorialBoss/State/TutorialIdleState.cs:23)
+BossController.ChangeState (IBossState newState) (at Assets/Enemy/NewBoss/Script/BossController.cs:79)
+TutorialBoss.TutorialBossController.Start () (at Assets/Enemy/Tutorial/TutorialBoss/TutorialBossController.cs:180)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+PASS Assets/Scenes/2 stage/2 stage.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage boss.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage final test.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage lake.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage pump.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage tower.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage main.unity: 120 frames; 0 errors
+PASS Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity: 120 frames; 0 errors
+Failures: 2

@@ -1,0 +1,1 @@
+PASS atomic replacement and previous-file backup; isolated test path; player saves untouched

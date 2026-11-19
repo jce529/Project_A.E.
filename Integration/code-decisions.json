@@ -1,0 +1,430 @@
+[
+  {
+    "path": "Assets/Camera/Script/CameraController.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Editor/AnimationEventCleaner.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Editor/Tools/CombatPrefabGenerator.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Editor/Tools/WaterSpiritGenerator.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/BossHealthBarController.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/HandCollision.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Charge.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/bullet.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/enemy.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/BossController.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/BossStatesSystem.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/HeavyAttack.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/IAttackStrategy.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/LightAttack.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/RangedPokeAttack.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/ChaseStates.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/CombatState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/CounterState.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/GroggyState.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/IBossState.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/IdleState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/Script/EnemyHitBox.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script/SpriteColliderSync.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialAttackState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialDeadState.cs",
+    "decision": "auto-merged"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialGroggyState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialIdleState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TentaclePierceStrategy.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TutorialBossController.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PlayerAbsorb.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PuddlePool.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PuddleSpawner.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PuddleStackManager.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/WaterPuddle.cs",
+    "decision": "auto-merged"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/WeatherController.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase3/PuddleExplosionController.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase3/WaterTeleportState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase4/SlowDownZone.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase4/SpeedUpZone.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/GeyserEffect.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterColorPrison.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterColorPrisonZone.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterGeyser.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterJumpLand.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterMeleeSwipe.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonAttack.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonMapAoe.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterPrisonProjectile.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterRangedSpit.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterSpitProjectile.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterWaveProjectile.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterWavePush.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/WaterMonsterCombatState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/WaterMonsterStats.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/SpiritController.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/SpiritStats.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritCharge.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritExhaustion.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritFarProjectile.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritProjectile.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritProjectileAttack.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritRepel.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritStealth.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritWakeRepel.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/SpiritCombatState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Stage2CombatState.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/ImportedAsset/HealthHeartSystem/Scripts/HealthBarHUDTester.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/ColorSwap/ColorSwap_HeroKnight.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/Demo/DestroyEvent_HeroKnight.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/Demo/HeroKnight.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/ImportedAsset/Hero Knight - Pixel Art/Demo/Sensor_HeroKnight.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Player/Script/GameStateManager.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Player/Script/IPlayerInteractable.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Player/Script/InputHandler.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenu.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAnimator.cs",
+    "decision": "A-only-change"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttack.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttackBase.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttackDamager.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerController.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInputHandler.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteraction.cs",
+    "decision": "both-added"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteractionPrompt.cs",
+    "decision": "both-added"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerSpeedDisplay.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Player/Script/PlayerStats.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/PrisonDebuff.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerHealthUI.cs",
+    "decision": "A-only-change"
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerWaterUI.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/Player/Script/WaterController.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Script/Combat/CombatSpawner.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/Combat/DamageInfo.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/Combat/HealPopup.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/Combat/HealPopupSpawner.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/Damager.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/EnemyDamager.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/EnvironmentManager.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Script/HP.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/Script/MainMenuUI.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/Script/WaveEffect.cs",
+    "decision": "identical"
+  },
+  {
+    "path": "Assets/map/script/Checkpoint.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/map/script/FallZone.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/map/script/GameManager.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/map/script/InteractableWall.cs",
+    "decision": "conflict"
+  },
+  {
+    "path": "Assets/map/script/PlayerRespawn.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/map/script/PlayerSpawner.cs",
+    "decision": "B-only-change"
+  },
+  {
+    "path": "Assets/map/script/SignpostPortal.cs",
+    "decision": "conflict"
+  }
+]

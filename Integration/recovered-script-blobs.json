@@ -1,0 +1,17 @@
+[
+  {
+    "type": "boss",
+    "code_blob": "1197bb191bb762fbb5762c92c45c940ccabf8e86",
+    "meta_blob": "a8a93765bc9d3817152ecb44af82e69ef8dbf1f2"
+  },
+  {
+    "type": "HealthBarController",
+    "code_blob": "9ab3887f8398b2d509291e6b1546ea7e42c001ed",
+    "meta_blob": "6112358ab407f67fb635b03a3c9f4913cd984275"
+  },
+  {
+    "type": "WaterUIController",
+    "code_blob": "bd557421670e1e1f43991d9784865d613a295cf4",
+    "meta_blob": "713e54bd85ea8ac3f1ef25c90d24acbd44f41568"
+  }
+]

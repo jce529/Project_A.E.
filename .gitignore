@@ -1,0 +1,57 @@
+# =====================================================================================
+# Unity-specific files and folders
+# This gitignore is based on Github's official Unity gitignore
+# =====================================================================================
+
+# Folders to ignore
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/[Uu]serSettings/
+
+# Files to ignore at the root of the project
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Visual Studio / Rider / VS Code specific files
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.sln.DotSettings.user
+*.csproj
+*.unityproj
+*.vs/
+.vscode/
+
+# Claude Code worktrees
+.claude/worktrees/
+
+# Build files
+*.apk
+*.aab
+*.unitypackage
+*.app/
+
+# Crash reports
+*.crash
+# Integration working copies (original project history retained separately)
+/Integration/SourceSnapshots/
+/Integration/VerificationTemp/

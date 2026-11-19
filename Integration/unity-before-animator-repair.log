@@ -1,0 +1,1399 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 27944)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 2536)
+VBCSCompiler prewarm took 30.20 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/staging' branch; Version is '6000.6.9f1 (8c45277fb9c5) revision 9192743'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jgj10" at "2026-11-19T10:27:29.1074223Z"
+OS: 'Windows 11  (10.0.26200) Core' Language: 'ko' Physical Memory: 15690 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-11-19T10:27:29Z
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 23328, path: "C:/Program Files/WindowsApps/UnityTechnologies.UnityHub_4.0.1.65535_x64__2vrhnee42bhxm/app/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.19.0+4cc3dda
+  Session Id:              08cafcd1a0f94b328cf2e0b4c5875421
+  Correlation Id:          e88adc6d26b56080fb38f9ca4ce6aa96
+  External correlation Id: 1086787334690368400
+  Machine Id:              hccgRewrxReoenJq3e6bRa3J27o=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jgj10" (connect: 0.00s, validation: 0.00s, handshake: 0.13s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jgj10-notifications" at "2026-11-19T10:27:29.2433642Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 14568583496722-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.15s
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.9f1\Editor\Unity.exe
+-batchmode
+-nographics
+-acceptSoftwareTermsForThisRunOnly
+-skipUpgradeDialogs
+-projectPath
+D:\Projeect_A.E_Merged
+-executeMethod
+MergeVerification.Run
+-logFile
+D:\Projeect_A.E_Merged\Integration\unity-verification.log
+Successfully changed project path to: D:\Projeect_A.E_Merged
+D:/Projeect_A.E_Merged
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [5104]  Target information:
+
+Player connection [5104]  * "[IP] 192.168.56.1 [Port] 55504 [Flags] 2 [Guid] 42452125 [EditorId] 42452125 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [5104]  * "[IP] 192.168.7.1 [Port] 55504 [Flags] 2 [Guid] 42452125 [EditorId] 42452125 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [5104]  * "[IP] 192.168.28.1 [Port] 55504 [Flags] 2 [Guid] 42452125 [EditorId] 42452125 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [5104]  * "[IP] 192.168.0.20 [Port] 55504 [Flags] 2 [Guid] 42452125 [EditorId] 42452125 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [5104] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [5104] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-4148" after 0.2 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: 22b93ea2ac2aac29b30d36e557b3e729
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052576
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+Launching Unity Data Store - C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = D:/Projeect_A.E_MergedUnity Data Store running and initialised
+Refreshing native plugins compatible for Editor in 8.73 ms, found 5 plugins.
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.9f1 (8c45277fb9c5)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Projeect_A.E_Merged/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56148
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.007004 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  1.464 seconds
+Domain Reload Profiling: 2718ms
+	BeginReloadAssembly (319ms)
+		CreateAndSetChildDomain (19ms)
+	RebuildCommonClasses (9ms)
+	RebuildNativeTypeToScriptingClass (32ms)
+	initialDomainReloadingComplete (153ms)
+	LoadAllAssembliesAndSetupDomain (738ms)
+		LoadAssemblies (289ms)
+		TypeCache.Refresh (472ms)
+			TypeCache.ScanAssembly (445ms)
+		AnalyzeDomain (1ms)
+	FinalizeReload (1466ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (4ms)
+			InitializePlatformSupportModulesInManaged (7ms)
+			BeforeProcessingInitializeOnLoad (256ms)
+			ProcessInitializeOnLoadAttributes (246ms)
+			ProcessInitializeOnLoadMethodAttributes (486ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 72 packages:
+  Built-in packages:
+    com.unity.modules.accessibility@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.hierarchycore)
+  Embedded packages:
+    com.unity.collab-proxy@file:D:\Projeect_A.E_Merged\Packages\com.unity.collab-proxy (location: D:\Projeect_A.E_Merged\Packages\com.unity.collab-proxy)
+    com.unity.feature.2d@file:D:\Projeect_A.E_Merged\Packages\com.unity.feature.2d (location: D:\Projeect_A.E_Merged\Packages\com.unity.feature.2d)
+    com.unity.ide.rider@file:D:\Projeect_A.E_Merged\Packages\com.unity.ide.rider (location: D:\Projeect_A.E_Merged\Packages\com.unity.ide.rider)
+    com.unity.ide.visualstudio@file:D:\Projeect_A.E_Merged\Packages\com.unity.ide.visualstudio (location: D:\Projeect_A.E_Merged\Packages\com.unity.ide.visualstudio)
+    com.unity.inputsystem@file:D:\Projeect_A.E_Merged\Packages\com.unity.inputsystem (location: D:\Projeect_A.E_Merged\Packages\com.unity.inputsystem)
+    com.unity.multiplayer.center@file:D:\Projeect_A.E_Merged\Packages\com.unity.multiplayer.center (location: D:\Projeect_A.E_Merged\Packages\com.unity.multiplayer.center)
+    com.unity.render-pipelines.universal@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal)
+    com.unity.test-framework@file:D:\Projeect_A.E_Merged\Packages\com.unity.test-framework (location: D:\Projeect_A.E_Merged\Packages\com.unity.test-framework)
+    com.unity.timeline@file:D:\Projeect_A.E_Merged\Packages\com.unity.timeline (location: D:\Projeect_A.E_Merged\Packages\com.unity.timeline)
+    com.unity.ugui@file:D:\Projeect_A.E_Merged\Packages\com.unity.ugui (location: D:\Projeect_A.E_Merged\Packages\com.unity.ugui)
+    com.unity.visualscripting@file:D:\Projeect_A.E_Merged\Packages\com.unity.visualscripting (location: D:\Projeect_A.E_Merged\Packages\com.unity.visualscripting)
+    com.unity.nuget.newtonsoft-json@file:D:\Projeect_A.E_Merged\Packages\com.unity.nuget.newtonsoft-json (location: D:\Projeect_A.E_Merged\Packages\com.unity.nuget.newtonsoft-json)
+    com.unity.2d.animation@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.animation (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.animation)
+    com.unity.2d.aseprite@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.aseprite (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.aseprite)
+    com.unity.2d.common@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.common (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.common)
+    com.unity.2d.pixel-perfect@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.pixel-perfect (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.pixel-perfect)
+    com.unity.2d.psdimporter@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.psdimporter (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.psdimporter)
+    com.unity.2d.sprite@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.sprite (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.sprite)
+    com.unity.2d.spriteshape@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.spriteshape (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.spriteshape)
+    com.unity.2d.tilemap@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap)
+    com.unity.2d.tilemap.extras@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap.extras (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap.extras)
+    com.unity.2d.tooling@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tooling (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tooling)
+    com.unity.burst@file:D:\Projeect_A.E_Merged\Packages\com.unity.burst (location: D:\Projeect_A.E_Merged\Packages\com.unity.burst)
+    com.unity.collections@file:D:\Projeect_A.E_Merged\Packages\com.unity.collections (location: D:\Projeect_A.E_Merged\Packages\com.unity.collections)
+    com.unity.ext.nunit@file:D:\Projeect_A.E_Merged\Packages\com.unity.ext.nunit (location: D:\Projeect_A.E_Merged\Packages\com.unity.ext.nunit)
+    com.unity.graph-authoring@file:D:\Projeect_A.E_Merged\Packages\com.unity.graph-authoring (location: D:\Projeect_A.E_Merged\Packages\com.unity.graph-authoring)
+    com.unity.mathematics@file:D:\Projeect_A.E_Merged\Packages\com.unity.mathematics (location: D:\Projeect_A.E_Merged\Packages\com.unity.mathematics)
+    com.unity.nuget.mono-cecil@file:D:\Projeect_A.E_Merged\Packages\com.unity.nuget.mono-cecil (location: D:\Projeect_A.E_Merged\Packages\com.unity.nuget.mono-cecil)
+    com.unity.profiling.core@file:D:\Projeect_A.E_Merged\Packages\com.unity.profiling.core (location: D:\Projeect_A.E_Merged\Packages\com.unity.profiling.core)
+    com.unity.render-pipelines.core@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.core (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.core)
+    com.unity.render-pipelines.universal-config@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal-config (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal-config)
+    com.unity.searcher@file:D:\Projeect_A.E_Merged\Packages\com.unity.searcher (location: D:\Projeect_A.E_Merged\Packages\com.unity.searcher)
+    com.unity.shadergraph@file:D:\Projeect_A.E_Merged\Packages\com.unity.shadergraph (location: D:\Projeect_A.E_Merged\Packages\com.unity.shadergraph)
+    com.unity.test-framework.performance@file:D:\Projeect_A.E_Merged\Packages\com.unity.test-framework.performance (location: D:\Projeect_A.E_Merged\Packages\com.unity.test-framework.performance)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.06 seconds
+[ScriptCompilation] Requested script compilation because: AssetDatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.9f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: D:/Projeect_A.E_Merged
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 4s113ms
+[1188/1577  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[1573/1577  1s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\Editor\BuildPhase2Assets.cs(113,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\Editor\BuildPhase2Assets.cs(133,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+Assets\Editor\MergeVerification.cs(73,88): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(73,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(75,102): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(75,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(80,101): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(80,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(86,105): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(86,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(255,52): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(255,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+Assets\Editor\MergeVerification.cs(256,56): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+Assets\Editor\MergeVerification.cs(256,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+[1574/1577  0s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll, with 149 defines and 397 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+1 processor(s) skipped this assembly
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+[1575/1577  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[1576/1577  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (4.03 seconds), 5 items updated, 1577 evaluated
+Assets\Editor\BuildPhase2Assets.cs(113,20): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\Editor\BuildPhase2Assets.cs(133,29): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+Assets\Editor\MergeVerification.cs(73,88): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(73,26): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(75,102): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(75,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(80,101): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(80,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(86,105): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(86,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(255,52): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(255,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Assets\Editor\MergeVerification.cs(256,56): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+Assets\Editor\MergeVerification.cs(256,13): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+Total cache size 111475532
+Total cache size after purge 111475532, took 00:00:00.3694832
+AssetDatabase: script compilation time: 5.692290s
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 4.08 ms, found 5 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  5.044 seconds
+Domain Reload Profiling: 7788ms
+	BeginReloadAssembly (642ms)
+		DisableScriptedObjects (90ms)
+		CreateAndSetChildDomain (103ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (37ms)
+	initialDomainReloadingComplete (170ms)
+	LoadAllAssembliesAndSetupDomain (1872ms)
+		LoadAssemblies (1065ms)
+		TypeCache.Refresh (474ms)
+			TypeCache.ScanAssembly (440ms)
+		AnalyzeDomain (212ms)
+			BuildScriptInfoCaches (186ms)
+			ResolveRequiredComponents (20ms)
+	FinalizeReload (5047ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (4ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			BeforeProcessingInitializeOnLoad (326ms)
+			ProcessInitializeOnLoadAttributes (3023ms)
+			ProcessInitializeOnLoadMethodAttributes (978ms)
+			AfterProcessingInitializeOnLoad (20ms)
+			EditorAssembliesLoaded (3ms)
+		AwakeInstancesAfterBackupRestoration (61ms)
+Starting new worker id: 0 with log in D:/Projeect_A.E_Merged/Logs/AssetImportWorkerHW0.log
+Refreshing native plugins compatible for Editor in 8.02 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=a4f1b0da12cbda14c9de9e7d4359c0f5): Total: 17.155 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=7694 ms
+		Asset DB Callback time: managed=552 ms, native=84 ms
+		Scripting: domain reloads=1, domain reload time=2928 ms, compile time=5696 ms, other=199 ms
+		Project Asset Count: scripts=1828, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 99.975ms
+	ApplyChangesToAssetFolders: 5.175ms
+	Scan: 602.016ms
+	Collect global state as custom dependencies: 48.853ms
+	OnSourceAssetsModified: 1.028ms
+	CategorizeScriptCompilationAssets: 100.718ms
+	ProcessAssetsWithTransientArtifactChanges: 218.431ms
+	CategorizeAssets: 135.115ms
+	CompileScripts: 5696.208ms
+	ImportOutOfDateAssets: 5090.025ms (5063.149ms without children)
+		ReloadNativeAssets: 0.063ms
+		UnloadImportedAssets: 4.057ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.620ms
+		ImportSchedulerStart: 20.128ms
+	PostProcessAllAssets: 557.402ms
+		XRBuildSystem.XRAssetImported 2.486ms
+		VCAutoAddAssetPostprocess 2.147ms
+		PostProcessCallbackCreateDeferredMaterials 0.079ms
+		MonoPostProcessAllAssets: 551.590ms
+			AssetPostprocessor.OnPostprocessAllAssets 372.060ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 39.965ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 30.688ms
+			SyncVS.PostprocessSyncProject 24.893ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 11.848ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 5.056ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 3.936ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 3.736ms
+			AssetChangedListener.OnPostprocessAllAssets 3.185ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 3.044ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 2.888ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 1.640ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 1.244ms
+			MaterialPostprocessor.OnPostprocessAllAssets 1.202ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 1.145ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 1.010ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.903ms
+			AssetProcessor.OnPostprocessAllAssets 0.873ms
+			PostProcessor.OnPostprocessAllAssets 0.836ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.830ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.777ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.696ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.674ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.631ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.618ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.526ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.489ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.444ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.439ms
+			AssetEvents.OnPostprocessAllAssets 0.428ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.397ms
+			PSDImportPostProcessor.OnPostprocessAllAssets 0.374ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.356ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.343ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.339ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.282ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.268ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.260ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.238ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.217ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.146ms
+	PostAssetChangesProfiler: 10.790ms
+	UnloadStreamsBegin: 2.207ms
+	PersistCurrentRevisions: 0.335ms
+	GenerateScriptTypeHashes: 5.895ms
+	GenerateScriptTypeSerializationHashes: 10.462ms
+	Untracked: 4458.487ms
+
+Application.AssetDatabase Initial Refresh End
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Scanning for USB devices : 2.560ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-AQUA ECLIPSE
+Unloading 87 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7726 unused Assets / (9.3 MB). Loaded Objects now: 8624.
+Memory consumption went from 453.6 MB to 444.3 MB.
+Total: 23.810000 ms (FindLiveObjects: 0.949800 ms CreateObjectMapping: 0.531200 ms MarkObjects: 14.426000 ms  DeleteObjects: 7.525100 ms)
+
+Opening scene 'Assets/Scenes/MainMenu.unity'
+Unloading 21 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/MainMenu.unity'
+	Deserialize:            424.732 ms
+	Integration:            133.911 ms
+	Integration of assets:  2.931 ms
+	Thread Wait Time:       -0.073 ms
+	Total Operation Time:   561.500 ms
+Unloading 82 unused Assets / (164.4 KB). Loaded Objects now: 8858.
+Memory consumption went from 461.1 MB to 461.0 MB.
+Total: 24.270600 ms (FindLiveObjects: 0.643600 ms CreateObjectMapping: 0.214900 ms MarkObjects: 22.486600 ms  DeleteObjects: 0.477900 ms)
+
+Worker ready: AssetImportWorkerHW0 0
+Importing 'GUID: 5c856c19dd3dbe34fa20ef5a66f7e72d - Path: Assets/Scenes/MainMenu.unity' with importer (DefaultImporter)
+Imported 'GUID: 5c856c19dd3dbe34fa20ef5a66f7e72d' -> (Import Result ID: '4322779b2233b2ba2931391145310b11') in 0.011 seconds [static dependencies only]. Details - ImportResultOutputID=02a9ad0da52ae00c3f8be0b952f064b0 DependenciesID=8ecf27c3de8be464f3cfed6f7c64c45f StaticDependenciesID=ff519a41d9d53dc765fc65715f7ccb88 
+Refreshing native plugins compatible for Editor in 3.41 ms, found 5 plugins.
+Asset Pipeline Refresh (id=870dbefe6bb543c489b3fe92e0c2f0d9): Total: 0.202 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/Tutorial Map.unity'
+Unloading 36 Unused Serialized files (Serialized files now loaded: 0)
+Lighting data asset ‘LightingData’ is incompatible with the current Unity version because the scene it was baked for was not serialized. Please use Generate Lighting to rebuild the lighting data, or assign the target scene to the Lighting Data Asset in the inspector.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.SceneManagement.EditorSceneManager:OpenScene (string,UnityEditor.SceneManagement.OpenSceneMode)
+MergeVerification:PrepareScenes () (at Assets/Editor/MergeVerification.cs:47)
+MergeVerification:Run () (at Assets/Editor/MergeVerification.cs:30)
+
+[Assets/Editor/MergeVerification.cs line 47]
+
+Script 'InteractableWaterGate' on GameObject WaterGate has possibly missing Required Components!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.SceneManagement.EditorSceneManager:OpenScene (string,UnityEditor.SceneManagement.OpenSceneMode)
+MergeVerification:PrepareScenes () (at Assets/Editor/MergeVerification.cs:47)
+MergeVerification:Run () (at Assets/Editor/MergeVerification.cs:30)
+
+[Assets/Editor/MergeVerification.cs line 47]
+
+Loaded scene 'Assets/Scenes/Tutorial Map.unity'
+	Deserialize:            383.067 ms
+	Integration:            164.294 ms
+	Integration of assets:  9.051 ms
+	Thread Wait Time:       -0.064 ms
+	Total Operation Time:   556.349 ms
+Unloading 169 unused Assets / (4.6 MB). Loaded Objects now: 9599.
+Memory consumption went from 0.51 GB to 0.51 GB.
+Total: 20.589100 ms (FindLiveObjects: 1.020700 ms CreateObjectMapping: 0.372200 ms MarkObjects: 18.259700 ms  DeleteObjects: 0.430900 ms)
+
+Importing 'GUID: b1c29b9ed9e52ad4ea1fe0cad07febb3 - Path: Assets/Scenes/Tutorial Map.unity' with importer (DefaultImporter)
+Imported 'GUID: b1c29b9ed9e52ad4ea1fe0cad07febb3' -> (Import Result ID: 'ab0132fa189db455d6937c524091bf18') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=20f3d81083628440c0f853b8a3a84bce DependenciesID=18cc7f92e29382c5aeeb9f048dbfde90 StaticDependenciesID=77541d7bdbf94b5c85628180009c015e 
+Refreshing native plugins compatible for Editor in 3.39 ms, found 5 plugins.
+Asset Pipeline Refresh (id=9dd3ba8f2dfeadf44a2cafadaf6c541f): Total: 0.111 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/1 stage.unity'
+Unloading 31 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/1 stage.unity'
+	Deserialize:            44.859 ms
+	Integration:            74.329 ms
+	Integration of assets:  0.477 ms
+	Thread Wait Time:       0.021 ms
+	Total Operation Time:   119.686 ms
+Unloading 313 unused Assets / (20.7 MB). Loaded Objects now: 9552.
+Memory consumption went from 0.52 GB to 510.6 MB.
+Total: 26.788500 ms (FindLiveObjects: 1.103700 ms CreateObjectMapping: 0.425600 ms MarkObjects: 23.785800 ms  DeleteObjects: 0.960500 ms)
+
+Importing 'GUID: b8a59c11545f624449af557d5257217c - Path: Assets/Scenes/1 stage.unity' with importer (DefaultImporter)
+Imported 'GUID: b8a59c11545f624449af557d5257217c' -> (Import Result ID: 'b04b71461f3c184619193ca43c302855') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=5a28422a123d1f949785bf61e67718fc DependenciesID=a1d642085a34f0d953e50e8afe548dd2 StaticDependenciesID=61de847f2403124387a9025d443755f3 
+Refreshing native plugins compatible for Editor in 5.51 ms, found 5 plugins.
+Asset Pipeline Refresh (id=70af8d766058cbd47a63de3e81f30884): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/2 stage/2 stage.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/2 stage/2 stage.unity'
+	Deserialize:            21.551 ms
+	Integration:            19.498 ms
+	Integration of assets:  0.008 ms
+	Thread Wait Time:       0.019 ms
+	Total Operation Time:   41.077 ms
+Unloading 193 unused Assets / (4.5 MB). Loaded Objects now: 9262.
+Memory consumption went from 486.4 MB to 481.9 MB.
+Total: 20.693300 ms (FindLiveObjects: 0.738900 ms CreateObjectMapping: 0.218000 ms MarkObjects: 18.709000 ms  DeleteObjects: 0.524800 ms)
+
+Importing 'GUID: 85644ae239b40324b9d1336ea19955ef - Path: Assets/Scenes/2 stage/2 stage.unity' with importer (DefaultImporter)
+Imported 'GUID: 85644ae239b40324b9d1336ea19955ef' -> (Import Result ID: 'f41055c49b1ebfbb3e8bf6b5827cc964') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=dcacf20f9ff8f5150de0a882fdbccc23 DependenciesID=a6a67bee925dd0ce490a3f5979667015 StaticDependenciesID=269bfe100b34c92ffe03296ef0b88826 
+Refreshing native plugins compatible for Editor in 4.75 ms, found 5 plugins.
+Asset Pipeline Refresh (id=33c16a93a03b5e64faff332d335f06ff): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage boss.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage boss.unity'
+	Deserialize:            22.278 ms
+	Integration:            26.248 ms
+	Integration of assets:  0.010 ms
+	Thread Wait Time:       0.021 ms
+	Total Operation Time:   48.558 ms
+Unloading 170 unused Assets / (4.5 MB). Loaded Objects now: 9285.
+Memory consumption went from 490.0 MB to 485.5 MB.
+Total: 17.327300 ms (FindLiveObjects: 1.094900 ms CreateObjectMapping: 0.375500 ms MarkObjects: 15.036000 ms  DeleteObjects: 0.374900 ms)
+
+Importing 'GUID: 1c9a7e5450bb0964c82b4f884df7f866 - Path: Assets/Scenes/3stage/3 stage extra/3 stage boss.unity' with importer (DefaultImporter)
+Imported 'GUID: 1c9a7e5450bb0964c82b4f884df7f866' -> (Import Result ID: 'abe615faf61de0c92b2eb9fdf071a1b8') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=55357f8e77b3e6e6c7b87b70d30c1558 DependenciesID=6556bdc855a97642616e520a069f45ae StaticDependenciesID=24427cee70e9b25442bfb5e6a5baeb0f 
+Refreshing native plugins compatible for Editor in 5.37 ms, found 5 plugins.
+Asset Pipeline Refresh (id=6f520130baf9402448eef04cbbc7eb60): Total: 0.076 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage final test.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage final test.unity'
+	Deserialize:            33.186 ms
+	Integration:            28.706 ms
+	Integration of assets:  0.016 ms
+	Thread Wait Time:       0.018 ms
+	Total Operation Time:   61.926 ms
+Unloading 168 unused Assets / (12.2 MB). Loaded Objects now: 9288.
+Memory consumption went from 492.0 MB to 479.7 MB.
+Total: 21.307400 ms (FindLiveObjects: 1.110000 ms CreateObjectMapping: 0.439500 ms MarkObjects: 18.699600 ms  DeleteObjects: 0.414200 ms)
+
+Importing 'GUID: 1e5e0623ecebbba4bb007bd67becced9 - Path: Assets/Scenes/3stage/3 stage extra/3 stage final test.unity' with importer (DefaultImporter)
+Imported 'GUID: 1e5e0623ecebbba4bb007bd67becced9' -> (Import Result ID: 'fabfc1c7be24199d470dcf99b0130d93') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=1a8440a0ea47f887d710160afee86fdf DependenciesID=b9c22bf124c83c7b4599c6f87b96d5bc StaticDependenciesID=5d4fd62d8248bd19e4358c1d2ba7d5f1 
+Refreshing native plugins compatible for Editor in 3.55 ms, found 5 plugins.
+Asset Pipeline Refresh (id=180c323a5b5fdfb4baf08a21301b3fd4): Total: 0.079 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage lake.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage lake.unity'
+	Deserialize:            21.708 ms
+	Integration:            17.617 ms
+	Integration of assets:  0.006 ms
+	Thread Wait Time:       0.033 ms
+	Total Operation Time:   39.364 ms
+Unloading 170 unused Assets / (4.5 MB). Loaded Objects now: 9286.
+Memory consumption went from 481.8 MB to 477.2 MB.
+Total: 19.357800 ms (FindLiveObjects: 0.862300 ms CreateObjectMapping: 0.366100 ms MarkObjects: 17.190000 ms  DeleteObjects: 0.393100 ms)
+
+Importing 'GUID: 47f2e9c0c629f69458debe753ea61941 - Path: Assets/Scenes/3stage/3 stage extra/3 stage lake.unity' with importer (DefaultImporter)
+Imported 'GUID: 47f2e9c0c629f69458debe753ea61941' -> (Import Result ID: 'b0a2c243dd2587385f72fe105058e0f7') in 0.004 seconds [static dependencies only]. Details - ImportResultOutputID=9985767dfc2f8b43391d4247ff35dd25 DependenciesID=97dd2f8133f2cfc53a56f6b16035fec5 StaticDependenciesID=6a98040f29f968049b4837a096952261 
+Refreshing native plugins compatible for Editor in 3.96 ms, found 5 plugins.
+Asset Pipeline Refresh (id=72dc4b7076cb68e48baefedefb041a7a): Total: 0.060 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage pump.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage pump.unity'
+	Deserialize:            29.677 ms
+	Integration:            28.356 ms
+	Integration of assets:  0.012 ms
+	Thread Wait Time:       0.024 ms
+	Total Operation Time:   58.069 ms
+Unloading 168 unused Assets / (4.6 MB). Loaded Objects now: 9288.
+Memory consumption went from 483.2 MB to 478.7 MB.
+Total: 20.128900 ms (FindLiveObjects: 1.058700 ms CreateObjectMapping: 0.290900 ms MarkObjects: 17.789200 ms  DeleteObjects: 0.423000 ms)
+
+Importing 'GUID: 01cffa1e9ba337c489e40214054594be - Path: Assets/Scenes/3stage/3 stage extra/3 stage pump.unity' with importer (DefaultImporter)
+Imported 'GUID: 01cffa1e9ba337c489e40214054594be' -> (Import Result ID: 'e79f47df281e1c426510213f345f43f1') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=62c3aa5830f4f288d62c4eaff80255f5 DependenciesID=d3ee75f172a8df3229b4bb7766b5b624 StaticDependenciesID=a2a313626fd15177bf396f47aa7acf26 
+Refreshing native plugins compatible for Editor in 3.54 ms, found 5 plugins.
+Asset Pipeline Refresh (id=b28d64dbc4b1c674ca5a3aae9ea72da2): Total: 0.107 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity'
+	Deserialize:            42.278 ms
+	Integration:            33.952 ms
+	Integration of assets:  0.013 ms
+	Thread Wait Time:       0.025 ms
+	Total Operation Time:   76.268 ms
+Unloading 168 unused Assets / (4.5 MB). Loaded Objects now: 9288.
+Memory consumption went from 484.4 MB to 479.8 MB.
+Total: 20.614400 ms (FindLiveObjects: 0.793100 ms CreateObjectMapping: 0.240400 ms MarkObjects: 18.836400 ms  DeleteObjects: 0.313300 ms)
+
+Importing 'GUID: e0d44c942ec82be4f864082e6e492d5d - Path: Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity' with importer (DefaultImporter)
+Imported 'GUID: e0d44c942ec82be4f864082e6e492d5d' -> (Import Result ID: '99a66665d5725090e41dbc60ffa067a2') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=c8b13cf512ffaa76d1bd8dd783078214 DependenciesID=178ec041e5e80b75dd3ea715ed38d156 StaticDependenciesID=554b62bd54f10f3cfe1ddd9c26235f04 
+Refreshing native plugins compatible for Editor in 3.05 ms, found 5 plugins.
+Asset Pipeline Refresh (id=f5841c5970b584f4793c56aac30a5fde): Total: 0.166 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage tower.unity'
+Unloading 33 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage tower.unity'
+	Deserialize:            38.096 ms
+	Integration:            24.978 ms
+	Integration of assets:  0.475 ms
+	Thread Wait Time:       0.022 ms
+	Total Operation Time:   63.571 ms
+Unloading 168 unused Assets / (125.0 KB). Loaded Objects now: 9383.
+Memory consumption went from 482.2 MB to 482.0 MB.
+Total: 23.341400 ms (FindLiveObjects: 1.111000 ms CreateObjectMapping: 0.357400 ms MarkObjects: 20.847000 ms  DeleteObjects: 0.484100 ms)
+
+Importing 'GUID: fa3696e8de1078545ad9ea127162e828 - Path: Assets/Scenes/3stage/3 stage extra/3 stage tower.unity' with importer (DefaultImporter)
+Imported 'GUID: fa3696e8de1078545ad9ea127162e828' -> (Import Result ID: '697ee28dedf479bdb79e5de728f20f72') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=55dcad439593ec75ddb7d591ec2f44a6 DependenciesID=35f84c2202fe902636cca59765e71fcc StaticDependenciesID=98c8d55a11baf79e99323a2dba8dff3a 
+Refreshing native plugins compatible for Editor in 3.73 ms, found 5 plugins.
+Asset Pipeline Refresh (id=11feceeb2201fc94ca3b081ffb490d7d): Total: 0.068 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage main.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage main.unity'
+	Deserialize:            32.930 ms
+	Integration:            23.635 ms
+	Integration of assets:  0.011 ms
+	Thread Wait Time:       0.020 ms
+	Total Operation Time:   56.596 ms
+Unloading 177 unused Assets / (3.5 MB). Loaded Objects now: 9308.
+Memory consumption went from 482.9 MB to 479.4 MB.
+Total: 18.401300 ms (FindLiveObjects: 1.081200 ms CreateObjectMapping: 0.368800 ms MarkObjects: 15.919700 ms  DeleteObjects: 0.515400 ms)
+
+Importing 'GUID: 6c785ee50f1f3234cb14ed88b03c374c - Path: Assets/Scenes/3stage/3 stage main.unity' with importer (DefaultImporter)
+Imported 'GUID: 6c785ee50f1f3234cb14ed88b03c374c' -> (Import Result ID: '3a2cae2147da662952efaffbd2ef82a5') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=8fc5ebdade432257052d1530be92a184 DependenciesID=4e93644c60dbefd3321563e19d567e59 StaticDependenciesID=a449a5f874c83b34a44f7f70d94c87a7 
+Refreshing native plugins compatible for Editor in 4.80 ms, found 5 plugins.
+Asset Pipeline Refresh (id=fd1fca90b56b2094684c89eee80f200a): Total: 0.064 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity'
+Unloading 28 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity'
+	Deserialize:            27.676 ms
+	Integration:            54.488 ms
+	Integration of assets:  0.939 ms
+	Thread Wait Time:       0.032 ms
+	Total Operation Time:   83.135 ms
+Unloading 219 unused Assets / (3.5 MB). Loaded Objects now: 9189.
+Memory consumption went from 496.9 MB to 493.4 MB.
+Total: 15.771500 ms (FindLiveObjects: 0.804100 ms CreateObjectMapping: 0.234400 ms MarkObjects: 13.888600 ms  DeleteObjects: 0.404200 ms)
+
+Importing 'GUID: 8bab78a9a3a34b64bc8ba841c20bedf9 - Path: Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity' with importer (DefaultImporter)
+Imported 'GUID: 8bab78a9a3a34b64bc8ba841c20bedf9' -> (Import Result ID: '4f9c1bb8b96908a8d8170691f90823af') in 0.002 seconds [static dependencies only]. Details - ImportResultOutputID=10c81beddc2cd39ad712d072191b62cd DependenciesID=a59ff67a6dd20f6c0804a402976bb42c StaticDependenciesID=bf282f4b35fcaed7d7ce18142cb71b89 
+Refreshing native plugins compatible for Editor in 4.46 ms, found 5 plugins.
+Asset Pipeline Refresh (id=7b8e5923e84113044b84c412ab790612): Total: 0.140 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 329 unused Assets / (10.9 MB). Loaded Objects now: 8656.
+Memory consumption went from 496.4 MB to 485.5 MB.
+Total: 19.500700 ms (FindLiveObjects: 0.713000 ms CreateObjectMapping: 0.218700 ms MarkObjects: 16.875600 ms  DeleteObjects: 1.137000 ms)
+
+Microsoft Media Foundation video decoding to texture disabled: graphics device is Null, only Direct3D 11 and Direct3D 12 (only on desktop) are supported for hardware-accelerated video decoding.
+[Project] Loading completed in 30.692 seconds
+	Project init time: 				23.791 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		0.174 seconds
+		Asset Database init time: 		0.630 seconds
+		Global illumination init time: 	0.004 seconds
+		Assemblies load time: 			2.810 seconds
+		Unity extensions init time: 	0.043 seconds
+		Asset Database refresh time: 	17.156 seconds
+	Scene opening time: 			6.563 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1795084079751,"processId":4148,"projectLoad":30.691797700000002,"projectInit":23.7911312,"templateInit":0.0,"packageManagerInit":0.1739132,"assetDatabaseInit":0.6303826,"globalIlluminationInit":0.0044626,"assembliesLoad":2.810482,"unityExtensionsInit":0.0425929,"assetDatabaseRefresh":17.155888,"sceneOpening":6.5631561}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1795084079751,"processId":4148,"editorVersion":"6000.6.9f1 (8c45277fb9c5)","branch":"6000.6/staging","buildType":"Release","platform":"Windows"}
+SpriteAtlasPacking completed in 0.009799 sec
+Reloading assemblies for play mode.
+Reloading assemblies after forced synchronous recompile.
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 3.94 ms, found 5 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  2.298 seconds
+Domain Reload Profiling: 3737ms
+	BeginReloadAssembly (623ms)
+		DisableScriptedObjects (99ms)
+		CreateAndSetChildDomain (182ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (36ms)
+	initialDomainReloadingComplete (176ms)
+	LoadAllAssembliesAndSetupDomain (584ms)
+		LoadAssemblies (335ms)
+		TypeCache.Refresh (14ms)
+		AnalyzeDomain (58ms)
+			ResolveRequiredComponents (51ms)
+	FinalizeReload (2300ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (4ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			BeforeProcessingInitializeOnLoad (249ms)
+			ProcessInitializeOnLoadAttributes (659ms)
+			ProcessInitializeOnLoadMethodAttributes (459ms)
+			AfterProcessingInitializeOnLoad (18ms)
+			EditorAssembliesLoaded (3ms)
+		AwakeInstancesAfterBackupRestoration (99ms)
+No restricted APIs configured; Validation skipped.
+Checking 19 assemblies for restricted APIs found 0 usage(s) in 10 ms
+Refreshing native plugins compatible for Editor in 3.69 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=7c5de07402963ca4f8b521eb58bff61a): Total: 9.310 seconds - Initiated by StopAssetImportingV2(ForceSynchronousImport | ForceDomainReload)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=3163 ms
+		Asset DB Callback time: managed=3486 ms, native=1077 ms
+		Scripting: domain reloads=1, domain reload time=1577 ms, compile time=5 ms, other=0 ms
+		Project Asset Count: scripts=1828, non-scripts=4056
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 31.827ms
+	ApplyChangesToAssetFolders: 0.527ms
+	Collect global state as custom dependencies: 7.557ms
+	ProcessAssetsWithTransientArtifactChanges: 462.325ms
+	CategorizeAssets: 135.788ms
+	CompileScripts: 5.332ms
+	ImportOutOfDateAssets: 2325.530ms (2316.816ms without children)
+		CollectScriptTypesHashes: 2.837ms
+		ReloadNativeAssets: 2.622ms
+		UnloadImportedAssets: 3.416ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.076ms
+		ImportSchedulerStart: 0.552ms
+	PostProcessAllAssets: 4547.438ms
+		PostProcessCallbackCreateDeferredMaterials 89.859ms
+		AssemblyValidation.PostprocessAllAssets 72.297ms
+		ShaderAssetModifiedCallback 43.474ms
+		SpriteAtlasDatabase.OnAssetPostprocessCallback 36.905ms
+		RaytracingShaderImportPostprocess 22.026ms
+		ComputeShaderImportPostprocess 19.609ms
+		SpeedTreeImporter.PostprocessAllAssets 17.308ms
+		LocalizationDatabase.AssetDatabasePostprocessCallback 10.384ms
+		BlockShaderImporter.PostprocessAllAssets 8.253ms
+		XRBuildSystem.XRAssetImported 1.477ms
+		MonoPostProcessAllAssets: 3480.399ms
+			SyncVS.PostprocessSyncProject 2110.973ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 463.660ms
+			AssetPostprocessor.OnPostprocessAllAssets 140.239ms
+			PostProcessor.OnPostprocessAllAssets 106.056ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 82.653ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 80.010ms
+			MaterialPostprocessor.OnPostprocessAllAssets 69.382ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 62.137ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 50.036ms
+			AssetChangedListener.OnPostprocessAllAssets 49.565ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 34.156ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 33.256ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 18.991ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 18.671ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 10.775ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 6.352ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 3.769ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 2.275ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 1.626ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 1.233ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 1.212ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.963ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.891ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.844ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.796ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.777ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.651ms
+			AssetEvents.OnPostprocessAllAssets 0.611ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.609ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.580ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.542ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.508ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.415ms
+			PSDImportPostProcessor.OnPostprocessAllAssets 0.389ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.370ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.363ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.336ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.296ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.256ms
+			AssetProcessor.OnPostprocessAllAssets 0.164ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.151ms
+	PostAssetChangesProfiler: 10.346ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.325ms
+	UnloadStreamsBegin: 0.071ms
+	PersistCurrentRevisions: 0.323ms
+	GenerateScriptTypeHashes: 10.526ms
+	GenerateScriptTypeSerializationHashes: 17.591ms
+	Untracked: 1639.527ms
+
+[SaveLoadManager] No settings file - using defaults.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+SaveLoadManager:LoadSettings () (at Assets/SaveSystem/Script/SaveLoadManager.cs:310)
+SaveLoadManager:Awake () (at Assets/SaveSystem/Script/SaveLoadManager.cs:43)
+UnityEngine.GameObject:Internal_AddComponentWithType (System.Type)
+UnityEngine.GameObject:AddComponent (System.Type)
+UnityEngine.GameObject:AddComponent<SaveLoadManager> ()
+SaveLoadManager:Bootstrap () (at Assets/SaveSystem/Script/SaveLoadManager.cs:34)
+
+(Filename: Assets/SaveSystem/Script/SaveLoadManager.cs Line: 310)
+
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            0.553 ms
+	Integration:            1152.807 ms
+	Integration of assets:  0.002 ms
+	Thread Wait Time:       0.026 ms
+	Total Operation Time:   1153.388 ms
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[시스템] 대화 데이터 로드 완료! 총 1개의 대사
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DialogueManager:LoadDialogueData () (at Assets/DialogueSystem/DialogueManager.cs:59)
+DialogueManager:Awake () (at Assets/DialogueSystem/DialogueManager.cs:37)
+UnityEngine.GameObject:SetActive (bool)
+MergeVerification:VerifyIntegratedServices () (at Assets/Editor/MergeVerification.cs:179)
+MergeVerification:Begin () (at Assets/Editor/MergeVerification.cs:129)
+MergeVerification:BeginOnNextUpdate () (at Assets/Editor/MergeVerification.cs:124)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/DialogueSystem/DialogueManager.cs Line: 59)
+
+[시스템] 대화 종료
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DialogueManager:EndDialogue () (at Assets/DialogueSystem/DialogueManager.cs:129)
+MergeVerification:VerifyIntegratedServices () (at Assets/Editor/MergeVerification.cs:183)
+MergeVerification:Begin () (at Assets/Editor/MergeVerification.cs:129)
+MergeVerification:BeginOnNextUpdate () (at Assets/Editor/MergeVerification.cs:124)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/DialogueSystem/DialogueManager.cs Line: 129)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+Start Indexing on Editor startup
+ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+  at System.Collections.Generic.List`1[T].get_Item (System.Int32 index) [0x00009] in <2bdc0b2cb99347f4b2a172256836a5e9>:0 
+  at UnityEditor.Search.SearchDatabase+<EnumerateAll>d__78.MoveNext () [0x00089] in <13a2bf6b84f543b08462b048fe1a6788>:0 
+  at System.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) [0x00045] in <6bde52aea2b5439b9db9b3d84de5cc1b>:0 
+  at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00000] in <6bde52aea2b5439b9db9b3d84de5cc1b>:0 
+  at UnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () [0x00005] in <13a2bf6b84f543b08462b048fe1a6788>:0 
+  at UnityEditor.Search.SearchInit.IndexationOnStartup () [0x0000a] in <13a2bf6b84f543b08462b048fe1a6788>:0 
+  at UnityEditor.EditorApplication.Internal_CallDelayFunctions () [0x00029] in <053efca9ef2c41f6a2d0584e35765f52>:0 
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+UnloadTime: 4.132000 ms
+Loaded scene 'Assets/Scenes/MainMenu.unity'
+	Deserialize:            31.561 ms
+	Integration:            118.254 ms
+	Integration of assets:  0.005 ms
+	Thread Wait Time:       277.597 ms
+	Total Operation Time:   427.417 ms
+Unloading 7325 unused Assets / (3.1 MB). Loaded Objects now: 9039.
+Memory consumption went from 484.3 MB to 481.2 MB.
+Total: 51.011000 ms (FindLiveObjects: 2.428600 ms CreateObjectMapping: 1.017000 ms MarkObjects: 44.292300 ms  DeleteObjects: 2.805000 ms)
+
+Created GICache directory at C:/Users/jgj10/AppData/LocalLow/Unity/Caches/GiCache. Took: 0.191s, timestamps: [41.352 - 41.543]
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+MERGE_SCENE FAIL Assets/Scenes/MainMenu.unity: 120 frames; 1 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 107 Unused Serialized files (Serialized files now loaded: 0)
+Lighting data asset ‘LightingData’ is incompatible with the current Unity version because the scene it was baked for was not serialized. Please use Generate Lighting to rebuild the lighting data, or assign the target scene to the Lighting Data Asset in the inspector.
+UnloadTime: 15.432400 ms
+Script 'InteractableWaterGate' on GameObject WaterGate has possibly missing Required Components!
+[시스템] 대화 데이터 로드 완료! 총 3개의 대사
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+DialogueManager:LoadDialogueData () (at Assets/DialogueSystem/DialogueManager.cs:59)
+DialogueManager:Awake () (at Assets/DialogueSystem/DialogueManager.cs:37)
+
+(Filename: Assets/DialogueSystem/DialogueManager.cs Line: 59)
+
+ [환경 변화] None -> Withered 로 변경됩니다!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+EnvironmentManager:UpdateEnvironmentState () (at Assets/Script/EnvironmentManager.cs:71)
+EnvironmentManager:Subscribe () (at Assets/Script/EnvironmentManager.cs:49)
+EnvironmentManager:OnEnable () (at Assets/Script/EnvironmentManager.cs:29)
+
+(Filename: Assets/Script/EnvironmentManager.cs Line: 71)
+
+ [BGM 필터 변경] 현재 Cutoff 수치: 1000
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+EnvironmentManager:ChangeBGMCutoff (single) (at Assets/Script/EnvironmentManager.cs:122)
+EnvironmentManager:ApplyEnvironmentEffects (EnvironmentManager/EnvironmentState) (at Assets/Script/EnvironmentManager.cs:95)
+EnvironmentManager:UpdateEnvironmentState () (at Assets/Script/EnvironmentManager.cs:73)
+EnvironmentManager:Subscribe () (at Assets/Script/EnvironmentManager.cs:49)
+EnvironmentManager:OnEnable () (at Assets/Script/EnvironmentManager.cs:29)
+
+(Filename: Assets/Script/EnvironmentManager.cs Line: 122)
+
+Loaded scene 'Assets/Scenes/Tutorial Map.unity'
+	Deserialize:            1129.110 ms
+	Integration:            104.216 ms
+	Integration of assets:  14.911 ms
+	Thread Wait Time:       3.160 ms
+	Total Operation Time:   1251.397 ms
+Unloading 43 unused Assets / (39.9 KB). Loaded Objects now: 10052.
+Memory consumption went from 0.67 GB to 0.67 GB.
+Total: 45.751400 ms (FindLiveObjects: 2.239800 ms CreateObjectMapping: 0.766500 ms MarkObjects: 41.274700 ms  DeleteObjects: 0.995200 ms)
+
+ [환경 변화] Withered -> Alive 로 변경됩니다!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+EnvironmentManager:UpdateEnvironmentState () (at Assets/Script/EnvironmentManager.cs:71)
+WaterController:NotifyChanged () (at Assets/Player/Script/WaterController.cs:47)
+WaterController:AddBottle (int) (at Assets/Player/Script/WaterController.cs:54)
+WaterController:Start () (at Assets/Player/Script/WaterController.cs:20)
+
+(Filename: Assets/Script/EnvironmentManager.cs Line: 71)
+
+ [BGM 필터 변경] 현재 Cutoff 수치: 22000
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+EnvironmentManager:ChangeBGMCutoff (single) (at Assets/Script/EnvironmentManager.cs:122)
+EnvironmentManager:ApplyEnvironmentEffects (EnvironmentManager/EnvironmentState) (at Assets/Script/EnvironmentManager.cs:85)
+EnvironmentManager:UpdateEnvironmentState () (at Assets/Script/EnvironmentManager.cs:73)
+WaterController:NotifyChanged () (at Assets/Player/Script/WaterController.cs:47)
+WaterController:AddBottle (int) (at Assets/Player/Script/WaterController.cs:54)
+WaterController:Start () (at Assets/Player/Script/WaterController.cs:20)
+
+(Filename: Assets/Script/EnvironmentManager.cs Line: 122)
+
+MERGE_SCENE PASS Assets/Scenes/Tutorial Map.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 17 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 19.113200 ms
+Tutorial Boss�� SpriteRenderer�� �����ϴ�. Flash ȿ���� �۵����� �ʽ��ϴ�.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+HP:Awake () (at Assets/Script/HP.cs:47)
+
+(Filename: Assets/Script/HP.cs Line: 47)
+
+Loaded scene 'Assets/Scenes/1 stage.unity'
+	Deserialize:            67.989 ms
+	Integration:            55.192 ms
+	Integration of assets:  0.359 ms
+	Thread Wait Time:       0.420 ms
+	Total Operation Time:   123.959 ms
+Unloading 267 unused Assets / (7.8 MB). Loaded Objects now: 9921.
+Memory consumption went from 0.71 GB to 0.70 GB.
+Total: 47.992300 ms (FindLiveObjects: 1.602100 ms CreateObjectMapping: 0.429000 ms MarkObjects: 44.921100 ms  DeleteObjects: 0.566800 ms)
+
+MissingComponentException: There is no 'Animator' attached to the "Tutorial Boss" game object, but a script is trying to access it.
+You probably need to add a Animator to the game object "Tutorial Boss". Or your script needs to check if the component is attached before using it.
+  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000b4] in <6a3be24f609f4c7e856c987d6a26bd21>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <6a3be24f609f4c7e856c987d6a26bd21>:0 
+  at UnityEngine.Animator.SetTriggerString (System.String name) [0x00006] in <a4d9eef45d374670a492e74c0382fa0a>:0 
+  at UnityEngine.Animator.SetTrigger (System.String name) [0x00000] in <a4d9eef45d374670a492e74c0382fa0a>:0 
+  at TutorialBoss.TutorialIdleState.Enter (BossController boss) [0x00029] in D:\Projeect_A.E_Merged\Assets\Enemy\Tutorial\TutorialBoss\State\TutorialIdleState.cs:23 
+  at BossController.ChangeState (IBossState newState) [0x0002c] in D:\Projeect_A.E_Merged\Assets\Enemy\NewBoss\Script\BossController.cs:79 
+  at TutorialBoss.TutorialBossController.Start () [0x000a7] in D:\Projeect_A.E_Merged\Assets\Enemy\Tutorial\TutorialBoss\TutorialBossController.cs:180 
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+(Filename: Assets/Enemy/Tutorial/TutorialBoss/State/TutorialIdleState.cs Line: 23)
+
+MERGE_SCENE FAIL Assets/Scenes/1 stage.unity: 120 frames; 1 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.352900 ms
+Loaded scene 'Assets/Scenes/2 stage/2 stage.unity'
+	Deserialize:            18.820 ms
+	Integration:            29.324 ms
+	Integration of assets:  0.150 ms
+	Thread Wait Time:       0.442 ms
+	Total Operation Time:   48.737 ms
+Unloading 51 unused Assets / (25.1 MB). Loaded Objects now: 9622.
+Memory consumption went from 0.63 GB to 0.61 GB.
+Total: 43.936300 ms (FindLiveObjects: 1.733000 ms CreateObjectMapping: 0.514600 ms MarkObjects: 40.847600 ms  DeleteObjects: 0.235200 ms)
+
+MERGE_SCENE PASS Assets/Scenes/2 stage/2 stage.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 9 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.092800 ms
+OpentrigerManger: DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.Object:DontDestroyOnLoad (UnityEngine.Object)
+OpengameManager:Awake () (at Assets/map/script/3 stage/OpengameManger.cs:19)
+
+[Assets/map/script/3 stage/OpengameManger.cs line 19]
+
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage boss.unity'
+	Deserialize:            22.952 ms
+	Integration:            28.414 ms
+	Integration of assets:  0.257 ms
+	Thread Wait Time:       0.437 ms
+	Total Operation Time:   52.060 ms
+Unloading 24 unused Assets / (8.4 MB). Loaded Objects now: 9646.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 43.894200 ms (FindLiveObjects: 1.627600 ms CreateObjectMapping: 0.584400 ms MarkObjects: 41.058700 ms  DeleteObjects: 0.127200 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage extra/3 stage boss.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.381000 ms
+OpentrigerManger: DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.Object:DontDestroyOnLoad (UnityEngine.Object)
+OpengameManager:Awake () (at Assets/map/script/3 stage/OpengameManger.cs:19)
+
+[Assets/map/script/3 stage/OpengameManger.cs line 19]
+
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage final test.unity'
+	Deserialize:            29.212 ms
+	Integration:            35.005 ms
+	Integration of assets:  0.214 ms
+	Thread Wait Time:       0.386 ms
+	Total Operation Time:   64.816 ms
+Unloading 22 unused Assets / (19.4 KB). Loaded Objects now: 9649.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 42.880600 ms (FindLiveObjects: 1.963500 ms CreateObjectMapping: 0.559600 ms MarkObjects: 39.753900 ms  DeleteObjects: 0.101100 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage extra/3 stage final test.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.560300 ms
+OpentrigerManger: DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.Object:DontDestroyOnLoad (UnityEngine.Object)
+OpengameManager:Awake () (at Assets/map/script/3 stage/OpengameManger.cs:19)
+
+[Assets/map/script/3 stage/OpengameManger.cs line 19]
+
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage lake.unity'
+	Deserialize:            21.797 ms
+	Integration:            30.624 ms
+	Integration of assets:  0.128 ms
+	Thread Wait Time:       0.364 ms
+	Total Operation Time:   52.914 ms
+Unloading 25 unused Assets / (25.9 KB). Loaded Objects now: 9646.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 44.912100 ms (FindLiveObjects: 1.631700 ms CreateObjectMapping: 0.682800 ms MarkObjects: 41.956000 ms  DeleteObjects: 0.144400 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage extra/3 stage lake.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.168800 ms
+OpentrigerManger: DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.Object:DontDestroyOnLoad (UnityEngine.Object)
+OpengameManager:Awake () (at Assets/map/script/3 stage/OpengameManger.cs:19)
+
+[Assets/map/script/3 stage/OpengameManger.cs line 19]
+
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage pump.unity'
+	Deserialize:            29.231 ms
+	Integration:            37.027 ms
+	Integration of assets:  0.198 ms
+	Thread Wait Time:       0.326 ms
+	Total Operation Time:   66.783 ms
+Unloading 22 unused Assets / (19.4 KB). Loaded Objects now: 9649.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 43.765600 ms (FindLiveObjects: 1.970200 ms CreateObjectMapping: 0.475700 ms MarkObjects: 40.613000 ms  DeleteObjects: 0.102900 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage extra/3 stage pump.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.423800 ms
+OpentrigerManger: DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.Object:DontDestroyOnLoad (UnityEngine.Object)
+OpengameManager:Awake () (at Assets/map/script/3 stage/OpengameManger.cs:19)
+
+[Assets/map/script/3 stage/OpengameManger.cs line 19]
+
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity'
+	Deserialize:            39.409 ms
+	Integration:            45.879 ms
+	Integration of assets:  0.207 ms
+	Thread Wait Time:       0.359 ms
+	Total Operation Time:   85.854 ms
+Unloading 22 unused Assets / (19.4 KB). Loaded Objects now: 9649.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 47.854300 ms (FindLiveObjects: 1.585500 ms CreateObjectMapping: 0.544300 ms MarkObjects: 44.905100 ms  DeleteObjects: 0.153000 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 11 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.579900 ms
+OpentrigerManger: DontDestroyOnLoad only works for root GameObjects or components on root GameObjects.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.Object:DontDestroyOnLoad (UnityEngine.Object)
+OpengameManager:Awake () (at Assets/map/script/3 stage/OpengameManger.cs:19)
+
+[Assets/map/script/3 stage/OpengameManger.cs line 19]
+
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage tower.unity'
+	Deserialize:            28.053 ms
+	Integration:            41.159 ms
+	Integration of assets:  0.262 ms
+	Thread Wait Time:       0.368 ms
+	Total Operation Time:   69.843 ms
+Unloading 22 unused Assets / (19.4 KB). Loaded Objects now: 9753.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 43.104300 ms (FindLiveObjects: 1.958700 ms CreateObjectMapping: 0.672900 ms MarkObjects: 39.777700 ms  DeleteObjects: 0.110700 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage extra/3 stage tower.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.650000 ms
+Loaded scene 'Assets/Scenes/3stage/3 stage main.unity'
+	Deserialize:            27.770 ms
+	Integration:            41.212 ms
+	Integration of assets:  0.126 ms
+	Thread Wait Time:       0.374 ms
+	Total Operation Time:   69.483 ms
+Unloading 40 unused Assets / (0.5 MB). Loaded Objects now: 9669.
+Memory consumption went from 0.61 GB to 0.61 GB.
+Total: 45.488700 ms (FindLiveObjects: 1.569700 ms CreateObjectMapping: 0.427900 ms MarkObjects: 42.827500 ms  DeleteObjects: 0.208000 ms)
+
+MERGE_SCENE PASS Assets/Scenes/3stage/3 stage main.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+Unloading 51 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.268600 ms
+ [환경 변화] None -> Withered 로 변경됩니다!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+EnvironmentManager:UpdateEnvironmentState () (at Assets/Script/EnvironmentManager.cs:71)
+EnvironmentManager:Subscribe () (at Assets/Script/EnvironmentManager.cs:49)
+EnvironmentManager:OnEnable () (at Assets/Script/EnvironmentManager.cs:29)
+
+(Filename: Assets/Script/EnvironmentManager.cs Line: 71)
+
+Loaded scene 'Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity'
+	Deserialize:            40.214 ms
+	Integration:            45.447 ms
+	Integration of assets:  0.771 ms
+	Thread Wait Time:       1.006 ms
+	Total Operation Time:   87.437 ms
+Unloading 37 unused Assets / (17.7 MB). Loaded Objects now: 9591.
+Memory consumption went from 0.63 GB to 0.62 GB.
+Total: 49.545400 ms (FindLiveObjects: 1.626800 ms CreateObjectMapping: 0.572800 ms MarkObjects: 46.629600 ms  DeleteObjects: 0.235600 ms)
+
+ [환경 변화] Withered -> Alive 로 변경됩니다!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+EnvironmentManager:UpdateEnvironmentState () (at Assets/Script/EnvironmentManager.cs:71)
+WaterController:NotifyChanged () (at Assets/Player/Script/WaterController.cs:47)
+WaterController:AddBottle (int) (at Assets/Player/Script/WaterController.cs:54)
+WaterController:Start () (at Assets/Player/Script/WaterController.cs:20)
+
+(Filename: Assets/Script/EnvironmentManager.cs Line: 71)
+
+MERGE_SCENE PASS Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity: 120 frames; 0 errors
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:260)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 260)
+
+MERGE_VERIFICATION_COMPLETE
+FAIL Assets/Scenes/MainMenu.unity: 120 frames; 1 errors
+ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+System.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <2bdc0b2cb99347f4b2a172256836a5e9>:0)
+UnityEditor.Search.SearchDatabase+<EnumerateAll>d__78.MoveNext () (at <13a2bf6b84f543b08462b048fe1a6788>:0)
+System.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <6bde52aea2b5439b9db9b3d84de5cc1b>:0)
+System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <6bde52aea2b5439b9db9b3d84de5cc1b>:0)
+UnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () (at <13a2bf6b84f543b08462b048fe1a6788>:0)
+UnityEditor.Search.SearchInit.IndexationOnStartup () (at <13a2bf6b84f543b08462b048fe1a6788>:0)
+UnityEditor.EditorApplication.Internal_CallDelayFunctions () (at <053efca9ef2c41f6a2d0584e35765f52>:0)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+PASS Assets/Scenes/Tutorial Map.unity: 120 frames; 0 errors
+FAIL Assets/Scenes/1 stage.unity: 120 frames; 1 errors
+MissingComponentException: There is no 'Animator' attached to the "Tutorial Boss" game object, but a script is trying to access it.
+You probably need to add a Animator to the game object "Tutorial Boss". Or your script needs to check if the component is attached before using it.
+UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) (at <6a3be24f609f4c7e856c987d6a26bd21>:0)
+UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <6a3be24f609f4c7e856c987d6a26bd21>:0)
+UnityEngine.Animator.SetTriggerString (System.String name) (at <a4d9eef45d374670a492e74c0382fa0a>:0)
+UnityEngine.Animator.SetTrigger (System.String name) (at <a4d9eef45d374670a492e74c0382fa0a>:0)
+TutorialBoss.TutorialIdleState.Enter (BossController boss) (at Assets/Enemy/Tutorial/TutorialBoss/State/TutorialIdleState.cs:23)
+BossController.ChangeState (IBossState newState) (at Assets/Enemy/NewBoss/Script/BossController.cs:79)
+TutorialBoss.TutorialBossController.Start () (at Assets/Enemy/Tutorial/TutorialBoss/TutorialBossController.cs:180)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+PASS Assets/Scenes/2 stage/2 stage.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage boss.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage final test.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage lake.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage pump.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage extra/3 stage tower.unity: 120 frames; 0 errors
+PASS Assets/Scenes/3stage/3 stage main.unity: 120 frames; 0 errors
+PASS Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity: 120 frames; 0 errors
+Failures: 2
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MergeVerification:Finish () (at Assets/Editor/MergeVerification.cs:270)
+MergeVerification:NextScene () (at Assets/Editor/MergeVerification.cs:223)
+MergeVerification:CompleteScene () (at Assets/Editor/MergeVerification.cs:261)
+MergeVerification:Tick () (at Assets/Editor/MergeVerification.cs:240)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 270)
+
+MonoPathRemapper: Attempts to remap: 23227; Successful remaps: 10462
+Serialized file version minimum: 22, current 23
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-jgj10-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-jgj10 channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+Shut down UDS service system complete
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+VBCSCompilerPreWarmer: requested VBCSCompiler shutdown
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1795084099617,"processId":4148,"allocatedMemory":19766716,"memoryLabels":[{"Default":206809},{"Permanent":15516},{"NewDelete":69583},{"Thread":4198024},{"Manager":36477},{"VertexData":8},{"Geometry":824},{"Texture":24},{"Shader":848557},{"Material":132},{"GfxDevice":55968},{"Animation":6904},{"FreeType":8},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":62912},{"Input":42840},{"JobScheduler":264},{"TextLib":336},{"Mono":48},{"MonoCode":1472},{"ScriptingNativeRuntime":1307568},{"BaseObject":48784},{"Resource":1444},{"Renderer":2504},{"Transform":4781},{"File":52000},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":548914},{"StaticString":3808},{"Utility":2674806},{"Curl":2696},{"PoolAlloc":2600},{"AI":80},{"TypeTree":17165},{"ScriptManager":19032},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":2344},{"CloudService":7440},{"WebRequest":4599},{"VR":49650},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":768},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14536},{"Identifiers":7152},{"EntityIdStore":33088},{"Gui":128},{"EditorUtility":117453},{"VersionControl":8},{"Undo":931},{"AssetDatabase":8871307},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40465},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":260},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3620},{"Windowing":456},{"Licensing":12901},{"AssetReference":32},{"IPCStream":32}]}

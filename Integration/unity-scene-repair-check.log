@@ -1,0 +1,990 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 26920)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 27244)
+VBCSCompiler prewarm took 189.80 ms
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.6/staging' branch; Version is '6000.6.9f1 (8c45277fb9c5) revision 9192743'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jgj10" at "2026-11-19T10:17:01.0978938Z"
+OS: 'Windows 11  (10.0.26200) Core' Language: 'ko' Physical Memory: 15690 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-11-19T10:17:01Z
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 23328, path: "C:/Program Files/WindowsApps/UnityTechnologies.UnityHub_4.0.1.65535_x64__2vrhnee42bhxm/app/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.19.0+4cc3dda
+  Session Id:              6b8a7edb22d048478116cbaa5728a287
+  Correlation Id:          e88adc6d26b56080fb38f9ca4ce6aa96
+  External correlation Id: 7988539221379123326
+  Machine Id:              hccgRewrxReoenJq3e6bRa3J27o=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-jgj10" (connect: 0.00s, validation: 0.00s, handshake: 0.34s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-jgj10-notifications" at "2026-11-19T10:17:01.4365063Z"
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 14568583496722-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.37s
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.6.9f1\Editor\Unity.exe
+-batchmode
+-nographics
+-acceptSoftwareTermsForThisRunOnly
+-skipUpgradeDialogs
+-projectPath
+D:\Projeect_A.E_Merged
+-executeMethod
+MergeVerification.Run
+-logFile
+D:\Projeect_A.E_Merged\Integration\unity-verification.log
+Successfully changed project path to: D:\Projeect_A.E_Merged
+D:/Projeect_A.E_Merged
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-remapper-allocator-initial-capacity=32768"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=1"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.
+Player connection [7492]  Target information:
+
+Player connection [7492]  * "[IP] 192.168.56.1 [Port] 55504 [Flags] 2 [Guid] 78901058 [EditorId] 78901058 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [7492]  * "[IP] 192.168.7.1 [Port] 55504 [Flags] 2 [Guid] 78901058 [EditorId] 78901058 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [7492]  * "[IP] 192.168.28.1 [Port] 55504 [Flags] 2 [Guid] 78901058 [EditorId] 78901058 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [7492]  * "[IP] 192.168.0.20 [Port] 55504 [Flags] 2 [Guid] 78901058 [EditorId] 78901058 [Version] 1048832 [Id] WindowsEditor(7,Geumjae) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [7492] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [7492] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-5508" after 0.9 seconds.
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+Initialising UDS system complete:
+  - System type: Client
+  - Resource namespace: 22b93ea2ac2aac29b30d36e557b3e729
+  - Shared memory size: 1073741824
+  - Command buffer id: 1052576
+  - Command buffer size: 8192
+  - Hashmap size: 4194304
+  - Service connected: false
+Launching Unity Data Store - C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Tools/Unity.DataStore.exe 
+Unity Data Store artifact dir = Library/DataStore, working dir = D:/Projeect_A.E_MergedUnity Data Store running and initialised
+Refreshing native plugins compatible for Editor in 1297.57 ms, found 5 plugins.
+[Physics::Module] Selected backend (deferred post-plugins).
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Initialize engine version: 6000.6.9f1 (8c45277fb9c5)
+[EntityIdStore] init: VM path (explicit commit), pageSize=4096, blockCount=262144, entitiesPerBlock=1024, blocksPerSlotPage=0, slots reserved=4294967296 bytes
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Projeect_A.E_Merged/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56508
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.6.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.006929 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:False
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  3.976 seconds
+Domain Reload Profiling: 7018ms
+	BeginReloadAssembly (616ms)
+		CreateAndSetChildDomain (17ms)
+	RebuildCommonClasses (13ms)
+	RebuildNativeTypeToScriptingClass (77ms)
+	initialDomainReloadingComplete (337ms)
+	LoadAllAssembliesAndSetupDomain (1988ms)
+		LoadAssemblies (589ms)
+		TypeCache.Refresh (1386ms)
+			TypeCache.ScanAssembly (1293ms)
+		AnalyzeDomain (7ms)
+			BuildScriptInfoCaches (3ms)
+	FinalizeReload (3988ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (4ms)
+			InitializePlatformSupportModulesInManaged (19ms)
+			BeforeProcessingInitializeOnLoad (509ms)
+			ProcessInitializeOnLoadAttributes (670ms)
+			ProcessInitializeOnLoadMethodAttributes (1648ms)
+			EditorAssembliesLoaded (5ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 72 packages:
+  Built-in packages:
+    com.unity.modules.accessibility@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tetgen@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.tetgen)
+    com.unity.modules.tilemap@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.timelinefoundation@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.timelinefoundation)
+    com.unity.modules.ui@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: D:\Projeect_A.E_Merged\Library\PackageCache\com.unity.modules.hierarchycore)
+  Embedded packages:
+    com.unity.collab-proxy@file:D:\Projeect_A.E_Merged\Packages\com.unity.collab-proxy (location: D:\Projeect_A.E_Merged\Packages\com.unity.collab-proxy)
+    com.unity.feature.2d@file:D:\Projeect_A.E_Merged\Packages\com.unity.feature.2d (location: D:\Projeect_A.E_Merged\Packages\com.unity.feature.2d)
+    com.unity.ide.rider@file:D:\Projeect_A.E_Merged\Packages\com.unity.ide.rider (location: D:\Projeect_A.E_Merged\Packages\com.unity.ide.rider)
+    com.unity.ide.visualstudio@file:D:\Projeect_A.E_Merged\Packages\com.unity.ide.visualstudio (location: D:\Projeect_A.E_Merged\Packages\com.unity.ide.visualstudio)
+    com.unity.inputsystem@file:D:\Projeect_A.E_Merged\Packages\com.unity.inputsystem (location: D:\Projeect_A.E_Merged\Packages\com.unity.inputsystem)
+    com.unity.multiplayer.center@file:D:\Projeect_A.E_Merged\Packages\com.unity.multiplayer.center (location: D:\Projeect_A.E_Merged\Packages\com.unity.multiplayer.center)
+    com.unity.render-pipelines.universal@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal)
+    com.unity.test-framework@file:D:\Projeect_A.E_Merged\Packages\com.unity.test-framework (location: D:\Projeect_A.E_Merged\Packages\com.unity.test-framework)
+    com.unity.timeline@file:D:\Projeect_A.E_Merged\Packages\com.unity.timeline (location: D:\Projeect_A.E_Merged\Packages\com.unity.timeline)
+    com.unity.ugui@file:D:\Projeect_A.E_Merged\Packages\com.unity.ugui (location: D:\Projeect_A.E_Merged\Packages\com.unity.ugui)
+    com.unity.visualscripting@file:D:\Projeect_A.E_Merged\Packages\com.unity.visualscripting (location: D:\Projeect_A.E_Merged\Packages\com.unity.visualscripting)
+    com.unity.nuget.newtonsoft-json@file:D:\Projeect_A.E_Merged\Packages\com.unity.nuget.newtonsoft-json (location: D:\Projeect_A.E_Merged\Packages\com.unity.nuget.newtonsoft-json)
+    com.unity.2d.animation@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.animation (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.animation)
+    com.unity.2d.aseprite@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.aseprite (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.aseprite)
+    com.unity.2d.common@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.common (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.common)
+    com.unity.2d.pixel-perfect@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.pixel-perfect (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.pixel-perfect)
+    com.unity.2d.psdimporter@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.psdimporter (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.psdimporter)
+    com.unity.2d.sprite@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.sprite (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.sprite)
+    com.unity.2d.spriteshape@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.spriteshape (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.spriteshape)
+    com.unity.2d.tilemap@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap)
+    com.unity.2d.tilemap.extras@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap.extras (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tilemap.extras)
+    com.unity.2d.tooling@file:D:\Projeect_A.E_Merged\Packages\com.unity.2d.tooling (location: D:\Projeect_A.E_Merged\Packages\com.unity.2d.tooling)
+    com.unity.burst@file:D:\Projeect_A.E_Merged\Packages\com.unity.burst (location: D:\Projeect_A.E_Merged\Packages\com.unity.burst)
+    com.unity.collections@file:D:\Projeect_A.E_Merged\Packages\com.unity.collections (location: D:\Projeect_A.E_Merged\Packages\com.unity.collections)
+    com.unity.ext.nunit@file:D:\Projeect_A.E_Merged\Packages\com.unity.ext.nunit (location: D:\Projeect_A.E_Merged\Packages\com.unity.ext.nunit)
+    com.unity.graph-authoring@file:D:\Projeect_A.E_Merged\Packages\com.unity.graph-authoring (location: D:\Projeect_A.E_Merged\Packages\com.unity.graph-authoring)
+    com.unity.mathematics@file:D:\Projeect_A.E_Merged\Packages\com.unity.mathematics (location: D:\Projeect_A.E_Merged\Packages\com.unity.mathematics)
+    com.unity.nuget.mono-cecil@file:D:\Projeect_A.E_Merged\Packages\com.unity.nuget.mono-cecil (location: D:\Projeect_A.E_Merged\Packages\com.unity.nuget.mono-cecil)
+    com.unity.profiling.core@file:D:\Projeect_A.E_Merged\Packages\com.unity.profiling.core (location: D:\Projeect_A.E_Merged\Packages\com.unity.profiling.core)
+    com.unity.render-pipelines.core@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.core (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.core)
+    com.unity.render-pipelines.universal-config@file:D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal-config (location: D:\Projeect_A.E_Merged\Packages\com.unity.render-pipelines.universal-config)
+    com.unity.searcher@file:D:\Projeect_A.E_Merged\Packages\com.unity.searcher (location: D:\Projeect_A.E_Merged\Packages\com.unity.searcher)
+    com.unity.shadergraph@file:D:\Projeect_A.E_Merged\Packages\com.unity.shadergraph (location: D:\Projeect_A.E_Merged\Packages\com.unity.shadergraph)
+    com.unity.test-framework.performance@file:D:\Projeect_A.E_Merged\Packages\com.unity.test-framework.performance (location: D:\Projeect_A.E_Merged\Packages\com.unity.test-framework.performance)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.15 seconds
+Starting: C:\Program Files\Unity\Hub\Editor\6000.6.9f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: D:/Projeect_A.E_Merged
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 4s693ms
+[1189/1577  1s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (4.51 seconds), 1 items updated, 1577 evaluated
+Total cache size 111475532
+Total cache size after purge 111475532, took 00:00:00.6954321
+AssetDatabase: script compilation time: 7.677114s
+Begin MonoManager ReloadAssembly
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+'Packages/com.unity.render-pipelines.core/Editor/Deprecated.cs' contains partial class of Unity.Object, exactly 1 of the partial classes needs to be in a file with the same filename. This is to know the one that can be referenced from ie. GameObjects
+Refreshing native plugins compatible for Editor in 4.25 ms, found 5 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Scripting: successfully reloaded assembly
+- Finished resetting the current domain, in  7.653 seconds
+Domain Reload Profiling: 13720ms
+	BeginReloadAssembly (1551ms)
+		DisableScriptedObjects (497ms)
+		CreateAndSetChildDomain (169ms)
+	RebuildCommonClasses (39ms)
+	RebuildNativeTypeToScriptingClass (68ms)
+	initialDomainReloadingComplete (299ms)
+	LoadAllAssembliesAndSetupDomain (4109ms)
+		LoadAssemblies (2224ms)
+		TypeCache.Refresh (1143ms)
+			TypeCache.ScanAssembly (1070ms)
+		AnalyzeDomain (426ms)
+			BuildScriptInfoCaches (384ms)
+			ResolveRequiredComponents (39ms)
+	FinalizeReload (7655ms)
+		SetupLoadedEditorAssemblies (0ms)
+			LogAssemblyErrors (4ms)
+			InitializePlatformSupportModulesInManaged (19ms)
+			BeforeProcessingInitializeOnLoad (814ms)
+			ProcessInitializeOnLoadAttributes (1983ms)
+			ProcessInitializeOnLoadMethodAttributes (3160ms)
+			AfterProcessingInitializeOnLoad (68ms)
+			EditorAssembliesLoaded (3ms)
+		AwakeInstancesAfterBackupRestoration (143ms)
+Starting new worker id: 0 with log in D:/Projeect_A.E_Merged/Logs/AssetImportWorkerHW0.log
+Importing 'GUID: b8a59c11545f624449af557d5257217c - Path: Assets/Scenes/1 stage.unity' with importer (DefaultImporter)
+Imported 'GUID: b8a59c11545f624449af557d5257217c' -> (Import Result ID: 'f8143608a2e4e4c4824fb1b1b5b5b3a6') in 0.175 seconds [static dependencies only]. Details - ImportResultOutputID=5a28422a123d1f949785bf61e67718fc DependenciesID=0782912cb9d5fa85fa21af2909fbcc3e StaticDependenciesID=ee1696126c4a99b7aeb8291615edac19 
+Importing 'GUID: a1b66052e0f903a4d9a0121a93245641 - Path: Assets/Tile/Ground.prefab' with importer (PrefabImporter)
+Imported 'GUID: a1b66052e0f903a4d9a0121a93245641' -> (Import Result ID: '101ac55c994c8605fed338741433c6a7') in 0.271 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=2e399c2e79c3ec8a962671a7cc216cd0 DependenciesID=b7475e475158d0f7aec59c11ba3b6848 StaticDependenciesID=12a9466f0edbe85f6b384ee204c29553 
+Refreshing native plugins compatible for Editor in 41.98 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=bb04f101b85a03a4cbc22061d6dc98f8): Total: 32.984 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=2 (actual=2, local cache=0, cache server=0)
+		Asset DB Process Time: managed=51 ms, native=15300 ms
+		Asset DB Callback time: managed=2552 ms, native=533 ms
+		Scripting: domain reloads=1, domain reload time=6390 ms, compile time=7701 ms, other=455 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=2, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeCustomDependenciesCallbacks: 0.061ms
+	InvokePackagesCallback: 339.111ms
+	ApplyChangesToAssetFolders: 26.050ms
+	Scan: 623.338ms
+	Collect global state as custom dependencies: 158.370ms
+	OnSourceAssetsModified: 7.269ms
+	CategorizeScriptCompilationAssets: 756.940ms
+	ProcessAssetsWithTransientArtifactChanges: 509.685ms
+	CategorizeAssets: 491.392ms
+	CompileScripts: 7700.890ms
+	ImportOutOfDateAssets: 8390.990ms (7698.766ms without children)
+		ImportManagerImport: 454.287ms (6.932ms without children)
+			UpdateCategorizedAssets: 0.096ms
+		ReloadNativeAssets: 0.377ms
+		UnloadImportedAssets: 7.604ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 7.392ms
+		InitializingProgressBar: 0.051ms
+		ImportSchedulerStart: 222.466ms
+	PostProcessAllAssets: 2769.373ms
+		XRBuildSystem.XRAssetImported 200.880ms
+		VCAutoAddAssetPostprocess 10.635ms
+		AssemblyValidation.PostprocessAllAssets 0.080ms
+		PostProcessCallbackCreateDeferredMaterials 0.071ms
+		Canvas.OnAllAssetImport 0.061ms
+		LocalizationDatabase.AssetDatabasePostprocessCallback 0.060ms
+		WindowTitlePostprocess 0.054ms
+		MonoPostProcessAllAssets: 2546.361ms
+			AssetPostprocessor.OnPostprocessAllAssets 1484.117ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 379.427ms
+			SyncVS.PostprocessSyncProject 242.542ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 85.273ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 70.986ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 24.246ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 18.839ms
+			AssetChangedListener.OnPostprocessAllAssets 18.509ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 17.858ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 10.551ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 7.815ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 6.802ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 6.212ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 6.193ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 5.889ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 5.249ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 3.474ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 3.299ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 3.192ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 2.944ms
+			MaterialPostprocessor.OnPostprocessAllAssets 2.511ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 2.334ms
+			ThemePostprocessor.OnPostprocessAllAssets 1.910ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 1.403ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 1.327ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 1.212ms
+			AssetProcessor.OnPostprocessAllAssets 1.091ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 1.079ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 1.057ms
+			PostProcessor.OnPostprocessAllAssets 0.848ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.812ms
+			AssetEvents.OnPostprocessAllAssets 0.801ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.767ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.567ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.531ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.518ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.432ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.405ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.363ms
+			PSDImportPostProcessor.OnPostprocessAllAssets 0.323ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.239ms
+	PostAssetChangesProfiler: 50.071ms
+	UnloadStreamsBegin: 2.587ms
+	PersistCurrentRevisions: 0.704ms
+	GenerateScriptTypeHashes: 26.091ms
+	GenerateScriptTypeSerializationHashes: 38.061ms
+	Untracked: 10970.896ms
+
+Application.AssetDatabase Initial Refresh End
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Shader Hidden/ChartRasterizerHardware is not supported: GPU does not support conservative rasterization
+Scanning for USB devices : 2.197ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-AQUA ECLIPSE
+Unloading 87 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7723 unused Assets / (9.1 MB). Loaded Objects now: 8623.
+Memory consumption went from 452.9 MB to 443.9 MB.
+Total: 62.411800 ms (FindLiveObjects: 0.961800 ms CreateObjectMapping: 0.750100 ms MarkObjects: 36.632700 ms  DeleteObjects: 22.815600 ms)
+
+Opening scene 'Assets/Scenes/MainMenu.unity'
+Unloading 21 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/MainMenu.unity'
+	Deserialize:            1114.498 ms
+	Integration:            325.678 ms
+	Integration of assets:  13.922 ms
+	Thread Wait Time:       -0.511 ms
+	Total Operation Time:   1453.586 ms
+Unloading 82 unused Assets / (73.2 KB). Loaded Objects now: 8855.
+Memory consumption went from 460.1 MB to 460.0 MB.
+Total: 40.102500 ms (FindLiveObjects: 0.724500 ms CreateObjectMapping: 0.564900 ms MarkObjects: 38.048000 ms  DeleteObjects: 0.322000 ms)
+
+Worker ready: AssetImportWorkerHW0 0
+Importing 'GUID: 5c856c19dd3dbe34fa20ef5a66f7e72d - Path: Assets/Scenes/MainMenu.unity' with importer (DefaultImporter)
+Imported 'GUID: 5c856c19dd3dbe34fa20ef5a66f7e72d' -> (Import Result ID: '4322779b2233b2ba2931391145310b11') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=02a9ad0da52ae00c3f8be0b952f064b0 DependenciesID=8ecf27c3de8be464f3cfed6f7c64c45f StaticDependenciesID=ff519a41d9d53dc765fc65715f7ccb88 
+Refreshing native plugins compatible for Editor in 16.38 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=b15f5b33357955c45902f2e3977853ff): Total: 0.560 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=494 ms
+		Asset DB Callback time: managed=8 ms, native=56 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 3
+	ApplyChangesToAssetFolders: 0.162ms
+	Scan: 146.756ms
+	Collect global state as custom dependencies: 0.672ms
+	CategorizeScriptCompilationAssets: 0.151ms
+	ProcessAssetsWithTransientArtifactChanges: 0.274ms
+	CategorizeAssets: 316.465ms
+	ImportOutOfDateAssets: 5.301ms (0.470ms without children)
+		ImportManagerImport: 2.733ms (0.689ms without children)
+		ReloadNativeAssets: 0.070ms
+		UnloadImportedAssets: 0.241ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.342ms
+		ImportSchedulerStart: 0.429ms
+	PostProcessAllAssets: 35.333ms
+		XRBuildSystem.XRAssetImported 26.993ms
+		MonoPostProcessAllAssets: 8.033ms
+			AssetPostprocessor.OnPostprocessAllAssets 5.465ms
+			SyncVS.PostprocessSyncProject 1.425ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.203ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.129ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.107ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.104ms
+	PostAssetChangesProfiler: 29.326ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.472ms
+	UnloadStreamsBegin: 0.125ms
+	PersistCurrentRevisions: 1.742ms
+	Untracked: 22.892ms
+
+Opening scene 'Assets/Scenes/Tutorial Map.unity'
+Unloading 36 Unused Serialized files (Serialized files now loaded: 0)
+Lighting data asset ‘LightingData’ is incompatible with the current Unity version because the scene it was baked for was not serialized. Please use Generate Lighting to rebuild the lighting data, or assign the target scene to the Lighting Data Asset in the inspector.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.SceneManagement.EditorSceneManager:OpenScene (string,UnityEditor.SceneManagement.OpenSceneMode)
+MergeVerification:PrepareScenes () (at Assets/Editor/MergeVerification.cs:47)
+MergeVerification:Run () (at Assets/Editor/MergeVerification.cs:30)
+
+[Assets/Editor/MergeVerification.cs line 47]
+
+Script 'InteractableWaterGate' on GameObject WaterGate has possibly missing Required Components!
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.SceneManagement.EditorSceneManager:OpenScene (string,UnityEditor.SceneManagement.OpenSceneMode)
+MergeVerification:PrepareScenes () (at Assets/Editor/MergeVerification.cs:47)
+MergeVerification:Run () (at Assets/Editor/MergeVerification.cs:30)
+
+[Assets/Editor/MergeVerification.cs line 47]
+
+Loaded scene 'Assets/Scenes/Tutorial Map.unity'
+	Deserialize:            970.632 ms
+	Integration:            416.513 ms
+	Integration of assets:  28.626 ms
+	Thread Wait Time:       -1.054 ms
+	Total Operation Time:   1414.717 ms
+Unloading 169 unused Assets / (7.1 MB). Loaded Objects now: 9596.
+Memory consumption went from 0.52 GB to 0.51 GB.
+Total: 85.063500 ms (FindLiveObjects: 0.992000 ms CreateObjectMapping: 0.494600 ms MarkObjects: 82.758400 ms  DeleteObjects: 0.435100 ms)
+
+Importing 'GUID: b1c29b9ed9e52ad4ea1fe0cad07febb3 - Path: Assets/Scenes/Tutorial Map.unity' with importer (DefaultImporter)
+Imported 'GUID: b1c29b9ed9e52ad4ea1fe0cad07febb3' -> (Import Result ID: 'ab0132fa189db455d6937c524091bf18') in 0.007 seconds [static dependencies only]. Details - ImportResultOutputID=20f3d81083628440c0f853b8a3a84bce DependenciesID=18cc7f92e29382c5aeeb9f048dbfde90 StaticDependenciesID=77541d7bdbf94b5c85628180009c015e 
+Refreshing native plugins compatible for Editor in 17.79 ms, found 5 plugins.
+Asset Pipeline Refresh (id=2ded1c8d9826095479503cf337dadc19): Total: 0.162 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/1 stage.unity'
+Unloading 31 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/1 stage.unity'
+	Deserialize:            119.823 ms
+	Integration:            142.357 ms
+	Integration of assets:  0.547 ms
+	Thread Wait Time:       -0.033 ms
+	Total Operation Time:   262.695 ms
+Unloading 313 unused Assets / (19.7 MB). Loaded Objects now: 9549.
+Memory consumption went from 0.52 GB to 509.9 MB.
+Total: 40.724600 ms (FindLiveObjects: 0.812500 ms CreateObjectMapping: 0.320800 ms MarkObjects: 38.285300 ms  DeleteObjects: 0.896400 ms)
+
+Importing 'GUID: b8a59c11545f624449af557d5257217c - Path: Assets/Scenes/1 stage.unity' with importer (DefaultImporter)
+Imported 'GUID: b8a59c11545f624449af557d5257217c' -> (Import Result ID: 'b04b71461f3c184619193ca43c302855') in 0.013 seconds [static dependencies only]. Details - ImportResultOutputID=5a28422a123d1f949785bf61e67718fc DependenciesID=a1d642085a34f0d953e50e8afe548dd2 StaticDependenciesID=61de847f2403124387a9025d443755f3 
+Refreshing native plugins compatible for Editor in 3.67 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=002058a92368f2c418b7dfd4b8a43b60): Total: 0.308 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=267 ms
+		Asset DB Callback time: managed=9 ms, native=29 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 3
+	ApplyChangesToAssetFolders: 1.147ms
+	Scan: 74.762ms
+	Collect global state as custom dependencies: 0.805ms
+	OnSourceAssetsModified: 1.057ms
+	ProcessAssetsWithTransientArtifactChanges: 0.087ms
+	CategorizeAssets: 119.183ms
+	ImportOutOfDateAssets: 48.392ms (1.448ms without children)
+		ImportManagerImport: 17.346ms (2.764ms without children)
+			UpdateCategorizedAssets: 0.152ms
+		ReloadNativeAssets: 0.129ms
+		UnloadImportedAssets: 24.967ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 4.087ms
+		ImportSchedulerStart: 0.394ms
+	PostProcessAllAssets: 33.934ms
+		XRBuildSystem.XRAssetImported 24.932ms
+		MonoPostProcessAllAssets: 8.762ms
+			SyncVS.PostprocessSyncProject 7.274ms
+			AssetChangedListener.OnPostprocessAllAssets 0.332ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.223ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.168ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.094ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.093ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.089ms
+	PostAssetChangesProfiler: 4.311ms
+	GatherAllCurrentPrimaryImportResultRevisions: 1.567ms
+	UnloadStreamsBegin: 0.650ms
+	PersistCurrentRevisions: 0.579ms
+	Untracked: 21.391ms
+
+Opening scene 'Assets/Scenes/2 stage/2 stage.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/2 stage/2 stage.unity'
+	Deserialize:            46.254 ms
+	Integration:            36.335 ms
+	Integration of assets:  0.034 ms
+	Thread Wait Time:       0.089 ms
+	Total Operation Time:   82.712 ms
+Unloading 193 unused Assets / (4.6 MB). Loaded Objects now: 9259.
+Memory consumption went from 484.7 MB to 480.1 MB.
+Total: 45.224800 ms (FindLiveObjects: 4.857800 ms CreateObjectMapping: 1.424300 ms MarkObjects: 30.013400 ms  DeleteObjects: 6.175600 ms)
+
+Importing 'GUID: 85644ae239b40324b9d1336ea19955ef - Path: Assets/Scenes/2 stage/2 stage.unity' with importer (DefaultImporter)
+Imported 'GUID: 85644ae239b40324b9d1336ea19955ef' -> (Import Result ID: 'f41055c49b1ebfbb3e8bf6b5827cc964') in 0.044 seconds [static dependencies only]. Details - ImportResultOutputID=dcacf20f9ff8f5150de0a882fdbccc23 DependenciesID=a6a67bee925dd0ce490a3f5979667015 StaticDependenciesID=269bfe100b34c92ffe03296ef0b88826 
+Refreshing native plugins compatible for Editor in 23.25 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=6d0f1aab6b3fc144e8f383a908045d8d): Total: 0.350 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=301 ms
+		Asset DB Callback time: managed=4 ms, native=43 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 4
+	ApplyChangesToAssetFolders: 0.174ms
+	Scan: 138.243ms
+	Collect global state as custom dependencies: 1.110ms
+	OnSourceAssetsModified: 0.104ms
+	ProcessAssetsWithTransientArtifactChanges: 0.112ms
+	CategorizeAssets: 95.164ms
+	ImportOutOfDateAssets: 49.856ms (1.274ms without children)
+		ImportManagerImport: 45.387ms (0.824ms without children)
+		ReloadNativeAssets: 0.122ms
+		UnloadImportedAssets: 0.256ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.415ms
+		ImportSchedulerStart: 0.386ms
+	PostProcessAllAssets: 23.979ms
+		XRBuildSystem.XRAssetImported 18.821ms
+		MonoPostProcessAllAssets: 4.803ms
+			SyncVS.PostprocessSyncProject 3.109ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.253ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.211ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.158ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.145ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.114ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 0.053ms
+	PostAssetChangesProfiler: 24.063ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.383ms
+	UnloadStreamsBegin: 0.051ms
+	PersistCurrentRevisions: 2.476ms
+	Untracked: 13.795ms
+
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage boss.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage boss.unity'
+	Deserialize:            109.560 ms
+	Integration:            63.929 ms
+	Integration of assets:  0.105 ms
+	Thread Wait Time:       0.121 ms
+	Total Operation Time:   173.715 ms
+Unloading 170 unused Assets / (3.5 MB). Loaded Objects now: 9282.
+Memory consumption went from 488.4 MB to 484.8 MB.
+Total: 43.095600 ms (FindLiveObjects: 4.929000 ms CreateObjectMapping: 1.708900 ms MarkObjects: 34.924600 ms  DeleteObjects: 0.554100 ms)
+
+Importing 'GUID: 1c9a7e5450bb0964c82b4f884df7f866 - Path: Assets/Scenes/3stage/3 stage extra/3 stage boss.unity' with importer (DefaultImporter)
+Imported 'GUID: 1c9a7e5450bb0964c82b4f884df7f866' -> (Import Result ID: 'abe615faf61de0c92b2eb9fdf071a1b8') in 0.052 seconds [static dependencies only]. Details - ImportResultOutputID=55357f8e77b3e6e6c7b87b70d30c1558 DependenciesID=6556bdc855a97642616e520a069f45ae StaticDependenciesID=24427cee70e9b25442bfb5e6a5baeb0f 
+Refreshing native plugins compatible for Editor in 10.58 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=e694b4d24c00b014bbdfc9f6d7aab6e1): Total: 0.342 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=260 ms
+		Asset DB Callback time: managed=8 ms, native=72 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 5
+	ApplyChangesToAssetFolders: 0.953ms
+	Scan: 78.720ms
+	Collect global state as custom dependencies: 1.672ms
+	OnSourceAssetsModified: 0.400ms
+	CategorizeScriptCompilationAssets: 0.064ms
+	ProcessAssetsWithTransientArtifactChanges: 0.244ms
+	CategorizeAssets: 93.749ms
+	ImportOutOfDateAssets: 59.993ms (0.488ms without children)
+		ImportManagerImport: 53.792ms (1.187ms without children)
+		ReloadNativeAssets: 0.118ms
+		UnloadImportedAssets: 0.451ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.403ms
+		ImportSchedulerStart: 2.724ms
+	PostProcessAllAssets: 69.587ms
+		XRBuildSystem.XRAssetImported 59.844ms
+		Canvas.OnAllAssetImport 0.066ms
+		PostProcessCallbackCreateDeferredMaterials 0.062ms
+		MonoPostProcessAllAssets: 8.702ms
+			SyncVS.PostprocessSyncProject 3.044ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.795ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.669ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.539ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.452ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.341ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.201ms
+			PostProcessor.OnPostprocessAllAssets 0.184ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.156ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 0.146ms
+			AssetChangedListener.OnPostprocessAllAssets 0.141ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.103ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.099ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.097ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.077ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 0.074ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.072ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.065ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.055ms
+	PostAssetChangesProfiler: 11.391ms
+	GatherAllCurrentPrimaryImportResultRevisions: 6.960ms
+	UnloadStreamsBegin: 0.312ms
+	PersistCurrentRevisions: 2.276ms
+	Untracked: 15.680ms
+
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage final test.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage final test.unity'
+	Deserialize:            70.887 ms
+	Integration:            48.170 ms
+	Integration of assets:  0.052 ms
+	Thread Wait Time:       -0.002 ms
+	Total Operation Time:   119.107 ms
+Unloading 168 unused Assets / (3.5 MB). Loaded Objects now: 9285.
+Memory consumption went from 481.6 MB to 478.1 MB.
+Total: 39.971300 ms (FindLiveObjects: 5.486700 ms CreateObjectMapping: 2.059200 ms MarkObjects: 28.213600 ms  DeleteObjects: 1.201200 ms)
+
+Importing 'GUID: 1e5e0623ecebbba4bb007bd67becced9 - Path: Assets/Scenes/3stage/3 stage extra/3 stage final test.unity' with importer (DefaultImporter)
+Imported 'GUID: 1e5e0623ecebbba4bb007bd67becced9' -> (Import Result ID: 'fabfc1c7be24199d470dcf99b0130d93') in 0.078 seconds [static dependencies only]. Details - ImportResultOutputID=1a8440a0ea47f887d710160afee86fdf DependenciesID=b9c22bf124c83c7b4599c6f87b96d5bc StaticDependenciesID=5d4fd62d8248bd19e4358c1d2ba7d5f1 
+Refreshing native plugins compatible for Editor in 3.31 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=e03c94d646ea39f4fbcdb3f3cf19c8a8): Total: 0.325 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=292 ms
+		Asset DB Callback time: managed=9 ms, native=22 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 5
+	ApplyChangesToAssetFolders: 0.759ms
+	Scan: 64.115ms
+	Collect global state as custom dependencies: 0.498ms
+	OnSourceAssetsModified: 0.113ms
+	ProcessAssetsWithTransientArtifactChanges: 0.114ms
+	CategorizeAssets: 120.548ms
+	ImportOutOfDateAssets: 97.671ms (1.263ms without children)
+		ImportManagerImport: 79.972ms (1.245ms without children)
+		ReloadNativeAssets: 0.900ms
+		UnloadImportedAssets: 3.017ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 9.504ms
+		ImportSchedulerStart: 2.799ms
+	PostProcessAllAssets: 28.715ms
+		XRBuildSystem.XRAssetImported 17.579ms
+		PostProcessCallbackCreateDeferredMaterials 0.087ms
+		SpriteAtlasDatabase.OnAssetPostprocessCallback 0.070ms
+		MonoPostProcessAllAssets: 9.751ms
+			SyncVS.PostprocessSyncProject 2.173ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 1.248ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.870ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.698ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.620ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.429ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 0.252ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.191ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 0.160ms
+			AssetChangedListener.OnPostprocessAllAssets 0.160ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.142ms
+			PostProcessor.OnPostprocessAllAssets 0.111ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.108ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.102ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.101ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.087ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.083ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.077ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.075ms
+			PSDImporterAssetPostProcessor.OnPostprocessAllAssets 0.073ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.067ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.057ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.054ms
+			SpriteLibraryAssetPostprocessor.OnPostprocessAllAssets 0.052ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.051ms
+	PostAssetChangesProfiler: 3.659ms
+	GatherAllCurrentPrimaryImportResultRevisions: 1.662ms
+	UnloadStreamsBegin: 0.258ms
+	PersistCurrentRevisions: 0.377ms
+	Untracked: 6.326ms
+
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage lake.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage lake.unity'
+	Deserialize:            66.206 ms
+	Integration:            37.882 ms
+	Integration of assets:  0.045 ms
+	Thread Wait Time:       0.019 ms
+	Total Operation Time:   104.152 ms
+Unloading 170 unused Assets / (4.5 MB). Loaded Objects now: 9283.
+Memory consumption went from 480.1 MB to 475.6 MB.
+Total: 58.458100 ms (FindLiveObjects: 3.186000 ms CreateObjectMapping: 1.592600 ms MarkObjects: 48.218700 ms  DeleteObjects: 3.300900 ms)
+
+Importing 'GUID: 47f2e9c0c629f69458debe753ea61941 - Path: Assets/Scenes/3stage/3 stage extra/3 stage lake.unity' with importer (DefaultImporter)
+Imported 'GUID: 47f2e9c0c629f69458debe753ea61941' -> (Import Result ID: 'b0a2c243dd2587385f72fe105058e0f7') in 0.026 seconds [static dependencies only]. Details - ImportResultOutputID=9985767dfc2f8b43391d4247ff35dd25 DependenciesID=97dd2f8133f2cfc53a56f6b16035fec5 StaticDependenciesID=6a98040f29f968049b4837a096952261 
+Refreshing native plugins compatible for Editor in 12.42 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=6b89788bc1ff9fd49ad0ed724c324335): Total: 0.322 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=285 ms
+		Asset DB Callback time: managed=11 ms, native=25 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 5
+	ApplyChangesToAssetFolders: 0.749ms
+	Scan: 94.375ms
+	Collect global state as custom dependencies: 3.534ms
+	OnSourceAssetsModified: 0.138ms
+	ProcessAssetsWithTransientArtifactChanges: 0.152ms
+	CategorizeAssets: 117.708ms
+	ImportOutOfDateAssets: 42.915ms (2.202ms without children)
+		ImportManagerImport: 30.517ms (2.622ms without children)
+			UpdateCategorizedAssets: 0.105ms
+		ReloadNativeAssets: 0.459ms
+		UnloadImportedAssets: 1.833ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 6.295ms
+		ImportSchedulerStart: 1.548ms
+	PostProcessAllAssets: 22.178ms
+		XRBuildSystem.XRAssetImported 10.802ms
+		MonoPostProcessAllAssets: 11.168ms
+			SyncVS.PostprocessSyncProject 8.396ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.713ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.391ms
+			ThemePostprocessor.OnPostprocessAllAssets 0.246ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.110ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.105ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.087ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.086ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 0.077ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.069ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.063ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.062ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.059ms
+	PostAssetChangesProfiler: 14.081ms
+	GatherAllCurrentPrimaryImportResultRevisions: 4.756ms
+	UnloadStreamsBegin: 0.206ms
+	PersistCurrentRevisions: 0.463ms
+	Untracked: 20.813ms
+
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage pump.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage pump.unity'
+	Deserialize:            115.528 ms
+	Integration:            75.406 ms
+	Integration of assets:  0.104 ms
+	Thread Wait Time:       0.001 ms
+	Total Operation Time:   191.040 ms
+Unloading 168 unused Assets / (5.6 MB). Loaded Objects now: 9285.
+Memory consumption went from 481.6 MB to 476.0 MB.
+Total: 50.404800 ms (FindLiveObjects: 4.335200 ms CreateObjectMapping: 1.766200 ms MarkObjects: 39.111400 ms  DeleteObjects: 2.160400 ms)
+
+Importing 'GUID: 01cffa1e9ba337c489e40214054594be - Path: Assets/Scenes/3stage/3 stage extra/3 stage pump.unity' with importer (DefaultImporter)
+Imported 'GUID: 01cffa1e9ba337c489e40214054594be' -> (Import Result ID: 'e79f47df281e1c426510213f345f43f1') in 0.057 seconds [static dependencies only]. Details - ImportResultOutputID=62c3aa5830f4f288d62c4eaff80255f5 DependenciesID=d3ee75f172a8df3229b4bb7766b5b624 StaticDependenciesID=a2a313626fd15177bf396f47aa7acf26 
+Refreshing native plugins compatible for Editor in 3.05 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=4389514f12c9d394ebe9dc0d0cfd1ca9): Total: 0.342 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=309 ms
+		Asset DB Callback time: managed=8 ms, native=22 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 5
+	ApplyChangesToAssetFolders: 0.188ms
+	Scan: 99.847ms
+	Collect global state as custom dependencies: 3.405ms
+	OnSourceAssetsModified: 0.354ms
+	ProcessAssetsWithTransientArtifactChanges: 0.252ms
+	CategorizeAssets: 116.021ms
+	ImportOutOfDateAssets: 68.956ms (1.268ms without children)
+		ImportManagerImport: 59.368ms (1.118ms without children)
+		ReloadNativeAssets: 0.614ms
+		UnloadImportedAssets: 1.297ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 4.124ms
+		ImportSchedulerStart: 2.228ms
+	PostProcessAllAssets: 28.122ms
+		XRBuildSystem.XRAssetImported 18.618ms
+		PostProcessCallbackCreateDeferredMaterials 0.059ms
+		MonoPostProcessAllAssets: 8.694ms
+			SyncVS.PostprocessSyncProject 3.499ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.830ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.549ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.510ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.463ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.417ms
+			AssetChangedListener.OnPostprocessAllAssets 0.134ms
+			SpriteSlicePostprocessor.OnPostprocessAllAssets 0.125ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.110ms
+			PostProcessor.OnPostprocessAllAssets 0.101ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.089ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 0.073ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.069ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.061ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.055ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.054ms
+	PostAssetChangesProfiler: 3.387ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.351ms
+	UnloadStreamsBegin: 0.071ms
+	PersistCurrentRevisions: 0.426ms
+	Untracked: 20.064ms
+
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity'
+	Deserialize:            81.276 ms
+	Integration:            59.924 ms
+	Integration of assets:  0.051 ms
+	Thread Wait Time:       0.031 ms
+	Total Operation Time:   141.282 ms
+Unloading 168 unused Assets / (4.5 MB). Loaded Objects now: 9285.
+Memory consumption went from 482.8 MB to 478.2 MB.
+Total: 34.149700 ms (FindLiveObjects: 0.753600 ms CreateObjectMapping: 0.226500 ms MarkObjects: 31.948300 ms  DeleteObjects: 0.666900 ms)
+
+Importing 'GUID: e0d44c942ec82be4f864082e6e492d5d - Path: Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity' with importer (DefaultImporter)
+Imported 'GUID: e0d44c942ec82be4f864082e6e492d5d' -> (Import Result ID: '99a66665d5725090e41dbc60ffa067a2') in 0.045 seconds [static dependencies only]. Details - ImportResultOutputID=c8b13cf512ffaa76d1bd8dd783078214 DependenciesID=178ec041e5e80b75dd3ea715ed38d156 StaticDependenciesID=554b62bd54f10f3cfe1ddd9c26235f04 
+Refreshing native plugins compatible for Editor in 3.14 ms, found 5 plugins.
+
+Asset Pipeline Refresh (id=b57ae1c67081259449189e03429dee00): Total: 0.372 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=339 ms
+		Asset DB Callback time: managed=2 ms, native=29 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1826, non-scripts=4056
+		Asset File Changes: new=0, changed=1, moved=0, deleted=0
+		Scan Filter Count: 5
+	ApplyChangesToAssetFolders: 0.813ms
+	Scan: 154.495ms
+	Collect global state as custom dependencies: 0.514ms
+	OnSourceAssetsModified: 0.543ms
+	CategorizeScriptCompilationAssets: 0.105ms
+	ProcessAssetsWithTransientArtifactChanges: 0.230ms
+	CategorizeAssets: 104.202ms
+	ImportOutOfDateAssets: 54.469ms (0.464ms without children)
+		ImportManagerImport: 47.563ms (1.080ms without children)
+		ReloadNativeAssets: 0.160ms
+		UnloadImportedAssets: 1.164ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 2.983ms
+		ImportSchedulerStart: 2.115ms
+	PostProcessAllAssets: 28.187ms
+		XRBuildSystem.XRAssetImported 25.710ms
+		MonoPostProcessAllAssets: 2.264ms
+			SyncVS.PostprocessSyncProject 1.244ms
+			SpriteShapeAssetPostProcessor.OnPostprocessAllAssets 0.145ms
+			SpriteEditorTexturePostprocessor.OnPostprocessAllAssets 0.139ms
+			AssetPostprocessor.OnPostprocessAllAssets 0.107ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.091ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 0.076ms
+	PostAssetChangesProfiler: 3.458ms
+	GatherAllCurrentPrimaryImportResultRevisions: 8.947ms
+	UnloadStreamsBegin: 0.195ms
+	PersistCurrentRevisions: 0.352ms
+	Untracked: 15.530ms
+
+Opening scene 'Assets/Scenes/3stage/3 stage extra/3 stage tower.unity'
+Unloading 33 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage extra/3 stage tower.unity'
+	Deserialize:            63.603 ms
+	Integration:            53.945 ms
+	Integration of assets:  2.194 ms
+	Thread Wait Time:       0.229 ms
+	Total Operation Time:   119.972 ms
+Unloading 168 unused Assets / (4.5 MB). Loaded Objects now: 9380.
+Memory consumption went from 480.5 MB to 476.0 MB.
+Total: 35.507700 ms (FindLiveObjects: 0.761200 ms CreateObjectMapping: 0.242900 ms MarkObjects: 33.687200 ms  DeleteObjects: 0.309000 ms)
+
+Importing 'GUID: fa3696e8de1078545ad9ea127162e828 - Path: Assets/Scenes/3stage/3 stage extra/3 stage tower.unity' with importer (DefaultImporter)
+Imported 'GUID: fa3696e8de1078545ad9ea127162e828' -> (Import Result ID: '697ee28dedf479bdb79e5de728f20f72') in 0.031 seconds [static dependencies only]. Details - ImportResultOutputID=55dcad439593ec75ddb7d591ec2f44a6 DependenciesID=35f84c2202fe902636cca59765e71fcc StaticDependenciesID=98c8d55a11baf79e99323a2dba8dff3a 
+Refreshing native plugins compatible for Editor in 2.94 ms, found 5 plugins.
+Asset Pipeline Refresh (id=a0d499343fcd16b40be3b432cda9638e): Total: 0.239 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/3stage/3 stage main.unity'
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/3stage/3 stage main.unity'
+	Deserialize:            93.486 ms
+	Integration:            39.392 ms
+	Integration of assets:  0.074 ms
+	Thread Wait Time:       0.013 ms
+	Total Operation Time:   132.966 ms
+Unloading 177 unused Assets / (4.6 MB). Loaded Objects now: 9305.
+Memory consumption went from 481.3 MB to 476.7 MB.
+Total: 37.847300 ms (FindLiveObjects: 0.762800 ms CreateObjectMapping: 0.240100 ms MarkObjects: 34.799700 ms  DeleteObjects: 1.050600 ms)
+
+Importing 'GUID: 6c785ee50f1f3234cb14ed88b03c374c - Path: Assets/Scenes/3stage/3 stage main.unity' with importer (DefaultImporter)
+Imported 'GUID: 6c785ee50f1f3234cb14ed88b03c374c' -> (Import Result ID: '3a2cae2147da662952efaffbd2ef82a5') in 0.042 seconds [static dependencies only]. Details - ImportResultOutputID=8fc5ebdade432257052d1530be92a184 DependenciesID=4e93644c60dbefd3321563e19d567e59 StaticDependenciesID=a449a5f874c83b34a44f7f70d94c87a7 
+Refreshing native plugins compatible for Editor in 8.52 ms, found 5 plugins.
+Asset Pipeline Refresh (id=a9e4363c8deffff4db5610ffd6f4c2af): Total: 0.287 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Opening scene 'Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity'
+Unloading 27 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity'
+	Deserialize:            37.991 ms
+	Integration:            107.402 ms
+	Integration of assets:  0.776 ms
+	Thread Wait Time:       0.021 ms
+	Total Operation Time:   146.190 ms
+Unloading 232 unused Assets / (3.6 MB). Loaded Objects now: 9173.
+Memory consumption went from 495.3 MB to 491.8 MB.
+Total: 34.533700 ms (FindLiveObjects: 1.063700 ms CreateObjectMapping: 1.313200 ms MarkObjects: 31.106600 ms  DeleteObjects: 0.531900 ms)
+
+InvalidOperationException: Missing scripts in Assets/Scenes/IntegrationVariants/1 stage - Partner A.unity: 3
+  at MergeVerification.PrepareScenes () [0x0041f] in D:\Projeect_A.E_Merged\Assets\Editor\MergeVerification.cs:93 
+  at MergeVerification.Run () [0x0000b] in D:\Projeect_A.E_Merged\Assets\Editor\MergeVerification.cs:30 
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+(Filename: Assets/Editor/MergeVerification.cs Line: 93)
+
+executeMethod method MergeVerification.Run threw exception.
+[ExitDontLaunchBugReporter] Exiting without the bug reporter. Application will exit with return code 1
+MonoPathRemapper: Attempts to remap: 19934; Successful remaps: 9468
+Serialized file version minimum: 22, current 23
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-jgj10-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-jgj10 channel disconnected successfully.
+Lingering sessions upon destruction of worker manager
+Unity Data Store service was successfully shut down
+UDS shutting down local client system
+Shut down UDS service system complete
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1795083499031,"processId":5508,"allocatedMemory":19994826,"memoryLabels":[{"Default":215371},{"Permanent":15516},{"NewDelete":79831},{"Thread":4198688},{"Manager":36413},{"VertexData":8},{"Geometry":824},{"Texture":24},{"Shader":848557},{"Material":132},{"GfxDevice":88288},{"Animation":3928},{"FreeType":8},{"FontEngine":736},{"Physics":1970},{"Physics2D":16},{"Serialization":31616},{"Input":42840},{"JobScheduler":264},{"TextLib":336},{"Mono":48},{"MonoCode":768},{"ScriptingNativeRuntime":1292664},{"BaseObject":48784},{"Resource":1444},{"Renderer":2536},{"Transform":4781},{"File":52000},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":758778},{"StaticString":3808},{"Utility":2674806},{"Curl":2559},{"PoolAlloc":2600},{"AI":80},{"TypeTree":17165},{"ScriptManager":12688},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":5320},{"CloudService":7296},{"WebRequest":8564},{"VR":49650},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":729},{"Secure":2377},{"SerializationCache":9256},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":768},{"Hierarchy":1188},{"UIElements":40},{"CoreStats":14536},{"Identifiers":7152},{"EntityIdStore":33088},{"Gui":128},{"EditorUtility":117453},{"VersionControl":8},{"Undo":931},{"AssetDatabase":8871387},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":40441},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":96},{"DrivenProperties":72},{"LocalIPC":260},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3620},{"Windowing":456},{"Licensing":12901},{"AssetReference":32},{"IPCStream":32}]}
+~StackAllocator(ALLOC_TEMP_MAIN) m_LastAlloc not NULL. Did you forget to call FreeAllStackAllocations()? To get more information, run app with -diag-temp-memory-leak-validation cmd line argument

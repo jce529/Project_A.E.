@@ -1,0 +1,4 @@
+PASS water bounds, clean refill and cache consistency across 500 mutations
+PASS dialogue/menu overlap and input resume
+PASS original save schema, checkpoint and boss-progress JSON round trip
+PASS shared-input rebinding and settings restoration without disk writes

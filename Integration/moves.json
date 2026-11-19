@@ -1,0 +1,110 @@
+[
+  {
+    "guid": "aa10caa0b4b2d114eb56a9087f417c76",
+    "a": [
+      "Assets/Enemy/Monster_Alpha/Script/Chase.cs"
+    ],
+    "b": [
+      "Assets/Script/Chase.cs"
+    ]
+  },
+  {
+    "guid": "342f2f63550b4844cad2b1724edda0a4",
+    "a": [
+      "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script"
+    ],
+    "b": [
+      "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script"
+    ]
+  },
+  {
+    "guid": "f4ae34ceef7738b4494ec7f5404e8e32",
+    "a": [
+      "Assets/Enemy/Tutorial/WoodBoss/Projectile/Sweep.prefab"
+    ],
+    "b": [
+      "Assets/Enemy/Tutorial/TutorialBoss/Resource/Sweep.prefab"
+    ]
+  },
+  {
+    "guid": "8fac1cae430952044b4cb8e3f4ded8da",
+    "a": [
+      "Assets/Enemy/Tutorial/WoodBoss/Projectile/Warning.prefab"
+    ],
+    "b": [
+      "Assets/Enemy/Tutorial/TutorialBoss/Resource/Warning.prefab"
+    ]
+  },
+  {
+    "guid": "38e6fe93e24bdcd4d91bdc2e4b47db31",
+    "a": [
+      "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/RootSpike.cs"
+    ],
+    "b": [
+      "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script/RootSpike.cs"
+    ]
+  },
+  {
+    "guid": "f5405d09a67d5644abbf439b901e175a",
+    "a": [
+      "Assets/Player/Script/Resourcess"
+    ],
+    "b": [
+      "Assets/Player/Resourcess"
+    ]
+  },
+  {
+    "guid": "709704cd680fc3b4ab4d0b240ce3406d",
+    "a": [
+      "Assets/Player/Script/Resourcess/AttackBox.prefab"
+    ],
+    "b": [
+      "Assets/Player/Resourcess/AttackBox.prefab"
+    ]
+  },
+  {
+    "guid": "e15ecaa441a34dc49b1c34259f63fdf2",
+    "a": [
+      "Assets/Player/Script/Resourcess/BottleSlot.prefab"
+    ],
+    "b": [
+      "Assets/Player/Resourcess/BottleSlot.prefab"
+    ]
+  },
+  {
+    "guid": "eeeffac58095034459f2feb1458dea4d",
+    "a": [
+      "Assets/Player/Script/Resourcess/SlashHitBox.prefab"
+    ],
+    "b": [
+      "Assets/Player/Resourcess/SlashHitBox.prefab"
+    ]
+  },
+  {
+    "guid": "667bf80e21f8184498fdaebb5ef10e08",
+    "a": [
+      "Assets/Player/Script/Resourcess/Water (2)_0.prefab"
+    ],
+    "b": [
+      "Assets/Player/Resourcess/Water (2)_0.prefab"
+    ]
+  },
+  {
+    "guid": "748576719067b0e47ad08ed7efb8baac",
+    "a": [
+      "Assets/Player/Script/Resourcess/WaterEfect.prefab"
+    ],
+    "b": [
+      "Assets/Player/Resourcess/WaterEfect.prefab"
+    ]
+  },
+  {
+    "guid": "1322c615f8264344eb12b519ccfbaead",
+    "a": [
+      "Assets/Player/Script/Resourcess/white_filled_water_bottle_0.prefab"
+    ],
+    "b": [
+      "Assets/Player/Resourcess/white_filled_water_bottle_0.prefab"
+    ]
+  }
+]

@@ -1,0 +1,5356 @@
+[
+  {
+    "path": "Assets/Camera/Check.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Camera/Check.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Camera/Script/CameraBoundsTrigger.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Camera/Script/CameraBoundsTrigger.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Camera/Script/CameraController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Camera/Script/CameraZoomTrigger.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Camera/Script/CameraZoomTrigger.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/Button.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/Button.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/Data.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/Data/TestData.json",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/Data/TestData.json.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueData.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueData.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueManager.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueManager.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueView.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/DialogueSystem/DialogueView.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/NPCDialogueTrigger.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/DialogueSystem/NPCDialogueTrigger.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/NanumGothicEco SDF.asset",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/DialogueSystem/NanumGothicEco SDF.asset.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Editor/BuildPhase2Assets.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/BuildPhase2Assets.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Editor/BuildWaterMonsterAssets.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/BuildWaterMonsterAssets.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Editor/Phase1CLI.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/Phase1CLI.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Editor/PlaceWaterMonsterInScene.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/PlaceWaterMonsterInScene.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Editor/PlayerInteractionVerification.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/PlayerInteractionVerification.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Editor/Tools/FluidMaterialCreator.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/Tools/FluidMaterialCreator.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Editor/Tools/FluidNoiseTextureGenerator.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Editor/Tools/FluidNoiseTextureGenerator.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/FloorHandAttack.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/FloorHandAttack.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/hand.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/hand.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossCharge.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossCharge.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossHorn.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossHorn.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossSmash.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossSmash.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossVine.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/BossVine.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/ExpandingShockWave.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/ExpandingShockWave.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/Shockwave.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/Shockwave.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/SlowVine.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/SlowVine.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/St1BossManager.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Boss/Script/st1 Boss/St1BossManager.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Chase.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Chase.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Droplet.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Droplet.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/EnemyBrain.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Flying.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Flying.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Mimic.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Mimic.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/NewMonoBehaviourScript.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/NewMonoBehaviourScript.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Puddle.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Puddle.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/SelfExplode.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/SelfExplode.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Trapper.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/Trapper.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/bullet.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/enemy.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/patorl.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Monster_Alpha/Script/patorl.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/BossController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/BossStatesSystem.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/HeavyAttack.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/LightAttack.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/Attacks/RangedPokeAttack.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/ChaseStates.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/CombatState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/NewBoss/Script/States/IdleState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Check.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Check.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Anim.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script/RootSpike.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Script/RootSpike.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Sweep.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Sweep.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Warning.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/Warning.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/Resource/img.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialAttackState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialDeadState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialGroggyState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/State/TutorialIdleState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TentaclePierceStrategy.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TentacleSwipeStrategy.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TentacleSwipeStrategy.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TutorialBossController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TutorialRootSpikeStrategy.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/TutorialBoss/TutorialRootSpikeStrategy.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/FloorSweepStrategy.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/FloorSweepStrategy.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/IdleState.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/IdleState.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/RootSpikeStrategy.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/RootSpikeStrategy.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/VineSwingStrategy.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/VineSwingStrategy.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/WoodBossAttackState.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/WoodBossAttackState.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/WoodBossChaseState.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/State/WoodBossChaseState.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/WoodBossController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/WoodBossController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/WoodBossStatSystem.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/BossController/WoodBossStatSystem.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/RootSpike.prefab",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/RootSpike.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/RootSpike.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/RootSpike.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/Rootspikevisual.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/Rootspikevisual.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/SeedProjectile.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Script/SeedProjectile.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/SeedProjectile.prefab",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/SeedProjectile.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Sweep.prefab",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Sweep.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Warning.prefab",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/Tutorial/WoodBoss/Projectile/Warning.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Check.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Check.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Docs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Docs/PuddleExplosionController.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Docs/PuddleExplosionController.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/PlayerAbsorb.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase2/WaterPuddle.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/Phase3/WaterTeleportState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterMeleeSwipe.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/Attacks/WaterRangedSpit.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/States/WaterMonsterCombatState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/WaterMonsterController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterMonster/Script/WaterMonsterStats.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Check.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Check.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/SpiritController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/SpiritStats.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritCharge.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritExhaustion.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritFarProjectile.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritProjectileAttack.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritRepel.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritStealth.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Attacks/SpiritWakeRepel.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/SpiritCombatState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Enemy/WaterSpirit/Script/States/Stage2CombatState.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/GameSystemTester.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/GameSystemTester.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/InputSystem_Actions.inputactions",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player.prefab",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/33.psb.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Animation/Attack1.anim",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Attack1.anim.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Attack2.anim",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Attack2.anim.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Attack3.anim",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Attack3.anim.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Hit.anim",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Hit.anim.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Jump.anim",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Animation/Materials.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Materials/hit.mat",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Materials/hit.mat.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Parry.anim",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/Parry.anim.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/PlayerAnim.controller",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Animation/PlayerIdle.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Animation/PlayerIdle.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Animation/attack 1_0.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack 1_0.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack2.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack2.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack2_0.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack2_0.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack3.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack3.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack3_0 (1).controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack3_0 (1).controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack3_0.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/attack3_0.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/death.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/death.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit_0 1.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit_0 1.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit_0 2.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit_0 2.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit_0.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/hit_0.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/jump_attack.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/jump_attack.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/parry.png.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Animation/parry_0.controller",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/parry_0.controller.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Animation/run.png.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess.meta",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/AttackBox.prefab",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/AttackBox.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/BottleSlot.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Resourcess/BottleSlot.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Resourcess/SlashHitBox.prefab",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/SlashHitBox.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/Water (2)_0.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Resourcess/Water (2)_0.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Resourcess/WaterEfect.prefab",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/WaterEfect.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Resourcess/white_filled_water_bottle_0.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Resourcess/white_filled_water_bottle_0.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/AttackBox.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/AttackBox.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/GameStateManager.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/IPlayerInteractable.cs",
+    "a": true,
+    "b": true,
+    "base": false,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/IPlayerInteractable.cs.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/InputHandler.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/LadderMovement.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/LadderMovement.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/ContolMenuController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/ContolMenuController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/ControlsSettingsPanel.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/ControlsSettingsPanel.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Menu/GameSettingsPanel.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/GameSettingsPanel.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Menu/GraphicsSettingsPanel.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/GraphicsSettingsPanel.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Menu/KeyBindingMenuController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/KeyBindingMenuController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenu.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenuController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenuController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenuTabController.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/PauseMenuTabController.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Menu/RebindButton.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/RebindButton.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/SettingMenuController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/SettingMenuController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/SoundSettingsPanel.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/SoundSettingsPanel.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Menu/UIManager.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/UIManager.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/UIPanelProperties.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Menu/UIPanelProperties.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAnimator.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttack.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerAttackDamager.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInputActions.inputactions",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInputActions.inputactions.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInputHandler.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteraction.cs",
+    "a": true,
+    "b": true,
+    "base": false,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteraction.cs.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteractionPrompt.cs",
+    "a": true,
+    "b": true,
+    "base": false,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/PlayerInteractionPrompt.cs.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/PlayerStats.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/AttackBox.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/AttackBox.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/BottleSlot.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/BottleSlot.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/SlashHitBox.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/SlashHitBox.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/Water (2)_0.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/Water (2)_0.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/WaterEfect.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/WaterEfect.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/white_filled_water_bottle_0.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/Resourcess/white_filled_water_bottle_0.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/SkillScript/FlashSlice.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/SkillScript/FlashSlice.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/SkillScript/WaveSlice.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/SkillScript/WaveSlice.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/UI/InGameHUDController.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/UI/InGameHUDController.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerHealthUI.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerUI.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerUI.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Player/Script/UI/PlayerWaterUI.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/Script/WaterController.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Player/prot/33.psb.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Resources/IMG_8078.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Resources/IMG_8078.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Resources/PersistentManagers.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Resources/PersistentManagers.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem/Check.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem/Check.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem/Script.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SaveData.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SaveData.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SaveLoadManager.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SaveLoadManager.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SettingsData.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/SaveSystem/Script/SettingsData.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/1 stage.unity",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Scenes/2 stage.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/2 stage/2 stage.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/2 stage/2 stage.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage boss.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage boss.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage final test.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage final test.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage lake.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage lake.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage pump.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage pump.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage shrine.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage tower.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage extra/3 stage tower.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage main.unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/3stage/3 stage main.unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Scenes/MainMenu.unity",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Scenes/Tutorial Map.unity",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/AudioManager.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/AudioManager.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/Chase.cs",
+    "a": false,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/Chase.cs.meta",
+    "a": false,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/CorruptedWater.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/CorruptedWater.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/EnvironmentManager.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/InteractivePrompt.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/InteractivePrompt.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/MainMenuUI.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/ObstacleInteraction.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/ObstacleInteraction.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/OverwriteConfirmPanel.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/OverwriteConfirmPanel.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/PersistentManagers.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/PersistentManagers.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/PlatformController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/PlatformController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/ProtoEnemy.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/ProtoEnemy.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/PureWater.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/PureWater.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/SaveSlotDialog.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/SaveSlotDialog.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/SlotSelectPanel.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/SlotSelectPanel.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/ElevatorButton.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/ElevatorButton.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/FloatingPlatform.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/FloatingPlatform.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/WaterElevator.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/WaterElevator.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/WaterGate.cs",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "Assets/Script/Stage1 Gimmick/WaterGate.cs.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/Script/TakeDmg.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/TakeDmg.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/Txt/DOUBLESPACE.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/Txt/DOUBLESPACE.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/Txt/SHIFT.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/Txt/SHIFT.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/Txt/SPACE.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/Txt/SPACE.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/Txt/TxtController.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/Txt/TxtController.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Script/Txt/WASD.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/Script/Txt/WASD.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/Shaders.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/2D_Fluid_Water.shader",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/2D_Fluid_Water.shader.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/2D_Fluid_Water_Guide.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/2D_Fluid_Water_Guide.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/Designer_Assets_Guide.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/Designer_Assets_Guide.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/FluidNoiseTexture.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/FluidNoiseTexture.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/FluidWater_Character.mat",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/FluidWater_Character.mat.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/FluidWater_Puddle.mat",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/FluidWater_Puddle.mat.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/HowToApply_WaterShader.md",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Shaders/Custom/HowToApply_WaterShader.md.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Sprites/Project.psb.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Resources/TMP Settings.asset",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Shaders/TMPro.cginc",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Shaders/TMPro.cginc.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/Tile/01_land1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/01_land2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일 2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일 2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일 2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일 2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_공중 타일_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_바닥.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_바닥.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_바닥_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1 스테이지_바닥_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/3.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/3.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/3_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/3_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/4.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/4.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/4_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/1 stage surface/4_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom center 4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/bottom right 4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center bottom 4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 7.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/center mid 7.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left bottom 3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left bottom 3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left top 2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left top 2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left top 4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left top 4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left top 8.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/left top 8.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/right bottom 3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/right bottom 3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/right top 2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/right top 2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/right top 4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/Inside/right top 4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/KakaoTalk_20260501_224318529.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/KakaoTalk_20260501_224318529.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/KakaoTalk_20260501_224318529_01.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/KakaoTalk_20260501_224318529_01.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/공중 타일 1_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 1_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 1_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/바닥 2_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_10.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_10.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_11.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_11.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_12.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_12.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_13.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_13.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_5.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_5.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_6.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_6.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_7.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_7.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_8.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_8.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_9.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소1_9.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_10.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_10.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_11.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_11.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_12.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_12.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_13.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_13.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_5.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_5.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_6.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_6.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_7.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_7.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_8.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_8.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_9.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 감소2_9.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가(웅덩이.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가(웅덩이.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_10.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_10.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_11.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_11.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_12.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_12.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_13.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_13.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_5.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_5.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_6.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_6.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_7.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_7.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_8.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_8.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_9.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가1_9.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_10.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_10.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_11.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_11.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_12.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_12.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_13.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_13.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_5.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_5.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_6.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_6.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_7.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_7.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_8.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_8.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_9.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/TutoSurface/이속 증가2_9.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/background.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/background/1_.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ground/background/1_.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_01_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_01_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_02.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_02.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_02_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_02_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/KakaoTalk_20260501_224318529_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/stairscase.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/1 stage/Ladder/stairscase.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/2 stage.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/1-2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/1-2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/4-1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/4-1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/back.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1-1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1-1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1-1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1-1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1-2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1-2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/1_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/2.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/2.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/3.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/3.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/3_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/3_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/4-1.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/4-1.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/4.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/4.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/4_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/4_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/c66853dcf9e8ecee.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/c66853dcf9e8ecee.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/3 stage/ground/바닥 타일_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/3.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/3.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 2.png.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3.png",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3.png.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_4.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/Ground/Surface/바닥 3_4.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/1.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/1.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/2.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/2.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/3.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/3.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/4.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/4.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/5.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/5.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/6.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/6.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/7.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/7.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/8.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/8.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/9.jpg",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/puzle/9.jpg.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_0.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_0.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_1.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_1.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_2.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_2.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_3.asset",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/Tile/바닥 2_3.asset.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/UniversalRenderPipelineGlobalSettings.asset",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Assets/_Recovery.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/_Recovery/0 (1).unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/_Recovery/0 (1).unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/_Recovery/0 (2).unity",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/_Recovery/0 (2).unity.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/_Recovery/0.unity",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/_Recovery/0.unity.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/prefab/Square.prefab",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/prefab/Square.prefab.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/3 stage.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/3 stage/FloorPuzzleManager.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/3 stage/FloorPuzzleManager.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/3 stage/OpengameManger.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/3 stage/OpengameManger.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/3 stage/RotatablePipe.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/3 stage/RotatablePipe.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/3 stage/SlidingPuzzleManager.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/3 stage/SlidingPuzzleManager.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/3 stage/SlidingPuzzleTrigger.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/3 stage/SlidingPuzzleTrigger.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/Checkpoint.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/FallZone.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/GameManager.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/InteractableWall.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/MapManger.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/MapManger.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/PlayerRespawn.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/PlayerSpawner.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/RoomSwitch.cs",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/RoomSwitch.cs.meta",
+    "a": false,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/map/script/SignpostPortal.cs",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/portal.cs",
+    "a": true,
+    "b": false,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "Assets/map/script/portal.cs.meta",
+    "a": true,
+    "b": false,
+    "base": true
+  },
+  {
+    "path": "Assets/에셋/33 1.psb.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/그로기.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/그로기.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/대기.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/대기.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/대지강타.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/대지강타.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/덩굴생성.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/덩굴생성.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/뿔공격.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/뿔공격.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/사망.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/사망.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/피격.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Boss/피격.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/PlayerHealthBar.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/PlayerHealthBar.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/WaterBar.prefab",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/WaterBar.prefab.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Wire_UI.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/Wire_UI.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/water_UI.png",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/water_UI.png.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/에셋/캐릭터/33.psb.meta",
+    "a": true,
+    "b": true,
+    "base": false
+  },
+  {
+    "path": "Assets/참고사항.txt",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Assets/참고사항.txt.meta",
+    "a": true,
+    "b": false,
+    "base": false
+  },
+  {
+    "path": "Packages/manifest.json",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "Packages/packages-lock.json",
+    "a": true,
+    "b": true,
+    "base": true
+  },
+  {
+    "path": "ProjectSettings/EditorBuildSettings.asset",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/PackageManagerSettings.asset",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/Packages/com.unity.ai.assistant/Settings.json",
+    "a": false,
+    "b": true,
+    "base": false,
+    "a_changed": false,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/Physics2DSettings.asset",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/PhysicsCoreProjectSettings2D.asset",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "ProjectSettings/ProjectAuditorSettings.asset",
+    "a": true,
+    "b": false,
+    "base": false,
+    "a_changed": true,
+    "b_changed": false
+  },
+  {
+    "path": "ProjectSettings/ProjectSettings.asset",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/ProjectVersion.txt",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/QualitySettings.asset",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  },
+  {
+    "path": "ProjectSettings/TagManager.asset",
+    "a": true,
+    "b": true,
+    "base": true,
+    "a_changed": true,
+    "b_changed": true
+  }
+]

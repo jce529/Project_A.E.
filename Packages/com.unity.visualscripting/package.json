@@ -1,0 +1,27 @@
+{
+  "name": "com.unity.visualscripting",
+  "displayName": "Visual Scripting",
+  "version": "1.9.13",
+  "unity": "6000.0",
+  "description": "Visual scripting is a workflow that uses visual, node-based graphs to design behaviors rather than write lines of C# script.\n\nEnabling artists, designers and programmers alike, visual scripting can be used to design final logic, quickly create prototypes, iterate on gameplay and create custom nodes to help streamline collaboration.\n\nVisual scripting is compatible with third-party APIs, including most packages, assets and custom libraries.",
+  "dependencies": {
+    "com.unity.ugui": "2.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0"
+  },
+  "relatedPackages": {
+    "com.unity.visualscripting.tests": "1.9.13"
+  },
+  "_upm": {
+    "changelog": "### Fixed\n- Fixed `Singleton` throwing \"Trying to destroy invalid instance\" when a stale instance is destroyed after entering Play Mode with Fast Enter Play Mode (domain reload disabled).\n- Fixed a duplicate `SceneManager.sceneUnloaded` handler being added on each Play Mode entry with Fast Enter Play Mode (domain reload disabled).\n- Fixed the `CoroutineRunner`, `GlobalMessageListener` and `VariablesSaver` singletons, and other runtime statics, not being reset when entering Play Mode with Fast Enter Play Mode (domain reload disabled)."
+  },
+  "upmCi": {
+    "footprint": "4dd2234ee253c93d7c69188e03b3066d8862574a"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.visualscripting@1.9/manual/index.html",
+  "repository": {
+    "url": "https://github.cds.internal.unity3d.com/unity/com.unity.visualscripting.git",
+    "type": "git",
+    "revision": "49be2f95fb68fae3681a1c9eb0eee0a62d689a92"
+  },
+  "_fingerprint": "f7fc8a0b602c998ea6404d87f349b57562b248a2"
+}
