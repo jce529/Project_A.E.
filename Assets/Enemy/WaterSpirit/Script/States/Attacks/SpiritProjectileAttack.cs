@@ -26,7 +26,8 @@ public class SpiritProjectileAttack : IAttackStrategy
         var proj = go.GetComponentInChildren<SpiritProjectile>();
         if (proj != null)
         {
-            proj.Init(dir, spirit.ProjectileDamage, spirit.PlayerLayer);
+            proj.Init(dir, spirit.ProjectileDamage, spirit.PlayerLayer, spirit);
+            spirit.PlayFx(SpiritFx.DropStart, go.transform.position);
         }
         else
         {

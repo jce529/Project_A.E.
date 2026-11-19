@@ -67,7 +67,30 @@ public class SpiritController : BossController
         return 0f;
     }
 
-    private void PlayHitAnim() => PlayAnim("Hit");
+    private SpiritEffects _fx;
+    public SpiritEffects Fx => _fx != null ? _fx : (_fx = GetComponent<SpiritEffects>());
+    private GameObject _groggyFx;
+
+    public GameObject PlayFx(SpiritFx id, Vector3? pos = null, float rotZ = 0f, float sizeMul = 1f, bool loop = false, Transform follow = null)
+        => Fx != null ? Fx.Play(id, pos ?? transform.position, rotZ, sizeMul, loop, follow) : null;
+
+    // 몸통 스프라이트 범위의 가운데 70% 안에서 무작위 지점 — 투명 여백에서 이펙트가 나오지 않게 한다.
+    private Vector3 RandomBodyPoint()
+    {
+        var body = GetComponentInChildren<SpriteRenderer>();
+        if (body == null) return transform.position;
+        Bounds b = body.bounds;
+        return new Vector3(
+            b.center.x + Random.Range(-b.extents.x, b.extents.x) * 0.7f,
+            b.center.y + Random.Range(-b.extents.y, b.extents.y) * 0.7f,
+            transform.position.z);
+    }
+
+    private void PlayHitAnim()
+    {
+        PlayAnim("Hit");
+        PlayFx(SpiritFx.Hit, RandomBodyPoint());
+    }
 
     protected override void Start()
     {
@@ -116,6 +139,8 @@ public class SpiritController : BossController
         IsHeavyComboInProgress = false;
         SetCharging(false);
         StopMove();
+        if (_groggyFx != null) Destroy(_groggyFx);
+        PlayFx(SpiritFx.Death);
 
         if (!CanAnimate)
         {
@@ -158,6 +183,9 @@ public class SpiritController : BossController
             Anim.SetBool("Move", _rb.linearVelocity.sqrMagnitude > 0.01f);
             Anim.SetBool("Groggy", CurrentState is GroggyState);
         }
+        bool groggy = CurrentState is GroggyState;
+        if (groggy && _groggyFx == null) _groggyFx = PlayFx(SpiritFx.Groggy, null, 0f, 1f, true, transform);
+        else if (!groggy && _groggyFx != null) Destroy(_groggyFx);
         // 상태 인터셉트 로직 유지
         if (CurrentState is CombatState && !(CurrentState is SpiritCombatState) && !(CurrentState is Stage2CombatState))
         {

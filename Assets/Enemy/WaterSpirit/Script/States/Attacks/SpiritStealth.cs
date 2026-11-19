@@ -33,7 +33,9 @@ public class SpiritStealth : IAttackStrategy
         yield return new WaitForSeconds(spirit.StealthDuration);
 
         // 3단계: 텔레포트
+        spirit.PlayFx(SpiritFx.Flash);
         spirit.transform.position = destination;
+        spirit.PlayFx(SpiritFx.Flash);
 
         // 4단계: 콜라이더 재활성화
         foreach (var c in colliders) if (c != null) c.enabled = true;
