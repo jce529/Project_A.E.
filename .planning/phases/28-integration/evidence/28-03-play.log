@@ -1,0 +1,59 @@
+PASS | A1 out-of-order visits set nothing | set flags after reverse visit: none
+PASS | A2 in-order sets all 8 s1.* flags | s1.lower.entered=True s1.platform.done=True s1.upper.entered=True slide.success=True s1.stepping.done=True s1.waterfall.done=True s1.split.entered=True s1.reward.entered=True CurrentStep=7
+PASS | A3a Stage1ProgressGate on after upper.entered | on=True off=False
+PASS | A4a slide fail clears slide/upper/platform | slide=False upper=False platform=False lower=True
+PASS | A4b slide fail respawns at lower checkpoint | player=(-40.00, -40.00, 0.00) checkpoint=(-40.00, -40.00, 0.00)
+PASS | A3b Stage1ProgressGate reverts after upper cleared | on=False off=True
+PASS | A5 platform retry after slide fail re-sets platform.done | platform.done=True triggerEnabled=False
+DONE-A
+PASS | B1a skip to area3 blocked | area3.visited=False blocked=1 entered=0
+PASS | B1a skip to area3 blocked | area3.visited=False blocked=1 entered=0
+PASS | B1b areas 1->6 linear flow | area1=True area2=True area3=True area4=True area5=True area6=True entered=6 blocked=1
+PASS | B2a exit gate blocked before lantern solved | blocked=1 allowed=0
+PASS | B3a fog not removed before lantern solved | TryRemoveFog=False fog.removed=False fogActive=True
+PASS | B4a wrong pattern [T,T,T] not solved | pattern=True,True,True solved=False
+PASS | B4b answer [T,F,T] -> lantern.solved + locked | pattern=True,False,True solved=True locked=True
+PASS | B3b fog removed permanently after solve | TryRemoveFog=True fog.removed=True fogActive=False
+PASS | B2b exit gate allowed after solve | allowed=1 blocked=1
+PASS | B5a prefab tablet without areaEnemies stays locked (needs enemies assigned) | Unlocked=False IsOpen=False
+PASS | B5b tablet locked while enemies alive | Unlocked=False flag=False
+PASS | B5c tablet unlocks only after all enemies dead (+area5.cleared) | afterFirst=locked afterAll Unlocked=True unlocked=True area5.cleared=True
+PASS | B5d tablet opens (panel on, read flag, Puzzle state) | IsOpen=True panel=True read=True state=Puzzle
+PASS | B5e tablet closes, input state restored, reopenable | closedOk=True reopen=True state=Playing
+PASS | B6 telescope open/close restores input state | whileOpen=True after=Playing timeScale=1
+PASS | B7a leave before 2s resets timer, no transform | timerAt1s=1.00 afterLeave=0 transformed=False
+PASS | B7b 2s dwell transforms (flag, tree off, monster on) | transformed=True flag=True tree=False monster=True
+DONE-B
+PASS | C1 zones 1->7 sequential | Z1 Z2 Z3 Z4 Z5 Z6 Z7 
+PASS | C2a non-adjacent 7->3 blocked | Current=Z7 reasons=Z7>Z3:NotAdjacent
+PASS | C2b 7->8 blocked | Current=Z7 reasons=Z7>Z3:NotAdjacent,Z7>Z8:NotAdjacent
+PASS | C2c Gate_7to8 blocker always active | blockerActive=True
+PASS | C3a return trip 7->6->5 allowed | Current=Z5
+PASS | C3b 5->8 blocked before lever | Current=Z5 last=Z5>Z8:WaterwayNotChanged
+PASS | C3c lever sets waterway.changed, Gate_5to8 blocker off | blockerBefore=True flag=True blockerAfter=False
+PASS | C3d 5->8 allowed after lever | Current=Z8
+PASS | C4a 8->9 blocked before tablet read | Current=Z8 last=Z8>Z9:TabletNotRead
+PASS | C4b floodgate stops waterfall | stopped=True flag=True waterfallActive=False
+PASS | C4c 2-2 tablet unlocked by flag only (lock bug fix): closed before, openable after waterfall stop | canInteractBefore=False Unlocked=True canInteractAfter=True
+PASS | C4d tablet read writes s2.b.tablet.read (not s2.a) | IsOpen-whileOpen=True s2.b.read=True s2.a.read=False
+PASS | C4e Gate_8to9 blocker off after tablet read | blockerActive=False
+PASS | C4f 8->9 allowed after tablet read | Current=Z9
+PASS | C5 9->1 allowed + s2.b.loop.completed | Current=Z1 loop.completed=True
+PASS | C6 wheel on -> lift rises to HighPoint | running=True lift.raised=True platformY 70.00->74.00 highY=74.00
+DONE-C
+PASS | F1 checkpoint Save() wrote all flags to disk | keys=23 file=C:/Users/chang/AppData/LocalLow/DefaultCompany/AQUA ECLIPSE\save.json containsLoopKey=True
+PASS | F2a post-checkpoint flags set in memory | tree.transformed=True post=True
+DIE-NOW
+DONE-F1
+PASS | F3a death -> LoadGame reloaded the scene | activeScene=_P28Test
+PASS | F3b all flags at checkpoint restored by GetGimmick after load | mismatches=0 
+PASS | F4 flags set after checkpoint rolled back on death-load | tree.transformed=False post=False
+PASS | F5 objects re-apply persisted state after load (fog, lantern, lever, floodgate, wheel/lift, gates, S1 gate, rollback) | all 13 checks ok
+PASS | F6a NewGame clears all flags | flagsStillTrue=0 dictCount=0
+DONE-F2
+PASS | F6b NewGame + scene reload shows default object state | all 9 checks ok
+DONE-F3
+PASS | G1 FlagStateVisual default state + white box sprite | count=15 default=15 whiteBox=15 
+PASS | G2 FlagStateVisual follows flags (Active / Changed / Interacted priority) | Lift=Active Slide=Changed (arts[] empty -> sprite unchanged, no exception)
+PASS | G3 Interacted outranks Active on tablet ArtState (2-1 instance) | Stage22Progress:Default Stage21Progress:Interacted 
+DONE-G
