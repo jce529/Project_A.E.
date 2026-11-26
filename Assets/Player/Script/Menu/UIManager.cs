@@ -8,23 +8,17 @@ public class UIManager : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private GameObject BackgroundPanel;
-    public GameObject ClearPanel; // º¸½º ÄÁÆ®·Ñ·¯ ÂüÁ¶¿ë
+    public GameObject ClearPanel;
 
     private Stack<GameObject> uiStack = new Stack<GameObject>();
 
-    // [Áß¿ä] ¿ÜºÎ¿¡¼­ ÇöÀç ¸Ç À§ÀÇ ÆÐ³ÎÀ» È®ÀÎÇÒ ¼ö ÀÖ´Â ÇÁ·ÎÆÛÆ¼ (PauseMenu ¿À·ù ÇØ°á¿ë)
-    public GameObject TopPanel
-    {
-        get
-        {
-            if (uiStack.Count > 0) return uiStack.Peek();
-            return null;
-        }
-    }
+    // í˜„ìž¬ í™”ë©´ì— í‘œì‹œ ì¤‘ì¸ ìµœìƒë‹¨ íŒ¨ë„ ì¶”ì  í•„ë“œ
+    private GameObject _currentPanel;
+
+    public GameObject TopPanel => _currentPanel;
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ Áßº¹ ¹æÁö
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
@@ -33,8 +27,13 @@ public class UIManager : MonoBehaviour
     {
         if (panel == null) return;
 
-        panel.SetActive(true);
+        // í˜„ìž¬ íŒ¨ë„ ìˆ¨ê¸°ê¸° (ê²¹ì¹¨ ë°©ì§€)
+        if (_currentPanel != null)
+            _currentPanel.SetActive(false);
+
         uiStack.Push(panel);
+        _currentPanel = panel;
+        _currentPanel.SetActive(true);
 
         if (BackgroundPanel != null) BackgroundPanel.SetActive(true);
 
@@ -45,36 +44,36 @@ public class UIManager : MonoBehaviour
     {
         if (uiStack.Count == 0) return;
 
-        GameObject topPanel = uiStack.Pop();
-        topPanel.SetActive(false);
+        // í˜„ìž¬ íŒ¨ë„ ë‹«ê¸°
+        uiStack.Pop().SetActive(false);
 
+        // ì´ì „ íŒ¨ë„ë¡œ ë³µê·€
         if (uiStack.Count > 0)
         {
-            uiStack.Peek().SetActive(true);
+            _currentPanel = uiStack.Peek();
+            _currentPanel.SetActive(true);
         }
         else
         {
+            _currentPanel = null;
             if (BackgroundPanel != null) BackgroundPanel.SetActive(false);
         }
 
         UpdateGameState();
     }
 
-    // [Áß¿ä] ¸ðµç Ã¢À» ´Ý´Â ±â´É (PauseMenu ¿À·ù ÇØ°á¿ë)
     public void CloseAll()
     {
         while (uiStack.Count > 0)
-        {
-            GameObject panel = uiStack.Pop();
-            panel.SetActive(false);
-        }
+            uiStack.Pop().SetActive(false);
+
+        _currentPanel = null;
 
         if (BackgroundPanel != null) BackgroundPanel.SetActive(false);
 
         UpdateGameState();
     }
 
-    // ÇöÀç UI°¡ ¿­·ÁÀÖ´ÂÁö È®ÀÎ
     public bool IsUIOpen()
     {
         return uiStack.Count > 0;
@@ -84,23 +83,15 @@ public class UIManager : MonoBehaviour
     {
         if (GameStateManager.Instance == null) return;
 
-        if (uiStack.Count == 0)
+        if (_currentPanel == null)
         {
             GameStateManager.Instance.SetState(GameStateManager.GameState.Playing);
             return;
         }
 
-        GameObject topPanel = uiStack.Peek();
-        UIPanelProperties properties = topPanel.GetComponent<UIPanelProperties>();
-
-        if (properties != null)
-        {
-            GameStateManager.Instance.SetState(properties.targetState);
-        }
-        else
-        {
-            GameStateManager.Instance.SetState(GameStateManager.GameState.Paused);
-        }
+        UIPanelProperties properties = _currentPanel.GetComponent<UIPanelProperties>();
+        GameStateManager.Instance.SetState(
+            properties != null ? properties.targetState : GameStateManager.GameState.Paused);
     }
 
     public void RetryGame()

@@ -1,31 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SignpostPortal : MonoBehaviour
+public class SignpostPortal : MonoBehaviour, IPlayerInteractable
 {
-    [Header("이동 설정")]
     public string nextSceneName;
     public string spawnPointName;
 
-    private bool playerInRange = false;
-
-    void Update()
+    public bool CanInteract(PlayerInteraction player)
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.W))
-        {
-            // 정적 변수에 목표 지점 이름을 미리 저장
-            PlayerSpawner.targetSpawnPointName = spawnPointName;
-            SceneManager.LoadScene(nextSceneName);
-        }
+        return player != null && !string.IsNullOrEmpty(nextSceneName) &&
+            Application.CanStreamedLevelBeLoaded(nextSceneName);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void Interact(PlayerInteraction player)
     {
-        if (other.CompareTag("Player")) playerInRange = true;
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) playerInRange = false;
+        if (!CanInteract(player)) return;
+        PlayerSpawner.targetSpawnPointName = spawnPointName;
+        SceneManager.LoadScene(nextSceneName);
     }
 }

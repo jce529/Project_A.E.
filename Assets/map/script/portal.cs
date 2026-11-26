@@ -1,34 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour
+public class Portal : MonoBehaviour, IPlayerInteractable
 {
-    [Header("이동 설정")]
-    public string sceneToLoad;      // 이동할 씬 이름
-    public string targetSpawnName;  // 도착지 스폰 지점 이름
+    public string sceneToLoad;
+    public string targetSpawnName;
 
-    private bool isPlayerNearby = false;
-
-    private void Update()
+    public bool CanInteract(PlayerInteraction player)
     {
-        // W키를 눌러 이동 (원하는 키로 변경 가능)
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.W))
-        {
-            // 1. 이동할 스폰 지점 이름을 매니저에 저장
-            GameManager.Instance.NextSpawnPointName = targetSpawnName;
-
-            // 2. 씬 로드
-            SceneManager.LoadScene(sceneToLoad);
-        }
+        return player != null && !string.IsNullOrEmpty(sceneToLoad) &&
+            Application.CanStreamedLevelBeLoaded(sceneToLoad);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void Interact(PlayerInteraction player)
     {
-        if (other.CompareTag("Player")) isPlayerNearby = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) isPlayerNearby = false;
+        if (!CanInteract(player)) return;
+        // The current PlayerSpawner consumes this value; preserve the legacy manager too.
+        PlayerSpawner.targetSpawnPointName = targetSpawnName;
+        if (GameManager.Instance != null) GameManager.Instance.NextSpawnPointName = targetSpawnName;
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

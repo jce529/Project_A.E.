@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class enemy : MonoBehaviour
+public class enemy : HP
 {
     public GameObject bulletPrefab; // 발사할 총알 프리팹
     public Transform firePoint;     // 총알이 발사될 위치 (적 캐릭터의 자식 오브젝트로 설정)
@@ -68,29 +68,10 @@ public class enemy : MonoBehaviour
         }
     }
 
-    // 플레이어의 공격을 받았을 때 실행되는 함수
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        Debug.Log(gameObject.name + " 피격! 남은 체력 : " + health);
-
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
-    void Die()
+    public override void Die()
     {
         Debug.Log(gameObject.name + " 사망!");
-
-        // 죽기 직전에 등록된 이벤트(비밀의 벽 해제 등)를 실행
-        if (onDeathEvent != null)
-        {
-            onDeathEvent.Invoke();
-        }
-
-        Destroy(gameObject);
+        base.Die();
     }
 
     void OnDrawGizmosSelected()

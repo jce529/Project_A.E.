@@ -1,111 +1,67 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // 텍스트 표시를 위해 추가
-using System.Collections.Generic;
 
 public class PlayerHealthUI : MonoBehaviour
 {
-    [Header("Heart Settings")]
-    public Transform heartsParent;
-    public GameObject heartContainerPrefab;
-    public float healthPerHeart = 5f; // 하트 1개당 체력 수치
+    [Header("Health Bar Prefab Settings")]
+    public GameObject healthBarPrefab; // 생성할 체력바 프리팹 할당
+    public Transform canvasParent;     // 체력바가 소환될 부모 캔버스 (또는 패널) 위치
 
-    [Header("Slider Settings (Optional)")]
-    public Slider healthSlider; // 슬라이더를 쓰고 싶다면 할당
-
-    [Header("Text Settings (Optional)")]
-    public TextMeshProUGUI healthText; // "25 / 50" 처럼 표시할 텍스트
-
-    private List<GameObject> heartContainers = new List<GameObject>();
-    private List<Image> heartFills = new List<Image>();
+    private Slider healthSlider;       // 소환된 프리팹에서 자동으로 뽑아올 슬라이더 컴포넌트
 
     private void Start()
     {
         if (PlayerStats.Instance == null)
         {
-            Debug.LogWarning("PlayerStats Instance를 찾을 수 없습니다. 씬에 PlayerStats가 있는지 확인하세요.");
+            Debug.LogWarning("PlayerStats Instance를 찾을 수 없습니다.");
             return;
         }
 
-        // 초기화 및 콜백 등록
-        InitHearts();
+        // 1. 프리팹 소환 및 슬라이더 연결
+        InitHealthBar();
+
+        // 2. 체력 변경 이벤트 구독 (체력이 변할 때마다 UpdateHealthUI 실행)
         PlayerStats.Instance.onHealthChangedCallback += UpdateHealthUI;
+
+        // 3. 게임 시작 시 체력 UI 초기 갱신
         UpdateHealthUI();
     }
 
     private void OnDestroy()
     {
+        // 스크립트 파괴 시 이벤트 구독 해제
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.onHealthChangedCallback -= UpdateHealthUI;
         }
     }
 
-    private void InitHearts()
+    private void InitHealthBar()
     {
-        // 기존 하트 제거
-        foreach (Transform child in heartsParent)
+        if (healthBarPrefab != null && canvasParent != null)
         {
-            Destroy(child.gameObject);
-        }
-        heartContainers.Clear();
-        heartFills.Clear();
+            // 지정한 캔버스(부모) 하위에 체력바 프리팹 생성
+            GameObject spawnedBar = Instantiate(healthBarPrefab, canvasParent);
 
-        // PlayerStats의 MaxTotalHealth만큼 하트 생성
-        // 체력 5당 하트 1개 계산
-        int maxHeartCount = Mathf.CeilToInt(PlayerStats.Instance.MaxTotalHealth / healthPerHeart);
-        
-        for (int i = 0; i < maxHeartCount; i++)
+            // 생성된 오브젝트에서 Slider 컴포넌트를 찾아서 캐싱
+            healthSlider = spawnedBar.GetComponent<Slider>();
+
+            // 만약 프리팹 최상위가 아니라 자식 오브젝트에 슬라이더가 있다면 아래 코드를 대신 사용하세요:
+            // healthSlider = spawnedBar.GetComponentInChildren<Slider>();
+        }
+        else
         {
-            GameObject heart = Instantiate(heartContainerPrefab, heartsParent);
-            heartContainers.Add(heart);
-            
-            // 프리팹 구조에 따라 HeartFill 이미지를 찾음
-            Transform fillTransform = heart.transform.Find("HeartFill");
-            if (fillTransform != null)
-            {
-                heartFills.Add(fillTransform.GetComponent<Image>());
-            }
+            Debug.LogWarning("체력바 프리팹이나 Canvas 부모가 인스펙터에 할당되지 않았습니다!");
         }
     }
 
     public void UpdateHealthUI()
     {
-        float currentHealth = PlayerStats.Instance.Health;
-        float maxHealth = PlayerStats.Instance.MaxHealth;
-
-        // 1. 하트 업데이트
-        for (int i = 0; i < heartContainers.Count; i++)
-        {
-            // 현재 최대 체력 범위 내의 하트만 활성화
-            if (i * healthPerHeart < maxHealth)
-            {
-                heartContainers[i].SetActive(true);
-                
-                // 해당 하트가 담당하는 체력 범위 내에서 FillAmount 계산
-                // 예: 하트 0번(체력 0~5), 하트 1번(체력 5~10)
-                float healthInThisHeart = currentHealth - (i * healthPerHeart);
-                float fillValue = healthInThisHeart / healthPerHeart;
-                
-                heartFills[i].fillAmount = Mathf.Clamp01(fillValue);
-            }
-            else
-            {
-                heartContainers[i].SetActive(false);
-            }
-        }
-
-        // 2. 슬라이더 업데이트 (할당된 경우)
+        // 슬라이더가 정상적으로 생성되고 연결되었을 때만 작동
         if (healthSlider != null)
         {
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = currentHealth;
-        }
-
-        // 3. 텍스트 업데이트 (할당된 경우)
-        if (healthText != null)
-        {
-            healthText.text = $"{Mathf.CeilToInt(currentHealth)} / {Mathf.CeilToInt(maxHealth)}";
+            healthSlider.maxValue = PlayerStats.Instance.MaxHealth;
+            healthSlider.value = PlayerStats.Instance.Health;
         }
     }
 }

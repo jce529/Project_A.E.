@@ -1,35 +1,25 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    public float destroytime = 5;
-    public int damage = 1;
-    private Animator animator;
-    public int handspeed;
-    private float initialY;
-   void Start()
-    {
-        animator = GetComponent<Animator>();
-        animator.SetTrigger("Appear");
-        Invoke("Attack", 0.5f);
-        Destroy(gameObject, destroytime);
-        initialY = transform.position.y;
-
     [Header("공격 설정")]
-    public float warningDuration = 1.0f; // 경고 유지 시간
-    public float attackLifetime = 2.0f;  // 손 존재 시간
-    public float handRiseSpeed = 2f;     // 상승 속도
-    public float handRiseHeight = 2f;    // 상승 높이
-    public int damage = 10;              // 데미지
-    public float attackInterval = 4f;    // 반복 공격 간격
-    public float detectionRadius = 12f;  // 플레이어 탐지 범위
+    public float warningDuration = 1.0f;
+    public float attackLifetime = 2.0f;
+    public float handRiseSpeed = 2f;
+    public float handRiseHeight = 2f;
+    public int damage = 10;
+    public float attackInterval = 4f;
+    public float detectionRadius = 12f;
+
+    [Header("프리팹")]
+    public GameObject warningPrefab;
+    public GameObject handVisualPrefab;
 
     private Transform player;
 
     void Start()
     {
-        // 🎯 플레이어 자동 탐색
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -53,20 +43,16 @@ public class Hand : MonoBehaviour
 
     private IEnumerator AttackSequence()
     {
-        // 플레이어가 탐지 범위 밖이면 스킵
         if (player == null || Vector2.Distance(transform.position, player.position) > detectionRadius)
             yield break;
 
-        // 1️⃣ 플레이어 아래 위치 계산
         Vector2 playerPos = player.position;
         Vector2 targetPos = GetGroundPosition(playerPos);
 
-        // 2️⃣ 경고 표시
         GameObject warning = Instantiate(warningPrefab, targetPos, Quaternion.identity);
         yield return new WaitForSeconds(warningDuration);
         Destroy(warning);
 
-        // 3️⃣ 손 생성
         GameObject hand = Instantiate(handVisualPrefab, targetPos, Quaternion.identity);
 
         float startY = hand.transform.position.y;
@@ -75,7 +61,6 @@ public class Hand : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < attackLifetime)
         {
-            // 🧩 손이 삭제되었으면 즉시 루프 중단
             if (hand == null)
                 yield break;
 
@@ -89,7 +74,6 @@ public class Hand : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
 
         Destroy(hand);
     }

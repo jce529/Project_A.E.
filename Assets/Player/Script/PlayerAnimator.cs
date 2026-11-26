@@ -10,7 +10,13 @@ public class PlayerAnimator : MonoBehaviour
     private readonly int animIsMove = Animator.StringToHash("isMove");
     private readonly int animIsRun = Animator.StringToHash("isRun");
     private readonly int animIsJump = Animator.StringToHash("isJump");
-    private readonly int animAttack = Animator.StringToHash("Attack");
+
+    private readonly int animAttack1 = Animator.StringToHash("Attack1");
+    private readonly int animAttack2 = Animator.StringToHash("Attack2");
+    private readonly int animAttack3 = Animator.StringToHash("Attack3");
+    
+    private readonly int animHit = Animator.StringToHash("Hit");
+    private readonly int animParry = Animator.StringToHash("Parry");
 
     void Awake()
     {
@@ -42,8 +48,21 @@ public class PlayerAnimator : MonoBehaviour
     /// <summary>
     /// 외부(공격 스크립트 등)에서 호출하여 공격 애니메이션을 실행합니다.
     /// </summary>
-    public void PlayAttackAnimation()
+
+    public void PlayAttackAnimation(int step)
     {
-        anim.SetTrigger(animAttack);
+        if (step == 1) anim.SetTrigger(animAttack1);
+        else if (step == 2) anim.SetTrigger(animAttack2);
+        else if (step == 3) anim.SetTrigger(animAttack3);
+    }
+
+    public void PlayHitAnimation()
+    {
+        anim.SetTrigger(animHit);
+    }
+    
+    public void PlayParryAnimation()
+    {
+        anim.SetTrigger(animParry);
     }
 }

@@ -94,41 +94,52 @@ public class InputHandler : MonoBehaviour
         skill_1 = playerMap.FindAction("Skill_1");
         skill_2 = playerMap.FindAction("Skill_2");
         heal = playerMap.FindAction("Heal");
-        interactAction = playerMap.FindAction("Action");
+        interactAction = playerMap.FindAction("Interact") ?? playerMap.FindAction("Action");
 
         LoadBindingOverrides();
     }
 
     private void OnEnable()
     {
-        if (inputActions != null) inputActions.Enable();
-
-        // null üũ �� ���� (�ϳ��� ��� �������� �۵���)
-        if (moveAction != null)
-        {
-            moveAction.performed += ctx => OnMoveEvent?.Invoke(ctx.ReadValue<Vector2>());
-            moveAction.canceled += ctx => OnMoveEvent?.Invoke(Vector2.zero);
-        }
-        if (jumpAction != null) jumpAction.performed += ctx => OnJumpEvent?.Invoke();
-        if (runAction != null)
-        {
-            runAction.performed += ctx => OnRunEvent?.Invoke(true);
-            runAction.canceled += ctx => OnRunEvent?.Invoke(false);
-        }
-        if (pauseAction != null) pauseAction.performed += ctx => OnPauseEvent?.Invoke();
-
-        if (basicAttack != null) basicAttack.performed += ctx => OnBasicAttackEvent?.Invoke();
-        if (skill_1 != null) skill_1.performed += ctx => OnSkill1Event?.Invoke();
-        if (skill_2 != null) skill_2.performed += ctx => OnSkill2Event?.Invoke();
-        if (heal != null) heal.performed += ctx => OnHealEvent?.Invoke();
-        if (interactAction != null) interactAction.performed += ctx => OnInteractEvent?.Invoke();
+        // A duplicate persistent manager must not enable/disable the shared action asset.
+        if (Instance != this || inputActions == null) return;
+        if (moveAction != null) { moveAction.performed += HandleMove; moveAction.canceled += HandleMove; }
+        if (jumpAction != null) jumpAction.performed += HandleJump;
+        if (runAction != null) { runAction.performed += HandleRun; runAction.canceled += HandleRun; }
+        if (pauseAction != null) pauseAction.performed += HandlePause;
+        if (basicAttack != null) basicAttack.performed += HandleBasicAttack;
+        if (skill_1 != null) skill_1.performed += HandleSkill1;
+        if (skill_2 != null) skill_2.performed += HandleSkill2;
+        if (heal != null) heal.performed += HandleHeal;
+        if (interactAction != null) interactAction.performed += HandleInteract;
+        inputActions.Enable();
     }
+
+    private void HandleMove(InputAction.CallbackContext ctx) => OnMoveEvent?.Invoke(ctx.ReadValue<Vector2>());
+    private void HandleJump(InputAction.CallbackContext ctx) => OnJumpEvent?.Invoke();
+    private void HandleRun(InputAction.CallbackContext ctx) => OnRunEvent?.Invoke(!ctx.canceled);
+    private void HandlePause(InputAction.CallbackContext ctx) => OnPauseEvent?.Invoke();
+    private void HandleBasicAttack(InputAction.CallbackContext ctx) => OnBasicAttackEvent?.Invoke();
+    private void HandleSkill1(InputAction.CallbackContext ctx) => OnSkill1Event?.Invoke();
+    private void HandleSkill2(InputAction.CallbackContext ctx) => OnSkill2Event?.Invoke();
+    private void HandleHeal(InputAction.CallbackContext ctx) => OnHealEvent?.Invoke();
+    private void HandleInteract(InputAction.CallbackContext ctx) => OnInteractEvent?.Invoke();
 
     // ==================================================================================
     // 6. ��Ȱ��ȭ (OnDisable)
     // ==================================================================================
     private void OnDisable()
     {
+        if (Instance != this) return;
+        if (moveAction != null) { moveAction.performed -= HandleMove; moveAction.canceled -= HandleMove; }
+        if (jumpAction != null) jumpAction.performed -= HandleJump;
+        if (runAction != null) { runAction.performed -= HandleRun; runAction.canceled -= HandleRun; }
+        if (pauseAction != null) pauseAction.performed -= HandlePause;
+        if (basicAttack != null) basicAttack.performed -= HandleBasicAttack;
+        if (skill_1 != null) skill_1.performed -= HandleSkill1;
+        if (skill_2 != null) skill_2.performed -= HandleSkill2;
+        if (heal != null) heal.performed -= HandleHeal;
+        if (interactAction != null) interactAction.performed -= HandleInteract;
         if (inputActions != null) inputActions.Disable();
     }
 
@@ -170,6 +181,10 @@ public class InputHandler : MonoBehaviour
 
         // 2. �׼��� ã�ƺ��ϴ�.
         InputAction foundAction = inputActions.FindAction(actionName);
+        if (foundAction == null && (actionName == "Interact" || actionName == "Player/Interact"))
+            foundAction = inputActions.FindAction("Player/Action");
+        if (foundAction == null && (actionName == "Action" || actionName == "Player/Action"))
+            foundAction = inputActions.FindAction("Player/Interact");
 
         // 3. �� ã���� ���
         if (foundAction == null)

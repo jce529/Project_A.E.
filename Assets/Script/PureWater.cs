@@ -1,43 +1,20 @@
 using UnityEngine;
 
-public class PureWater : MonoBehaviour
+public class PureWater : MonoBehaviour, IPlayerInteractable
 {
     public WaterController waterController;
-    private bool PlayerInRange = false;
 
-    private void OnTriggerEnter(Collider other)
+    public bool CanInteract(PlayerInteraction player)
     {
-        if (other.CompareTag("Player"))
-        {
-            PlayerInRange = true;
-            Debug.Log("Player entered the corrupted water area.");
-        }
+        if (player == null) return false;
+        var water = player.WaterController != null ? player.WaterController : waterController;
+        return water != null && water.waterCounter() + water.corruptedwaterCounter() < water.bottles.Count;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void Interact(PlayerInteraction player)
     {
-        if (other.CompareTag("Player"))
-        {
-            PlayerInRange = false;
-            Debug.Log("Player exited the corrupted water area.");
-        }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (PlayerInRange && Input.GetKeyDown(KeyCode.Q))
-        {
-            if (waterController.corruptedwaterCounter() + waterController.waterCounter() < waterController.bottles.Count)
-            {
-                waterController.RecoveryWater();
-                Debug.Log("Corrupted water recovered.");
-            }
-            else
-            {
-                Debug.Log("No more bottles available to recover corrupted water.");
-            }
-        }
+        if (!CanInteract(player)) return;
+        var water = player.WaterController != null ? player.WaterController : waterController;
+        water.RecoveryWater();
     }
 }

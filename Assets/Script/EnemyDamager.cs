@@ -22,7 +22,6 @@ public class EnemyDamager : Damager
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Dynamic; 
     }
 
     // ⭐ 실제 물리 충돌 발생 시 호출됨 (Trigger 아님)

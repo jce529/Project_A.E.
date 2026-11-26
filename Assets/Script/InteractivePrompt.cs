@@ -1,68 +1,32 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-public class InteractionPrompt : MonoBehaviour
+// Keep the script GUID and all serialized fields; fix the old file/class name mismatch.
+[MovedFrom(true, sourceNamespace: null, sourceAssembly: null, sourceClassName: "InteractionPrompt")]
+public class InteractivePrompt : MonoBehaviour, IPlayerInteractable
 {
-    [Header("UI 설정")]
     public GameObject promptUI;
-
-    [Header("거리 설정")]
     public float interactionDistance = 3f;
-
-    [Header("상호작용 연결")]
     public WaterController waterController;
 
-    private Transform playerTransform;
-    private Transform mainCameraTransform;
-
-    void Start()
+    private void OnEnable()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
-        mainCameraTransform = Camera.main?.transform;
-
-        if (promptUI != null)
-            promptUI.SetActive(false);
+        // The shared PlayerInteractionPrompt now owns the only visible prompt.
+        if (promptUI != null) promptUI.SetActive(false);
     }
 
-    void Update()
+    public bool CanInteract(PlayerInteraction player)
     {
-        if (playerTransform == null || promptUI == null) return;
-
-        float distance = Vector3.Distance(transform.position, playerTransform.position);
-
-        if (distance <= interactionDistance)
-        {
-            promptUI.SetActive(true);
-
-            // 🎯 F키로 물 회복 상호작용
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                Interact();
-            }
-        }
-        else
-        {
-            promptUI.SetActive(false);
-        }
+        if (player == null || (player.transform.position - transform.position).sqrMagnitude > interactionDistance * interactionDistance)
+            return false;
+        var water = player.WaterController != null ? player.WaterController : waterController;
+        return water != null && water.waterCounter() + water.corruptedwaterCounter() < water.bottles.Count;
     }
 
-    void LateUpdate()
+    public void Interact(PlayerInteraction player)
     {
-        if (promptUI != null && promptUI.activeSelf && mainCameraTransform != null)
-        {
-            // UI가 항상 카메라 정면을 향하도록
-            promptUI.transform.rotation = mainCameraTransform.rotation;
-        }
-    }
-
-    void Interact()
-    {
-        if (waterController != null)
-        {
-            // ✅ 깨끗한 물 회복
-            waterController.RecoveryWater();
-        }
-
-        promptUI.SetActive(false);
-        Debug.Log("💧 물병이 회복되었습니다!");
+        if (!CanInteract(player)) return;
+        var water = player.WaterController != null ? player.WaterController : waterController;
+        water.RecoveryWater();
     }
 }

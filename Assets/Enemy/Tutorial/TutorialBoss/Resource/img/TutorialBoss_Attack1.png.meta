@@ -1,0 +1,988 @@
+fileFormatVersion: 2
+guid: 717ecd1c694001c41b54c0dd8ac16c4e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7778812631487983568
+    second: TutorialBoss_Attack1_0
+  - first:
+      213: -8693089198304163314
+    second: TutorialBoss_Attack1_1
+  - first:
+      213: -4280287459423574703
+    second: TutorialBoss_Attack1_2
+  - first:
+      213: -5599761165390671891
+    second: TutorialBoss_Attack1_3
+  - first:
+      213: 5024970202726964084
+    second: TutorialBoss_Attack1_4
+  - first:
+      213: -496298065378227686
+    second: TutorialBoss_Attack1_5
+  - first:
+      213: 8797022982640817049
+    second: TutorialBoss_Attack1_6
+  - first:
+      213: -6893292775784422855
+    second: TutorialBoss_Attack1_7
+  - first:
+      213: 4226984951422966950
+    second: TutorialBoss_Attack1_8
+  - first:
+      213: 5141466479905121792
+    second: TutorialBoss_Attack1_9
+  - first:
+      213: -3545926967102952210
+    second: TutorialBoss_Attack1_10
+  - first:
+      213: 2410476205390019497
+    second: TutorialBoss_Attack1_11
+  - first:
+      213: 5525822338848768866
+    second: TutorialBoss_Attack1_12
+  - first:
+      213: -9067805288496020985
+    second: TutorialBoss_Attack1_13
+  - first:
+      213: 5480459027185803747
+    second: TutorialBoss_Attack1_14
+  - first:
+      213: -7863515903966637311
+    second: TutorialBoss_Attack1_15
+  - first:
+      213: 7023453598134633837
+    second: TutorialBoss_Attack1_16
+  - first:
+      213: -7272115628319871453
+    second: TutorialBoss_Attack1_17
+  - first:
+      213: -7951593963270346931
+    second: TutorialBoss_Attack1_18
+  - first:
+      213: -5559871598490404931
+    second: TutorialBoss_Attack1_19
+  - first:
+      213: 1604877421169845320
+    second: TutorialBoss_Attack1_20
+  - first:
+      213: 7950180111726582887
+    second: TutorialBoss_Attack1_21
+  - first:
+      213: 4641252746843410645
+    second: TutorialBoss_Attack1_22
+  - first:
+      213: 4634168969946456329
+    second: TutorialBoss_Attack1_23
+  - first:
+      213: -8235513017480955956
+    second: TutorialBoss_Attack1_24
+  - first:
+      213: 6857008643914247576
+    second: TutorialBoss_Attack1_25
+  - first:
+      213: 1062420379598669433
+    second: TutorialBoss_Attack1_26
+  - first:
+      213: -2695584468412794784
+    second: TutorialBoss_Attack1_27
+  - first:
+      213: -503528448842215159
+    second: TutorialBoss_Attack1_28
+  - first:
+      213: -6912415496820103287
+    second: TutorialBoss_Attack1_29
+  - first:
+      213: 3990324149945490660
+    second: TutorialBoss_Attack1_30
+  - first:
+      213: -8565669606618013924
+    second: TutorialBoss_Attack1_31
+  - first:
+      213: -134661059305624713
+    second: TutorialBoss_Attack1_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_0
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 7737
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03056d5202b1c0490800000000000000
+      internalID: -7778812631487983568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_1
+      rect:
+        serializedVersion: 2
+        x: 2212
+        y: 7737
+        width: 1310
+        height: 680
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0a8b4e9e61fb5780800000000000000
+      internalID: -8693089198304163314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_2
+      rect:
+        serializedVersion: 2
+        x: 4165
+        y: 7737
+        width: 1244
+        height: 657
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 155af7ccb3d5994c0800000000000000
+      internalID: -4280287459423574703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_3
+      rect:
+        serializedVersion: 2
+        x: 6118
+        y: 7737
+        width: 1179
+        height: 633
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: def8cdd83e6a942b0800000000000000
+      internalID: -5599761165390671891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_4
+      rect:
+        serializedVersion: 2
+        x: 7758
+        y: 7737
+        width: 1742
+        height: 655
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47b9674a6c74cb540800000000000000
+      internalID: 5024970202726964084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6657
+        width: 7663
+        height: 705
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1aca6ef98bcc19f0800000000000000
+      internalID: -496298065378227686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_6
+      rect:
+        serializedVersion: 2
+        x: 7698
+        y: 6657
+        width: 1860
+        height: 679
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 993d0494bcd451a70800000000000000
+      internalID: 8797022982640817049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_7
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 5577
+        width: 1811
+        height: 670
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9326a9e1eba1650a0800000000000000
+      internalID: -6893292775784422855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_8
+      rect:
+        serializedVersion: 2
+        x: 1987
+        y: 5577
+        width: 1764
+        height: 659
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6acdc74fa6449aa30800000000000000
+      internalID: 4226984951422966950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_9
+      rect:
+        serializedVersion: 2
+        x: 3929
+        y: 5577
+        width: 1718
+        height: 650
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 006a257d5882a5740800000000000000
+      internalID: 5141466479905121792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_10
+      rect:
+        serializedVersion: 2
+        x: 5861
+        y: 5577
+        width: 1694
+        height: 645
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeca956e5365acec0800000000000000
+      internalID: -3545926967102952210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_11
+      rect:
+        serializedVersion: 2
+        x: 7805
+        y: 5577
+        width: 1647
+        height: 634
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9abbdc9665bb37120800000000000000
+      internalID: 2410476205390019497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_12
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 4497
+        width: 1600
+        height: 624
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 263cffed32aafac40800000000000000
+      internalID: 5525822338848768866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_13
+      rect:
+        serializedVersion: 2
+        x: 2093
+        y: 4497
+        width: 1551
+        height: 614
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70249c6222fa82280800000000000000
+      internalID: -9067805288496020985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_14
+      rect:
+        serializedVersion: 2
+        x: 4116
+        y: 4497
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e12e71d2708e0c40800000000000000
+      internalID: 5480459027185803747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_15
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 4497
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1031f62b2fd2fd290800000000000000
+      internalID: -7863515903966637311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_16
+      rect:
+        serializedVersion: 2
+        x: 7956
+        y: 4497
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d65014de5d1587160800000000000000
+      internalID: 7023453598134633837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_17
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 3417
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32e6d688d51441b90800000000000000
+      internalID: -7272115628319871453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_18
+      rect:
+        serializedVersion: 2
+        x: 2196
+        y: 3417
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4761257b6346a190800000000000000
+      internalID: -7951593963270346931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_19
+      rect:
+        serializedVersion: 2
+        x: 4116
+        y: 3417
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db732371d3e57d2b0800000000000000
+      internalID: -5559871598490404931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_20
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 3417
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 844afd4f28ba54610800000000000000
+      internalID: 1604877421169845320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_21
+      rect:
+        serializedVersion: 2
+        x: 7956
+        y: 3417
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c96d390b6b45e60800000000000000
+      internalID: 7950180111726582887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_22
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 2337
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d0586868ca096040800000000000000
+      internalID: 4641252746843410645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_23
+      rect:
+        serializedVersion: 2
+        x: 2196
+        y: 2337
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 901ebc21020ef4040800000000000000
+      internalID: 4634168969946456329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_24
+      rect:
+        serializedVersion: 2
+        x: 4116
+        y: 2337
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc731f15b8495bd80800000000000000
+      internalID: -8235513017480955956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_25
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 2337
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89daa4a180df82f50800000000000000
+      internalID: 6857008643914247576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_26
+      rect:
+        serializedVersion: 2
+        x: 7956
+        y: 2337
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9764d10d4b97ebe00800000000000000
+      internalID: 1062420379598669433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_27
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1257
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 068f132353c579ad0800000000000000
+      internalID: -2695584468412794784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_28
+      rect:
+        serializedVersion: 2
+        x: 2196
+        y: 1257
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 901d4782b8b1309f0800000000000000
+      internalID: -503528448842215159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_29
+      rect:
+        serializedVersion: 2
+        x: 4116
+        y: 1257
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 987e12caaba2210a0800000000000000
+      internalID: -6912415496820103287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_30
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 1257
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ecd9283caa706730800000000000000
+      internalID: 3990324149945490660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_31
+      rect:
+        serializedVersion: 2
+        x: 7956
+        y: 1257
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f5c2a20e0a02980800000000000000
+      internalID: -8565669606618013924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialBoss_Attack1_32
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 177
+        width: 1342
+        height: 692
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77ba203ea76912ef0800000000000000
+      internalID: -134661059305624713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TutorialBoss_Attack1_0: -7778812631487983568
+      TutorialBoss_Attack1_1: -8693089198304163314
+      TutorialBoss_Attack1_10: -3545926967102952210
+      TutorialBoss_Attack1_11: 2410476205390019497
+      TutorialBoss_Attack1_12: 5525822338848768866
+      TutorialBoss_Attack1_13: -9067805288496020985
+      TutorialBoss_Attack1_14: 5480459027185803747
+      TutorialBoss_Attack1_15: -7863515903966637311
+      TutorialBoss_Attack1_16: 7023453598134633837
+      TutorialBoss_Attack1_17: -7272115628319871453
+      TutorialBoss_Attack1_18: -7951593963270346931
+      TutorialBoss_Attack1_19: -5559871598490404931
+      TutorialBoss_Attack1_2: -4280287459423574703
+      TutorialBoss_Attack1_20: 1604877421169845320
+      TutorialBoss_Attack1_21: 7950180111726582887
+      TutorialBoss_Attack1_22: 4641252746843410645
+      TutorialBoss_Attack1_23: 4634168969946456329
+      TutorialBoss_Attack1_24: -8235513017480955956
+      TutorialBoss_Attack1_25: 6857008643914247576
+      TutorialBoss_Attack1_26: 1062420379598669433
+      TutorialBoss_Attack1_27: -2695584468412794784
+      TutorialBoss_Attack1_28: -503528448842215159
+      TutorialBoss_Attack1_29: -6912415496820103287
+      TutorialBoss_Attack1_3: -5599761165390671891
+      TutorialBoss_Attack1_30: 3990324149945490660
+      TutorialBoss_Attack1_31: -8565669606618013924
+      TutorialBoss_Attack1_32: -134661059305624713
+      TutorialBoss_Attack1_4: 5024970202726964084
+      TutorialBoss_Attack1_5: -496298065378227686
+      TutorialBoss_Attack1_6: 8797022982640817049
+      TutorialBoss_Attack1_7: -6893292775784422855
+      TutorialBoss_Attack1_8: 4226984951422966950
+      TutorialBoss_Attack1_9: 5141466479905121792
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

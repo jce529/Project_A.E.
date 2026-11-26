@@ -17605,6 +17605,8 @@ GameObject:
   - component: {fileID: 1920254116}
   - component: {fileID: 1920254117}
   - component: {fileID: 1920254118}
+  - component: {fileID: 900000000000000000}
+  - component: {fileID: 900000000000000001}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -19020,3 +19022,33 @@ SceneRoots:
   - {fileID: 1996876018}
   - {fileID: 775026863}
   - {fileID: 68025705}
+--- !u!114 &900000000000000000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920254095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6614b860524879918c8df727fd3f00, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  interactionRadius: 2
+  interactionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &900000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920254095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa0321dbe764b479f4f1b7cad98d9c1, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  worldOffset: {x: 0, y: 1.5, z: 0}
+  worldScale: 0.02

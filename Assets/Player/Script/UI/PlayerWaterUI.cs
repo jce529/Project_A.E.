@@ -1,35 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Collections.Generic;
 
 public class PlayerWaterUI : MonoBehaviour
 {
     [Header("References")]
     public WaterController waterController;
-    public Transform bottlesParent;
-    public GameObject bottleSlotPrefab;
 
-    [Header("Text Settings (Optional)")]
-    public TextMeshProUGUI waterCountText; // "3 / 5" 처럼 숫자로도 표시
+    [Header("Water Bar Prefab Settings")]
+    public GameObject waterBarPrefab;  // 소환할 마나(물) 슬라이더 프리팹
+    public Transform canvasParent;     // 프리팹이 생성될 캔버스(부모) 위치
 
-    [Header("Sprites")]
-    public Sprite waterBottleSprite;        // 가득 찬 물병 (순수)
-    public Sprite corruptedWaterBottleSprite; // 가득 찬 물병 (오염)
-    public Sprite emptyBottleSprite;         // 빈 물병 (순수 계열)
-    public Sprite corruptedEmptyBottleSprite; // 빈 물병 (오염 계열)
+    [Header("Slider Settings")]
+    [Tooltip("마나가 0일 때 슬라이더가 멈출 최소 비율 (바닥 단면 유지용)")]
+    public float minSliderValue = 0.07f;
+    [Tooltip("마나가 꽉 찼을 때 슬라이더의 최대 비율")]
+    public float maxSliderValue = 1f;
 
-    private List<Image> bottleImages = new List<Image>();
+    // 소환된 프리팹에서 자동으로 찾아 연결할 컴포넌트들
+    private Slider waterSlider;
+    private Image fillImage;
 
     private void Start()
     {
         if (waterController == null)
             waterController = FindAnyObjectByType<WaterController>();
 
-        if (waterController != null)
-        {
-            InitBottles();
-        }
+        // 1. 프리팹 생성 및 슬라이더 내부 구조 찾기
+        InitWaterBar();
     }
 
     private void Update()
@@ -40,56 +37,63 @@ public class PlayerWaterUI : MonoBehaviour
         }
     }
 
-    private void InitBottles()
+    private void InitWaterBar()
     {
-        // 기존 UI 제거
-        foreach (Transform child in bottlesParent)
+        if (waterBarPrefab != null && canvasParent != null)
         {
-            Destroy(child.gameObject);
-        }
-        bottleImages.Clear();
+            // 캔버스 하위에 프리팹 소환
+            GameObject spawnedBar = Instantiate(waterBarPrefab, canvasParent);
 
-        // WaterController의 초기 병 개수만큼 슬롯 생성
-        for (int i = 0; i < waterController.bottles.Count; i++)
+            // 최상단의 Slider 컴포넌트 찾기
+            waterSlider = spawnedBar.GetComponent<Slider>();
+            if (waterSlider != null)
+            {
+                waterSlider.minValue = 0f;
+                waterSlider.maxValue = 1f;
+            }
+
+            // 슬라이더 하위에서 Fill 오브젝트를 찾아 Image 캐싱 
+            // (만약 유니티 에디터에서 구조 이름을 바꿨다면 아래 경로 문자열을 수정하세요)
+            Transform fillTransform = spawnedBar.transform.Find("Fill Area/Fill");
+            if (fillTransform != null)
+            {
+                fillImage = fillTransform.GetComponent<Image>();
+            }
+        }
+        else
         {
-            GameObject slot = Instantiate(bottleSlotPrefab, bottlesParent);
-            Image img = slot.GetComponent<Image>();
-            if (img == null) img = slot.GetComponentInChildren<Image>();
-            bottleImages.Add(img);
+            Debug.LogWarning("Water Bar Prefab이나 Canvas Parent가 인스펙터에 할당되지 않았습니다!");
         }
     }
 
     public void UpdateWaterUI()
     {
-        // 런타임에 병 개수가 변할 수 있으므로 체크
-        if (bottleImages.Count != waterController.bottles.Count)
-        {
-            InitBottles();
-            return;
-        }
+        if (waterSlider == null) return;
 
+        int maxWater = waterController.bottles.Count;
         int filledCount = 0;
-        for (int i = 0; i < waterController.bottles.Count; i++)
+
+        // 1. 상태 계산
+        for (int i = 0; i < maxWater; i++)
         {
             int[] bottleState = waterController.bottles[i];
             bool isFilled = bottleState[0] == 1;
-            bool isCorrupted = bottleState[1] == 1;
 
             if (isFilled)
             {
                 filledCount++;
-                bottleImages[i].sprite = isCorrupted ? corruptedWaterBottleSprite : waterBottleSprite;
-            }
-            else
-            {
-                bottleImages[i].sprite = isCorrupted ? corruptedEmptyBottleSprite : emptyBottleSprite;
             }
         }
 
-        // 텍스트 업데이트 (현재 물 양 / 전체 병 개수)
-        if (waterCountText != null)
+        // 2. 슬라이더 Value 업데이트
+        float currentRatio = (float)filledCount / maxWater;
+        waterSlider.value = Mathf.Lerp(minSliderValue, maxSliderValue, currentRatio);
+
+        // 3. 내용물(Fill) 활성화/비활성화 (물이 0이면 숨김)
+        if (fillImage != null)
         {
-            waterCountText.text = $"{filledCount} / {waterController.bottles.Count}";
+            bool hasWater = filledCount > 0;
+            fillImage.gameObject.SetActive(hasWater);
         }
     }
 }

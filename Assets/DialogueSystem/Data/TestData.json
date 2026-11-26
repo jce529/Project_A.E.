@@ -1,0 +1,39 @@
+{
+  "dialogues": [
+    {
+      "speakerName": "시스템",
+      "dialogueText": "눈앞에 수상한 샘물이 있습니다. 마시겠습니까?",
+      "choices": [
+        {
+          "choiceText": "마신다 (체력 회복)",
+          "nextNodeIndex": 1,
+          "conditionID": ""
+        },
+        {
+          "choiceText": "독극물 같다 (데미지)",
+          "nextNodeIndex": 2,
+          "conditionID": ""
+        }
+      ],
+      "isEnd": false,
+      "jumpToIndex": -1,
+      "actionID": ""
+    },
+    {
+      "speakerName": "시스템",
+      "dialogueText": "상처가 낫는 기분이 듭니다!",
+      "choices": [],
+      "isEnd": true,
+      "jumpToIndex": -1,
+      "actionID": "Heal_50"
+    },
+    {
+      "speakerName": "시스템",
+      "dialogueText": "윽! 배가 아픕니다...",
+      "choices": [],
+      "isEnd": true,
+      "jumpToIndex": -1,
+      "actionID": "Damage_10"
+    }
+  ]
+}

@@ -31,6 +31,11 @@ namespace TutorialBoss
             // boss.Anim?.SetTrigger("Die");
             yield return new WaitForSeconds(2.5f);
 
+            // 벽 열기
+            var tutorialBoss = boss as TutorialBossController;
+            if (tutorialBoss != null && tutorialBoss.WallToUnlock != null)
+                tutorialBoss.WallToUnlock.UnlockWall();
+
             // 클리어 UI 표시
             if (UIManager.Instance != null && UIManager.Instance.ClearPanel != null)
             {

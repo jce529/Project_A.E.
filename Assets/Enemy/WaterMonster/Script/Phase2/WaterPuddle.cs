@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace WaterMonster.Phase2
 {
-    public class WaterPuddle : MonoBehaviour
+    public class WaterPuddle : MonoBehaviour, IPlayerInteractable
     {
         public bool isDestructible = true;
         public bool playerInRange = false;
@@ -16,13 +16,33 @@ namespace WaterMonster.Phase2
             _sr = GetComponent<SpriteRenderer>();
         }
 
+        public bool CanInteract(PlayerInteraction player)
+        {
+            if (player == null || !isDestructible) return false;
+            var water = player.WaterController;
+            var absorb = player.GetComponent<PlayerAbsorb>();
+            // Respect existing non-interaction configurations and custom absorption radius.
+            if (absorb != null && absorb.isActiveAndEnabled && !absorb.UsesInteraction) return false;
+            if (absorb != null && absorb.isActiveAndEnabled &&
+                ((Vector2)(player.transform.position - transform.position)).sqrMagnitude > absorb.AbsorbRadius * absorb.AbsorbRadius) return false;
+            return water != null && water.waterCounter() + water.corruptedwaterCounter() < water.bottles.Count;
+        }
+
+        public void Interact(PlayerInteraction player)
+        {
+            if (!CanInteract(player)) return;
+            player.WaterController.RecoveryWater();
+            SetIndestructible();
+        }
+
         public void SetIndestructible()
         {
             isDestructible = false;
             if (_sr != null)
                 _sr.color = indestructibleColor;
             
-            PuddleStackManager.Instance.RegisterIndestructible(this);
+            if (PuddleStackManager.Instance != null)
+                PuddleStackManager.Instance.RegisterIndestructible(this);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
