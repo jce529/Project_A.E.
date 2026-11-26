@@ -549,20 +549,21 @@ Plans:
 
 ### Phase 20: 중앙 집중형 오디오 시스템 및 AudioSource 풀링
 
-**병합 메모(2026-09-24)**: 이 phase는 `20-audio-centralization` 브랜치에서 독립적으로 진행되어 `주창은`에 병합되었다. `AudioManager`/`Master.mixer`/`AudioCue` 코드는 이 병합으로 들어왔지만, **원래 계획된 `PersistentManagers` 통합(D-13, 아래 Depends 참고)은 아직 완료되지 않았다** — `주창은`의 `PersistentManagers.cs`는 BUG-007 수정용 MonoBehaviour+프리팹 구조를 그대로 유지했고, origin의 static Bootstrap 버전과 병합하지 않기로 결정했다(InputHandler 리팩토링이 커서 별도 검토 필요). 즉 **`AudioManager`가 현재 자동으로 부트스트랩되지 않을 수 있다** — Phase 20-06(Play 모드 체크포인트) 재실행 전에 `PersistentManagers`/`AudioManager` 배선을 반드시 재확인할 것.
+**병합 메모(2026-09-24)**: 이 phase는 `20-audio-centralization` 브랜치에서 독립적으로 진행되어 `주창은`에 병합되었다. `AudioManager`/`Master.mixer`/`AudioCue` 코드는 이 병합으로 들어왔지만, **원래 계획된 `PersistentManagers` 통합(D-13, 아래 Depends 참고)은 아직 완료되지 않았다** — `주창은`의 `PersistentManagers.cs`는 BUG-007 수정용 MonoBehaviour+프리팹 구조를 그대로 유지했고, origin의 static Bootstrap 버전과 병합하지 않기로 결정했다(InputHandler 리팩토링이 커서 별도 검토 필요). **2026-10-01 재확인 결과**: `PersistentManagers` 프리팹이 `AudioManager`를 자식으로 이미 포함해 부트스트랩 경로는 끊기지 않았고, Play 모드에서 AudioManager 1개·풀 16개·BGMSource·씬 전환 생존까지 통과했다(`Assets/Audio/Check.md`). 20-06은 Unity CLI 실측 8/10 PASS이며, 수동 UI 확인 2건(7번 배경색·10번 일시정지 메뉴 UI)만 남았다.
 
 **Goal:** 자동 스폰 몬스터와 향후 공격·피격·스킬·보스 패턴 오디오 확장을 수용하도록, 자동 생성되는 영속 `AudioManager`가 BGM/SFX 재생 권한과 `AudioMixer`, 데이터 기반 `AudioCue`, 위치·추적 재생, `AudioSource` 풀, 동시 재생 제한·재트리거 쿨다운·우선순위를 중앙에서 소유한다. `EnvironmentManager`는 BGM `AudioSource`나 필터를 직접 조작하지 않고 환경 상태만 판정해 `AudioManager`에 음향 상태 변경을 요청하며, BUG-007에서 정리할 `PersistentManagers` 자동 부트스트랩 구조와 통합한다.
 **Requirements**: D-01 ~ D-13 (`20-CONTEXT.md`의 잠금 결정이 이 phase의 사실상 요구사항 집합 — 별도 REQ-ID 없음)
-**Depends on:** Nothing formally — `EnvironmentManager`/`AudioManager` 기존 코드에 얹는 독립 작업. BUG-007(씬 전환 후 InputHandler 유실, `.planning/phases/15-load-timing-and-load-scope/bugs/BUG-007-inputhandler-lost-on-scene-transition.md`)이 도입한 `PersistentManagers` 부트스트랩 구조와의 통합은 **병합 시점에 보류됨**(위 병합 메모 참고).
-**Plans:** 6 plans (20-01~20-05 완료, 20-06 Play 모드 체크포인트는 PersistentManagers 통합 재검토 후 재실행 필요)
+**Depends on:** Nothing formally — `EnvironmentManager`/`AudioManager` 기존 코드에 얹는 독립 작업.
+**Note:** `PersistentManagers` 부트스트랩 구조(BUG-007 수정 산물)와의 통합은 병합 시점에 보류했다가 2026-10-01에 경로 정상으로 확인됨 (위 병합 메모 참고).
+**Plans:** 6 plans (20-01~20-05 완료, 20-06 Play 모드 실측 8/10 PASS — 수동 UI 확인 2건 대기)
 
 Plans:
 - [x] 20-01-PLAN.md — AudioCue ScriptableObject + Master.mixer 에셋(Master>BGM/SFX/UI, 노출 파라미터 3종)
 - [x] 20-02-PLAN.md — AudioManager 볼륨을 AudioMixer dB로 전환 + SettingsData.UiVolume + SetEnvironmentState 신설, PlaySFX 제거
 - [x] 20-03-PLAN.md — 고정 크기(16) AudioSource 풀 + 우선순위 강탈 + Play 오버로드 3종 + Cue별 쿨다운
-- [x] 20-04-PLAN.md — PersistentManagers 부트스트랩(루트 DontDestroyOnLoad) + AudioManager 이관 + 씬 배치 AudioManager 제거 (origin 기준 — 병합 후 재검토 필요, 위 메모 참고)
+- [x] 20-04-PLAN.md — PersistentManagers 부트스트랩(루트 DontDestroyOnLoad) + AudioManager 이관 + 씬 배치 AudioManager 제거 (origin 기준 구현 → 병합 후 로컬 프리팹 구조로 유지, 2026-10-01 경로 정상 확인)
 - [x] 20-05-PLAN.md — EnvironmentManager 오디오 소유권 이관(CP949 바이트 단위 편집)
-- [ ] 20-06-PLAN.md — Unity 배치모드 컴파일 게이트 + Assets/Audio/Check.md + Play 모드 체크포인트 — **PersistentManagers 통합 재확인 후 재실행 필요**
+- [ ] 20-06-PLAN.md — Unity 배치모드 컴파일 게이트 + Assets/Audio/Check.md + Play 모드 체크포인트 — Unity CLI 실측 8/10 PASS (2026-10-01), **수동 UI 확인 2건(7번 배경색·10번 메뉴 UI) 대기**
 
 ### Phase 21: 인벤토리 UI(슬롯 그리드 표시/토글), 키 바인딩(인벤토리 열기/닫기 등 입력 액션), 월드 드롭 아이템 상호작용 시 인벤토리로 자동 획득되는 UI 피드백까지 다루는 페이즈. Depends on Phase 18/19.
 
