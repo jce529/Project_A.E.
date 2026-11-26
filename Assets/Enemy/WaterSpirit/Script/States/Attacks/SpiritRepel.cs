@@ -11,7 +11,8 @@ public class SpiritRepel : IAttackStrategy
 
 
         Vector2 origin = boss.transform.position;
-        
+        spirit.PlayFx(SpiritFx.Repel, null, 0f, spirit.RepelRange / 1.5f);
+
         // RepelRange 내의 Player 레이어 객체 감지
         Collider2D[] hits = Physics2D.OverlapCircleAll(origin, spirit.RepelRange, LayerMask.GetMask("Player"));
 

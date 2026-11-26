@@ -13,6 +13,11 @@ public class PlayerAbsorb : MonoBehaviour
     private InputHandler subscribedInput;
     private InputType subscribedType;
 
+    private void Awake()
+    {
+        if (_waterController == null) _waterController = GetComponent<WaterController>();
+    }
+
     private void OnEnable() => Subscribe();
     private void Start() => Subscribe();
     private void Subscribe()

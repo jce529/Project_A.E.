@@ -6,16 +6,26 @@ public class SpiritProjectile : MonoBehaviour
 {
     [SerializeField] private float _speed = 8f;
     [SerializeField] private float _lifetime = 4f;
+    [SerializeField] private RuntimeAnimatorController _stage2Controller;
 
     private float _damage;
     private LayerMask _targetLayer;
     private bool _hasHit = false;
     private bool _armed = false;
 
-    public void Init(Vector2 direction, float damage, LayerMask targetLayer)
+    private SpiritController _owner;
+
+    public void Init(Vector2 direction, float damage, LayerMask targetLayer, SpiritController owner = null)
     {
+        _owner = owner;
         _damage = damage;
         _targetLayer = targetLayer;
+
+        if (_owner != null && _owner.IsStage2 && _stage2Controller != null)
+        {
+            var anim = GetComponent<Animator>();
+            if (anim != null) anim.runtimeAnimatorController = _stage2Controller;
+        }
 
         Vector2 dir = direction.normalized;
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
@@ -40,6 +50,7 @@ public class SpiritProjectile : MonoBehaviour
         if (((1 << other.layer) & _targetLayer) == 0) return;
 
         _hasHit = true;
+        if (_owner != null) _owner.PlayFx(SpiritFx.DropHit, transform.position);
         other.GetComponentInParent<HP>()?.TakeDamage(_damage);
         Destroy(gameObject);
     }

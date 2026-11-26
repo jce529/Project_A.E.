@@ -163,6 +163,7 @@ Plans:
 Plans:
 - [x] 07-01-PLAN.md — CombatState 범용 패턴 후보 평가 헬퍼 추가 + SpiritCombatState 후보 선언 데이터 레이어 전환
 - [ ] 07-02-PLAN.md — Play 모드 검증 체크포인트 (랜덤성/연속금지/강제 체인/Stage 2 사이클)
+- [x] 07-03-PLAN.md — 갭 클로저: 패턴 추적값(PatternHistory) 재진입 유지 (Spirit 전용)
 
 ## Progress
 
@@ -200,7 +201,7 @@ Phase 7 의 `CombatState` 범용 헬퍼(`PatternCandidate` + `SelectWeightedPatt
 Plans:
 - [x] 08-01-PLAN.md — CombatState 헬퍼 확장 (쿨다운 오버라이드 + 광폭화 배율 훅 + 직전 패턴 가중치 감쇠 모드)
 - [x] 08-02-PLAN.md — WaterMonsterCombatState 후보 선언 데이터 레이어 전환 + WaterMonster Check.md 작성
-- [ ] 08-03-PLAN.md — 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종 일괄 Play 모드 검증 체크포인트
+- [x] 08-03-PLAN.md — 정적 회귀 검사 + WaterSpirit/TutorialBoss/WaterMonster 3종 일괄 Play 모드 검증 체크포인트
 
 ### Phase 9: 일반 스테이지와 보스 스테이지 진입 시 카메라 크기(줌) 변화
 
@@ -407,7 +408,7 @@ Plans:
       주석 1줄이 제거되어 비-ASCII 라인 수가 0이 된다.
   11. `MainMenu.unity` 씬의 UI 배치/배선은 이 페이즈가 코드로 수행하지 않는다 — Phase 9 D-08
       선례대로 `Assets/SaveSystem/Check.md`의 배선 가이드를 따라 사용자가 직접 수행한다.
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 **Execution Waves:**
 
@@ -422,18 +423,50 @@ Plans:
 - [x] 14-02-PLAN.md — 슬롯 UI 스크립트 신규 (OverwriteConfirmPanel D-04/D-05 + SlotSelectPanel 3카드/의도 분기)
 - [ ] 14-03-PLAN.md — MainMenu 배선/정적 13종/비보스 핵심 Play 검증 통과; UI 일부·보스 회귀 보류
 
-### Phase 15: 로드 시점 및 로드 범위 정의 - 세이브 데이터를 언제 로드할지(사망/체크포인트 부활/이어하기)와 로드 시 어디까지 복원할지(보스 진행도/맵 기믹/체력 불변식) 확정
+### Phase 15: 로드 시점 및 로드 범위 정의 - 사망 시 자동 로드, 로드 실패 폴백, 격파 보스 미등장, 체력 불변식 보정
 
-**Goal:** 플레이어가 죽으면 즉시 마지막 세이브가 자동 로드되고(세이브가 없으면 현재 씬 재시작), 로드가 실패하면 세이브 파일을 건드리지 않은 채 메인메뉴로 복귀하며, 로드된 세이브의 보스 진행도에 따라 이미 격파한 보스는 등장하지 않고 체력값은 `0 < health <= maxHealth <= maxTotalHealth` 불변식으로 보정된다.
-**Requirements**: D-01, D-02, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10 (`15-CONTEXT.md` 결정 ID — 이 페이즈는 v2.0 REQ-ID 체계 밖의 시스템 작업이라 결정 ID로 추적한다)
-**Depends on:** Phase 14
-**Plans:** 2/4 plans executed
+> **문서화 갭 백필 (2026-09-19)**: 이 페이즈는 15-CONTEXT.md/15-01~04-PLAN.md/15-UAT.md/Check.md까지
+> 실제로 존재하고 구현도 대부분 끝났지만, ROADMAP.md에 `### Phase 15` 헤딩 자체가 누락돼 있었다.
+> Item 시스템 페이즈 추가 작업 중 번호 충돌로 발견되어 뒤늦게 채워 넣는다. **주의**: 아래 상태는
+> 소스 문서 기준 그대로 옮긴 것이며 완료 처리가 아니다 — 15-UAT.md가 `status: partial`이고
+> Play 모드 실측이 0/34건, BUG-007(씬 전환 후 InputHandler 유실, severity: major)이 미해결이다.
+
+**Goal:** 세이브 데이터가 **언제** 로드되는지(사망/로드 실패)와 로드가 **무엇까지** 복원하는지
+(보스 진행도/체력 불변식)를 확정한다. 플레이어 HP가 0이 되면 게임오버 화면 없이 즉시 마지막
+세이브가 로드되거나(세이브 없으면 현재 씬 재시작), 로드가 어느 단계에서 실패해도 메인메뉴로
+안전하게 복귀하며, 씬 로드 시 이미 격파된 보스는 각자 자기 ID로 조회해 스스로 등장하지 않고,
+저장된 체력값은 불변식(0 < health <= maxHealth <= maxTotalHealth)에 맞게 강제 보정된다.
+**Requirements**: D-01 ~ D-10 (15-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 11, Phase 14
+**Success Criteria** (what must be TRUE):
+  1. 플레이어 HP가 0이 되면 게임오버 화면·선택 단계 없이 즉시 마지막 세이브가 로드된다 (D-01).
+  2. 세이브 파일이 없는 상태(체크포인트 미활성화)에서 사망하면 메인메뉴가 아니라 현재 씬이
+     처음부터 재시작된다 (D-02).
+  3. `FallZone`은 무수정으로 남아 낙하는 데미지 + `PlayerRespawn.RespawnPosition()` 복귀만
+     수행한다 — 사망과 다른 층위의 페널티로 취급된다 (D-03, 의도적 미변경).
+  4. 로드가 어느 단계에서 실패해도(세이브 파일 손상 / 씬 미등록 / 로드 후 `PlayerStats.Instance`
+     null) 메인메뉴로 복귀하고, 세이브 파일은 지우거나 덮어쓰지 않는다 (D-04, D-05).
+  5. 씬 로드 시 각 보스가 자기 ID로 `SaveLoadManager.Instance.IsBossDefeated()`를 조회해
+     격파된 상태면 스스로 비활성화된다 — 로드 경로가 보스 목록을 순회하지 않는다 (D-06, D-07).
+  6. 로드된 체력값이 `0 < health <= maxHealth <= maxTotalHealth`를 만족하도록 강제 보정되며,
+     역전되거나 손으로 고친 값도 정상화된다 (D-08).
+  7. `Player.prefab`의 시작 `maxHealth`는 100, 성장 상한 `maxTotalHealth`는 200이다 (D-09).
+  8. `MapGimmickState`와 `Items`는 쓰기 훅이 아직 없으므로 이번 페이즈에서 스텁으로 유지된다
+     (D-10, 저장 측이 먼저 생겨야 복원을 논할 수 있음 — Phase 17~18이 `Items`를 채우는 후속).
+**Plans:** 4 plans
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 15-01, 15-02, 15-03 | yes |
+| 2 | 15-04 | no (Play 모드 검증 체크포인트) |
 
 Plans:
-- [x] 15-01-PLAN.md — PlayerStats 사망 자동 로드(D-01/D-02) + 체력 불변식 보정(D-08) + Player.prefab 체력값 확정(D-09)
-- [x] 15-02-PLAN.md — SaveLoadManager 로드 실패 5분기 메인메뉴 복귀(D-04) + 세이브 파일 무손상 보장(D-05)
-- [ ] 15-03-PLAN.md — 보스 3종 IsBossDefeated() 자가 제거 가드(D-06/D-07) + TutorialBoss 보스방 벽 해제
-- [ ] 15-04-PLAN.md — 정적 회귀 18항목 + Check.md 작성 + Unity Play 모드 실측 검증 (체크포인트)
+- [x] 15-01-PLAN.md — D-01/D-02/D-08/D-09를 `PlayerStats`/`Player.prefab`에 구현 (사망 시 자동 로드, 체력 불변식 보정, 기본 체력값)
+- [x] 15-02-PLAN.md — D-04/D-05를 `SaveLoadManager`에 구현 (로드 실패 5개 분기 → 메인메뉴 복귀, 세이브 파일 무손상 보존)
+- [x] 15-03-PLAN.md — D-06/D-07을 보스 스크립트 3종에 구현 (자가 제거 가드, `SaveLoadManager` 무수정)
+- [ ] 15-04-PLAN.md — 정적 회귀 검사(16 PASS/2 FAIL, 원인 플랜 특정됨) + Check.md Play 모드 체크리스트 34건 작성 — **Play 모드 실측 미완료, BUG-007 미해결로 미종결**
 
 ### Phase 16: 일정 간격 자동저장 - 플레이 중 주기적으로 현재 진행 상황을 자동 저장해 세이브 부재/장시간 미저장 구간을 없앤다
 
@@ -447,7 +480,102 @@ Plans:
 - [x] 16-02-PLAN.md — AutoSaveNotice 신규(런타임 생성 우하단 '자동 저장됨' 라벨, 1.2초 유지 + 0.6초 페이드아웃, D-10) + 타이머 연결
 - [x] 16-03-PLAN.md — Check.md/정적 회귀 기록(원문 18/22, 명세 보정 22/22 PASS) + Unity Play 모드 실측 29/29 PASS (B 메인메뉴 미발동·E 수동 저장 무회귀 포함, Assets 0줄 변경)
 
-### Phase 17: 정령 보스 애니메이션 연동 - WaterSpirit 프리팹에 연결된 애니메이션 에셋을 SpiritController/공격 상태 로직과 연동한다
+### Phase 17: 아이템 코어: IItem 인터페이스(완료됨) 및 ItemData ScriptableObject(id, 종류(소모품/진행아이템), UseEffect 파라미터) 정의. 데이터 레이어만, UI 제외.
+
+**Goal:** 이 프로젝트 최초의 ScriptableObject 인 `ItemData`(`Assets/Item/Script/ItemData.cs`)가 존재해,
+아이템의 정적 데이터를 `id`(string) / `type`(Consumable|Progression) / `effectType`(Heal) / `amount`(float)
+**단 4개 필드**로 스키마화하고, 이미 완료된 `IItem` 인터페이스를 직접 구현한다(`ItemData : ScriptableObject, IItem`).
+`UseEffect(PlayerInteraction)` 는 스텁이 아니라 끝까지 구현되어, 소모품일 때 기존
+`PlayerStats.Heal(float)`(`Assets/Player/Script/PlayerStats.cs:37`)를 널 가드 없이 그대로 재사용해
+실제로 체력을 회복시키고, 진행아이템일 때는 의도적 no-op 다. 스키마가 실제로 동작함을 증명하기 위해
+소모품(Heal, amount 20) 1개 + 진행아이템 1개의 실제 `.asset` 파일을 `Assets/Item/` 에 만든다.
+**데이터 레이어 전용 phase** — 인벤토리(Phase 18), 월드 픽업/`PlayerInteraction` 배선(Phase 18),
+세이브 연동(Phase 19), 아이콘/이름 등 UI 메타데이터(추후 UI phase)는 전부 범위 밖이다.
+**Requirements**: D-01 ~ D-07 (17-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 16
+**Success Criteria** (what must be TRUE):
+  1. `ItemData : ScriptableObject, IItem` 가 존재하고 `void UseEffect(PlayerInteraction player)` 를
+     `IItem` 시그니처 그대로 구현한다. 별도의 런타임 아이템 인스턴스 클래스는 없다 (D-01).
+  2. `UseEffect` 가 소모품일 때만 효과를 적용하고 진행아이템에서는 즉시 return 한다 — 스텁이 아니다 (D-02).
+  3. Heal 분기가 `player.GetComponent<PlayerStats>().Heal(amount)` 로 **기존** 메서드를 재사용하며,
+     `PlayerStats` 에 신규 메서드가 추가되지 않고 널 가드도 없다 (D-03 + 프로젝트 무-널가드 관행).
+  4. `ItemType` 이 `Consumable` / `Progression` 정확히 2값이고, `ConsumableEffectType` 이 `Heal`
+     1값이며, 타입별 SO 서브클래스가 0개다 (D-03, D-04).
+  5. `id` 가 `[SerializeField] private string id;` 수동 입력 필드이고 자동 생성/중복 검증 코드가 0줄이다 (D-05).
+  6. `[SerializeField]` 필드가 정확히 4개이며 `displayName`/`icon`/`description` 이 0건이다 (D-06).
+  7. `Assets/Item/` 에 `.asset` 파일 2개(`HealthPotion` = Consumable/Heal/20, `AncientKey` = Progression)가
+     존재하고, 둘 다 `ItemData.cs.meta` 의 guid(`501b19c5008706d0a3f2bf69aacf52f6`)를 `m_Script` 로
+     참조한다 (D-07).
+  8. Unity 6000.3.10f1 이 `Assets/Item/` 을 컴파일 에러 0건 / 임포트 에러 0건 / missing script 0건으로
+     받아들인다 — `.asset` YAML 을 에디터 없이 손으로 작성했기 때문에 반드시 실임포트로 확인한다.
+  9. Play 모드에서 `HealthPotion` 의 `UseEffect` 를 호출하면 플레이어 체력이 실제로 20 회복되고,
+     `AncientKey` 는 체력 변화 0 / 예외 0 이다 (D-02/D-07 의 end-to-end 증거).
+  10. `Assets/Player/Script/PlayerStats.cs`, `Assets/Player/Script/PlayerInteraction.cs`,
+      `Assets/Item/Script/IItem.cs`, `Assets/SaveSystem/Script/SaveData.cs` 가 0줄 변경이다.
+**Plans:** 2/2 plans complete
+
+**Execution Waves:**
+
+| Wave | Plans | Autonomous |
+|------|-------|------------|
+| 1 | 17-01 | yes |
+| 2 | 17-02 | no (Play 모드 검증 체크포인트 포함) |
+
+Plans:
+- [x] 17-01-PLAN.md — ItemData.cs 신규(ScriptableObject + IItem 구현, enum 2종, 필드 4개, UseEffect 본체, 에디터 전용 ContextMenu 훅) + guid 고정 .meta + 예시 .asset 2개(HealthPotion/AncientKey) 손수 작성
+- [x] 17-02-PLAN.md — Unity 6000.3.10f1 배치모드 임포트 게이트(컴파일/YAML 실검증) + Assets/Item/Check.md 작성(정적 회귀 8항목 + Play 모드 체크리스트 10항목) + Play 모드 실측 체크포인트
+
+### Phase 18: 인벤토리 시스템: 고정 슬롯+스택 자료구조, 추가/제거/사용 API, PlayerInteraction 연동 월드 아이템 획득. Depends on Phase 17.
+
+**Goal:** 고정 20슬롯/슬롯당 99스택의 `Inventory` 컴포넌트가 Player 에 붙어 있고, 월드에 놓인 아이템을 기존 `PlayerInteraction` 상호작용으로 주워 담고 `ItemData.UseEffect` 로 사용할 수 있다 — 인벤토리가 가득 찬 상태에서는 아이템이 유실되지 않고 월드에 남는다.
+**Requirements**: D-01 ~ D-08 (18-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈)
+**Depends on:** Phase 17
+**Plans:** 2/2 plans complete (UAT 7/7 PASS, 2026-09-21)
+
+Plans:
+- [x] 18-01-PLAN.md — Inventory 컴포넌트 (InventorySlot class, 원자적 TryAddItem, RemoveItem/UseItem, ContextMenu 검증 훅)
+- [x] 18-02-PLAN.md — WorldItem 월드 픽업 + Player.prefab 배선(Inventory/PlayerInteraction) + Play 모드 실측 검증 체크포인트
+
+### Phase 19: 아이템 저장/로드 연동: SaveData.Items를 List<ItemSaveEntry>(itemId,count)로 교체, SaveVersion 마이그레이션, SaveLoadManager 인벤토리 캡처/복원. Depends on Phase 18 및 기존 SaveLoadManager.
+
+**Goal:** 세이브 파일이 플레이어의 인벤토리를 실제로 보존한다 — 저장 시 비어있지 않은 슬롯이 `ItemSaveEntry(itemId, count)` 로 기록되고, 로드 시 그 아이템이 `Inventory` 에 그대로 돌아온다.
+**Requirements**: D-01 ~ D-04 (19-CONTEXT.md 잠금 결정 — 공식 REQ-ID 미할당 페이즈, Phase 17/18 선례)
+**Depends on:** Phase 18
+**Plans:** 2/2 plans complete (Play 모드 왕복 검증 6/6 PASS, 2026-09-21)
+
+Plans:
+- [x] 19-01-PLAN.md — `Assets/Item/*.asset` → `Assets/Resources/Items/` 이동(GUID 보존) + `SaveData` 스키마 교체(`ItemSaveEntry`, `Items` 재타입, `SaveVersion` 3)
+- [x] 19-02-PLAN.md — `SaveLoadManager` 인벤토리 캐처/복원(`CaptureInventoryItems`/`ApplyInventoryFromSave`/`ResolveItemData`) + `Phase19/` 디버그 훅 + Play 모드 왕복 검증 체크포인트
+
+### Phase 20: 중앙 집중형 오디오 시스템 및 AudioSource 풀링
+
+**병합 메모(2026-09-24)**: 이 phase는 `20-audio-centralization` 브랜치에서 독립적으로 진행되어 `주창은`에 병합되었다. `AudioManager`/`Master.mixer`/`AudioCue` 코드는 이 병합으로 들어왔지만, **원래 계획된 `PersistentManagers` 통합(D-13, 아래 Depends 참고)은 아직 완료되지 않았다** — `주창은`의 `PersistentManagers.cs`는 BUG-007 수정용 MonoBehaviour+프리팹 구조를 그대로 유지했고, origin의 static Bootstrap 버전과 병합하지 않기로 결정했다(InputHandler 리팩토링이 커서 별도 검토 필요). **2026-10-01 재확인 결과**: `PersistentManagers` 프리팹이 `AudioManager`를 자식으로 이미 포함해 부트스트랩 경로는 끊기지 않았고, Play 모드에서 AudioManager 1개·풀 16개·BGMSource·씬 전환 생존까지 통과했다(`Assets/Audio/Check.md`). 20-06은 Unity CLI 실측 8/10 PASS이며, 수동 UI 확인 2건(7번 배경색·10번 일시정지 메뉴 UI)만 남았다.
+
+**Goal:** 자동 스폰 몬스터와 향후 공격·피격·스킬·보스 패턴 오디오 확장을 수용하도록, 자동 생성되는 영속 `AudioManager`가 BGM/SFX 재생 권한과 `AudioMixer`, 데이터 기반 `AudioCue`, 위치·추적 재생, `AudioSource` 풀, 동시 재생 제한·재트리거 쿨다운·우선순위를 중앙에서 소유한다. `EnvironmentManager`는 BGM `AudioSource`나 필터를 직접 조작하지 않고 환경 상태만 판정해 `AudioManager`에 음향 상태 변경을 요청하며, BUG-007에서 정리할 `PersistentManagers` 자동 부트스트랩 구조와 통합한다.
+**Requirements**: D-01 ~ D-13 (`20-CONTEXT.md`의 잠금 결정이 이 phase의 사실상 요구사항 집합 — 별도 REQ-ID 없음)
+**Depends on:** Nothing formally — `EnvironmentManager`/`AudioManager` 기존 코드에 얹는 독립 작업.
+**Note:** `PersistentManagers` 부트스트랩 구조(BUG-007 수정 산물)와의 통합은 병합 시점에 보류했다가 2026-10-01에 경로 정상으로 확인됨 (위 병합 메모 참고).
+**Plans:** 6 plans (20-01~20-05 완료, 20-06 Play 모드 실측 8/10 PASS — 수동 UI 확인 2건 대기)
+
+Plans:
+- [x] 20-01-PLAN.md — AudioCue ScriptableObject + Master.mixer 에셋(Master>BGM/SFX/UI, 노출 파라미터 3종)
+- [x] 20-02-PLAN.md — AudioManager 볼륨을 AudioMixer dB로 전환 + SettingsData.UiVolume + SetEnvironmentState 신설, PlaySFX 제거
+- [x] 20-03-PLAN.md — 고정 크기(16) AudioSource 풀 + 우선순위 강탈 + Play 오버로드 3종 + Cue별 쿨다운
+- [x] 20-04-PLAN.md — PersistentManagers 부트스트랩(루트 DontDestroyOnLoad) + AudioManager 이관 + 씬 배치 AudioManager 제거 (origin 기준 구현 → 병합 후 로컬 프리팹 구조로 유지, 2026-10-01 경로 정상 확인)
+- [x] 20-05-PLAN.md — EnvironmentManager 오디오 소유권 이관(CP949 바이트 단위 편집)
+- [ ] 20-06-PLAN.md — Unity 배치모드 컴파일 게이트 + Assets/Audio/Check.md + Play 모드 체크포인트 — Unity CLI 실측 8/10 PASS (2026-10-01), **수동 UI 확인 2건(7번 배경색·10번 메뉴 UI) 대기**
+
+### Phase 21: 인벤토리 UI(슬롯 그리드 표시/토글), 키 바인딩(인벤토리 열기/닫기 등 입력 액션), 월드 드롭 아이템 상호작용 시 인벤토리로 자동 획득되는 UI 피드백까지 다루는 페이즈. Depends on Phase 18/19.
+
+**Goal:** 플레이어가 인벤토리 5x4 슬롯 패널을 Tab으로 열고 닫으며 아이템을 선택·사용하고, 월드 아이템 획득 시 토스트 피드백을 받는다. 인벤토리가 열린 동안 게임플레이 입력 8종은 억제되고, 컨트롤 탭에서 인벤토리 키를 리바인딩할 수 있다.
+**Requirements**: TBD
+**Depends on:** Phase 18, Phase 19
+**Plans:** 6/6 plans complete
+
+Plans:
+- [x] 21-01~06-PLAN.md — Tab 액션·입력 억제, ItemData 메타, 런타임 패널, 획득 토스트, 리바인딩 행, SSOT 문서 (병합 커밋 60e42f0)
+
+### Phase 22: 정령 보스 애니메이션 연동 - WaterSpirit 프리팹에 연결된 애니메이션 에셋을 SpiritController/공격 상태 로직과 연동한다
 
 **Goal:** 물의 정령 보스가 상태(Idle/Move/Charge/Repel/Clone/Ranged/Stealth/Hit/Groggy/Death)에 맞는 애니메이션을 재생하고, 2단계 진입 시 Stage2 오버라이드 컨트롤러로 교체되어 2단계용 스프라이트가 재생된다. 로직·상태머신의 기존 동작은 회귀 없이 유지된다.
 **Requirements**: TBD
@@ -458,15 +586,102 @@ Plans:
 **Constraint 변경:** v2.0 "애니메이션 제외" 제약의 예외 페이즈(STATE.md의 'v3.0+ 연동 예정' 항목을 앞당김).
 
 Plans:
-- [x] TBD (run /gsd:plan-phase 17 to break down) (completed 2026-10-01)
+- [x] TBD (run /gsd:plan-phase 22 to break down) (completed 2026-10-01)
+
+### Phase 23: 맵 기믹 상태 저장 헬퍼 (MapGimmickState)
+**Goal:** `SaveData.MapGimmickState`(현재 스키마만 있고 쓰는 코드 없음)에 읽기/쓰기 헬퍼를 추가해, 1·2스테이지 맵 기믹의 영구 상태(퍼즐 해결, 수문, 안개 제거 등)를 세이브/로드로 유지할 수 있게 한다.
+**Requirements**: TBD (plan 단계에서 정의)
+**Depends on:** Phase 11, Phase 19 (SaveLoadManager 구조)
+**Success Criteria** (what must be TRUE):
+  1. `SetGimmick(key, bool)` / `GetGimmick(key, default)` 헬퍼가 `MapGimmickState`를 읽고 쓰며 세이브 파일에 기록된다.
+  2. 값을 설정한 뒤 저장 → 재로드하면 같은 값이 남는다.
+  3. 기존 `BossProgress` / `LoadData` 경로와 세이브 버전 호환이 깨지지 않는다.
+**Plans:** 1 plan
+
+Plans:
+- [x] 23-01-PLAN.md — 구현 완료 (Play 검증 대기, 최종 일괄 검증)
+
+### Phase 24: 1스테이지 진행 연결
+**Goal:** 1스테이지의 진행 흐름(시작 → 하층 → 물 상승 장판 → 상층 → 워터 슬라이드 성공/실패 분기 → 징검다리 → 폭포 → 물가르기 구간 → 보상방)을 상태로 연결하고, 체크포인트와 낙하 리스폰이 진행 위치와 맞게 동작하게 한다. 기믹 자체(장판, 슬라이드, 징검다리)는 전금재 구현을 사용한다.
+**Requirements**: TBD
+**Depends on:** Phase 23, 전금재 1스테이지 기믹 인터페이스 (완료 여부, 상태 변경 이벤트)
+**Success Criteria** (what must be TRUE):
+  1. 성공 경로(장판 → 상층 → 슬라이드 성공 → 다음 구간)가 막힘 없이 통과된다.
+  2. 실패 경로(슬라이드 실패 → 하층 낙하)가 하층 체크포인트로 리스폰된다.
+  3. 체크포인트 저장 후 재로드하면 진행 플래그가 유지된다.
+**Plans:** 1 plan
+
+Plans:
+- [x] 24-01-PLAN.md — 구현 완료 (Play 검증 대기, 최종 일괄 검증)
+
+### Phase 25: 2-1 진행 상태 머신
+**Goal:** 2-1 구역의 흐름(1 → 2 → 3 → 4 → 5 → 6)과 석등 퍼즐 상태를 연결한다. 5번 전투 종료 후 석판 조사가 가능해지고, 석등 퍼즐 해결 여부에 따라 6번에서 2-2 진입이 허용되거나 차단된다. 안개 제거는 영구 상태로 유지된다.
+**Requirements**: TBD
+**Depends on:** Phase 23, 석판 힌트용 "지정 구역 적 전멸" 이벤트 (전투 담당)
+**Success Criteria** (what must be TRUE):
+  1. 5번 전투 전에는 석판을 조사할 수 없고, 전투 종료 후에는 조사할 수 있다.
+  2. 석등 퍼즐 미해결 상태에서 6번의 2-2 진입이 차단되고, 해결 후에는 허용된다.
+  3. 퍼즐 해결 후 지정 구역 진입 시 안개가 제거되고, 재방문하거나 재로드해도 다시 나타나지 않는다.
+**Plans:** 1 plan
+
+Plans:
+- [x] 25-01-PLAN.md — 구현 완료 (Play 검증 대기, 최종 일괄 검증)
+
+### Phase 26: 2-2 진행 상태 머신
+**Goal:** 2-2 구역의 흐름(1 → 2 → 3 → 4 → 5 → 6 → 7 → 6 → 5 → 8 → 9 → 1)을 수문, 물길, 폭포, 석판 상태와 연결한다. 7번에서 8번으로 직접 갈 수 없고, 5번에서 물길을 바꾼 뒤에만 8번에 접근할 수 있다.
+**Requirements**: TBD
+**Depends on:** Phase 23, Phase 27 (레버·수문·폭포 구현)
+**Success Criteria** (what must be TRUE):
+  1. 7번에서 8번으로 직접 이동이 차단되고, 7 → 6 → 5 회귀 경로가 동작한다.
+  2. 물길 변경 전에는 8번에 진입할 수 없고, 변경 후에는 진입할 수 있다.
+  3. 폭포가 멈추기 전에는 석판에 접근할 수 없고, 석판 조사 후에만 9번으로 진행된다.
+  4. 9번에서 1번으로 돌아갈 수 있다.
+**Plans:** 1 plan
+
+Plans:
+- [x] 26-01-PLAN.md — 구현 완료 (Play 검증 대기, 최종 일괄 검증)
+
+### Phase 27: 2스테이지 기믹 구현
+**Goal:** 2스테이지 기믹을 구현한다: 석등 퍼즐(대형 석등 3개, ON/OFF), 석판 힌트 UI, 망원경(정적 관측 화면), 물레방아·상승 장치, 나무 몬스터 변신(2초 연속 체류), 레버·물길 A/B 전환, 수문·폭포 정지. 기획상 가고일은 별도 몬스터가 아니라 잡몹 나무다.
+**Requirements**: TBD
+**Depends on:** Phase 23, Phase 25, Phase 26 (상태 머신 인터페이스)
+**Success Criteria** (what must be TRUE):
+  1. 석등 3개를 각각 ON/OFF로 전환할 수 있고, 정답 패턴과 일치하면 퍼즐 해결 플래그가 저장된다.
+  2. 석판은 지정 구역 적 전멸 후에만 힌트를 보여주고, 닫은 뒤 다시 열 수 있다.
+  3. 나무 몬스터는 플레이어가 트리거 구역에 2초 이상 연속으로 머물 때만 변신하고, 2초 전 이탈 시 타이머가 초기화된다.
+  4. 레버 조작으로 물길 A/B가 서로 전환되고, 수문 조작으로 지정된 폭포가 멈춘다.
+**Plans:** 6 plans
+
+Plans:
+- [x] 27-01~06-PLAN.md — 기믹 컴포넌트 구현 완료 (Play 검증 대기, 최종 일괄 검증)
+
+### Phase 28: 리소스 통합 및 1~2스테이지 통합 테스트
+**Goal:** 노민기의 아트 상태 세트(기본/작동/비활성/변화/상호작용)를 플래그 상태에 연결하고, 시작 → 1 → 2-1 → 2-2 → 9 → 1 전체 경로를 끊김 없이 완주하도록 통합한다. 막히는 버그를 수정하고 세이브/로드 후 상태 유지를 확인한다.
+**Requirements**: TBD
+**Depends on:** Phase 24, 25, 26, 27, 노민기 아트 리소스
+**Success Criteria** (what must be TRUE):
+  1. 플래그가 바뀔 때마다 오브젝트 비주얼이 대응하는 상태로 전환된다.
+  2. 시작부터 1스테이지 → 2-1 → 2-2 → 9 → 1까지 1회 완주가 가능하다.
+  3. 세이브/로드 후 모든 진행 플래그가 유지된다.
+  4. 플레이 가능 마일스톤 기준일은 2026-11-30이다 (일정표 상세 기준).
+**Plans:** 1 plan
+
+Plans:
+- [x] 28-01-PLAN.md — 구현 완료 (Play 검증 대기, 최종 일괄 검증)
 
 ## Backlog
 
-### Phase 999.1: 중앙 집중형 오디오 시스템 및 AudioSource 풀링 (BACKLOG)
+### Phase 29: WaterMonster 3스테이지 보스 재구현 - 기획 문서 기준 페이즈(70/50/30%)·그로기·웅덩이 시스템·패턴 개편
 
-**Goal:** 자동 스폰 몬스터와 향후 공격·피격·스킬·보스 패턴 오디오 확장을 수용하도록, 자동 생성되는 영속 `AudioManager`가 BGM/SFX 재생 권한과 `AudioMixer`, 데이터 기반 `AudioCue`, 위치·추적 재생, `AudioSource` 풀, 동시 재생 제한·재트리거 쿨다운·우선순위를 중앙에서 소유한다. `EnvironmentManager`는 BGM `AudioSource`나 필터를 직접 조작하지 않고 환경 상태만 판정해 `AudioManager`에 음향 상태 변경을 요청하며, BUG-007에서 정리할 `PersistentManagers` 자동 부트스트랩 구조와 통합한다.
-**Requirements:** TBD
-**Plans:** 0 plans
+**Goal:** WaterMonster 가 기획 문서대로 동작한다 — HP 70/50/30% 에서 전환 전 그로기를 거쳐 2페이즈/3페이즈/3페이즈 강화로 넘어가고, 페이즈별 누적 패턴 풀(1·2페이즈 단일 사용, 3페이즈 겹침)과 웅덩이 시스템(생성/이동/폭발/마시기/제거)이 애니메이터 트리거 12종과 1:1 로 연결된다(클립·컨트롤러 제작 제외).
+**Requirements**: D-01 ~ D-13 (29-CONTEXT.md 결정)
+**Depends on:** Phase 8
+**Plans:** 6 plans
 
 Plans:
-- [ ] TBD (promote with $gsd-review-backlog when ready)
+- [x] 29-01-PLAN.md — 기반: 트리거 이름표/안전 호출, 패턴 실행 추적, 페이즈 모델 + 전환 전 그로기, 자가 HP 소모 비활성, BattleArea 분리 (wave 1)
+- [x] 29-02-PLAN.md — 공격 패턴 사양화: 솟아오르기/점프/물 확산 폭발(신규)/감옥/감옥→전체(트리거 분리)/색깔 감옥 견고화/파도 좌측 먼저 (wave 2)
+- [x] 29-03-PLAN.md — 웅덩이 시스템 기반: 런타임 생성, 2페이즈 초기 생성, 마시기/공격 제거, 지정 폭발 API (wave 2)
+- [x] 29-04-PLAN.md — 웅덩이 패턴 3종 + WaterTeleportState 재구성(빈 대상 루프/HP 소모 제거) (wave 3)
+- [x] 29-05-PLAN.md — WaterMonsterCombatState: 누적 후보, 단일/겹침 규칙, 쿨다운 배율 1회 적용, 보스 보유 패턴 이력 (wave 4)
+- [ ] 29-06-PLAN.md — TestScene Unity CLI 실측 P1~P12, Check.md/SSOT 갱신, 시각 확인 + Open Decisions 승인 체크포인트 (wave 5)

@@ -138,6 +138,7 @@ public class SaveLoadManager : MonoBehaviour
     public void Save()
     {
         CapturePlayerStats();
+        CaptureInventoryItems();
         string json = JsonConvert.SerializeObject(_data, JsonSettings);
         File.WriteAllText(SavePath, json);
         Debug.Log("[SaveLoadManager] Saved to " + SavePath);
@@ -199,6 +200,31 @@ public class SaveLoadManager : MonoBehaviour
     {
         bool defeated;
         return _data.BossProgress.TryGetValue(bossId, out defeated) && defeated;
+    }
+
+    // Phase 23: persistent map-gimmick flags. Memory-cache only - no file I/O here; the value
+    // reaches disk through the existing Save() triggers (checkpoint, boss defeat, autosave).
+    // Key convention: "{stage}.{area}.{name}", lowercase (e.g. "s1.slide.success"). Keys are
+    // lowercased on both read and write. Stored in the active slot's _data.MapGimmickState.
+    public void SetGimmick(string key, bool value)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+        {
+            Debug.LogWarning("[SaveLoadManager] SetGimmick requires a non-empty key.");
+            return;
+        }
+        EnsureCollections();
+        _data.MapGimmickState[key.Trim().ToLowerInvariant()] = value;
+    }
+
+    public bool GetGimmick(string key, bool defaultValue = false)
+    {
+        if (string.IsNullOrWhiteSpace(key)) return defaultValue;
+        EnsureCollections();
+        bool value;
+        return _data.MapGimmickState.TryGetValue(key.Trim().ToLowerInvariant(), out value)
+            ? value
+            : defaultValue;
     }
 
     // Returns one value from the live save-data cache as text. The key uses a JSON path,
@@ -353,6 +379,55 @@ public class SaveLoadManager : MonoBehaviour
         _data.PlayerStats.MaxTotalHealth = ps.MaxTotalHealth;
     }
 
+    // Phase 19 (D-01): itemId -> ItemData resolution. Deliberately NOT filename-based
+    // Resources.Load: both existing assets already have filename != Id
+    // (HealthPotion.asset -> health_potion_01, AncientKey.asset -> ancient_key_01), so a
+    // path-based load would silently return null. LoadAll + Id matching makes the filename
+    // irrelevant, which is the whole point of rejecting a manual registry ScriptableObject.
+    // Cached per instance (not static): this component is re-created every Play session by
+    // the RuntimeInitializeOnLoadMethod bootstrap, so the cache self-invalidates on each
+    // Play mode entry - the only time item assets change during development.
+    private Dictionary<string, ItemData> _itemLookupCache;
+
+    private ItemData ResolveItemData(string itemId)
+    {
+        if (_itemLookupCache == null)
+        {
+            _itemLookupCache = new Dictionary<string, ItemData>();
+            foreach (ItemData item in Resources.LoadAll<ItemData>("Items"))
+            {
+                if (item == null || string.IsNullOrEmpty(item.Id)) continue;
+                _itemLookupCache[item.Id] = item;
+            }
+        }
+        ItemData found;
+        return _itemLookupCache.TryGetValue(itemId, out found) ? found : null;
+    }
+
+    // Phase 19 (D-03): mirrors CapturePlayerStats exactly, including the "warn and skip"
+    // guard. Inventory has no Instance singleton, so the scene instance is located with
+    // FindAnyObjectByType. When there is no Inventory in the scene (main menu, boot scene)
+    // we must NOT write an empty list into _data.Items - that would silently erase the
+    // player's real saved items on the next write.
+    private void CaptureInventoryItems()
+    {
+        Inventory inv = FindAnyObjectByType<Inventory>();
+        if (inv == null)
+        {
+            Debug.LogWarning("[SaveLoadManager] Inventory not found in scene - items not captured.");
+            return;
+        }
+
+        List<ItemSaveEntry> entries = new List<ItemSaveEntry>();
+        for (int i = 0; i < inv.SlotCountTotal; i++)
+        {
+            InventorySlot slot = inv.GetSlot(i);
+            if (slot == null || slot.IsEmpty) continue;
+            entries.Add(new ItemSaveEntry { itemId = slot.item.Id, count = slot.count });
+        }
+        _data.Items = entries;
+    }
+
     // ---- Load flow -------------------------------------------------------------
     // Entry point for BOTH "continue game" and "checkpoint revive". There is no separate
     // revive method: reviving at a checkpoint is exactly "load the last saved state".
@@ -412,7 +487,7 @@ public class SaveLoadManager : MonoBehaviour
         if (_data.PlayerStats == null) _data.PlayerStats = new PlayerStatsSaveData();
         if (_data.BossProgress == null) _data.BossProgress = new Dictionary<string, bool>();
         if (_data.MapGimmickState == null) _data.MapGimmickState = new Dictionary<string, bool>();
-        if (_data.Items == null) _data.Items = new List<string>();
+        if (_data.Items == null) _data.Items = new List<ItemSaveEntry>();
     }
 
     // Coroutine-based (IEnumerator/StartCoroutine) - the codebase does not use C# Task-based keywords anywhere.
@@ -438,6 +513,7 @@ public class SaveLoadManager : MonoBehaviour
         // run - including HP.Awake() which forces health = maxHealth. Stats must therefore
         // be restored AFTER this point, not before.
         ApplyPlayerStatsFromSave();
+        ApplyInventoryFromSave();
     }
 
     private void ApplyPlayerStatsFromSave()
@@ -453,6 +529,41 @@ public class SaveLoadManager : MonoBehaviour
         Debug.Log("[SaveLoadManager] Restored stats: " + ps.Health + "/" + ps.MaxHealth +
                   " (maxTotal " + ps.MaxTotalHealth + "), scene=" + SceneManager.GetActiveScene().name +
                   ", spawnPoint=" + _data.SpawnPointName);
+    }
+
+    // Phase 19 (D-02): replays the saved entries through Inventory.TryAddItem in the order
+    // they were captured. Slot indices are not stored, so items that occupied several slots
+    // may come back merged into fewer slots - accepted behavior, not a bug.
+    // Unlike ApplyPlayerStatsFromSave this does NOT AbortLoadToMainMenu when the Inventory
+    // is missing: a scene without an Inventory is a recoverable, non-fatal condition for
+    // items (the player simply keeps none), whereas missing PlayerStats is unrecoverable.
+    private void ApplyInventoryFromSave()
+    {
+        Inventory inv = FindAnyObjectByType<Inventory>();
+        if (inv == null)
+        {
+            Debug.LogWarning("[SaveLoadManager] Inventory not found after scene load - items not restored.");
+            return;
+        }
+
+        int restored = 0;
+        foreach (ItemSaveEntry entry in _data.Items)
+        {
+            ItemData item = ResolveItemData(entry.itemId);
+            if (item == null)
+            {
+                Debug.LogWarning("[SaveLoadManager] Unknown itemId '" + entry.itemId + "' - skipped.");
+                continue;
+            }
+            if (!inv.TryAddItem(item, entry.count))
+            {
+                Debug.LogWarning("[SaveLoadManager] Inventory full - could not restore '" +
+                                 entry.itemId + "' x" + entry.count + ".");
+                continue;
+            }
+            restored++;
+        }
+        Debug.Log("[SaveLoadManager] Restored " + restored + "/" + _data.Items.Count + " item entries.");
     }
 
     // ---- Verification hooks (D-04: no menu UI exists in this phase) -------------
@@ -541,4 +652,26 @@ public class SaveLoadManager : MonoBehaviour
 
     [ContextMenu("Phase14/4. Select Slot 2")]
     private void DebugSelectSlot2() { SelectSlot(2); Debug.Log("[SaveLoadManager] CurrentSlot=" + CurrentSlot); }
+
+    [ContextMenu("Phase19/1. Log Saved Items")]
+    private void DebugLogSavedItems()
+    {
+        Debug.Log("[SaveLoadManager] saveVersion=" + _data.SaveVersion +
+                  " itemEntries=" + _data.Items.Count);
+        foreach (ItemSaveEntry entry in _data.Items)
+        {
+            Debug.Log("[SaveLoadManager]   " + entry.itemId + " x" + entry.count);
+        }
+    }
+
+    [ContextMenu("Phase19/2. Log Resolvable Item Assets")]
+    private void DebugLogResolvableItems()
+    {
+        ItemData[] all = Resources.LoadAll<ItemData>("Items");
+        Debug.Log("[SaveLoadManager] Resources/Items asset count = " + all.Length);
+        foreach (ItemData item in all)
+        {
+            Debug.Log("[SaveLoadManager]   asset '" + item.name + "' -> Id '" + item.Id + "'");
+        }
+    }
 }

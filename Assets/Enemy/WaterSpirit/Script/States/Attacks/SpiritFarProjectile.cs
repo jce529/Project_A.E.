@@ -22,12 +22,16 @@ public class SpiritFarProjectile : IAttackStrategy
         float dist = spirit.MaxTeleportRadius * 2f;
         Vector2 teleportPos = playerPos + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dist;
 
+        spirit.PlayFx(SpiritFx.Flash);
         boss.transform.position = teleportPos;
+        spirit.PlayFx(SpiritFx.Flash);
         boss.StopMove();
 
         // 조준 대기
         spirit.PlayAnim("Ranged");
+        var windupFx = spirit.PlayFx(SpiritFx.Windup, null, 0f, 1f, true, boss.transform);
         yield return new WaitForSeconds(0.4f);
+        if (windupFx != null) Object.Destroy(windupFx);
 
         new SpiritProjectileAttack().ExecuteAttack(boss);
     }

@@ -4,12 +4,12 @@ using UnityEngine;
 public class WaterWavePush : IAttackStrategy
 {
     public float Cooldown => 3f;
-    public string AnimationName => "Attack_Wave";
+    public string AnimationName => WaterMonsterPatterns.Wave;
 
     public void ExecuteAttack(BossController boss)
     {
-        if (boss.Anim != null) boss.Anim.SetTrigger(AnimationName);
-        boss.StartCoroutine(WavePushSequence(boss));
+        WaterMonsterPatterns.TrySetTrigger(boss.Anim, AnimationName);
+        WaterMonsterPatterns.StartPattern(boss, WavePushSequence(boss));
     }
 
     private IEnumerator WavePushSequence(BossController boss)
@@ -20,12 +20,10 @@ public class WaterWavePush : IAttackStrategy
         Bounds b = wmc.BattleAreaBounds.bounds;
         float centerY = b.center.y;
 
-        bool leftFirst = Random.value > 0.5f;
-
-        Vector2 firstPos  = leftFirst ? new Vector2(b.min.x, centerY) : new Vector2(b.max.x, centerY);
-        Vector2 firstDir  = leftFirst ? Vector2.right : Vector2.left;
-        Vector2 secondPos = leftFirst ? new Vector2(b.max.x, centerY) : new Vector2(b.min.x, centerY);
-        Vector2 secondDir = leftFirst ? Vector2.left  : Vector2.right;
+        Vector2 firstPos  = new Vector2(b.min.x, centerY);
+        Vector2 firstDir  = Vector2.right;
+        Vector2 secondPos = new Vector2(b.max.x, centerY);
+        Vector2 secondDir = Vector2.left;
 
         const float firstSpeed = 6f;
 

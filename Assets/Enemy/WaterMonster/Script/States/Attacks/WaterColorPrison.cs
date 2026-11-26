@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class WaterColorPrison : IAttackStrategy
 {
+    private const float ResolveDelay = 3.5f;
+    private const float ZoneSafetyLifetime = 4.5f;
     public float Cooldown => 10f;
-    public string AnimationName => "Attack_ColorPrison";
+    public string AnimationName => WaterMonsterPatterns.ColorPrison;
 
     public void ExecuteAttack(BossController boss)
     {
-        if (boss.Anim != null) boss.Anim.SetTrigger(AnimationName);
-        boss.StartCoroutine(ColorPrisonSequence(boss));
+        WaterMonsterPatterns.TrySetTrigger(boss.Anim, AnimationName);
+        WaterMonsterPatterns.StartPattern(boss, ColorPrisonSequence(boss));
     }
 
     private IEnumerator ColorPrisonSequence(BossController boss)
@@ -44,35 +46,43 @@ public class WaterColorPrison : IAttackStrategy
 
             var go = Object.Instantiate(wmc.ColorPrisonPrefab, pos, Quaternion.identity);
             spawnedZones.Add(go);
+            Object.Destroy(go, ZoneSafetyLifetime);
 
             var zone = go.GetComponent<WaterColorPrisonZone>();
             if (zone != null)
                 zone.SetColor(i % 2 == 0 ? PrisonColor.Red : PrisonColor.Blue);
         }
 
-        yield return new WaitForSeconds(3.5f);
-
-        bool safe = false;
-        foreach (var zone in WaterColorPrisonZone.ActiveZones)
+        try
         {
-            if (zone != null && zone.IsPlayerInside && zone.ZoneColor == coreColor)
+            yield return new WaitForSeconds(ResolveDelay);
+
+            bool safe = false;
+            foreach (var go in spawnedZones)
             {
-                safe = true;
-                break;
+                var zone = go != null ? go.GetComponent<WaterColorPrisonZone>() : null;
+                if (zone != null && zone.IsPlayerInside && zone.ZoneColor == coreColor)
+                {
+                    safe = true;
+                    break;
+                }
+            }
+
+            if (!safe && PlayerStats.Instance != null)
+                PlayerStats.Instance.TakeDamage(80f);
+        }
+        finally
+        {
+            if (bossSr != null)
+                bossSr.color = originalColor;
+
+            foreach (var go in spawnedZones)
+            {
+                if (go == null) continue;
+                var zone = go.GetComponent<WaterColorPrisonZone>();
+                if (zone != null) WaterColorPrisonZone.ActiveZones.Remove(zone);
+                Object.Destroy(go);
             }
         }
-
-        if (!safe && PlayerStats.Instance != null)
-            PlayerStats.Instance.TakeDamage(80f);
-
-        if (bossSr != null)
-            bossSr.color = originalColor;
-
-        foreach (var go in spawnedZones)
-        {
-            if (go != null) Object.Destroy(go);
-        }
-
-        WaterColorPrisonZone.ActiveZones.Clear();
     }
 }

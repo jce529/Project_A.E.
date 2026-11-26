@@ -8,6 +8,15 @@ public class GeyserEffect : MonoBehaviour
     [SerializeField] private float _damage = 20f;
     [SerializeField] private float _damageRadius = 1.5f;
 
+    public float HitDelay => _warningDuration;
+
+    public void Configure(float warningDuration, float damageMul, float radiusMul)
+    {
+        _warningDuration = warningDuration;
+        _damage *= damageMul;
+        _damageRadius *= radiusMul;
+    }
+
     private void Start()
     {
         StartCoroutine(Lifecycle());

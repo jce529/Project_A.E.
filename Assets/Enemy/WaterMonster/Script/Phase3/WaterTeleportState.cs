@@ -4,44 +4,54 @@ using WaterMonster.Phase2;
 
 /// <summary>
 /// WaterTeleportState — IBossState implementation.
-/// The boss teleports to an indestructible puddle as a positioning pattern.
-/// D-07: Selects target puddle inversely proportional to distance from player.
-/// D-11: REQ-WM-02 HP cost applied.
-/// D-15: Selects target + HP cost + starts VFX coroutine in Enter, returns to CombatState upon completion.
+/// The boss enters the nearest puddle, sinks, and re-forms at another puddle (puddle move pattern).
+/// D-04: No HP cost. D-06: Entry/exit puddles come from WaterMonsterPuddleSystem.TrySelectMove.
 /// </summary>
 public class WaterTeleportState : IBossState
 {
-    private const float HpCostPercent = 0.05f;       // Teleport HP cost (5% of MaxHealth)
-    private const float CloseRangeThreshold = 3.0f;  // Reuse CombatState's dist <= 3.0f threshold (D-08)
     private const float TeleportDelay = 0.25f;       // Delay between disappearance and reappearance (D-09)
+    private const float EnterTimeout = 2f;           // Max time to walk to the entry puddle
+    private const float EnterReachX = 0.5f;          // x distance treated as "inside" the entry puddle
 
+    private WaterPuddle _entry;
+    private WaterPuddle _exit;
     private Coroutine _routine;
+
+    public WaterTeleportState() { }
+
+    public WaterTeleportState(WaterPuddle entry, WaterPuddle exit)
+    {
+        _entry = entry;
+        _exit = exit;
+    }
 
     public void Enter(BossController boss)
     {
-        // D-11, REQ-WM-02: Deduct HP cost
-        if (boss.Stats is WaterMonsterStats wms)
+        if (_entry == null || _exit == null)
         {
-            wms.SpendHpCost(wms.MaxHealth * HpCostPercent);
+            var system = WaterMonsterPuddleSystem.Instance;
+            if (system != null && boss.Target != null)
+            {
+                system.TrySelectMove(boss.transform.position, boss.Target.position, out _entry, out _exit);
+            }
         }
 
-        // D-07: Select teleport target
-        WaterPuddle target = SelectTeleportTarget(boss);
-        if (target == null)
-        {
-            // If no target found, return to CombatState immediately
-            boss.ChangeState(new WaterMonsterCombatState());
-            return;
-        }
-
-        // Record teleport time for cooldown (stored in WaterMonsterController)
+        // Record first so an empty target still starts the 8s cooldown (no per-frame re-entry loop)
         if (boss is WaterMonsterController wmc)
         {
             wmc.RecordTeleportTime();
         }
 
+        if (_entry == null || _exit == null)
+        {
+            boss.ChangeState(new WaterMonsterCombatState());
+            return;
+        }
+
+        WaterMonsterPatterns.TrySetTrigger(boss.Anim, WaterMonsterPatterns.PuddleMove);
+
         // Start teleport coroutine via boss (IBossState is not a MonoBehaviour)
-        _routine = boss.StartCoroutine(TeleportSequence(boss, target));
+        _routine = boss.StartCoroutine(TeleportSequence(boss, _entry, _exit));
     }
 
     public void Execute(BossController boss)
@@ -57,25 +67,41 @@ public class WaterTeleportState : IBossState
             boss.StopCoroutine(_routine);
             _routine = null;
         }
-        
+
+        boss.StopMove();
+
         // Restore SpriteRenderer (in case it was disabled during VFX)
         var sr = boss.GetComponent<SpriteRenderer>();
         if (sr != null) sr.enabled = true;
     }
 
-    private IEnumerator TeleportSequence(BossController boss, WaterPuddle target)
+    private IEnumerator TeleportSequence(BossController boss, WaterPuddle entry, WaterPuddle exit)
     {
         var sr = boss.GetComponent<SpriteRenderer>();
 
-        // D-09: Disappearance VFX — simple SpriteRenderer.enabled = false
+        // Walk to the entry puddle (bounded wait)
+        float elapsed = 0f;
+        while (elapsed < EnterTimeout && entry != null && entry.gameObject.activeInHierarchy
+            && Mathf.Abs(boss.transform.position.x - entry.transform.position.x) > EnterReachX)
+        {
+            boss.MoveTo(entry.transform.position);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        boss.StopMove();
+
+        // Sink into the puddle
         if (sr != null) sr.enabled = false;
 
         yield return new WaitForSeconds(TeleportDelay);
 
-        // Move position
-        boss.transform.position = target.transform.position;
+        // Re-form at the exit puddle (keep ground height); stay put if it vanished meanwhile
+        if (exit != null && exit.gameObject.activeInHierarchy)
+        {
+            Vector3 pos = boss.transform.position;
+            boss.transform.position = new Vector3(exit.transform.position.x, pos.y, pos.z);
+        }
 
-        // D-09: Reappearance VFX — simple SpriteRenderer.enabled = true
         if (sr != null) sr.enabled = true;
 
         yield return new WaitForSeconds(TeleportDelay);
@@ -85,44 +111,5 @@ public class WaterTeleportState : IBossState
         // D-10: Return to WaterMonsterCombatState immediately after arrival
         // Note: Use WaterMonsterCombatState directly to avoid swap loops
         boss.ChangeState(new WaterMonsterCombatState());
-    }
-
-    /// <summary>
-    /// D-07: Select target puddle inversely proportional to distance from player.
-    /// Close (dist <= 3.0f) -> Farthest puddle from player
-    /// Far (dist > 3.0f) -> Nearest puddle to player
-    /// </summary>
-    private WaterPuddle SelectTeleportTarget(BossController boss)
-    {
-        if (PuddleStackManager.Instance == null) return null;
-
-        var puddles = PuddleStackManager.Instance.IndestructiblePuddles;
-        if (puddles == null || puddles.Count == 0) return null;
-
-        float distToPlayer = Vector2.Distance(boss.transform.position, boss.Target.position);
-        bool isClose = distToPlayer <= CloseRangeThreshold;
-
-        WaterPuddle selected = null;
-        float bestDist = isClose ? float.MinValue : float.MaxValue;
-
-        foreach (var puddle in puddles)
-        {
-            if (puddle == null || !puddle.gameObject.activeSelf) continue;
-
-            float d = Vector2.Distance(boss.Target.position, puddle.transform.position);
-
-            if (isClose)
-            {
-                // If player is close, move to the farthest puddle
-                if (d > bestDist) { bestDist = d; selected = puddle; }
-            }
-            else
-            {
-                // If player is far, move to the nearest puddle
-                if (d < bestDist) { bestDist = d; selected = puddle; }
-            }
-        }
-
-        return selected;
     }
 }
